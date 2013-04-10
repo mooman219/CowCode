@@ -1362,6 +1362,7 @@ public class PlayerConnection extends Connection {
                 }
             }
             // TODO check on updates
+            Container oldContainer = player.activeContainer; // Cow Add [ Fix changing inventory in InventoryClickEvent ]
 
             if (packet102windowclick.shift != 5) {
                 if (click == ClickType.NUMBER_KEY) {
@@ -1383,6 +1384,11 @@ public class PlayerConnection extends Connection {
                 }
 
                 server.getPluginManager().callEvent(event);
+                // Cow Start [ Fix changing inventory in InventoryClickEvent ]
+                if(!oldContainer.equals(this.player.activeContainer)) {
+                    event.setResult(org.bukkit.event.Event.Result.DENY);
+                }
+                // Cow End
 
                 switch (event.getResult()) {
                     case ALLOW:

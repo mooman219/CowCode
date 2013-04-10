@@ -24,7 +24,7 @@ public class Packet56MapChunkBulk extends Packet {
         @Override
         protected Deflater initialValue() {
             // Don't use higher compression level, slows things down too much
-            return new Deflater(6);
+            return new Deflater(4); // Cow Modify [ Spigot ] [ Use a lower compression level for chunk packets ]
         }
     };
     // CraftBukkit end

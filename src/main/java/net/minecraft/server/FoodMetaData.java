@@ -15,15 +15,20 @@ public class FoodMetaData {
     public FoodMetaData() {}
 
     public void eat(int i, float f) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         this.foodLevel = Math.min(i + this.foodLevel, 20);
         this.saturationLevel = Math.min(this.saturationLevel + (float) i * f * 2.0F, (float) this.foodLevel);
+        /**/
     }
 
     public void a(ItemFood itemfood) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         this.eat(itemfood.getNutrition(), itemfood.getSaturationModifier());
+        /**/
     }
 
     public void a(EntityHuman entityhuman) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         int i = entityhuman.world.difficulty;
 
         this.e = this.foodLevel;
@@ -63,6 +68,7 @@ public class FoodMetaData {
         } else {
             this.foodTickTimer = 0;
         }
+        /**/
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -90,7 +96,9 @@ public class FoodMetaData {
     }
 
     public void a(float f) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         this.exhaustionLevel = Math.min(this.exhaustionLevel + f, 40.0F);
+        /**/
     }
 
     public float e() {

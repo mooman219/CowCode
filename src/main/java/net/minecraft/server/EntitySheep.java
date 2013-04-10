@@ -42,9 +42,11 @@ public class EntitySheep extends EntityAnimal {
     }
 
     public void c() {
+        /** Cow Deletion [ Remove entity tick ]
         if (this.world.isStatic) {
             this.br = Math.max(0, this.br - 1);
         }
+        **/
 
         super.c();
     }

@@ -445,6 +445,7 @@ public class PlayerInventory implements IInventory {
     }
 
     public void a(float f) {
+        /** Cow Deletion [ Remove armor damage ]
         f /= 4.0F;
         if (f < 1.0F) {
             f = 1.0F;
@@ -458,6 +459,7 @@ public class PlayerInventory implements IInventory {
                 }
             }
         }
+        /**/
     }
 
     public void m() {

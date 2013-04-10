@@ -719,11 +719,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(Statistic statistic, int i) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         if (statistic != null) {
             if (!statistic.f) {
                 this.playerConnection.sendPacket(new Packet200Statistic(statistic.e, i));
             }
         }
+        /**/
     }
 
     public void l() {

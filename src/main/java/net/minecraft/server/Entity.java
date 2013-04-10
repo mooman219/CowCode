@@ -28,8 +28,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPortalEvent;
 import org.bukkit.plugin.PluginManager;
 // CraftBukkit end
+import com.gmail.mooman219.craftbukkit.BullObject; // Cow Add [ Super metadata ]
+import com.gmail.mooman219.craftbukkit.XORShiftRNG; // Cow Add [ Use faster random ]
 
-public abstract class Entity {
+public abstract class Entity extends BullObject { // Cow Modify (extends BullObject) [ Super metadata ]
 
     // CraftBukkit start
     private static final int CURRENT_LEVEL = 2;
@@ -91,7 +93,7 @@ public abstract class Entity {
     public int noDamageTicks;
     private boolean justCreated;
     protected boolean fireProof;
-    protected DataWatcher datawatcher;
+    public DataWatcher datawatcher; // Cow Modify [ Make datawatcher visable ]
     private double f;
     private double g;
     public boolean ai;
@@ -118,11 +120,11 @@ public abstract class Entity {
         this.width = 0.6F;
         this.length = 1.8F;
         this.c = 1;
-        this.random = new Random();
+        this.random = new XORShiftRNG(); // Cow Modify [ Use faster random ]
         this.maxFireTicks = 1;
         this.justCreated = true;
         this.datawatcher = new DataWatcher();
-        this.uniqueID = UUID.randomUUID();
+        this.uniqueID = new UUID(random.nextLong(), random.nextLong()); // Cow Modify [ Faster Entity UUID ]
         this.at = EnumEntitySize.SIZE_2;
         this.world = world;
         this.setPosition(0.0D, 0.0D, 0.0D);
@@ -227,6 +229,7 @@ public abstract class Entity {
 
     public void x() {
         this.world.methodProfiler.a("entityBaseTick");
+        this.callTick(); // Cow Add [ Tick supermeta ]
         if (this.vehicle != null && this.vehicle.dead) {
             this.vehicle = null;
         }
@@ -1626,6 +1629,7 @@ public abstract class Entity {
     }
 
     public void ak() {
+        if(!(this instanceof EntityHuman)) return; // Cow Add [ Webs only affect HumanEntities ]           
         this.K = true;
         this.fallDistance = 0.0F;
     }

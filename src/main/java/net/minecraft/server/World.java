@@ -24,8 +24,10 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 // CraftBukkit end
+import com.gmail.mooman219.craftbukkit.BullObject; // Cow Add [ Super metadata ]
+import com.gmail.mooman219.craftbukkit.XORShiftRNG; // Cow Add [ Use faster random ]
 
-public abstract class World implements IBlockAccess {
+public abstract class World extends BullObject implements IBlockAccess { // Cow Modify (extends BullObject) [ Super metadata ]
 
     public boolean d;
     public List entityList = new ArrayList();
@@ -46,7 +48,7 @@ public abstract class World implements IBlockAccess {
     public int q;
     public boolean callingPlaceEvent = false; // CraftBukkit
     public int difficulty;
-    public Random random = new Random();
+    public Random random = new XORShiftRNG(); // Cow Modify [ Use faster random ]
     public WorldProvider worldProvider; // CraftBukkit - remove final
     protected List u = new ArrayList();
     public IChunkProvider chunkProvider; // CraftBukkit - protected -> public
@@ -480,6 +482,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public void g(int i, int j, int k, int l) {
+        /** Cow Deletion [ Remove block physics ]
         if (!this.isStatic) {
             int i1 = this.getTypeId(i, j, k);
             Block block = Block.byId[i1];
@@ -517,6 +520,7 @@ public abstract class World implements IBlockAccess {
                 }
             }
         }
+        /**/
     }
 
     public boolean a(int i, int j, int k, int l) {
@@ -1015,6 +1019,7 @@ public abstract class World implements IBlockAccess {
         int i1 = MathHelper.floor(axisalignedbb.c);
         int j1 = MathHelper.floor(axisalignedbb.f + 1.0D);
 
+        /** Cow Deletion [ Spigot ] [ More efficient GetCubes ]
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = i1; l1 < j1; ++l1) {
                 if (this.isLoaded(k1, 64, l1)) {
@@ -1028,6 +1033,40 @@ public abstract class World implements IBlockAccess {
                 }
             }
         }
+        /**/
+        // Cow Start [ Spigot ] [ More efficient GetCubes ]
+        int ystart = ( ( k - 1 ) < 0 ) ? 0 : ( k - 1 );
+        for ( int chunkx = ( i >> 4 ); chunkx <= ( ( j - 1 ) >> 4 ); chunkx++ ) {
+            int cx = chunkx << 4;
+            for ( int chunkz = ( i1 >> 4 ); chunkz <= ( ( j1 - 1 ) >> 4 ); chunkz++ ) {
+                if ( !this.isChunkLoaded( chunkx, chunkz ) ) {
+                    continue;
+                }
+                int cz = chunkz << 4;
+                Chunk chunk = this.getChunkAt( chunkx, chunkz );
+                // Compute ranges within chunk
+                int xstart = ( i < cx ) ? cx : i;
+                int xend = ( j < ( cx + 16 ) ) ? j : ( cx + 16 );
+                int zstart = ( i1 < cz ) ? cz : i1;
+                int zend = ( j1 < ( cz + 16 ) ) ? j1 : ( cz + 16 );
+                // Loop through blocks within chunk
+                for ( int x = xstart; x < xend; x++ ) {
+                    for ( int z = zstart; z < zend; z++ ) {
+                        for ( int y = ystart; y < l; y++ ) {
+                            int blkid = chunk.getTypeId( x - cx, y, z - cz );
+                            if ( blkid > 0 ) {
+                                Block block = Block.byId[blkid];
+
+                                if ( block != null ) {
+                                    block.a( this, x, y, z, axisalignedbb, this.M, entity );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Cow End
 
         double d0 = 0.25D;
         List list = this.getEntities(entity, axisalignedbb.grow(d0, d0, d0));
@@ -1849,7 +1888,9 @@ public abstract class World implements IBlockAccess {
     }
 
     public void doTick() {
+        /** Cow Deletion [ Remove weather ]
         this.o();
+        /**/
     }
 
     private void a() {
@@ -1862,6 +1903,7 @@ public abstract class World implements IBlockAccess {
     }
 
     protected void o() {
+        /** Cow Deletion [ Remove weather ]
         if (!this.worldProvider.g) {
             int i = this.worldData.getThunderDuration();
 
@@ -1938,6 +1980,7 @@ public abstract class World implements IBlockAccess {
                 this.p = 1.0F;
             }
         }
+        /**/
     }
 
     public void B() {
@@ -1978,6 +2021,7 @@ public abstract class World implements IBlockAccess {
             --this.O;
         }
 
+        /** Cow Deletion [ Remove random player lighting ]
         this.methodProfiler.a("playerCheckLight");
         if (!this.players.isEmpty()) {
             i = this.random.nextInt(this.players.size());
@@ -1990,10 +2034,12 @@ public abstract class World implements IBlockAccess {
         }
 
         this.methodProfiler.b();
+        **/
     }
 
     protected void a(int i, int j, Chunk chunk) {
         this.methodProfiler.c("moodSound");
+        /** Cow Deletion [ Remove mood sounds ]
         if (this.O == 0 && !this.isStatic) {
             this.k = this.k * 3 + 1013904223;
             int k = this.k >> 2;
@@ -2013,6 +2059,7 @@ public abstract class World implements IBlockAccess {
                 }
             }
         }
+        **/
 
         this.methodProfiler.c("checkLight");
         chunk.o();
@@ -2393,6 +2440,7 @@ public abstract class World implements IBlockAccess {
             // CraftBukkit
             defaultReturn = block != null && block.material == Material.ORIENTABLE && block1 == Block.ANVIL ? true : i > 0 && block == null && block1.canPlace(this, j, k, l, i1, itemstack);
         }
+        defaultReturn = true; // Cow Add [ Remove block placement restrictions ]
 
         // CraftBukkit start
         BlockCanBuildEvent event = new BlockCanBuildEvent(this.getWorld().getBlockAt(j, k, l), i, defaultReturn);
@@ -2797,6 +2845,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public void m(int i, int j, int k, int l) {
+        /** Cow Deletion [ Remove block physics ]
         for (int i1 = 0; i1 < 4; ++i1) {
             int j1 = i + Direction.a[i1];
             int k1 = k + Direction.b[i1];
@@ -2818,6 +2867,7 @@ public abstract class World implements IBlockAccess {
                 }
             }
         }
+        /**/
     }
 
     public IConsoleLogManager getLogger() {

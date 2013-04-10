@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bukkit</groupId>
-  <artifactId>craftbukkit</artifactId>
+  <artifactId>milkbukkit</artifactId> <!-- Cow Modify [ Use MilkBukkit as project name in pom ] -->
   <packaging>jar</packaging>
   <version>1.6.1-R0.1-SNAPSHOT</version>
   <name>CraftBukkit</name>
@@ -10,6 +10,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- Cow Add [ Use UTF-8 encoding ] -->
     <api.version>unknown</api.version>
     <junit.version>4.11</junit.version>
     <minecraft.version>1.6.1</minecraft.version>
@@ -221,7 +222,7 @@
               <relocations>
                 <relocation>
                   <pattern>org.bouncycastle</pattern>
-                  <shadedPattern>net.minecraft.v${minecraft_version}.org.bouncycastle</shadedPattern>
+                  <shadedPattern>net.minecraft.org.bouncycastle</shadedPattern> <!-- Cow Modify [ Remove relocation ] -->
                 </relocation>
                 <relocation>
                   <pattern>joptsimple</pattern>
@@ -257,6 +258,7 @@
                   <shadedPattern>org.bukkit.craftbukkit.libs.${project.dependencies[6].version}.com.mysql</shadedPattern>
                 </relocation>
                 !-->
+                <!-- Cow Deletion [ Remove relocation ]
                 <relocation>
                     <pattern>org.bukkit.craftbukkit</pattern>
                     <shadedPattern>org.bukkit.craftbukkit.v${minecraft_version}</shadedPattern>
@@ -268,6 +270,7 @@
                     <pattern>net.minecraft.server</pattern>
                     <shadedPattern>net.minecraft.server.v${minecraft_version}</shadedPattern>
                 </relocation>
+                -->
               </relocations>
             </configuration>
           </execution>
@@ -278,8 +281,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source> <!-- Cow Modify [ Compile for Java 7 ] -->
+          <target>1.7</target> <!-- Cow Modify [ Compile for Java 7 ] -->
         </configuration>
       </plugin>
       <plugin>

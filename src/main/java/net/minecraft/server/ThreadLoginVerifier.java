@@ -27,6 +27,8 @@ class ThreadLoginVerifier extends Thread {
     }
 
     public void run() {
+        altRun(); // Cow Addition [ SportBukkit ] [ Make the AsyncPlayerPreLoginEvent more versatile ]
+        /** Cow Deletion [ SportBukkit ] [ Make the AsyncPlayerPreLoginEvent more versatile ]
         try {
             String s = (new BigInteger(MinecraftEncryption.a(PendingConnection.a(this.pendingConnection), PendingConnection.b(this.pendingConnection).H().getPublic(), PendingConnection.c(this.pendingConnection)))).toString(16);
             URL url = new URL("http://session.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(PendingConnection.d(this.pendingConnection), "UTF-8") + "&serverId=" + URLEncoder.encode(s, "UTF-8"));
@@ -81,5 +83,60 @@ class ThreadLoginVerifier extends Thread {
             server.getLogger().log(java.util.logging.Level.WARNING, "Exception verifying " + PendingConnection.d(this.pendingConnection), exception);
             // CraftBukkit end
         }
+        /**/
     }
+    // Cow Start [ SportBukkit ] [ Make the AsyncPlayerPreLoginEvent more versatile ]
+    public void altRun() {
+        boolean allowed = false; // CraftBukkit
+        if (this.server.getOnlineMode()) { // CraftBukkit
+            try {
+                String s = (new BigInteger(MinecraftEncryption.a(PendingConnection.a(this.pendingConnection), PendingConnection.b(this.pendingConnection).H().getPublic(), PendingConnection.c(this.pendingConnection)))).toString(16);
+                URL url = new URL("http://session.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(PendingConnection.d(this.pendingConnection), "UTF-8") + "&serverId=" + URLEncoder.encode(s, "UTF-8"));
+                // CraftBukkit start
+                java.net.HttpURLConnection huc = (java.net.HttpURLConnection) url.openConnection();
+                huc.setConnectTimeout(1000); // 1 second
+                huc.setReadTimeout(1000); // 1 second
+                BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(huc.getInputStream()));
+                String s1 = bufferedreader.readLine();
+
+                bufferedreader.close();
+                allowed = "YES".equals(s1);
+            } catch (Exception exception) {}
+        } else {
+            allowed = true;
+        }
+
+        AsyncPlayerPreLoginEvent asyncEvent = new AsyncPlayerPreLoginEvent(PendingConnection.d(this.pendingConnection), this.pendingConnection.getSocket().getInetAddress(), allowed, pendingConnection);
+        this.server.getPluginManager().callEvent(asyncEvent);
+
+        if (PlayerPreLoginEvent.getHandlerList().getRegisteredListeners().length != 0) {
+            final PlayerPreLoginEvent event = new PlayerPreLoginEvent(PendingConnection.d(this.pendingConnection), this.pendingConnection.getSocket().getInetAddress());
+            if (asyncEvent.getResult() != PlayerPreLoginEvent.Result.ALLOWED) {
+                event.disallow(asyncEvent.getResult(), asyncEvent.getKickMessage());
+            }
+            Waitable<PlayerPreLoginEvent.Result> waitable = new Waitable<PlayerPreLoginEvent.Result>() {
+                @Override
+                protected PlayerPreLoginEvent.Result evaluate() {
+                    ThreadLoginVerifier.this.server.getPluginManager().callEvent(event);
+                    return event.getResult();
+                }};
+
+            PendingConnection.b(this.pendingConnection).processQueue.add(waitable);
+            try {
+                if (waitable.get() != PlayerPreLoginEvent.Result.ALLOWED) {
+                    this.pendingConnection.disconnect(event.getKickMessage());
+                    return;
+                }
+            } catch (Exception e) {}
+        } else {
+            if (asyncEvent.getLoginResult() != AsyncPlayerPreLoginEvent.Result.ALLOWED) {
+                this.pendingConnection.disconnect(asyncEvent.getKickMessage());
+                return;
+            }
+        }
+        // CraftBukkit end
+
+        PendingConnection.a(this.pendingConnection, true);
+    }
+    // Cow End
 }

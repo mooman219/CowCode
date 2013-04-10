@@ -27,6 +27,7 @@ public class ItemFood extends Item {
 
     public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
         --itemstack.count;
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         // CraftBukkit start
         int oldFoodLevel = entityhuman.getFoodData().foodLevel;
 
@@ -36,6 +37,7 @@ public class ItemFood extends Item {
             entityhuman.getFoodData().eat(event.getFoodLevel() - oldFoodLevel, this.getSaturationModifier());
         }
 
+        /**/
         ((EntityPlayer) entityhuman).playerConnection.sendPacket(new Packet8UpdateHealth(entityhuman.getHealth(), entityhuman.getFoodData().foodLevel, entityhuman.getFoodData().saturationLevel));
         // CraftBukkit end
 

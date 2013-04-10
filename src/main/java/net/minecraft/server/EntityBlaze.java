@@ -39,6 +39,7 @@ public class EntityBlaze extends EntityMonster {
     }
 
     public void c() {
+        /** Cow Deletion [ Remove entity tick ]
         if (!this.world.isStatic) {
             if (this.F()) {
                 this.damageEntity(DamageSource.DROWN, 1.0F);
@@ -66,6 +67,7 @@ public class EntityBlaze extends EntityMonster {
         for (int i = 0; i < 2; ++i) {
             this.world.addParticle("largesmoke", this.locX + (this.random.nextDouble() - 0.5D) * (double) this.width, this.locY + this.random.nextDouble() * (double) this.length, this.locZ + (this.random.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
         }
+        **/
 
         super.c();
     }

@@ -88,6 +88,7 @@ public class EntityZombie extends EntityMonster {
     }
 
     public void c() {
+        /** Cow Deletion [ Remove entity tick ]
         if (this.world.v() && !this.world.isStatic && !this.isBaby()) {
             float f = this.d(1.0F);
 
@@ -119,6 +120,7 @@ public class EntityZombie extends EntityMonster {
                 }
             }
         }
+        **/
 
         super.c();
     }

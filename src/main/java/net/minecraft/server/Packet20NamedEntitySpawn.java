@@ -24,13 +24,15 @@ public class Packet20NamedEntitySpawn extends Packet {
     public Packet20NamedEntitySpawn(EntityHuman entityhuman) {
         this.a = entityhuman.id;
 
+        // Cow Start [ Player name control ]
         // CraftBukkit start - Limit name length to 16 characters
-        if (entityhuman.name.length() > 16) {
-            this.b = entityhuman.name.substring(0, 16);
+        if (entityhuman.overheadName.length() > 16) {
+            this.b = entityhuman.overheadName.substring(0, 16);
         } else {
-            this.b = entityhuman.name;
+            this.b = entityhuman.overheadName;
         }
         // CraftBukkit end
+        // Cow End
 
         this.b = entityhuman.getName();
         this.c = MathHelper.floor(entityhuman.locX * 32.0D);

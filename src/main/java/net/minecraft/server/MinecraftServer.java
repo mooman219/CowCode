@@ -86,6 +86,12 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     public java.util.Queue<Runnable> processQueue = new java.util.concurrent.ConcurrentLinkedQueue<Runnable>();
     public int autosavePeriod;
     // CraftBukkit end
+    // Cow Start [ Spigot ] [ Tick loop optimization ]
+    private static final int TPS = 20;
+    private static final int TICK_TIME = 1000000000 / TPS;
+    public static double currentTPS = 0;
+    private static long catchupTime = 0;
+    // Cow End
 
     public MinecraftServer(OptionSet options) { // CraftBukkit - signature file -> OptionSet
         this.c = Proxy.NO_PROXY;
@@ -389,6 +395,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     public void run() {
         try {
             if (this.init()) {
+                /** Cow Deletion [ Spigot ] [ Tick loop optimization ]
                 long i = aq();
 
                 for (long j = 0L; this.isRunning; this.Q = true) {
@@ -422,6 +429,24 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
 
                     Thread.sleep(1L);
                 }
+                /**/
+                // Cow Start [ Spigot ] [ Tick loop optimization ]
+                for (long lastTick = 0L; this.isRunning; this.Q = true) {
+                    long curTime = System.nanoTime();
+                    long wait = TICK_TIME - (curTime - lastTick) - catchupTime;
+                    if (wait > 0) {
+                        Thread.sleep(wait / 1000000);
+                        catchupTime = 0;
+                        continue;
+                    } else {
+                        catchupTime = Math.min(TICK_TIME * TPS, Math.abs(wait));
+                    }
+                    currentTPS = (currentTPS * 0.95) + (1E9 / (curTime - lastTick) * 0.05);
+                    lastTick = curTime;
+                    MinecraftServer.currentTick++;
+                    this.s();
+                }
+                // Cow End
             } else {
                 this.a((CrashReport) null);
             }
@@ -529,7 +554,9 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
         org.bukkit.craftbukkit.chunkio.ChunkIOExecutor.tick();
 
         // Send time updates to everyone, it will get the right time from the world the player is in.
+        /** Cow Deletion [ Less Time Updates ]
         if (this.ticks % 20 == 0) {
+        /**/ if (this.ticks % 60 == 0) { // Cow Add [ Less Time Updates ]
             for (int i = 0; i < this.getPlayerList().players.size(); ++i) {
                 EntityPlayer entityplayer = (EntityPlayer) this.getPlayerList().players.get(i);
                 entityplayer.playerConnection.sendPacket(new Packet4UpdateTime(entityplayer.world.getTime(), entityplayer.getPlayerTime(), entityplayer.world.getGameRules().getBoolean("doDaylightCycle"))); // Add support for per player time

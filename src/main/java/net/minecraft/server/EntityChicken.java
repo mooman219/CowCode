@@ -35,6 +35,7 @@ public class EntityChicken extends EntityAnimal {
 
     public void c() {
         super.c();
+        /** Cow Deletion [ Remove entity tick ]
         this.bs = this.bp;
         this.br = this.bq;
         this.bq = (float) ((double) this.bq + (double) (this.onGround ? -1 : 4) * 0.3D);
@@ -61,6 +62,7 @@ public class EntityChicken extends EntityAnimal {
             this.b(Item.EGG.id, 1);
             this.bu = this.random.nextInt(6000) + 6000;
         }
+        **/
     }
 
     protected void b(float f) {}

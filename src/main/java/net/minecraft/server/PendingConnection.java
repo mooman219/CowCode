@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javax.crypto.SecretKey;
+import com.gmail.mooman219.craftbukkit.BullData; // Cow Add [ Player data pass around ]
 
 public class PendingConnection extends Connection {
 
@@ -25,6 +26,7 @@ public class PendingConnection extends Connection {
     private boolean j;
     private SecretKey k;
     public String hostname = ""; // CraftBukkit - add field
+    public BullData bull_live = null; // Cow Add [ Player data pass around ]
 
     public PendingConnection(MinecraftServer minecraftserver, Socket socket, String s) throws java.io.IOException { // CraftBukkit - throws IOException
         this.server = minecraftserver;
@@ -106,10 +108,13 @@ public class PendingConnection extends Connection {
 
             this.j = true;
             if (this.server.getOnlineMode()) {
+                /** Cow Deletion [ SportBukkit ] [ Make the AsyncPlayerPreLoginEvent more versatile ]
                 (new ThreadLoginVerifier(this, server.server)).start(); // CraftBukkit - add CraftServer
             } else {
                 this.h = true;
+                /**/
             }
+            (new ThreadLoginVerifier(this, server.server)).start(); // Cow Add [ SportBukkit ] [ Make the AsyncPlayerPreLoginEvent more versatile ]
         }
     }
 
@@ -148,10 +153,13 @@ public class PendingConnection extends Connection {
             org.bukkit.event.server.ServerListPingEvent pingEvent = org.bukkit.craftbukkit.event.CraftEventFactory.callServerListPingEvent(this.server.server, getSocket().getInetAddress(), this.server.getMotd(), playerlist.getPlayerCount(), playerlist.getMaxPlayers());
             if (packet254getinfo.d()) {
                 // CraftBukkit
+                /** Cow Deletion [ SportBukkit ] [ Make the ServerListPingEvent more versatile ]
                 s = pingEvent.getMotd() + "\u00A7" + playerlist.getPlayerCount() + "\u00A7" + pingEvent.getMaxPlayers();
+                /**/ s = org.bukkit.ChatColor.stripColor(pingEvent.getMotd() + "\u00A7" + pingEvent.getNumPlayers() + "\u00A7" + pingEvent.getMaxPlayers());
             } else {
                 // CraftBukkit start - Don't create a list from an array
                 Object[] list = new Object[] { 1, 73, this.server.getVersion(), pingEvent.getMotd(), playerlist.getPlayerCount(), pingEvent.getMaxPlayers() };
+                list[4] = pingEvent.getNumPlayers(); // Cow Add [ SportBukkit ] [ Make the ServerListPingEvent more versatile ]
 
                 StringBuilder builder = new StringBuilder();
                 for (Object object : list) {

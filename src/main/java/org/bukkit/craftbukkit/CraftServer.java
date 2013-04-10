@@ -133,7 +133,7 @@ import com.google.common.collect.MapMaker;
 import jline.console.ConsoleReader;
 
 public final class CraftServer implements Server {
-    private final String serverName = "CraftBukkit";
+    private final String serverName = "MilkBukkit"; // Cow Modify [ Use MilkBukkit as server name ]
     private final String serverVersion;
     private final String bukkitVersion = Versioning.getBukkitVersion();
     private final ServicesManager servicesManager = new SimpleServicesManager();
@@ -255,6 +255,7 @@ public final class CraftServer implements Server {
         if (type == PluginLoadOrder.STARTUP) {
             helpMap.clear();
             helpMap.initializeGeneralTopics();
+            commandMap.register("bukkit", new org.bukkit.craftbukkit.command.TicksPerSecondCommand("tps")); // Cow Add [ Tick loop optimization ]
         }
 
         Plugin[] plugins = pluginManager.getPlugins();

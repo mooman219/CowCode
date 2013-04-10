@@ -71,6 +71,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
     }
 
     public void c() {
+        /** Cow Deletion [ Remove entity tick ]
         if (this.world.v() && !this.world.isStatic) {
             float f = this.d(1.0F);
 
@@ -106,6 +107,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         if (this.world.isStatic && this.getSkeletonType() == 1) {
             this.a(0.72F, 2.34F);
         }
+        **/
 
         super.c();
     }

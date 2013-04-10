@@ -91,6 +91,7 @@ public class EntityEnderman extends EntityMonster {
     }
 
     public void c() {
+        /** Cow Deletion [ Remove entity tick ]
         if (this.F()) {
             this.damageEntity(DamageSource.DROWN, 1.0F);
         }
@@ -193,6 +194,7 @@ public class EntityEnderman extends EntityMonster {
                 this.bs = 0;
             }
         }
+        **/
 
         super.c();
     }
@@ -218,6 +220,7 @@ public class EntityEnderman extends EntityMonster {
     }
 
     protected boolean j(double d0, double d1, double d2) {
+        /** Cow Deletion [ Remove enderman functions ]
         double d3 = this.locX;
         double d4 = this.locY;
         double d5 = this.locZ;
@@ -284,6 +287,7 @@ public class EntityEnderman extends EntityMonster {
             this.makeSound("mob.endermen.portal", 1.0F, 1.0F);
             return true;
         }
+        /**/ return true; // Just return
     }
 
     protected String r() {
@@ -365,7 +369,7 @@ public class EntityEnderman extends EntityMonster {
     }
 
     public void a(boolean flag) {
-        this.datawatcher.watch(18, Byte.valueOf((byte) (flag ? 1 : 0)));
+        this.datawatcher.watch(18, Byte.valueOf((byte) (0))); // Cow Modify [ Remove enderman functions ]
     }
 
     static {

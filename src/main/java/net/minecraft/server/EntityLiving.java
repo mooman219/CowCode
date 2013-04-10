@@ -505,6 +505,7 @@ public abstract class EntityLiving extends Entity {
                 ((MobEffect) this.effects.get(Integer.valueOf(mobeffect.getEffectId()))).a(mobeffect);
                 this.b((MobEffect) this.effects.get(Integer.valueOf(mobeffect.getEffectId())));
             } else {
+                if(mobeffect.getEffectId() != 8) // Cow Add [ Remove particles for Jump Boost ]
                 this.effects.put(Integer.valueOf(mobeffect.getEffectId()), mobeffect);
                 this.a(mobeffect);
             }

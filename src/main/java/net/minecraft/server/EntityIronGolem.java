@@ -71,6 +71,7 @@ public class EntityIronGolem extends EntityGolem {
 
     public void c() {
         super.c();
+        /** Cow Deletion [ Remove entity tick ]
         if (this.br > 0) {
             --this.br;
         }
@@ -89,6 +90,7 @@ public class EntityIronGolem extends EntityGolem {
                 this.world.addParticle("tilecrack_" + l + "_" + this.world.getData(i, j, k), this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
             }
         }
+        **/
     }
 
     public boolean a(Class oclass) {

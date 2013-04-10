@@ -82,11 +82,14 @@ public abstract class PlayerList {
         this.a(entityplayer, (EntityPlayer) null, worldserver);
         PlayerConnection playerconnection = new PlayerConnection(this.server, inetworkmanager, entityplayer);
 
+        /** Cow Deletion [ Adjust tab list player cap ]
         // CraftBukkit start -- Don't send a higher than 60 MaxPlayer size, otherwise the PlayerInfo window won't render correctly.
         int maxPlayers = this.getMaxPlayers();
         if (maxPlayers > 60) {
             maxPlayers = 60;
         }
+        /**/
+        int maxPlayers = 100; // Cow Add [ Adjust tab list player cap ]
         playerconnection.sendPacket(new Packet1Login(entityplayer.id, worldserver.getWorldData().getType(), entityplayer.playerInteractManager.getGameMode(), worldserver.getWorldData().isHardcore(), worldserver.worldProvider.dimension, worldserver.difficulty, worldserver.getHeight(), maxPlayers));
         entityplayer.getBukkitEntity().sendSupportedChannels();
         // CraftBukkit end
@@ -220,6 +223,7 @@ public abstract class PlayerList {
         }
         // CraftBukkit end
 
+        /** Cow Deletion [ Remove Packet201PlayerInfo calls ]
         // CraftBukkit start - sendAll above replaced with this loop
         Packet201PlayerInfo packet = new Packet201PlayerInfo(entityplayer.listName, true, 1000);
         for (int i = 0; i < this.players.size(); ++i) {
@@ -240,6 +244,7 @@ public abstract class PlayerList {
             }
             // CraftBukkit end
         }
+        /**/
     }
 
     public void d(EntityPlayer entityplayer) {
@@ -271,6 +276,7 @@ public abstract class PlayerList {
         ChunkIOExecutor.adjustPoolSize(this.getPlayerCount()); // CraftBukkit
 
         // CraftBukkit start - .name -> .listName, replace sendAll with loop
+        /** Cow Deletion [ Remove Packet201PlayerInfo calls ]
         Packet201PlayerInfo packet = new Packet201PlayerInfo(entityplayer.listName, false, 9999);
         for (int i = 0; i < this.players.size(); ++i) {
             EntityPlayer entityplayer1 = (EntityPlayer) this.players.get(i);
@@ -279,6 +285,7 @@ public abstract class PlayerList {
                 entityplayer1.playerConnection.sendPacket(packet);
             }
         }
+        /**/
         // This removes the scoreboard (and player reference) for the specific player in the manager
         this.cserver.getScoreboardManager().removePlayer(entityplayer.getBukkitEntity());
 
@@ -292,6 +299,10 @@ public abstract class PlayerList {
         // in the event, check with plugins to see if it's ok, and THEN kick
         // depending on the outcome.
         EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, this.server.O() ? new DemoPlayerInteractManager(this.server.getWorldServer(0)) : new PlayerInteractManager(this.server.getWorldServer(0)));
+        // Cow Start [ Player data pass around ]
+        entity.bull_live = pendingconnection.bull_live;
+        pendingconnection.bull_live = null;
+        // Cow End
         Player player = entity.getBukkitEntity();
         PlayerLoginEvent event = new PlayerLoginEvent(player, hostname, pendingconnection.getSocket().getInetAddress());
 

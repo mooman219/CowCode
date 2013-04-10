@@ -60,6 +60,7 @@ public class EntityItem extends Entity {
         this.lastTick = MinecraftServer.currentTick;
         // CraftBukkit end
 
+        if (lastTick % 2 == 0) { // Cow Add [ Reduce item ticking ]
         this.lastX = this.locX;
         this.lastY = this.locY;
         this.lastZ = this.locZ;
@@ -98,9 +99,10 @@ public class EntityItem extends Entity {
         if (this.onGround) {
             this.motY *= -0.5D;
         }
+        } // Cow Add [ Reduce item ticking ]
 
         // ++this.age; // CraftBukkit - Moved up
-        if (!this.world.isStatic && this.age >= 6000) {
+        if (!this.world.isStatic && this.age >= 3000) { // Cow Modify [ Reduce item despawn time ]
             // CraftBukkit start
             if (org.bukkit.craftbukkit.event.CraftEventFactory.callItemDespawnEvent(this).isCancelled()) {
                 this.age = 0;

@@ -9,8 +9,9 @@ import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.Bukkit; // CraftBukkit
+import com.gmail.mooman219.craftbukkit.BullObject; // Cow Add [ Super metadata ]
 
-public class Chunk {
+public class Chunk extends BullObject { // Cow Modify (extends BullObject) [ Super metadata ]
 
     public static boolean a;
     private ChunkSection[] sections;

@@ -180,6 +180,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
 
         getHandle().listName = name;
 
+        /** Cow Deletion [ Remove Packet201PlayerInfo calls ]
         // Change the name on the client side
         Packet201PlayerInfo oldpacket = new Packet201PlayerInfo(oldName, false, 9999);
         Packet201PlayerInfo packet = new Packet201PlayerInfo(name, true, getHandle().ping);
@@ -192,6 +193,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
                 entityplayer.playerConnection.sendPacket(packet);
             }
         }
+        **/
     }
 
     @Override
@@ -664,8 +666,10 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
             entry.clear(getHandle());
         }
 
+        /** Cow Deletion [ Remove Packet201PlayerInfo calls ]
         //remove the hidden player from this player user list
         getHandle().playerConnection.sendPacket(new Packet201PlayerInfo(player.getPlayerListName(), false, 9999));
+        /**/
     }
 
     public void showPlayer(Player player) {
@@ -682,7 +686,9 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
             entry.updatePlayer(getHandle());
         }
 
+        /** Cow Deletion [ Remove Packet201PlayerInfo calls ]
         getHandle().playerConnection.sendPacket(new Packet201PlayerInfo(player.getPlayerListName(), true, getHandle().ping));
+        /**/
     }
 
     public boolean canSee(Player player) {

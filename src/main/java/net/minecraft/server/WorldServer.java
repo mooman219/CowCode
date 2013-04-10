@@ -160,11 +160,14 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
 
     public void doTick() {
         super.doTick();
+        /** Cow Deletion [ Remove difficulty check ]
         if (this.getWorldData().isHardcore() && this.difficulty < 3) {
             this.difficulty = 3;
         }
 
+        /**/
         this.worldProvider.e.b();
+        /** Cow Deletion [ Remove sleeping check ]
         if (this.everyoneDeeplySleeping()) {
             if (this.getGameRules().getBoolean("doDaylightCycle")) {
                 long i = this.worldData.getDayTime() + 24000L;
@@ -174,6 +177,8 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
 
             this.d();
         }
+        /**/
+        /** Cow Deletion [ Remove mob spawning check ]
 
         this.methodProfiler.a("mobSpawner");
         // CraftBukkit start - Only call spawner if we have players online and the world allows for mobs or animals
@@ -182,6 +187,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
             this.Q.spawnEntities(this, this.allowMonsters && (this.ticksPerMonsterSpawns != 0 && time % this.ticksPerMonsterSpawns == 0L), this.allowAnimals && (this.ticksPerAnimalSpawns != 0 && time % this.ticksPerAnimalSpawns == 0L), this.worldData.getTime() % 400L == 0L);
         }
         // CraftBukkit end
+        /**/
         this.methodProfiler.c("chunkSource");
         this.chunkProvider.unloadChunks();
         int j = this.a(1.0F);
@@ -201,9 +207,11 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
         this.g();
         this.methodProfiler.c("chunkMap");
         this.manager.flush();
+        /** Cow Deletion [ Remove village ticks ]
         this.methodProfiler.c("village");
         this.villages.tick();
         this.siegeManager.a();
+        /**/
         this.methodProfiler.c("portalForcer");
         this.P.a(this.getTime());
         this.methodProfiler.b();
@@ -314,12 +322,14 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
             this.a(k, l, chunk);
             this.methodProfiler.c("tickChunk");
             chunk.k();
+            chunk.callTick(); // Cow Add [ Super metadata ]
             this.methodProfiler.c("thunder");
             int i1;
             int j1;
             int k1;
             int l1;
 
+            /** Cow Deletion [ Remove weather ]
             if (this.random.nextInt(100000) == 0 && this.Q() && this.P()) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
@@ -330,10 +340,12 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
                     this.strikeLightning(new EntityLightning(this, (double) j1, (double) l1, (double) k1));
                 }
             }
+            /**/
 
             this.methodProfiler.c("iceandsnow");
             int i2;
 
+            /** Cow Deletion [ Remove weather ]
             if (this.random.nextInt(16) == 0) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
@@ -377,6 +389,8 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
                     }
                 }
             }
+            /**/
+            /** Cow Deletion [ Remove block tick  ]
 
             this.methodProfiler.c("tickTiles");
             ChunkSection[] achunksection = chunk.i();
@@ -405,6 +419,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
                     }
                 }
             }
+            /**/
 
             this.methodProfiler.b();
         }
@@ -426,6 +441,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
 
         if (this.d && l > 0) {
             if (Block.byId[l].l()) {
+                /** Cow Deletion [ Remove block tick ]
                 b0 = 8;
                 if (this.e(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
                     int k1 = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
@@ -435,6 +451,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
                     }
                 }
 
+                /**/
                 return;
             }
 
@@ -525,6 +542,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
                 byte b0 = 0;
 
                 if (this.e(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
+                    /** Cow Deletion [ Remove block tick  ]
                     int k = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
 
                     if (k > 0 && Block.b(k, nextticklistentry.d)) {
@@ -546,6 +564,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
                             throw new ReportedException(crashreport);
                         }
                     }
+                    /**/
                 } else {
                     this.a(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, nextticklistentry.d, 0);
                 }
@@ -929,6 +948,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
     }
 
     protected void o() {
+        /** Cow Deletion [ Remove weather ]
         boolean flag = this.Q();
 
         super.o();
@@ -941,6 +961,7 @@ public class WorldServer extends World implements org.bukkit.BlockChangeDelegate
             }
             // CraftBukkit end
         }
+        /**/
     }
 
     public MinecraftServer getMinecraftServer() {

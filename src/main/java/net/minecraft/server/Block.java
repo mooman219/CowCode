@@ -288,7 +288,9 @@ public class Block {
     }
 
     public boolean isTicking() {
+        /** Cow Deletion [ Remove block tick ]
         return this.cK;
+        /**/ return false;
     }
 
     public boolean t() {

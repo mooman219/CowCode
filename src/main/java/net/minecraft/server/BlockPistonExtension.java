@@ -146,7 +146,9 @@ public class BlockPistonExtension extends Block {
         if (j1 != Block.PISTON.id && j1 != Block.PISTON_STICKY.id) {
             world.setAir(i, j, k);
         } else {
+            /** Cow Deletion [ Remove block physics ]
             Block.byId[j1].doPhysics(world, i - Facing.b[i1], j - Facing.c[i1], k - Facing.d[i1], l);
+            /**/
         }
     }
 

@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public abstract class EntityHuman extends EntityLiving implements ICommandListener {
 
+    public String overheadName; // Cow Add [ Player name control ]
     public PlayerInventory inventory = new PlayerInventory(this);
     private InventoryEnderChest enderChest = new InventoryEnderChest();
     public Container defaultContainer;
@@ -67,6 +68,9 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     public EntityHuman(World world, String s) {
         super(world);
         this.name = s;
+        // Cow Start [ Player name control ]
+        this.overheadName = name;
+        // Cow End
         this.defaultContainer = new ContainerPlayer(this.inventory, !world.isStatic, this);
         this.activeContainer = this.defaultContainer;
         this.height = 1.62F;
@@ -333,10 +337,10 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
             this.bs = this.bt;
             this.bt = 0.0F;
             this.k(this.locX - d0, this.locY - d1, this.locZ - d2);
-            if (this.vehicle instanceof EntityPig) {
+            if (this.vehicle instanceof EntityLiving) { // Cow Modify [ Smooth entity riding ]
                 this.pitch = f1;
                 this.yaw = f;
-                this.aN = ((EntityPig) this.vehicle).aN;
+                this.aN = ((EntityLiving) this.vehicle).aN; // Cow Modify [ Smooth entity riding ]
             }
         }
     }
@@ -477,14 +481,20 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     }
 
     public EntityItem a(boolean flag) {
-        return this.a(this.inventory.splitStack(this.inventory.itemInHandIndex, flag && this.inventory.getItemInHand() != null ? this.inventory.getItemInHand().count : 1), false);
+        return this.a(this.inventory.splitStack(this.inventory.itemInHandIndex, flag && this.inventory.getItemInHand() != null ? this.inventory.getItemInHand().count : 1), false, this.inventory.itemInHandIndex); // Cow Modify [ PlayerDropItemEvent upgrade ]
     }
 
     public EntityItem drop(ItemStack itemstack) {
         return this.a(itemstack, false);
     }
 
+    // Cow Start [ PlayerDropItemEvent upgrade ]
     public EntityItem a(ItemStack itemstack, boolean flag) {
+        return this.a(itemstack, false, -1);
+    }
+
+    public EntityItem a(ItemStack itemstack, boolean flag, int slot) {
+    // Cow End
         if (itemstack == null) {
             return null;
         } else if (itemstack.count == 0) {
@@ -524,7 +534,19 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
             this.world.getServer().getPluginManager().callEvent(event);
 
             if (event.isCancelled()) {
+                // Cow Start [ PlayerDropItemEvent upgrade ]
+                if(slot == -1) {                    
                 player.getInventory().addItem(drop.getItemStack());
+                } else {
+                    org.bukkit.inventory.ItemStack oldItem = player.getInventory().getItem(slot);
+                    if(oldItem != null && oldItem.isSimilar(drop.getItemStack())) {
+                        oldItem.setAmount(drop.getItemStack().getAmount() + oldItem.getAmount());
+                        player.getInventory().setItem(slot, oldItem);
+                    } else {                        
+                        player.getInventory().setItem(slot, drop.getItemStack());
+                    }
+                }
+                // Cow End
                 return null;
             }
             // CraftBukkit end
@@ -766,7 +788,9 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     }
 
     protected void h(float f) {
+        /** Cow Deletion [ Remove armor damage ]
         this.inventory.a(f);
+        /**/
     }
 
     public int aM() {
@@ -1230,12 +1254,14 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
 
     protected void ba() {
         super.ba();
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         this.a(StatisticList.u, 1);
         if (this.isSprinting()) {
             this.a(0.8F);
         } else {
             this.a(0.2F);
         }
+        /**/
     }
 
     public void e(float f, float f1) {
@@ -1263,6 +1289,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     }
 
     public void checkMovement(double d0, double d1, double d2) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         if (this.vehicle == null) {
             int i;
 
@@ -1299,9 +1326,11 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                 }
             }
         }
+        /**/
     }
 
     private void k(double d0, double d1, double d2) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         if (this.vehicle != null) {
             int i = Math.round(MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2) * 100.0F);
 
@@ -1320,6 +1349,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                 }
             }
         }
+        /**/
     }
 
     protected void b(float f) {
@@ -1385,11 +1415,13 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     }
 
     public void a(float f) {
+        /** Cow Deletion [ Remove movement stats and exhaustion ]
         if (!this.abilities.isInvulnerable) {
             if (!this.world.isStatic) {
                 this.foodData.a(f);
             }
         }
+        /**/
     }
 
     public FoodMetaData getFoodData() {

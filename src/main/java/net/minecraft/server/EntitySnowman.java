@@ -30,6 +30,7 @@ public class EntitySnowman extends EntityGolem implements IRangedEntity {
 
     public void c() {
         super.c();
+        /** Cow Deletion [ Remove entity tick ]
         if (this.F()) {
             this.damageEntity(DamageSource.DROWN, 1.0F);
         }
@@ -60,6 +61,7 @@ public class EntitySnowman extends EntityGolem implements IRangedEntity {
                 // CraftBukkit end
             }
         }
+        **/
     }
 
     protected int getLootId() {
