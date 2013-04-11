@@ -1,0 +1,85 @@
+authors: [LordOfTheCow, mooman219]
+main: com.gmail.mooman219.core.Loader
+name: CowCode
+startup: startup
+url: http://fuck.you/
+version: SNAPSHOT-LOCALBUILD
+commands:
+    addgraveyard:
+        aliases:
+        - gag
+    cleargraveyards:
+        aliases:
+        - gcg
+    totalgraveyards:
+        aliases:
+        - gtg
+    teleportclosestgraveyard:
+        aliases:
+        - gtpcg
+    removegraveyard:
+        aliases:
+        - greg
+    listgraveyards:
+        aliases:
+        - glg
+    teleportgraveyard:
+        aliases:
+        - gtpg
+    global:
+        aliases:
+        - g
+        - shout
+    message:
+        aliases:
+        - tell
+        - msg
+        - m
+    reply:
+        aliases:
+        - r
+    whois:
+        aliases:
+        - who
+        - records
+        - me
+    test:
+    addmineral:
+        aliases:
+        - mam
+    clearminerals:
+        aliases:
+        - mcm
+    listminerals:
+        aliases:
+        - mlm
+    removemineral:
+        aliases:
+        - mrem
+    revertminerals:
+        aliases:
+        - mrm
+    totalminerals:
+        aliases:
+        - mtm
+    memory:
+        aliases:
+        - mem
+    modifycombat:
+        aliases:
+        - rmc
+    modifyinformation:
+        aliases:
+        - rmi
+    modifyname:
+        aliases:
+        - rmn
+    newinformation:
+        aliases:
+        - rni
+    setregion:
+        aliases:
+        - rsr
+    setchatrange:
+        aliases:
+        - csr
