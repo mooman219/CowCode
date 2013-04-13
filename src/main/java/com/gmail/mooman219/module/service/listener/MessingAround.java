@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.service.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,14 +14,13 @@ import com.gmail.mooman219.frame.MetaHelper;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PLService;
 
 public class MessingAround implements Listener {
     @EventHandler()
     public void onDamageScoreBoard(EntityDamageEvent event) {
         if(event.getEntity().getType() == EntityType.PLAYER) {
-            PlayerData playerData = MetaHelper.getPlayerData((Player) event.getEntity());
-            playerData.service.scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
+            ((Player) event.getEntity()).getLive().get(PLService.class).scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
         }
     }
 
@@ -31,20 +31,21 @@ public class MessingAround implements Listener {
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        int test = (Integer) MetaHelper.getTagStore(event.getPlayer()).get("test", 0);
+        int test = event.getPlayer().getTag().get("test", 0);
         Loader.info("TEST: " + test++);
-        MetaHelper.getTagStore(event.getPlayer()).set("test", test);
-        test = (Integer) MetaHelper.getTagStore(event.getPlayer()).get("test", 0);
+        event.getPlayer().getTag().set("test", test);
+        test = event.getPlayer().getTag().get("test", 0);
         Loader.info("TEST: " + test);
+        System.out.println(MetaHelper.getEntityTagCompound(event.getPlayer()).toString());
         
-        PlayerData playerData = MetaHelper.getPlayerData(event.getPlayer());
-        playerData.service.scoreboard.addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
-        playerData.service.scoreboard.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
-        playerData.service.scoreboard.addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
-        playerData.service.scoreboard.addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
-        playerData.service.scoreboard.addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
-        playerData.service.scoreboard.addKey("memory", "Memory: Init", 3);
-        playerData.service.scoreboard.addKey("lastdamage", "LastDmg: Init", 1);
+        PLService service = event.getPlayer().getLive().get(PLService.class);
+        service.scoreboard.addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
+        service.scoreboard.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
+        service.scoreboard.addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
+        service.scoreboard.addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
+        service.scoreboard.addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
+        service.scoreboard.addKey("memory", "Memory: Init", 3);
+        service.scoreboard.addKey("lastdamage", "LastDmg: Init", 1);
         
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "  Health", true, true);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "1,234,567", true, true);
@@ -60,10 +61,8 @@ public class MessingAround implements Listener {
     @EventHandler()
     public void onSecond(TickSecondSyncEvent event){
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
-        for(PlayerData playerData : MetaHelper.getAllPlayerData()) {
-            if(playerData.service != null) {                
-                playerData.service.scoreboard.modifyKeyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
-            }
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.getLive().get(PLService.class).scoreboard.modifyKeyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
         }
     }
     

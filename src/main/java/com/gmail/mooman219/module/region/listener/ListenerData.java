@@ -9,6 +9,6 @@ import com.gmail.mooman219.module.region.PLRegion;
 public class ListenerData implements Listener{
     @EventHandler()
     public void onCreate(DataCreateEvent event) {
-        event.playerData.region = new PLRegion();
+        event.getPlayer().getLive().set(new PLRegion());
     }
 }

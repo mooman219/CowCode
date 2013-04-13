@@ -13,7 +13,7 @@ import com.gmail.mooman219.module.graveyard.command.TeleportClosestGraveyard;
 import com.gmail.mooman219.module.graveyard.command.TeleportGraveyard;
 import com.gmail.mooman219.module.graveyard.command.TotalGraveyards;
 import com.gmail.mooman219.module.graveyard.listener.ListenerPlayer;
-import com.gmail.mooman219.module.graveyard.serialize.CSGraveyard;
+import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class CCGraveyard implements Module {

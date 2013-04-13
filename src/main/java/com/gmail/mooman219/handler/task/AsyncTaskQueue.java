@@ -1,4 +1,4 @@
-package com.gmail.mooman219.handler.task.queue;
+package com.gmail.mooman219.handler.task;
 
 import com.gmail.mooman219.handler.task.type.CCLinkedBlockingQueue;
 import com.gmail.mooman219.handler.task.type.CCTask;

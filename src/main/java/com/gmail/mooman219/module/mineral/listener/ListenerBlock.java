@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.serialize.CSMineral;
+import com.gmail.mooman219.module.mineral.store.CSMineral;
 
 public class ListenerBlock implements Listener{
     @EventHandler(ignoreCancelled = false)

@@ -1,19 +1,17 @@
-package com.gmail.mooman219.module.service.player;
+package com.gmail.mooman219.module.service;
 
 import org.bson.types.ObjectId;
 
+import com.gmail.mooman219.bukkit.DefaultTag;
 import com.gmail.mooman219.frame.database.mongo.DatabaseData;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
-import com.gmail.mooman219.module.chat.PDChat;
-import com.gmail.mooman219.module.chat.PLChat;
+import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.login.PDLogin;
-import com.gmail.mooman219.module.region.PLRegion;
-import com.gmail.mooman219.module.service.PDService;
-import com.gmail.mooman219.module.service.PLService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
+@DefaultTag(key = "playerdata")
 public class PlayerData implements DatabaseData {
     // [+] Data information
     public final ObjectId id;
@@ -22,11 +20,6 @@ public class PlayerData implements DatabaseData {
     public PDService serviceData = null;
     public PDLogin loginData = null;
     public PDChat chatData = null;
-    // [+] Live information
-    // [-]---[+] Module
-    public PLChat chat = null;
-    public PLRegion region = null;
-    public PLService service = null;
 
     public PlayerData(ObjectId id, String username) {
         this.id = id;

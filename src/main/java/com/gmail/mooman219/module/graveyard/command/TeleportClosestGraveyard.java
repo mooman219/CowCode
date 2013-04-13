@@ -10,8 +10,8 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
-import com.gmail.mooman219.module.graveyard.serialize.CSGraveyard;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class TeleportClosestGraveyard extends CCommand {
     public TeleportClosestGraveyard() {

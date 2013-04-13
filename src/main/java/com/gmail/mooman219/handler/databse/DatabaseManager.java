@@ -4,11 +4,11 @@ package com.gmail.mooman219.handler.databse;
 import org.bson.types.ObjectId;
 
 import com.gmail.mooman219.core.Loader;
+import com.gmail.mooman219.frame.database.mongo.DownloadType;
 import com.gmail.mooman219.frame.database.mongo.MongoConnection;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.service.CCService;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -23,7 +23,6 @@ public class DatabaseManager {
 
     public DBCollection c_Server;
     public DBCollection c_Users;
-
     public MongoConnection connection;
 
     public void start() {
@@ -31,6 +30,7 @@ public class DatabaseManager {
             stop();
         }
         connection = new MongoConnection(ConfigGlobal.hostname, ConfigGlobal.portnmbr, ConfigGlobal.username, ConfigGlobal.password);
+        connection.connect();
         d_cowcode = connection.getDatabase(n_Database);
         c_Server = d_cowcode.getCollection(n_Server);
         c_Users = d_cowcode.getCollection(n_Users);
@@ -52,7 +52,7 @@ public class DatabaseManager {
         }
         c_Server.update(locationDocument, new BasicDBObject("$set", getCompleteServerTemplate(isOnline)));
     }
-    
+
     private BasicDBObject getCompleteServerTemplate(boolean isOnline) {
         BasicDBObject serverDocument = new BasicDBObject();
         serverDocument.put("name", ConfigGlobal.server_id);
@@ -61,33 +61,44 @@ public class DatabaseManager {
         return serverDocument;
     }
 
-    public PlayerData downloadPlayerData(String username, boolean create, boolean caseSensitive) {
+    public PlayerData downloadPlayerData(String username, DownloadType downloadType) {
         DBObject usernameQuery;
-        if(caseSensitive) {
-            usernameQuery = new BasicDBObject("username", username);
-        } else {
-            usernameQuery = new BasicDBObject("usernamelowercase", username.toLowerCase());
-        }
-        DBObject playerObject = c_Users.findOne(usernameQuery);
+        DBObject playerObject;
         PlayerData ret = null;
+        switch(downloadType) {
+        case QUERY:
+            usernameQuery = new BasicDBObject("usernamelowercase", username.toLowerCase());
+            break;
+        case LOGIN:
+        default:
+            usernameQuery = new BasicDBObject("username", username);
+            break;
+        }
+        playerObject = c_Users.findOne(usernameQuery);
         if(playerObject != null) {
-            Loader.info(CCService.cast + "[DOWN] normal: " + username);
+            Loader.info(CHDatabase.cast + "[DOWN] ["+downloadType.name()+"] normal: " + username);
             ret = new PlayerData((ObjectId) playerObject.get("_id"), username);
             ret.sync(playerObject);
-        } else if(create && caseSensitive) {
-            Loader.info(CCService.cast + "[DOWN] missing: " + username);
-            usernameQuery.put("usernamelowercase", username.toLowerCase());
-            c_Users.insert(usernameQuery);
-            ret = new PlayerData((ObjectId) c_Users.findOne(usernameQuery).get("_id"), username);
-            uploadPlayerData(ret, UploadType.CREATE);
-        } else if(create && !caseSensitive) {
-            throw new IllegalArgumentException("Username must be Case Sensitive to create it.");
+        } else {
+            switch(downloadType) {
+            case LOGIN:
+                Loader.info(CHDatabase.cast + "[DOWN] ["+downloadType.name()+"] missing: " + username);
+                usernameQuery.put("usernamelowercase", username.toLowerCase());
+                c_Users.insert(usernameQuery);
+                ret = new PlayerData((ObjectId) c_Users.findOne(usernameQuery).get("_id"), username);
+                uploadPlayerData(ret, UploadType.CREATE);
+                break;
+            case QUERY:
+            default:
+                Loader.info(CHDatabase.cast + "[DOWN] ["+downloadType.name()+"] ignore: " + username);
+                break;
+            }
         }
         return ret;
     }
 
     public void uploadPlayerData(PlayerData playerData, UploadType uploadType) {
-        Loader.info(CCService.cast + "[UP] ["+uploadType.name()+"] normal: " + playerData.username);
+        Loader.info(CHDatabase.cast + "[UP] ["+uploadType.name()+"] normal: " + playerData.username);
         c_Users.update(new BasicDBObject("_id", playerData.id), new BasicDBObject("$set", playerData.getTemplate(uploadType)));
     }
 }

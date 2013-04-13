@@ -3,7 +3,6 @@ package com.gmail.mooman219.module.service.command;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.frame.MetaHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
@@ -12,7 +11,7 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.service.CMService;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 import com.gmail.mooman219.module.service.task.WhoisTask;
 
 public class Whois extends CCommand {
@@ -24,12 +23,12 @@ public class Whois extends CCommand {
     public void processPlayer(Player sender, PlayerData playerData, String[] args) {
         if(args.length == 1) {
             if(args[0].length() > 16 || args[0].length() < 3) {
-                TextHelper.message(playerData, CMService.F_WHOIS_NOEXIST, args[0]);
+                TextHelper.message(sender, CMService.F_WHOIS_NOEXIST, args[0]);
                 return;
             }
             Player player = Bukkit.getPlayer(args[0]);
             if(player != null) {
-                displayWhois(sender, MetaHelper.getPlayerData(player));
+                displayWhois(sender, player.getLive().get(PlayerData.class));
                 return;
             }
             CHTask.manager.runAsyncPluginTask(WhoisTask.get(sender, args[0]));

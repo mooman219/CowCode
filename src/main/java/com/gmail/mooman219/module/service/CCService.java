@@ -1,15 +1,20 @@
 package com.gmail.mooman219.module.service;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.frame.database.mongo.UploadType;
+import com.gmail.mooman219.handler.databse.task.UploadTask;
+import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.module.login.CMLogin;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
 import com.gmail.mooman219.module.service.command.Whois;
 import com.gmail.mooman219.module.service.listener.ListenerData;
 import com.gmail.mooman219.module.service.listener.MessingAround;
-import com.gmail.mooman219.module.service.player.PlayerManager;
 
 public class CCService implements Module {
     public final Loader plugin;
@@ -36,8 +41,13 @@ public class CCService implements Module {
     }
 
     public void onDisable() {
-        Loader.info(cast + "Stopping PlayerManager");
-        PlayerManager.stop();
+        Loader.info(cast + "Removing players");
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            PlayerData playerData = player.getLive().get(PlayerData.class);
+            CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, playerData));
+            player.kickPlayer(CMLogin.M_SHUTDOWN);
+            Loader.info(CCService.cast + "[STOP] (" + Bukkit.getOnlinePlayers().length + ") normal: " + playerData.username);
+        }
         Loader.info(cast + "Disabled");
     }
     

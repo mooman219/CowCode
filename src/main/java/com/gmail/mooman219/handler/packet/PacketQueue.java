@@ -8,19 +8,19 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.handler.task.type.CCLinkedBlockingQueue;
 
-public class PacketQueue extends CCLinkedBlockingQueue<PacketQueueItem>{
+public class PacketQueue extends CCLinkedBlockingQueue<PacketWrapper>{
     public PacketQueue() {
         super(false, "CC PacketQueue");
     }
 
     public void put(Player target, Packet packet) {
-        this.put(new PacketQueueItem(target, packet));
+        this.put(new PacketWrapper(target, packet));
     }
 
     public Runnable getConsumer() {
         return new Runnable() {
             public void run() {
-                PacketQueueItem packetQueueItem = take();
+                PacketWrapper packetQueueItem = take();
                 if(packetQueueItem != null) {
                     if(packetQueueItem.target == null) {
                         for(Player player : Bukkit.getOnlinePlayers()) {

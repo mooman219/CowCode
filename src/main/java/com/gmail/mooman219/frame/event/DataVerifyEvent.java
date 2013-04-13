@@ -4,15 +4,14 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class DataVerifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    public PlayerData playerData;
-    public AsyncPlayerPreLoginEvent event;
+    private final PlayerData playerData;
+    private final AsyncPlayerPreLoginEvent event;
 
-    // Called before the player is saved.
     public DataVerifyEvent(AsyncPlayerPreLoginEvent event, PlayerData playerData) {
         super(true);
         this.playerData = playerData;
@@ -26,5 +25,13 @@ public class DataVerifyEvent extends Event {
 
     public static HandlerList getHandlerList() {
         return handlers;
+    }
+    
+    public PlayerData getPlayerData() {
+        return playerData;
+    }
+
+    public AsyncPlayerPreLoginEvent getEvent() {
+        return event;
     }
 }

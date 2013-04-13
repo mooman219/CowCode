@@ -9,8 +9,8 @@ import org.bukkit.Material;
 
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.serialize.CSBasicLocation;
-import com.gmail.mooman219.module.mineral.file.StoreMineral;
-import com.gmail.mooman219.module.mineral.serialize.CSMineral;
+import com.gmail.mooman219.module.mineral.store.CSMineral;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class MineralManager {
     public static ArrayList<CSMineral> activeMinerals = null;

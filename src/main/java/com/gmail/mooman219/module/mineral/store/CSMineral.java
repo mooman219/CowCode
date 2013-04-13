@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.mineral.serialize;
+package com.gmail.mooman219.module.mineral.store;
 
 import java.util.HashMap;
 import java.util.Map;

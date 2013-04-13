@@ -14,8 +14,8 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.file.StoreMineral;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class AddMineral extends CCommand {
     public HashSet<Byte> skippedBlocks;

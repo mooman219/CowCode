@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.graveyard.serialize;
+package com.gmail.mooman219.module.graveyard.store;
 
 import java.util.HashMap;
 import java.util.Map;

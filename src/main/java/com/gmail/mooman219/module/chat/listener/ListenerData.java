@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 
 import com.gmail.mooman219.frame.PlayerHelper;
 import com.gmail.mooman219.frame.event.DataCreateEvent;
-import com.gmail.mooman219.module.chat.PLChat;
+import com.gmail.mooman219.module.chat.store.PLChat;
 
 public class ListenerData implements Listener{
     @EventHandler()

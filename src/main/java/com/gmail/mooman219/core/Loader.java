@@ -49,12 +49,14 @@ public class Loader extends JavaPlugin {
     }
 
     /*
+     * C    | Cow             | Cow related files
      * CH   | Cow Handler     | Handler modules
-     * CC   | Cow Component   | Plugin modules / Other stuff
-     * PD   | Player Data     | Offline PlayerData
-     * PL   | Player Live     | Online PlayerData
+     * CC   | Cow Component   | Plugin modules
      * CM   | Cow Message     | Strings for messages
      * CS   | Cow Serialize   | Custom ConfigurationSerializables
+     * 
+     * PD   | Player Data     | Offline PlayerData
+     * PL   | Player Live     | Online PlayerData
      */
 
     @Override

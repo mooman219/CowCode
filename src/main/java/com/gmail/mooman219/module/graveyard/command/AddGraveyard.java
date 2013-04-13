@@ -13,7 +13,7 @@ import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class AddGraveyard extends CCommand {
     public CCGraveyard module;

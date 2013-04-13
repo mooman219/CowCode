@@ -15,7 +15,7 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.chat.CMChat;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class ListenerChat implements Listener{
     @EventHandler()
@@ -24,23 +24,23 @@ public class ListenerChat implements Listener{
         // Muted players
         if(playerData.chatData.mutedUntil - System.currentTimeMillis() > 0) {
             event.setCancelled(true);
-            TextHelper.message(playerData.player, CMChat.F_MUTED, TimeHelper.getLargestType(playerData.chatData.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
+            TextHelper.message(event.getPlayer(), CMChat.F_MUTED, TimeHelper.getLargestType(playerData.chatData.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
             // Private chat
         } else if(event.getMessage().charAt(0) == '@') {
             event.setCancelled(true);
             String[] message = TextHelper.spacePattern.split(event.getMessage(), 2);
             if(message.length <= 1) {
-                TextHelper.message(playerData.player, CMChat.M_MESSAGE_EMPTY);
+                TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_EMPTY);
             } else if(message[0].length() == 1) {
                 message(playerData, playerData.chat.getLastMessaged(), message[1]);
             } else {
                 Player foundPlayer = Bukkit.getPlayer(message[0].substring(1));
                 if(foundPlayer == null) {
-                    TextHelper.message(playerData.player, CMChat.F_MESSAGE_EXIST, message[0].substring(1));
+                    TextHelper.message(event.getPlayer(), CMChat.F_MESSAGE_EXIST, message[0].substring(1));
                 } else {
                     PlayerData otherPlayerData = MetaHelper.getPlayerData(foundPlayer);
                     if(otherPlayerData.username.equals(playerData.username)) {
-                        TextHelper.message(playerData.player, CMChat.M_MESSAGE_SELF);
+                        TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_SELF);
                     } else {
                         message(playerData, otherPlayerData, message[1]);
                     }
@@ -50,9 +50,9 @@ public class ListenerChat implements Listener{
         } else if(event.getMessage().charAt(0) == '!') {
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
-                TextHelper.message(playerData.player, CMChat.M_MESSAGE_EMPTY);
+                TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_EMPTY);
             } else if(System.currentTimeMillis() - playerData.chat.lastGlobalChat <= ConfigGlobal.chatGlobalDelay) {
-                TextHelper.message(playerData.player, CMChat.F_GLOBAL_DELAY, TimeHelper.getLargestType(ConfigGlobal.chatGlobalDelay - (System.currentTimeMillis() - playerData.chat.lastGlobalChat), TimeType.MILLISECOND));
+                TextHelper.message(event.getPlayer(), CMChat.F_GLOBAL_DELAY, TimeHelper.getLargestType(ConfigGlobal.chatGlobalDelay - (System.currentTimeMillis() - playerData.chat.lastGlobalChat), TimeType.MILLISECOND));
             } else {
                 event.setFormat(Chat.msgGlobal + playerData.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
@@ -74,7 +74,7 @@ public class ListenerChat implements Listener{
                 }
             }
             if(event.getRecipients().size() <= 1) {
-                TextHelper.message(playerData.player, CMChat.M_NOHEAR);
+                TextHelper.message(event.getPlayer(), CMChat.M_NOHEAR);
             }
         }
     }

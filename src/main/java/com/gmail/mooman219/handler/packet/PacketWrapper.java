@@ -4,11 +4,11 @@ import net.minecraft.server.Packet;
 
 import org.bukkit.entity.Player;
 
-public class PacketQueueItem {
+public class PacketWrapper {
     public final Player target;
     public final Packet packet;
 
-    public PacketQueueItem(Player target, Packet packet) {
+    public PacketWrapper(Player target, Packet packet) {
         this.target = target;
         this.packet = packet;
     }

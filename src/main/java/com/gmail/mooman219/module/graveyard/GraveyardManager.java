@@ -6,7 +6,7 @@ import org.bukkit.Location;
 
 import com.gmail.mooman219.frame.LocationHelper;
 import com.gmail.mooman219.frame.serialize.CSLocation;
-import com.gmail.mooman219.module.graveyard.serialize.CSGraveyard;
+import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class GraveyardManager {

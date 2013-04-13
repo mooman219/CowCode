@@ -1,5 +1,6 @@
 package com.gmail.mooman219.frame.database.mongo;
 
+import com.gmail.mooman219.frame.NumberHelper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -26,32 +27,10 @@ public class MongoHelper {
     }
 
     public static long getValue(DBObject document, String query, long defaultValue) {
-        Object object = document.get(query);
-        long ret = defaultValue;
-        if(object != null) {
-            if(object instanceof Long) {
-                ret = (Long) object;
-            } else {
-                try {
-                    ret = Long.parseLong(object.toString());
-                } catch(Exception e) {}
-            }
-        }
-        return ret;
+        return NumberHelper.toLong(document.get(query));
     }
 
     public static int getValue(DBObject document, String query, int defaultValue) {
-        Object object = document.get(query);
-        int ret = defaultValue;
-        if(object != null) {
-            if(object instanceof Integer) {
-                ret = (Integer) object;
-            } else {
-                try {
-                    ret = Integer.parseInt(object.toString());
-                } catch(Exception e) {}
-            }
-        }
-        return ret;
+        return NumberHelper.toInt(document.get(query));
     }
 }

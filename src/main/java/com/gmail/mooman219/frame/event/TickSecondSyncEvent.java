@@ -6,7 +6,9 @@ import org.bukkit.event.HandlerList;
 public class TickSecondSyncEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    public TickSecondSyncEvent() {}
+    public TickSecondSyncEvent() {
+        super();
+    }
 
     @Override
     public HandlerList getHandlers() {

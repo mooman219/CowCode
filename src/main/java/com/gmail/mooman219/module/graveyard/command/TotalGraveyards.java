@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class TotalGraveyards extends CCommand {
     public TotalGraveyards() {

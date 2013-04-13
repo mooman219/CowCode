@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.chat.CMChat;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class SetChatRange extends CCommand {
     public SetChatRange() {

@@ -1,19 +1,17 @@
 package com.gmail.mooman219.frame.event;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import com.gmail.mooman219.module.service.player.PlayerData;
 
 public class DataRemovalEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    public PlayerData playerData;
+    private final Player player;
 
-    // Called before the player is saved.
-    public DataRemovalEvent(boolean async, PlayerData playerData) {
+    public DataRemovalEvent(boolean async, Player player) {
         super(async);
-        this.playerData = playerData;
+        this.player = player;
     }
 
     @Override
@@ -23,5 +21,9 @@ public class DataRemovalEvent extends Event {
 
     public static HandlerList getHandlerList() {
         return handlers;
+    }
+    
+    public Player getPlayer() {
+        return player;
     }
 }

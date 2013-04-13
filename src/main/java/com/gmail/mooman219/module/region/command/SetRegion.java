@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.region.CMRegion;
 import com.gmail.mooman219.module.region.store.CFInfo;
 import com.gmail.mooman219.module.region.store.CFRegion;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class SetRegion extends CCommand {
     public SetRegion() {

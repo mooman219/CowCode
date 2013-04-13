@@ -11,10 +11,10 @@ import com.gmail.mooman219.module.mineral.command.ListMinerals;
 import com.gmail.mooman219.module.mineral.command.RemoveMineral;
 import com.gmail.mooman219.module.mineral.command.RevertMinerals;
 import com.gmail.mooman219.module.mineral.command.TotalMinerals;
-import com.gmail.mooman219.module.mineral.file.StoreMineral;
 import com.gmail.mooman219.module.mineral.listener.ListenerBlock;
 import com.gmail.mooman219.module.mineral.listener.ListenerTime;
-import com.gmail.mooman219.module.mineral.serialize.CSMineral;
+import com.gmail.mooman219.module.mineral.store.CSMineral;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class CCMineral implements Module {
     public final Loader plugin;

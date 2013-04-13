@@ -1,20 +1,21 @@
 package com.gmail.mooman219.frame.event;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
-public class CCEventFactory {
-    public static DataCreateEvent callDataCreateEvent(PlayerLoginEvent event, PlayerData playerData) {
-        DataCreateEvent ccEvent = new DataCreateEvent(event, playerData);
+public class CEventFactory {
+    public static DataCreateEvent callDataCreateEvent(PlayerLoginEvent event, Player player) {
+        DataCreateEvent ccEvent = new DataCreateEvent(event, player);
         Bukkit.getPluginManager().callEvent(ccEvent);
         return ccEvent;
     }
     
-    public static DataRemovalEvent callDataRemovalEvent(boolean async, PlayerData playerData) {
-        DataRemovalEvent ccEvent = new DataRemovalEvent(async, playerData);
+    public static DataRemovalEvent callDataRemovalEvent(boolean async, Player player) {
+        DataRemovalEvent ccEvent = new DataRemovalEvent(async, player);
         Bukkit.getPluginManager().callEvent(ccEvent);
         return ccEvent;
     }

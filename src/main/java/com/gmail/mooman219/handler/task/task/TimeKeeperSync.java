@@ -1,9 +1,9 @@
 package com.gmail.mooman219.handler.task.task;
 
-import com.gmail.mooman219.frame.event.CCEventFactory;
+import com.gmail.mooman219.frame.event.CEventFactory;
 
 public class TimeKeeperSync implements Runnable {
     public void run() {
-        CCEventFactory.callTickSecondSyncEvent();
+        CEventFactory.callTickSecondSyncEvent();
     }
 }

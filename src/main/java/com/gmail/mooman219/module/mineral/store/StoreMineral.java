@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.mineral.file;
+package com.gmail.mooman219.module.mineral.store;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.gmail.mooman219.frame.file.ConfigBase;
 import com.gmail.mooman219.frame.serialize.CSBasicLocation;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.serialize.CSMineral;
 
 public class StoreMineral extends ConfigBase {
     public static HashMap<CSBasicLocation, CSMineral> minerals = new HashMap<CSBasicLocation, CSMineral>();

@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
-import com.gmail.mooman219.module.graveyard.serialize.CSGraveyard;
+import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 
 public class ListenerPlayer implements Listener{
     @EventHandler()

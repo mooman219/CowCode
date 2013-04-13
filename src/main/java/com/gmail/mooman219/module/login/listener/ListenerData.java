@@ -17,16 +17,8 @@ import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.login.CMLogin;
 
 public class ListenerData implements Listener {
-    public long currentSleep = 0l;
-
     @EventHandler(priority = EventPriority.LOWEST)
     public void onVerify(DataVerifyEvent event) {
-        try {
-            currentSleep = currentSleep >= 200 ? 0l : currentSleep + 40; // Unique prelogin time
-            Thread.sleep(currentSleep);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         if(event.playerData.serviceData.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
             if(currentTime - event.playerData.loginData.lastlogin < ConfigGlobal.loginDelay) {

@@ -10,9 +10,9 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.mineral.CMMineral;
-import com.gmail.mooman219.module.mineral.file.StoreMineral;
-import com.gmail.mooman219.module.mineral.serialize.CSMineral;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.mineral.store.CSMineral;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class ListMinerals extends CCommand {
     public ListMinerals() {

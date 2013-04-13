@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.region.CMRegion;
 import com.gmail.mooman219.module.region.store.CFInfo;
 import com.gmail.mooman219.module.region.store.RegionCombatType;
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class ModifyCombat extends CCommand {
     public ModifyCombat() {

@@ -1,8 +1,8 @@
-package com.gmail.mooman219.module.chat;
+package com.gmail.mooman219.module.chat.store;
 
 import java.lang.ref.SoftReference;
 
-import com.gmail.mooman219.module.service.player.PlayerData;
+import com.gmail.mooman219.module.service.PlayerData;
 
 public class PLChat {
     private SoftReference<PlayerData> softLastMessaged;

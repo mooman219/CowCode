@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.gmail.mooman219.frame.file.ConfigBase;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
-import com.gmail.mooman219.module.graveyard.serialize.CSGraveyard;
 
 public class StoreGraveyard extends ConfigBase{
     public static ArrayList<CSGraveyard> graveyards = new ArrayList<CSGraveyard>();

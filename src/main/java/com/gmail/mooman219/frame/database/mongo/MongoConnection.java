@@ -6,6 +6,8 @@ import com.mongodb.Mongo;
 
 public class MongoConnection {
     private Mongo connection;
+    private String ip;
+    private int port;
     private String username;
     private String password;
 
@@ -13,16 +15,27 @@ public class MongoConnection {
      * Create a new MongoConnection
      */
     public MongoConnection(String ip, int port, String user, String pass) {
-        username = user;
-        password = pass;
+        this.ip = ip;
+        this.port = port;
+        this.username = user;
+        this.password = pass;
+    }
+    
+    /*
+     * Connects to the Mongo server
+     */
+    public boolean connect() {
         try {
             connection = new Mongo(ip, port);
             if(connection != null) {
                 Loader.info(Loader.cast + "Connected to MongoDB");
-                return;
+                return true;
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Loader.warning(Loader.cast + "Could not connect to MongoDB on " + ip + ":" + port);
+        return false;
     }
 
     /**
@@ -40,7 +53,9 @@ public class MongoConnection {
             DB db = connection.getDB(name);
             db.authenticate(username, password.toCharArray());
             return db;
-        } catch(Exception e) {}
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         Loader.warning(Loader.cast + "Could not get datbase: " + name);
         return null;
     }
