@@ -12,10 +12,10 @@ import com.gmail.mooman219.module.region.command.NewInformation;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerData;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
-import com.gmail.mooman219.module.region.serialize.CSRegion;
-import com.gmail.mooman219.module.region.serialize.CSRegionInformation;
 import com.gmail.mooman219.module.region.store.CFInfo;
 import com.gmail.mooman219.module.region.store.CFRegion;
+import com.gmail.mooman219.module.region.store.CSRegion;
+import com.gmail.mooman219.module.region.store.CSRegionInformation;
 
 public class CCRegion implements Module {
     public final Loader plugin;

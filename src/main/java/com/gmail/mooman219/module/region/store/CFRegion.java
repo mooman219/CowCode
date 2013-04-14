@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.file.ConfigBase;
 import com.gmail.mooman219.frame.serialize.CSChunkLocation;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.serialize.CSRegion;
 
 public class CFRegion extends ConfigBase {
     public static HashMap<CSChunkLocation, CSRegion> regions = new HashMap<CSChunkLocation, CSRegion>();

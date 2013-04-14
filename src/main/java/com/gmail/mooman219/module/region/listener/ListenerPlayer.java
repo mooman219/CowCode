@@ -6,9 +6,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.region.PLRegion;
 import com.gmail.mooman219.module.region.store.CFRegion;
-import com.gmail.mooman219.module.service.PLService;
+import com.gmail.mooman219.module.region.store.PLRegion;
+import com.gmail.mooman219.module.service.store.PLService;
 
 public class ListenerPlayer implements Listener{
     @EventHandler()

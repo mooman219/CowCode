@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import com.gmail.mooman219.frame.file.ConfigBase;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.serialize.CSRegionInformation;
+import com.gmail.mooman219.module.region.RegionCombatType;
 
 public class CFInfo extends ConfigBase {
     public static final CSRegionInformation global = new CSRegionInformation(RegionCombatType.SAFE, "global", "Global", "No region exists here");

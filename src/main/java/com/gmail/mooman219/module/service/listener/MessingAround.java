@@ -14,7 +14,7 @@ import com.gmail.mooman219.frame.MetaHelper;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.module.service.PLService;
+import com.gmail.mooman219.module.service.store.PLService;
 
 public class MessingAround implements Listener {
     @EventHandler()

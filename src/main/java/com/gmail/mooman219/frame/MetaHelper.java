@@ -3,6 +3,9 @@ package com.gmail.mooman219.frame;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.PendingConnection;
 
+import org.bukkit.Chunk;
+import org.bukkit.World;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
@@ -22,7 +25,17 @@ public class MetaHelper {
         return tag;
     }
     
-    public static NBTTagCompound getLivingEntityTagCompound(LivingEntity entity) {
+    public static NBTTagCompound getLivingEntityTagCompound(LivingEntity livingEntity) {
+        NBTTagCompound tag = new NBTTagCompound();
+        ((CraftLivingEntity)livingEntity).getHandle().b(tag);
+        return tag;
+    }
+    
+    public static NBTTagCompound getWorldTagCompound(World world) {
+        return ((CraftWorld)world).getHandle().getWorldData().a();
+    }
+    
+    public static NBTTagCompound getChunkTagCompound(Chunk chunk) {
         NBTTagCompound tag = new NBTTagCompound();
         ((CraftLivingEntity)entity).getHandle().b(tag);
         return tag;

@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.region.serialize;
+package com.gmail.mooman219.module.region.store;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-import com.gmail.mooman219.module.region.store.RegionCombatType;
+import com.gmail.mooman219.module.region.RegionCombatType;
 
 @SerializableAs(value = "CSRegionInformation")
 public class CSRegionInformation implements ConfigurationSerializable {

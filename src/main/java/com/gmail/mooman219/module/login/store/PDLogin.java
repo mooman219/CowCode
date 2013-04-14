@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.login;
+package com.gmail.mooman219.module.login.store;
 
 import com.gmail.mooman219.frame.database.mongo.DatabaseData;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;

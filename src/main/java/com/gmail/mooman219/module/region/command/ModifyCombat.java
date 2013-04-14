@@ -6,8 +6,8 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.region.CMRegion;
+import com.gmail.mooman219.module.region.RegionCombatType;
 import com.gmail.mooman219.module.region.store.CFInfo;
-import com.gmail.mooman219.module.region.store.RegionCombatType;
 import com.gmail.mooman219.module.service.PlayerData;
 
 public class ModifyCombat extends CCommand {

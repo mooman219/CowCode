@@ -54,9 +54,13 @@ public class Loader extends JavaPlugin {
      * CC   | Cow Component   | Plugin modules
      * CM   | Cow Message     | Strings for messages
      * CS   | Cow Serialize   | Custom ConfigurationSerializables
-     * 
-     * PD   | Player Data     | Offline PlayerData
-     * PL   | Player Live     | Online PlayerData
+     * PD   | Player Data
+     * PL   | Player Live
+     * PT   | Player Tag
+     * CL   | Chunk Live
+     * CT   | Chunk Tag
+     * WL   | World Live
+     * WT   | World Tag
      */
 
     @Override

@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.region.serialize;
+package com.gmail.mooman219.module.region.store;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -9,7 +9,6 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
 import com.gmail.mooman219.frame.serialize.CSChunkLocation;
-import com.gmail.mooman219.module.region.store.CFInfo;
 
 @SerializableAs(value = "CSRegion")
 public class CSRegion implements ConfigurationSerializable {
