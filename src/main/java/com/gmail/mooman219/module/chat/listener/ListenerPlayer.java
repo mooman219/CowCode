@@ -12,16 +12,16 @@ import com.gmail.mooman219.module.chat.CMChat;
 public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        event.setJoinMessage(TextHelper.parse(CMChat.F_LOGIN, event.getPlayer().getName()));
+        event.setJoinMessage(TextHelper.parse(CMChat.F_LOGIN, event.getPlayer().getUsername()));
     }
 
     @EventHandler()
     public void onKick(PlayerKickEvent event) {
-        event.setLeaveMessage(TextHelper.parse(CMChat.F_KICK, event.getPlayer().getName()));
+        event.setLeaveMessage(TextHelper.parse(CMChat.F_KICK, event.getPlayer().getUsername()));
     }
 
     @EventHandler()
     public void onQuit(PlayerQuitEvent event) {
-        event.setQuitMessage(TextHelper.parse(CMChat.F_QUIT, event.getPlayer().getName()));
+        event.setQuitMessage(TextHelper.parse(CMChat.F_QUIT, event.getPlayer().getUsername()));
     }
 }

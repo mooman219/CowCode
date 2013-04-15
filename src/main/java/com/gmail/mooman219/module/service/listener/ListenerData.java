@@ -38,12 +38,12 @@ public class ListenerData implements Listener {
 
     @EventHandler
     public void onDataRemoval(DataRemovalEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getName());
+        Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getUsername());
     }
     
     @EventHandler
     public void onDataCreate(DataCreateEvent event) {
-        Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getName());
+        Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getUsername());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -68,7 +68,7 @@ public class ListenerData implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(PlayerLoginEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
+        Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getUsername());
         
         PlayerData playerData = event.getPlayer().getLive().get(PlayerData.class);
         // Service
@@ -84,7 +84,7 @@ public class ListenerData implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
+        Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getUsername());
         
         PLService service = event.getPlayer().getLive().get(PLService.class);
         service.scoreboard.addWatcher(event.getPlayer());
@@ -92,8 +92,9 @@ public class ListenerData implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuit(PlayerQuitEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
+        Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getUsername());
         
+        event.getPlayer().setName(event.getPlayer().getUsername());
         CEventFactory.callDataRemovalEvent(true, event.getPlayer());
         CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, event.getPlayer().getLive().get(PlayerData.class)));
     }
