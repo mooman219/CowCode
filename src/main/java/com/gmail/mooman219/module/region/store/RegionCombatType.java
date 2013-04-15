@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.region;
+package com.gmail.mooman219.module.region.store;
 
 public enum RegionCombatType {
     SAFE(0),

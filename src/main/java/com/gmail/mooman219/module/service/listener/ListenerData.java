@@ -31,14 +31,19 @@ import com.gmail.mooman219.module.service.PlayerData;
 import com.gmail.mooman219.module.service.store.PLService;
 
 public class ListenerData implements Listener {
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onDataVerify(DataVerifyEvent event) {
         Loader.info(CCService.cast + "[EVENT] DataVerify: " + event.getPlayerData().username);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onDataRemoval(DataRemovalEvent event) {
         Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getName());
+    }
+    
+    @EventHandler
+    public void onDataCreate(DataCreateEvent event) {
+        Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getName());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -66,20 +71,15 @@ public class ListenerData implements Listener {
         Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
         
         PlayerData playerData = event.getPlayer().getLive().get(PlayerData.class);
+        // Service
+        PLService service = new PLService();
+        service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
+        event.getPlayer().getLive().set(service);
+        //
         CEventFactory.callDataCreateEvent(event, event.getPlayer());
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
         CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.STATUS, playerData));
         TextHelper.message(event.getPlayer(), CMService.M_DATALOAD);
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onDataCreate(DataCreateEvent event) {
-        Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getName());
-        
-        PlayerData playerData = event.getPlayer().getLive().get(PlayerData.class);
-        PLService service = new PLService();
-        service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
-        event.getPlayer().getLive().set(service);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

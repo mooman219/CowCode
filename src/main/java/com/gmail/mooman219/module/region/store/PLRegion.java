@@ -4,5 +4,5 @@ import com.gmail.mooman219.bukkit.DefaultTag;
 
 @DefaultTag(key = "region")
 public class PLRegion {
-    public CSRegion chunkRegion = null;
+    public CTRegion chunkRegion = null;
 }

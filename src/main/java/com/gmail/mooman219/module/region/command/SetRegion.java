@@ -18,7 +18,7 @@ public class SetRegion extends CCommand {
     @Override
     public void processPlayer(Player sender, PlayerData playerData, String[] args) {
         if(CFInfo.getInformationByID(args[0]) != null) {
-            CFRegion.getRegion(sender).setCSRegionInformation(CFInfo.getInformationByID(args[0]));
+            CFRegion.getChunkRegion(sender).setCSRegionInformation(CFInfo.getInformationByID(args[0]));
             TextHelper.message(sender, CMRegion.M_MODIFIED);
         } else {
             TextHelper.message(sender, CMRegion.M_NONEXISTS);
