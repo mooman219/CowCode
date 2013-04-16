@@ -9,18 +9,16 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.MetaHelper;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.module.service.store.PLService;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class MessingAround implements Listener {
-    @EventHandler()
+    @EventHandler
     public void onDamageScoreBoard(EntityDamageEvent event) {
         if(event.getEntity().getType() == EntityType.PLAYER) {
-            ((Player) event.getEntity()).getLive().get(PLService.class).scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
+            DTPlayer.get(((Player) event.getEntity())).service.scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
         }
     }
 
@@ -29,45 +27,39 @@ public class MessingAround implements Listener {
         event.getProjectile().setVelocity(event.getProjectile().getVelocity().multiply(1.5));
     }
 
-    @EventHandler()
+    @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        int test = event.getPlayer().getTag().get("test", 0);
-        Loader.info("TEST: " + test++);
-        event.getPlayer().getTag().set("test", test);
-        test = event.getPlayer().getTag().get("test", 0);
-        Loader.info("TEST: " + test);
-        System.out.println(MetaHelper.getEntityTagCompound(event.getPlayer()).toString());
-        
-        PLService service = event.getPlayer().getLive().get(PLService.class);
-        service.scoreboard.addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
-        service.scoreboard.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
-        service.scoreboard.addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
-        service.scoreboard.addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
-        service.scoreboard.addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
-        service.scoreboard.addKey("memory", "Memory: Init", 3);
-        service.scoreboard.addKey("lastdamage", "LastDmg: Init", 1);
-        
+        DTPlayer playerData = DTPlayer.get(event.getPlayer());
+        playerData.service.scoreboard.addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
+        playerData.service.scoreboard.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
+        playerData.service.scoreboard.addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
+        playerData.service.scoreboard.addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
+        playerData.service.scoreboard.addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
+        playerData.service.scoreboard.addKey("memory", "Memory: Init", 3);
+        playerData.service.scoreboard.addKey("lastdamage", "LastDmg: Init", 1);
+
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "  Health", true, true);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "1,234,567", true, true);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "*       8", true, true);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "*             14", true, true);
-        
+
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "1,234,567", true, false);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), " 2", true, false);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "       8", true, false);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "             14", true, false);
     }
-    
-    @EventHandler()
+
+    @EventHandler
     public void onSecond(TickSecondSyncEvent event){
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.getLive().get(PLService.class).scoreboard.modifyKeyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
+            DTPlayer playerData = DTPlayer.get(player);
+            playerData.service.scoreboard.modifyKeyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
         }
     }
-    
+
     // Old research
-    
+
     /**
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {

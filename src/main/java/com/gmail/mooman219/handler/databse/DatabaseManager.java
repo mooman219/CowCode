@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.database.mongo.DownloadType;
 import com.gmail.mooman219.frame.database.mongo.MongoConnection;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -61,10 +61,10 @@ public class DatabaseManager {
         return serverDocument;
     }
 
-    public PlayerData downloadPlayerData(String username, DownloadType downloadType) {
+    public DTPlayer downloadPlayerData(String username, DownloadType downloadType) {
         DBObject usernameQuery;
         DBObject playerObject;
-        PlayerData ret = null;
+        DTPlayer ret = null;
         switch(downloadType) {
         case QUERY:
             usernameQuery = new BasicDBObject("usernamelowercase", username.toLowerCase());
@@ -77,7 +77,7 @@ public class DatabaseManager {
         playerObject = c_Users.findOne(usernameQuery);
         if(playerObject != null) {
             Loader.info(CHDatabase.cast + "[DOWN] ["+downloadType.name()+"] normal: " + username);
-            ret = new PlayerData((ObjectId) playerObject.get("_id"), username);
+            ret = new DTPlayer((ObjectId) playerObject.get("_id"), username);
             ret.sync(playerObject);
         } else {
             switch(downloadType) {
@@ -85,7 +85,7 @@ public class DatabaseManager {
                 Loader.info(CHDatabase.cast + "[DOWN] ["+downloadType.name()+"] missing: " + username);
                 usernameQuery.put("usernamelowercase", username.toLowerCase());
                 c_Users.insert(usernameQuery);
-                ret = new PlayerData((ObjectId) c_Users.findOne(usernameQuery).get("_id"), username);
+                ret = new DTPlayer((ObjectId) c_Users.findOne(usernameQuery).get("_id"), username);
                 uploadPlayerData(ret, UploadType.CREATE);
                 break;
             case QUERY:
@@ -97,7 +97,7 @@ public class DatabaseManager {
         return ret;
     }
 
-    public void uploadPlayerData(PlayerData playerData, UploadType uploadType) {
+    public void uploadPlayerData(DTPlayer playerData, UploadType uploadType) {
         Loader.info(CHDatabase.cast + "[UP] ["+uploadType.name()+"] normal: " + playerData.username);
         c_Users.update(new BasicDBObject("_id", playerData.id), new BasicDBObject("$set", playerData.getTemplate(uploadType)));
     }

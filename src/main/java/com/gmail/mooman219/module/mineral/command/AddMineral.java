@@ -15,7 +15,7 @@ import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class AddMineral extends CCommand {
     public HashSet<Byte> skippedBlocks;
@@ -38,7 +38,7 @@ public class AddMineral extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         for(Block block : sender.getLineOfSight(skippedBlocks, 6)){
             if(block.getType() != Material.AIR) {
                 int delay = Integer.parseInt(args[0]);

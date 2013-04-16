@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class RemoveGraveyard extends CCommand {
     public CCGraveyard module;
@@ -23,7 +23,7 @@ public class RemoveGraveyard extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         CSGraveyard graveyardData = GraveyardManager.removeGraveyard(sender.getLocation());
         TextHelper.message(sender, CMGraveyard.F_REMOVE, graveyardData.getLocation().getBlockX(), graveyardData.getLocation().getBlockZ());
         WorldHelper.playEffect(graveyardData.getLocation(), Effect.MOBSPAWNER_FLAMES);

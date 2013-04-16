@@ -12,7 +12,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class ListGraveyards extends CCommand {
     public ListGraveyards() {
@@ -20,7 +20,7 @@ public class ListGraveyards extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         TextHelper.message(sender, CMGraveyard.F_LIST_TITLE , StoreGraveyard.graveyards.size());
         for(int i = 0; i < StoreGraveyard.graveyards.size(); i++) {
             Location location = StoreGraveyard.graveyards.get(i).getLocation().clone();

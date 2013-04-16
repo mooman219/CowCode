@@ -3,12 +3,12 @@ package com.gmail.mooman219.handler.databse.task;
 import com.gmail.mooman219.frame.database.mongo.DownloadType;
 import com.gmail.mooman219.handler.databse.CHDatabase;
 import com.gmail.mooman219.handler.task.type.CCTask;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class DownloadTask extends CCTask {
     public final String username;
     public final DownloadType downloadType;
-    public PlayerData playerData;
+    public DTPlayer playerData;
 
     public DownloadTask(String username, DownloadType downloadType) {
         this.username = username;

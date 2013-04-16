@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class TotalMinerals extends CCommand {
     public TotalMinerals() {
@@ -16,7 +16,7 @@ public class TotalMinerals extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         TextHelper.message(sender, CMMineral.F_TOTAL, StoreMineral.minerals.size());
     }
 

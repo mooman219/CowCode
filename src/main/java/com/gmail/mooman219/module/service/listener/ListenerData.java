@@ -1,5 +1,7 @@
 package com.gmail.mooman219.module.service.listener;
 
+import net.minecraft.server.PendingConnection;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +14,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.MetaHelper;
 import com.gmail.mooman219.frame.database.mongo.DownloadType;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.frame.event.CEventFactory;
@@ -27,7 +28,7 @@ import com.gmail.mooman219.handler.databse.task.UploadTask;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.CMService;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 import com.gmail.mooman219.module.service.store.PLService;
 
 public class ListenerData implements Listener {
@@ -38,12 +39,12 @@ public class ListenerData implements Listener {
 
     @EventHandler
     public void onDataRemoval(DataRemovalEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getUsername());
+        Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getName());
     }
     
     @EventHandler
     public void onDataCreate(DataCreateEvent event) {
-        Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getUsername());
+        Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getName());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -58,7 +59,7 @@ public class ListenerData implements Listener {
         }
         CEventFactory.callDataVerifyEvent(event, task.playerData);
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.ALLOWED) {
-            MetaHelper.getStore(event).set(task.playerData);
+            ((PendingConnection) event.getPendingConnection()).dataLive = task.playerData;
         } else if(event.getKickMessage().length() <= 0) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CMService.M_LOGINERROR);
         } else {
@@ -68,13 +69,12 @@ public class ListenerData implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(PlayerLoginEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getUsername());
-        
-        PlayerData playerData = event.getPlayer().getLive().get(PlayerData.class);
-        // Service
-        PLService service = new PLService();
-        service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
-        event.getPlayer().getLive().set(service);
+        Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
+
+        DTPlayer playerData = DTPlayer.get(event.getPlayer());
+        // Service - DataCreateEvent
+        playerData.service = new PLService();
+        playerData.service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
         //
         CEventFactory.callDataCreateEvent(event, event.getPlayer());
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
@@ -84,19 +84,18 @@ public class ListenerData implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getUsername());
+        Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
         
-        PLService service = event.getPlayer().getLive().get(PLService.class);
-        service.scoreboard.addWatcher(event.getPlayer());
+        DTPlayer playerData = DTPlayer.get(event.getPlayer());
+        playerData.service.scoreboard.addWatcher(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuit(PlayerQuitEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getUsername());
+        Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
         
-        event.getPlayer().setName(event.getPlayer().getUsername());
         CEventFactory.callDataRemovalEvent(true, event.getPlayer());
-        CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, event.getPlayer().getLive().get(PlayerData.class)));
+        CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, DTPlayer.get(event.getPlayer())));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

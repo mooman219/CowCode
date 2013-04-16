@@ -43,7 +43,7 @@ public class CCService implements Module {
     public void onDisable() {
         Loader.info(cast + "Removing players");
         for(Player player : Bukkit.getOnlinePlayers()) {
-            PlayerData playerData = player.getLive().get(PlayerData.class);
+            DTPlayer playerData = DTPlayer.get(player);
             CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, playerData));
             player.kickPlayer(CMLogin.M_SHUTDOWN);
             Loader.info(CCService.cast + "[STOP] (" + Bukkit.getOnlinePlayers().length + ") normal: " + playerData.username);

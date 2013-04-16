@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class TeleportClosestGraveyard extends CCommand {
     public TeleportClosestGraveyard() {
@@ -19,7 +19,7 @@ public class TeleportClosestGraveyard extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         CSGraveyard graveyardData = GraveyardManager.getClosestGraveyard(sender.getLocation());
         if(graveyardData != null) {
             sender.teleport(graveyardData.getLocation());

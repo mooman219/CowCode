@@ -13,7 +13,7 @@ import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class AddGraveyard extends CCommand {
     public CCGraveyard module;
@@ -24,7 +24,7 @@ public class AddGraveyard extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         Location location = sender.getLocation().clone().add(0, 0.1, 0);
         GraveyardManager.addGraveyard(location, Integer.parseInt(args[0]));
         WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);

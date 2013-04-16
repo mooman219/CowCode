@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.region.CMRegion;
 import com.gmail.mooman219.module.region.store.CFInfo;
 import com.gmail.mooman219.module.region.store.CFRegion;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class SetRegion extends CCommand {
     public SetRegion() {
@@ -16,7 +16,7 @@ public class SetRegion extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         if(CFInfo.getInformationByID(args[0]) != null) {
             CFRegion.getChunkRegion(sender).setCSRegionInformation(CFInfo.getInformationByID(args[0]));
             TextHelper.message(sender, CMRegion.M_MODIFIED);

@@ -9,7 +9,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 
 public class ClearMinerals extends CCommand {
     public CCMineral module;
@@ -20,7 +20,7 @@ public class ClearMinerals extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         TextHelper.message(sender, CMMineral.F_CLEAR, StoreMineral.minerals.size());
         StoreMineral.minerals.clear();
         module.storeMineral.save();

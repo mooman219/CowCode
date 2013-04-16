@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.service.CMService;
-import com.gmail.mooman219.module.service.PlayerData;
+import com.gmail.mooman219.module.service.DTPlayer;
 import com.gmail.mooman219.module.service.task.WhoisTask;
 
 public class Whois extends CCommand {
@@ -20,7 +20,7 @@ public class Whois extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, PlayerData playerData, String[] args) {
+    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
         if(args.length == 1) {
             if(args[0].length() > 16 || args[0].length() < 3) {
                 TextHelper.message(sender, CMService.F_WHOIS_NOEXIST, args[0]);
@@ -28,7 +28,7 @@ public class Whois extends CCommand {
             }
             Player player = Bukkit.getPlayer(args[0]);
             if(player != null) {
-                displayWhois(sender, player.getLive().get(PlayerData.class));
+                displayWhois(sender, DTPlayer.get(player));
                 return;
             }
             CHTask.manager.runAsyncPluginTask(WhoisTask.get(sender, args[0]));
@@ -37,7 +37,7 @@ public class Whois extends CCommand {
         }
     }
 
-    public static void displayWhois(Player sender, PlayerData target) {
+    public static void displayWhois(Player sender, DTPlayer target) {
         long currentTime = System.currentTimeMillis();
         sender.sendMessage(Chat.msgInfo + "Displaying " + target.serviceData.rank.color + target.username + Chat.GREEN + "'s data:\n" +
                 Chat.lineInfo + Chat.GRAY + "Rank" + Chat.DARK_GRAY + ": " + target.serviceData.rank.color + target.serviceData.rank.name() + "\n" +

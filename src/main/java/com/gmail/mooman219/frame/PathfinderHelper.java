@@ -337,4 +337,9 @@ public class PathfinderHelper {
     public static void setupPathfinder(Pig pig) {
         EntityPig entitPig = ((CraftPig) pig).getHandle();
     }
+    
+    // Enderman
+    // Spidee -> CaveSpider
+    // Silverfish
+    // Pigzombie
 }

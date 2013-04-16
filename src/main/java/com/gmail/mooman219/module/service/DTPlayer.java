@@ -1,19 +1,20 @@
 package com.gmail.mooman219.module.service;
 
 import org.bson.types.ObjectId;
+import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.bukkit.DefaultTag;
 import com.gmail.mooman219.frame.database.mongo.DatabaseData;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
+import com.gmail.mooman219.module.region.store.PLRegion;
 import com.gmail.mooman219.module.service.store.PDService;
+import com.gmail.mooman219.module.service.store.PLService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-@DefaultTag(key = "playerdata")
-public class PlayerData implements DatabaseData {
+public class DTPlayer implements DatabaseData {
     // [+] Data information
     public final ObjectId id;
     public final String username;
@@ -21,8 +22,12 @@ public class PlayerData implements DatabaseData {
     public PDService serviceData = null;
     public PDLogin loginData = null;
     public PDChat chatData = null;
+    // [+] Live information
+    // [-]---[+] Module
+    public PLService service = null;
+    public PLRegion region = null;
 
-    public PlayerData(ObjectId id, String username) {
+    public DTPlayer(ObjectId id, String username) {
         this.id = id;
         this.username = username;
 
@@ -47,5 +52,9 @@ public class PlayerData implements DatabaseData {
 
     public String getTag() {
         return "";
+    }
+
+    public static DTPlayer get(Player player) {
+        return (DTPlayer) player.getLive();
     }
 }
