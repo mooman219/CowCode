@@ -11,11 +11,11 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.module.DLPlayer;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
-import com.gmail.mooman219.module.service.DTPlayer;
 
 public class RemoveMineral extends CCommand {
     public HashSet<Byte> skippedBlocks;
@@ -38,7 +38,7 @@ public class RemoveMineral extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
         for(Block block : sender.getLineOfSight(skippedBlocks, 6)){
             if(block.getType() != Material.AIR) {
                 if(MineralManager.removeMineral(block.getLocation()) != null) {

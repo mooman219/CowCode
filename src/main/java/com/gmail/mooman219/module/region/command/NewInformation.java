@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.module.DLPlayer;
 import com.gmail.mooman219.module.region.CMRegion;
 import com.gmail.mooman219.module.region.store.CFInfo;
-import com.gmail.mooman219.module.service.DTPlayer;
 
 public class NewInformation extends CCommand {
     public NewInformation() {
@@ -15,7 +15,7 @@ public class NewInformation extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
         if(CFInfo.getInformationByID(args[0]) != null) {
             TextHelper.message(sender, CMRegion.M_EXISTS);
         } else {

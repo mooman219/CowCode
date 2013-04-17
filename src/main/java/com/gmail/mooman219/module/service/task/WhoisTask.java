@@ -6,8 +6,8 @@ import com.gmail.mooman219.frame.database.mongo.DownloadType;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.databse.CHDatabase;
 import com.gmail.mooman219.handler.task.type.CCTask;
+import com.gmail.mooman219.module.DLPlayer;
 import com.gmail.mooman219.module.service.CMService;
-import com.gmail.mooman219.module.service.DTPlayer;
 import com.gmail.mooman219.module.service.command.Whois;
 
 public class WhoisTask extends CCTask {
@@ -24,7 +24,7 @@ public class WhoisTask extends CCTask {
     }
     
     public void run() {
-        DTPlayer playerData = CHDatabase.manager.downloadPlayerData(username, DownloadType.QUERY);
+        DLPlayer playerData = CHDatabase.manager.downloadPlayerData(username, DownloadType.QUERY);
         if(playerData == null) {
             TextHelper.message(sender, CMService.F_WHOIS_NOEXIST, username);
         } else {

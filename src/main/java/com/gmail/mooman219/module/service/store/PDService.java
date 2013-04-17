@@ -1,6 +1,5 @@
 package com.gmail.mooman219.module.service.store;
 
-import com.gmail.mooman219.frame.database.mongo.DatabaseData;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.frame.rank.Rank;
@@ -9,7 +8,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class PDService implements DatabaseData {
+public class PDService {
     public final String tag = "service";
 
     public Rank rank = Rank.REGULAR;

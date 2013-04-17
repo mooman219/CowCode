@@ -9,10 +9,10 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.module.DLPlayer;
 import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.store.CSMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
-import com.gmail.mooman219.module.service.DTPlayer;
 
 public class ListMinerals extends CCommand {
     public ListMinerals() {
@@ -20,7 +20,7 @@ public class ListMinerals extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DTPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
         TextHelper.message(sender, CMMineral.F_LIST_TITLE, StoreMineral.minerals.size());
         int i = 0;
         for(CSMineral mineralData : StoreMineral.minerals.values()) {

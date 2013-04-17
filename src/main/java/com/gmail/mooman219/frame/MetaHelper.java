@@ -1,6 +1,7 @@
 package com.gmail.mooman219.frame;
 
 import net.minecraft.server.NBTTagCompound;
+
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
@@ -22,8 +23,11 @@ public class MetaHelper {
     }
     
     public static NBTTagCompound getItemstackTagCompound(ItemStack itemstack) {
+        if(!(itemstack instanceof CraftItemStack) || ((CraftItemStack)itemstack).getHandle() == null) {
+            throw new IllegalArgumentException("Invalid itemstack.");
+        }
         NBTTagCompound tag = new NBTTagCompound();
-        CraftItemStack.asNMSCopy(itemstack).save(tag);
+        ((CraftItemStack)itemstack).getHandle().save(tag);
         return tag;
     }
 }

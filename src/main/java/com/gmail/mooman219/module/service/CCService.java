@@ -9,6 +9,7 @@ import com.gmail.mooman219.core.Module;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.handler.databse.task.UploadTask;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.module.DLPlayer;
 import com.gmail.mooman219.module.login.CMLogin;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
@@ -43,7 +44,7 @@ public class CCService implements Module {
     public void onDisable() {
         Loader.info(cast + "Removing players");
         for(Player player : Bukkit.getOnlinePlayers()) {
-            DTPlayer playerData = DTPlayer.get(player);
+            DLPlayer playerData = DLPlayer.get(player);
             CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, playerData));
             player.kickPlayer(CMLogin.M_SHUTDOWN);
             Loader.info(CCService.cast + "[STOP] (" + Bukkit.getOnlinePlayers().length + ") normal: " + playerData.username);

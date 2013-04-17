@@ -1,6 +1,5 @@
 package com.gmail.mooman219.module.chat.store;
 
-import com.gmail.mooman219.frame.database.mongo.DatabaseData;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -8,7 +7,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class PDChat implements DatabaseData {
+public class PDChat {
     public final String tag = "chat";
 
     public long mutedUntil = 0l;
