@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.gmail.mooman219.core.Loader;
+import com.gmail.mooman219.handler.task.task.AsyncTaskQueue;
+import com.gmail.mooman219.handler.task.task.SyncTaskQueue;
 import com.gmail.mooman219.handler.task.type.CCTask;
 import com.gmail.mooman219.handler.task.type.CCThread;
 

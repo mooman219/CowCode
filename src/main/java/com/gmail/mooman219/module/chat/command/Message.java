@@ -5,8 +5,9 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.DLPlayer;
-import com.gmail.mooman219.module.chat.CCChat;
+import com.gmail.mooman219.module.chat.task.ChatTask;
 
 public class Message extends CCommand {
     public Message() {
@@ -15,6 +16,6 @@ public class Message extends CCommand {
 
     @Override
     public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
-        CCChat.queueChat.put(sender, "@" + args[0] + " " + TextHelper.merge(args, 1));
+        CHTask.manager.runAsyncPluginTask(ChatTask.get(sender, "@" + args[0] + " " + TextHelper.merge(args, 1)));
     }
 }

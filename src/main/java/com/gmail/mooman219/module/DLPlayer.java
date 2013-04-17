@@ -12,6 +12,7 @@ import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.module.chat.store.PDChat;
+import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
 import com.gmail.mooman219.module.region.store.PLRegion;
 import com.gmail.mooman219.module.service.store.PDService;
@@ -32,6 +33,7 @@ public class DLPlayer {
     // [-]---[+] Module
     public PLService service = null;
     public PLRegion region = null;
+    public PLChat chat = null;
 
     public DLPlayer(ObjectId id, String username) {
         this.id = id;

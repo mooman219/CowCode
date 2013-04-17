@@ -31,7 +31,7 @@ public abstract class CCLinkedBlockingQueue<E> {
         if(linkedBlockingQueue != null) {
             if(isImportant) {
                 Runnable consumer = getConsumer();
-                while(size - linkedBlockingQueue.remainingCapacity() > 1) {
+                while(linkedBlockingQueue.size() > 1) {
                     consumer.run();
                 }
             }

@@ -11,12 +11,9 @@ import com.gmail.mooman219.module.chat.command.SetChatRange;
 import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
-import com.gmail.mooman219.module.chat.queue.ChatQueue;
 
 public class CCChat implements Module {
     public final Loader plugin;
-
-    public static ChatQueue queueChat;
 
     public final static String directord = "plugins/CowCraft/";
     public final static String cast = "[CC][M][Chat] ";
@@ -30,9 +27,6 @@ public class CCChat implements Module {
     }
 
     public void onEnable(){
-        Loader.info(cast + "Starting ChatQueue");
-        queueChat = new ChatQueue();
-        queueChat.start();
         listenerChat = new ListenerChat();
         listenerPlayer = new ListenerPlayer();
         listenerData = new ListenerData();
@@ -46,8 +40,6 @@ public class CCChat implements Module {
     }
 
     public void onDisable(){
-        Loader.info(cast + "Stopping ChatQueue");
-        queueChat.stop();
         Loader.info(cast + "Disabled");
     }
     
