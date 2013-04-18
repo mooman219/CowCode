@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import org.bukkit.Chunk;
-import com.gmail.mooman219.bukkit.DefaultTag;
 
-@DefaultTag(key = "region")
 public class CTRegion implements Serializable {
     private final Chunk head;
     private UUID parentKey;
@@ -32,15 +30,5 @@ public class CTRegion implements Serializable {
     public void setParentInformation(RegionInformation information) {
         this.parentKey = information.getKey();
         this.parentInformation = information;
-    }
-    
-    public static CTRegion getChunkRegion(Chunk chunk) {
-        CTRegion region = chunk.getTag().get(CTRegion.class);
-        if(region == null) {
-            WTRegion worldRegion = WTRegion.getWorldRegion(chunk.getWorld());  
-            region = new CTRegion(chunk, worldRegion.getGlobalInformation());
-            chunk.getTag().set(region);
-        }
-        return region;
     }
 }

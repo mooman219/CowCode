@@ -12,13 +12,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class MessingAround implements Listener {
     @EventHandler
     public void onDamageScoreBoard(EntityDamageEvent event) {
         if(event.getEntity().getType() == EntityType.PLAYER) {
-            DLPlayer.get(((Player) event.getEntity())).service.scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
+            CDPlayer.get(((Player) event.getEntity())).service.scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
         }
     }
 
@@ -29,7 +29,7 @@ public class MessingAround implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        DLPlayer playerData = DLPlayer.get(event.getPlayer());
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         playerData.service.scoreboard.addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
         playerData.service.scoreboard.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
         playerData.service.scoreboard.addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
@@ -53,7 +53,7 @@ public class MessingAround implements Listener {
     public void onSecond(TickSecondSyncEvent event){
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
         for(Player player : Bukkit.getOnlinePlayers()) {
-            DLPlayer playerData = DLPlayer.get(player);
+            CDPlayer playerData = CDPlayer.get(player);
             playerData.service.scoreboard.modifyKeyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
         }
     }

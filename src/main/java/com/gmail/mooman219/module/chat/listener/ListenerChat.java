@@ -13,13 +13,13 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.chat.CMChat;
 
 public class ListenerChat implements Listener{
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
-        DLPlayer playerData = DLPlayer.get(event.getPlayer());
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         // Muted players
         if(playerData.chatData.mutedUntil - System.currentTimeMillis() > 0) {
             event.setCancelled(true);
@@ -37,7 +37,7 @@ public class ListenerChat implements Listener{
                 if(foundPlayer == null) {
                     TextHelper.message(event.getPlayer(), CMChat.F_MESSAGE_EXIST, message[0].substring(1));
                 } else {
-                    DLPlayer otherPlayerData = DLPlayer.get(foundPlayer);
+                    CDPlayer otherPlayerData = CDPlayer.get(foundPlayer);
                     if(otherPlayerData.username.equals(playerData.username)) {
                         TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_SELF);
                     } else {
@@ -65,7 +65,7 @@ public class ListenerChat implements Listener{
         } else {
             event.setFormat(playerData.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
             for(Player otherPlayer : event.getRecipients()) {
-            	DLPlayer otherPlayerData = DLPlayer.get(otherPlayer);
+            	CDPlayer otherPlayerData = CDPlayer.get(otherPlayer);
                 if(!playerData.username.equals(otherPlayerData.username)) {
                     double distance = LocationHelper.get2DistanceSquared(playerData.player.getLocation(), otherPlayerData.player.getLocation());
                     if(distance > Math.pow(ConfigGlobal.chatRadius, 2)) {
@@ -79,7 +79,7 @@ public class ListenerChat implements Listener{
         }
     }
 
-    public void message(DLPlayer sender, DLPlayer receiver, String message) {
+    public void message(CDPlayer sender, CDPlayer receiver, String message) {
         if(receiver == null || !receiver.player.isOnline()) {
             sender.chat.setLastMessaged(null);
             TextHelper.message(sender.player, CMChat.M_MESSAGE_LOST);

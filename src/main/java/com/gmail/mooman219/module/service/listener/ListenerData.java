@@ -24,7 +24,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.databse.task.DownloadTask;
 import com.gmail.mooman219.handler.databse.task.UploadTask;
 import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.CMService;
 import com.gmail.mooman219.module.service.store.PLService;
@@ -57,7 +57,7 @@ public class ListenerData implements Listener {
         }
         CEventFactory.callDataVerifyEvent(event, task.playerData);
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.ALLOWED) {
-            DLPlayer.set(event, task.playerData);
+            CDPlayer.set(event, task.playerData);
         } else if(event.getKickMessage().length() <= 0) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CMService.M_LOGINERROR);
         } else {
@@ -69,7 +69,7 @@ public class ListenerData implements Listener {
     public void onLogin(PlayerLoginEvent event) {
         Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
 
-        DLPlayer playerData = DLPlayer.get(event.getPlayer());
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         // Service - DataCreateEvent
         playerData.service = new PLService();
         playerData.service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
@@ -84,7 +84,7 @@ public class ListenerData implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
         
-        DLPlayer playerData = DLPlayer.get(event.getPlayer());
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         playerData.service.scoreboard.addWatcher(event.getPlayer());
     }
 
@@ -93,7 +93,7 @@ public class ListenerData implements Listener {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
         
         CEventFactory.callDataRemovalEvent(true, event.getPlayer());
-        CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, DLPlayer.get(event.getPlayer())));
+        CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, CDPlayer.get(event.getPlayer())));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

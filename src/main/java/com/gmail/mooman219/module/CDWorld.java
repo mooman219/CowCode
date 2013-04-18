@@ -8,16 +8,16 @@ import org.bukkit.craftbukkit.CraftWorld;
 
 import com.gmail.mooman219.frame.TagHelper;
 
-public class DLWorld {
+public class CDWorld {
     public final World world;
     
-    public DLWorld(World world) {
+    public CDWorld(World world) {
         this.world = world;
         loadTag();
     }
     
     /*
-     * Module
+     * Live
      */
     
     // None
@@ -50,13 +50,13 @@ public class DLWorld {
         return ((CraftWorld)world).getHandle().getWorldData();
     }
     
-    public static DLWorld get(World world) {
+    public static CDWorld get(World world) {
         WorldData handle = ((CraftWorld)world).getHandle().getWorldData();
         if(handle.dataLive == null) {
-            handle.dataLive = new DLWorld(world);
-        } else if(!(handle.dataLive instanceof DLWorld)) {
+            handle.dataLive = new CDWorld(world);
+        } else if(!(handle.dataLive instanceof CDWorld)) {
             throw new IllegalArgumentException("Invalid data on world.");
         }
-        return (DLWorld) handle.dataLive;
+        return (CDWorld) handle.dataLive;
     }
 }

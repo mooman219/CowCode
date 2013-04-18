@@ -8,16 +8,16 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.TagHelper;
 
-public class DLEntity {
+public class CDEntity {
     public final Entity entity;
     
-    private DLEntity(Entity entity) {
+    private CDEntity(Entity entity) {
         this.entity = entity;
         loadTag();
     }
     
     /*
-     * Module
+     * Live
      */
     
     // None
@@ -50,16 +50,16 @@ public class DLEntity {
         return ((CraftEntity)entity).getHandle();
     }
     
-    public static DLEntity get(Entity entity) {
+    public static CDEntity get(Entity entity) {
         net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
         if(entity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered entities.");
         }
         if(handle.dataLive == null) {
-            handle.dataLive = new DLEntity(entity);
-        } else if(!(handle.dataLive instanceof DLEntity)) {
+            handle.dataLive = new CDEntity(entity);
+        } else if(!(handle.dataLive instanceof CDEntity)) {
             throw new IllegalArgumentException("Invalid data on entity.");
         }
-        return (DLEntity) handle.dataLive;
+        return (CDEntity) handle.dataLive;
     }
 }

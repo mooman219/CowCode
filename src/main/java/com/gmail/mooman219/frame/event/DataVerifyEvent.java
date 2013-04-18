@@ -4,15 +4,15 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class DataVerifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    private final DLPlayer playerData;
+    private final CDPlayer playerData;
     private final AsyncPlayerPreLoginEvent event;
 
-    public DataVerifyEvent(AsyncPlayerPreLoginEvent event, DLPlayer playerData) {
+    public DataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer playerData) {
         super(true);
         this.playerData = playerData;
         this.event = event;
@@ -27,7 +27,7 @@ public class DataVerifyEvent extends Event {
         return handlers;
     }
     
-    public DLPlayer getPlayerData() {
+    public CDPlayer getPlayerData() {
         return playerData;
     }
 

@@ -20,7 +20,7 @@ import com.gmail.mooman219.module.service.store.PLService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class DLPlayer {
+public class CDPlayer {
     // [+] Data information
     public final ObjectId id;
     public final String username;
@@ -35,7 +35,7 @@ public class DLPlayer {
     public PLRegion region = null;
     public PLChat chat = null;
 
-    public DLPlayer(ObjectId id, String username) {
+    public CDPlayer(ObjectId id, String username) {
         this.id = id;
         this.username = username;
 
@@ -86,12 +86,12 @@ public class DLPlayer {
     	return ((CraftPlayer)player).getHandle();
     }
     
-    public static DLPlayer get(Player player) {
+    public static CDPlayer get(Player player) {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
-        if(handle.dataLive == null || !(handle.dataLive instanceof DLPlayer)) {
+        if(handle.dataLive == null || !(handle.dataLive instanceof CDPlayer)) {
             throw new IllegalArgumentException("Invalid data on player.");
         }
-        DLPlayer ret = (DLPlayer) handle.dataLive;
+        CDPlayer ret = (CDPlayer) handle.dataLive;
         if(ret.player == null) {
         	ret.player = player;
         	ret.loadTag();
@@ -99,11 +99,11 @@ public class DLPlayer {
         return ret;
     }
     
-    public static void set(Player player, DLPlayer dataPlayer) {
+    public static void set(Player player, CDPlayer dataPlayer) {
         ((CraftPlayer)player).getHandle().dataLive = dataPlayer;
     }
     
-    public static void set(AsyncPlayerPreLoginEvent event, DLPlayer dataPlayer) {
+    public static void set(AsyncPlayerPreLoginEvent event, CDPlayer dataPlayer) {
         ((PendingConnection) event.getPendingConnection()).dataLive = dataPlayer;
     }
 }

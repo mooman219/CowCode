@@ -7,7 +7,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.chat.CMChat;
 
 public class SetChatRange extends CCommand {
@@ -16,7 +16,7 @@ public class SetChatRange extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         int oldRange = ConfigGlobal.chatRadius;
         ConfigGlobal.chatRadius = Integer.parseInt(args[0]);
         CHConfig.configGlobal.save();

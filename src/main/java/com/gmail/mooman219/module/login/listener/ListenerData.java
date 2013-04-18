@@ -14,7 +14,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.login.CMLogin;
 
 public class ListenerData implements Listener {
@@ -31,7 +31,7 @@ public class ListenerData implements Listener {
 
     @EventHandler()
     public void onCreation(DataCreateEvent event) {
-    	DLPlayer playerData = DLPlayer.get(event.getPlayer());
+    	CDPlayer playerData = CDPlayer.get(event.getPlayer());
         long currentTime = System.currentTimeMillis();
         if(playerData.loginData.firstlogin == 0) {
         	playerData.loginData.firstlogin = currentTime;
@@ -42,7 +42,7 @@ public class ListenerData implements Listener {
 
     @EventHandler()
     public void onRemoval(DataRemovalEvent event) {
-    	DLPlayer playerData = DLPlayer.get(event.getPlayer());
+    	CDPlayer playerData = CDPlayer.get(event.getPlayer());
         long currentTime = System.currentTimeMillis();
         playerData.loginData.lastKnownIP = playerData.player.getAddress().getAddress().getHostAddress();
         playerData.loginData.timeplayed += currentTime - playerData.loginData.lastlogin;

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class CEventFactory {
     public static DataCreateEvent callDataCreateEvent(PlayerLoginEvent event, Player player) {
@@ -20,7 +20,7 @@ public class CEventFactory {
         return ccEvent;
     }
     
-    public static DataVerifyEvent callDataVerifyEvent(AsyncPlayerPreLoginEvent event, DLPlayer playerData) {
+    public static DataVerifyEvent callDataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer playerData) {
         DataVerifyEvent ccEvent = new DataVerifyEvent(event, playerData);
         Bukkit.getPluginManager().callEvent(ccEvent);
         return ccEvent;

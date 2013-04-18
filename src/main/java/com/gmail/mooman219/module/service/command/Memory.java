@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class Memory extends CCommand {
     public Memory() {
@@ -14,7 +14,7 @@ public class Memory extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         displayMemoryUsage(sender);
     }
     

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class CCommand implements CommandExecutor {
     public CommandUsage usage;
@@ -26,7 +26,7 @@ public class CCommand implements CommandExecutor {
             sender.sendMessage(Chat.msgError + "Invalid Usage.\n" + Chat.lineError + "Correct Usage" + Chat.DARK_GRAY + ": " + Chat.WHITE + help);
         } else if(sender instanceof Player) {
             Player player = (Player) sender;
-            DLPlayer playerData = DLPlayer.get(player);
+            CDPlayer playerData = CDPlayer.get(player);
             if(playerData.serviceData.rank.index >= requiredRank.index) {
                 processPlayer(player, playerData, args);
             } else {
@@ -38,7 +38,7 @@ public class CCommand implements CommandExecutor {
         return true;
     }
 
-    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         sender.sendMessage(Chat.msgError + "Unable to use command");
     }
 

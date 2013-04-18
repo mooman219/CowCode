@@ -2,23 +2,23 @@ package com.gmail.mooman219.module.chat.store;
 
 import java.lang.ref.SoftReference;
 
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class PLChat {
-    private SoftReference<DLPlayer> softLastMessaged;
+    private SoftReference<CDPlayer> softLastMessaged;
     public long lastGlobalChat = 0l;
 
-    public final DLPlayer getLastMessaged() {
+    public final CDPlayer getLastMessaged() {
         if (softLastMessaged == null || softLastMessaged.get() == null) {
             return null;
         }
         return softLastMessaged.get();
     }
 
-    public final void setLastMessaged(DLPlayer lastMessaged) {
+    public final void setLastMessaged(CDPlayer lastMessaged) {
         if(softLastMessaged != null) {
             softLastMessaged.clear();
         }
-        softLastMessaged = new SoftReference<DLPlayer>(lastMessaged);
+        softLastMessaged = new SoftReference<CDPlayer>(lastMessaged);
     }
 }

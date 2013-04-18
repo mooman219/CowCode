@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
@@ -19,7 +19,7 @@ public class TeleportGraveyard extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         CSGraveyard graveyardData = GraveyardManager.getGraveyard(Integer.parseInt(args[0]));
         if(graveyardData != null) {
             sender.teleport(graveyardData.getLocation());

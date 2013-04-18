@@ -6,11 +6,14 @@ import java.util.UUID;
 import com.gmail.mooman219.frame.NumberHelper;
 
 public class RegionInformation implements Serializable {
-    private final UUID key;
-    private transient RegionCombatType combatType = null;
+	private static final long serialVersionUID = -8236674287606087142L;
+	
+	private final UUID key;
     private int combatTypeID = RegionCombatType.SAFE.id;
     private String name = "Default";
     private String description = "This is the default region information.";
+    
+    private transient RegionCombatType combatType = null;
     
     public RegionInformation(UUID key) {
         this.key = key;

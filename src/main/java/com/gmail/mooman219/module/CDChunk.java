@@ -7,16 +7,16 @@ import org.bukkit.craftbukkit.CraftChunk;
 
 import com.gmail.mooman219.frame.TagHelper;
 
-public class DLChunk {
+public class CDChunk {
     public final Chunk chunk;
 
-    public DLChunk(Chunk chunk) {
+    public CDChunk(Chunk chunk) {
         this.chunk = chunk;
         loadTag();
     }
     
     /*
-     * Module
+     * Live
      */
     
     // None
@@ -49,13 +49,13 @@ public class DLChunk {
         return ((CraftChunk)chunk).getHandle();
     }
 
-    public static DLChunk get(Chunk chunk) {
+    public static CDChunk get(Chunk chunk) {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
         if(handle.dataLive == null) {
-            handle.dataLive = new DLChunk(chunk);
-        } else if(!(handle.dataLive instanceof DLChunk)) {
+            handle.dataLive = new CDChunk(chunk);
+        } else if(!(handle.dataLive instanceof CDChunk)) {
             throw new IllegalArgumentException("Invalid data on chunk.");
         }
-        return (DLChunk) handle.dataLive;
+        return (CDChunk) handle.dataLive;
     }
 }

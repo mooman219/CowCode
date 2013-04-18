@@ -5,7 +5,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.module.DLPlayer;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class Test extends CCommand {
     public Test() {
@@ -13,7 +13,7 @@ public class Test extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, DLPlayer playerData, String[] args) {
+    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         sender.removePotionEffect(PotionEffectType.JUMP);
         sender.addPotionEffect(PotionEffectType.JUMP.createEffect(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
         //PacketHelper.test(sender, args[0], Integer.parseInt(args[1]));

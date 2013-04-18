@@ -50,10 +50,12 @@ public class Loader extends JavaPlugin {
 
     /*
      * C    | Cow             | Cow related files
+     * CD	| Cow Data		  |
      * CH   | Cow Handler     | Handler modules
      * CC   | Cow Component   | Plugin modules
      * CM   | Cow Message     | Strings for messages
      * CS   | Cow Serialize   | Custom ConfigurationSerializables
+     * 
      * 
      * PD   | Player Data
      * PL   | Player Live
