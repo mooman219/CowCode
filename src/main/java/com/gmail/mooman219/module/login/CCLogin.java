@@ -18,6 +18,7 @@ public class CCLogin implements Module{
         plugin = head;
     }
 
+    @Override
     public void onEnable(){
         listenerPlayerData = new ListenerData();
 
@@ -27,11 +28,14 @@ public class CCLogin implements Module{
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable(){
         Loader.info(cast + "Disabled");
     }
-    
+
+    @Override
     public void registerConfigurationSerialization() {}
 
+    @Override
     public void loadCommands() {}
 }

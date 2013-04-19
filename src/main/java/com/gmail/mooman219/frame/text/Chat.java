@@ -73,6 +73,7 @@ public enum Chat {
         this.string = COLOR_CHAR + "" + color;
     }
 
+    @Override
     public String toString() {
         return string;
     }

@@ -8,7 +8,7 @@ import com.gmail.mooman219.module.world.listener.ListenerBlock;
 
 public class CCWorld implements Module {
     public final Loader plugin;
-    
+
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][M][World] ";
 
@@ -18,6 +18,7 @@ public class CCWorld implements Module {
         plugin = head;
     }
 
+    @Override
     public void onEnable(){
         listenerBlock = new ListenerBlock();
 
@@ -27,11 +28,14 @@ public class CCWorld implements Module {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable() {
         Loader.info(cast + "Disabled");
     }
-    
+
+    @Override
     public void registerConfigurationSerialization() {}
 
+    @Override
     public void loadCommands() {}
 }

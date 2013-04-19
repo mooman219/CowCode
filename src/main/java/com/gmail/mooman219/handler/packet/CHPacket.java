@@ -10,6 +10,7 @@ public class CHPacket implements Handler {
 
     public static PacketHelper helper;
 
+    @Override
     public void onEnable() {
         Loader.info(cast + "Creating PacketHelper");
         helper = new PacketHelper();
@@ -19,6 +20,7 @@ public class CHPacket implements Handler {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable() {
         Loader.info(cast + "Stopping PacketQueue");
         packetQueue.stop();

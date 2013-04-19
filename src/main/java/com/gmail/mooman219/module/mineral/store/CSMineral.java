@@ -43,22 +43,29 @@ public class CSMineral implements ConfigurationSerializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         CSMineral other = (CSMineral) obj;
         if (location == null) {
-            if (other.location != null)
+            if (other.location != null) {
                 return false;
-        } else if (!location.equals(other.location))
+            }
+        } else if (!location.equals(other.location)) {
             return false;
-        if (respawnDelay != other.respawnDelay)
+        }
+        if (respawnDelay != other.respawnDelay) {
             return false;
-        if (type != other.type)
+        }
+        if (type != other.type) {
             return false;
+        }
         return true;
     }
 

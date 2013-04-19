@@ -5,20 +5,20 @@ import java.util.UUID;
 
 import org.bukkit.Chunk;
 
-public class CTRegion implements Serializable {
+public class DCRegion implements Serializable {
     private final Chunk head;
-    private UUID parentKey;
-    private transient RegionInformation parentInformation;
-    
-    private CTRegion(Chunk head, RegionInformation parentInformation) {
+    private String parentUUID;
+    private transient CSRegionInformation parentInformation;
+
+    private DCRegion(Chunk head, CSRegionInformation parentInformation) {
         this.head = head;
         setParentInformation(parentInformation);
     }
-    
-    public RegionInformation getParentInformation() {
+
+    public CSRegionInformation getParentInformation() {
         if(parentInformation == null) {
             WTRegion worldRegion = WTRegion.getWorldRegion(head.getWorld());
-            RegionInformation information = worldRegion.getRegionInformation(parentKey);
+            RegionInformation information = worldRegion.getRegionInformation(parentUUID);
             if(information == null) {
                 information = worldRegion.getGlobalInformation();
             }
@@ -26,9 +26,9 @@ public class CTRegion implements Serializable {
         }
         return parentInformation;
     }
-    
-    public void setParentInformation(RegionInformation information) {
-        this.parentKey = information.getKey();
+
+    public void setParentInformation(CSRegionInformation information) {
+        this.parentUUID = information.uuid;
         this.parentInformation = information;
     }
 }

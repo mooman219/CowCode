@@ -22,7 +22,7 @@ public class Tab {
         for(int x = 0; x < maxTabWidth; x++) {
             for(int y = 0; y < maxTabHeight; y++) {
                 tab[x][y] = new TabValue(nextUnique(), true);
-            }   
+            }
         }
     }
 
@@ -39,12 +39,12 @@ public class Tab {
             updatePlayer(player, false);
         }
     }
-    
+
     public void updatePlayer(Player player, boolean login) {
         for(int x = 0; x < maxTabWidth; x++) {
             for(int y = 0; y < maxTabHeight; y++) {
                 CHPacket.helper.sendPlayerInfo(player, tab[x][y].getClientName(), login, true);
-            }   
+            }
         }
     }
 

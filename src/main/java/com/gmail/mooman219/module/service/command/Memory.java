@@ -17,12 +17,12 @@ public class Memory extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         displayMemoryUsage(sender);
     }
-    
+
     @Override
     public void processConsole(CommandSender sender, String[] args) {
         displayMemoryUsage(sender);
     }
-    
+
     public static void displayMemoryUsage(CommandSender sender) {
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
         double memMax = Runtime.getRuntime().maxMemory() / 1048576L;

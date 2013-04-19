@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class NumberHelper {
     public static final Random random = new Random();
-    
+
     public static int floor(double num) {
         final int floor = (int) num;
         return floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
@@ -79,7 +79,7 @@ public class NumberHelper {
         } catch (Exception e) {}
         return 0;
     }
-    
+
     public static UUID nextUUID() {
         return new UUID(random.nextLong(), random.nextLong());
     }

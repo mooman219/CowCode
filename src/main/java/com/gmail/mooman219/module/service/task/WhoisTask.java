@@ -18,11 +18,12 @@ public class WhoisTask extends CCTask {
         this.sender = sender;
         this.username = username;
     }
-    
+
     public static WhoisTask get(Player sender, String username) {
         return new WhoisTask(sender, username);
     }
-    
+
+    @Override
     public void run() {
         CDPlayer playerData = CHDatabase.manager.downloadPlayerData(username, DownloadType.QUERY);
         if(playerData == null) {

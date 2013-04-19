@@ -36,20 +36,26 @@ public class CSGraveyard implements ConfigurationSerializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         CSGraveyard other = (CSGraveyard) obj;
         if (location == null) {
-            if (other.location != null)
+            if (other.location != null) {
                 return false;
-        } else if (!location.equals(other.location))
+            }
+        } else if (!location.equals(other.location)) {
             return false;
-        if (levelRequirement != other.levelRequirement)
+        }
+        if (levelRequirement != other.levelRequirement) {
             return false;
+        }
         return true;
     }
 

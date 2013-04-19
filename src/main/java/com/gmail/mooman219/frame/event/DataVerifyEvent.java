@@ -26,7 +26,7 @@ public class DataVerifyEvent extends Event {
     public static HandlerList getHandlerList() {
         return handlers;
     }
-    
+
     public CDPlayer getPlayerData() {
         return playerData;
     }

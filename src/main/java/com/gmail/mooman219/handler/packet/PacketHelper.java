@@ -35,7 +35,7 @@ public class PacketHelper {
         packet208.b = scoreboardTitle;
         sendPacketPlayer(bukkitPlayer, packet208);
     }
-    
+
 
     public void sendPlayerInfo(Player bukkitPlayer, String name, boolean online, boolean ping) {
         Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, true, ping ? 0 : 40000);
@@ -49,9 +49,9 @@ public class PacketHelper {
     public void sendPacketPlayer(final Player bukkitPlayer, final Packet packet) {
         CHPacket.packetQueue.put(bukkitPlayer, packet);
     }
-    
+
     // Old research
-    
+
     /**
     public static void test(Player bukkitPlayer, String name, int particles) {
         Packet63WorldParticles packet63 = new Packet63WorldParticles();

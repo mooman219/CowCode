@@ -16,6 +16,7 @@ public class CHTask implements Handler {
         this.plugin = plugin;
     }
 
+    @Override
     public void onEnable() {
         Loader.info(cast + "Starting TaskManager");
         manager = new TaskManager();
@@ -26,6 +27,7 @@ public class CHTask implements Handler {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable() {
         Loader.info(cast + "Stopping TaskManager");
         manager.stop();

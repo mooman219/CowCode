@@ -65,7 +65,7 @@ public class MessingAround implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         playerData.player.setAllowFlight(true);
     }
-    
+
     @EventHandler()
     public void onSneak(PlayerToggleSneakEvent event) {
         PlayerData playerData = PlayerManager.getPlayerData(event.getPlayer());
@@ -73,7 +73,7 @@ public class MessingAround implements Listener {
             event.getPlayer().setVelocity(event.getPlayer().getLocation().getDirection().multiply(0).setY(-1));
         }
     }
-    
+
     @EventHandler()
     public void onFlight(PlayerToggleFlightEvent event) {
         if(event.getPlayer().getGameMode() != GameMode.CREATIVE) {
@@ -90,7 +90,7 @@ public class MessingAround implements Listener {
             }
         }
     }
-    
+
     @EventHandler(ignoreCancelled = false)
     public void onMove(PlayerMoveEvent event) {
         PlayerData playerData = PlayerManager.getPlayerData(event.getPlayer());
@@ -103,7 +103,7 @@ public class MessingAround implements Listener {
             }
         }
     }
-    
+
     public boolean isGroundBelow(Location origin) {
         Location loc = origin.clone();
         if(loc.getBlock().getTypeId() != 0 || loc.subtract(0, 1, 0).getBlock().getTypeId() != 0 || loc.subtract(0, 1, 0).getBlock().getTypeId() != 0) {

@@ -8,6 +8,7 @@ public class CHDatabase implements Handler {
 
     public static DatabaseManager manager;
 
+    @Override
     public void onEnable() {
         Loader.info(cast + "Starting DatabaseManager");
         manager = new DatabaseManager();
@@ -16,11 +17,12 @@ public class CHDatabase implements Handler {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable() {
         Loader.info(cast + "Stopping DatabaseManager");
         manager.stop();
         manager = null;
-        
+
         Loader.info(cast + "Disabled");
     }
 }

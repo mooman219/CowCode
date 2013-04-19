@@ -10,46 +10,46 @@ import com.gmail.mooman219.frame.TagHelper;
 
 public class CDEntity {
     public final Entity entity;
-    
+
     private CDEntity(Entity entity) {
         this.entity = entity;
         loadTag();
     }
-    
+
     /*
      * Live
      */
-    
+
     // None
 
     /*
      * Tag
      */
-    
+
     private int test = 0;
-    
+
     public void setTest(int test) {
-    	this.test = test;
-    	getHandle().dataTag.setInt("test", test);
+        this.test = test;
+        getHandle().dataTag.setInt("test", test);
     }
-    
+
     public int getTest() {
-    	return test;
+        return test;
     }
-    
+
     public void loadTag() {
-    	NBTTagCompound tag = getHandle().dataTag;
-    	test = TagHelper.getInt(tag, "test", test);
+        NBTTagCompound tag = getHandle().dataTag;
+        test = TagHelper.getInt(tag, "test", test);
     }
-    
+
     /*
      * Default
      */
-    
+
     public net.minecraft.server.Entity getHandle() {
         return ((CraftEntity)entity).getHandle();
     }
-    
+
     public static CDEntity get(Entity entity) {
         net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
         if(entity instanceof Player) {

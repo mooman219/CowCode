@@ -66,7 +66,7 @@ public class TextHelper {
         }
         return ret;
     }
-    
+
     public static String shrink(String string) {
         if(string.length() > 16) {
             string = string.substring(0, 16);

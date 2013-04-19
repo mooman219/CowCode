@@ -13,11 +13,12 @@ public class UploadTask extends CCTask {
         this.uploadType = uploadType;
         this.playerData = playerData;
     }
-    
+
     public static UploadTask get(UploadType uploadType, CDPlayer playerData) {
         return new UploadTask(uploadType, playerData);
     }
 
+    @Override
     public void run() {
         CHDatabase.manager.uploadPlayerData(playerData, uploadType);
     }

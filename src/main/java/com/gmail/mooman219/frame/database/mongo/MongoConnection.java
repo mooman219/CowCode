@@ -20,7 +20,7 @@ public class MongoConnection {
         this.username = user;
         this.password = pass;
     }
-    
+
     /*
      * Connects to the Mongo server
      */

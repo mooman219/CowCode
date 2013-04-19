@@ -9,6 +9,7 @@ public class CHConfig implements Handler {
 
     public static ConfigGlobal configGlobal;
 
+    @Override
     public void onEnable() {
         configGlobal = new ConfigGlobal();
         Loader.info(cast + "Loaded " + configGlobal.fileName);
@@ -16,7 +17,8 @@ public class CHConfig implements Handler {
         Loader.info(cast + "Enabled");
     }
 
-    public void onDisable() {        
+    @Override
+    public void onDisable() {
         Loader.info(cast + "Disabled");
     }
 }

@@ -19,42 +19,42 @@ public class ListenerBlock implements Listener {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onFade(BlockFadeEvent event) {
         if(ConfigGlobal.disableBlockFade) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onForm(BlockFormEvent event) {
         if(ConfigGlobal.disableBlockForm) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onFromTo(BlockFromToEvent event) {
         if(ConfigGlobal.disableBlockFromTo) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onGrow(BlockGrowEvent event) {
         if(ConfigGlobal.disableBlockGrow) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onSpread(BlockSpreadEvent event) {
         if(ConfigGlobal.disableBlockSpread) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onLeavesDecay(LeavesDecayEvent event) {
         if(ConfigGlobal.disableLeafDecay) {

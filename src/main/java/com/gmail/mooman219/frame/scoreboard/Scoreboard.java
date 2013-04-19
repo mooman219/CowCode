@@ -31,7 +31,7 @@ public class Scoreboard {
                 CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
             }
             CHPacket.helper.sendSetScoreboardDisplay(player, title, scoreboardDisplayType);
-        } else {            
+        } else {
             CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.UPDATE);
             for(ScoreboardValue scoreboardValue : rows.values()) {
                 CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
@@ -69,14 +69,14 @@ public class Scoreboard {
             currentValue.setName(scoreboardValue.getName());
             currentValue.setValue(scoreboardValue.getValue());
             currentValue.setClientName(currentValue.getName());
-        } else {            
+        } else {
             rows.put(key, scoreboardValue);
             for(Player player : watchers) {
                 CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
             }
         }
     }
-    
+
     public void removeKey(String key) {
         if(rows.containsKey(key)) {
             ScoreboardValue scoreboardValue = rows.get(key);

@@ -26,25 +26,29 @@ public class CCChat implements Module {
         this.plugin = plugin;
     }
 
+    @Override
     public void onEnable(){
         listenerChat = new ListenerChat();
         listenerPlayer = new ListenerPlayer();
         listenerData = new ListenerData();
-        
+
         PluginManager pm = plugin.getServer().getPluginManager();
         pm.registerEvents(listenerChat, plugin);
         pm.registerEvents(listenerPlayer, plugin);
         pm.registerEvents(listenerData, plugin);
-        
+
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable(){
         Loader.info(cast + "Disabled");
     }
-    
+
+    @Override
     public void registerConfigurationSerialization() {}
 
+    @Override
     public void loadCommands() {
         plugin.getCommand("global").setExecutor(new Global());
         plugin.getCommand("reply").setExecutor(new Reply());

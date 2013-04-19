@@ -30,6 +30,7 @@ public class CCMineral implements Module {
         this.plugin = plugin;
     }
 
+    @Override
     public void onEnable(){
         storeMineral = new StoreMineral();
         Loader.info(cast + "Loaded " + storeMineral.fileName);
@@ -46,6 +47,7 @@ public class CCMineral implements Module {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable(){
         Loader.info(cast + "Stopping MineralManager");
         MineralManager.stop();
@@ -54,10 +56,12 @@ public class CCMineral implements Module {
         Loader.info(cast + "Disabled");
     }
 
+    @Override
     public void registerConfigurationSerialization() {
         ConfigurationSerialization.registerClass(CSMineral.class, "CSMineral");
     }
-    
+
+    @Override
     public void loadCommands() {
         plugin.getCommand("addmineral").setExecutor(new AddMineral(this));
         plugin.getCommand("clearminerals").setExecutor(new ClearMinerals(this));

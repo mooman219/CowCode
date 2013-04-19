@@ -15,11 +15,12 @@ public class DownloadTask extends CCTask {
         this.downloadType = downloadType;
         this.playerData = null;
     }
-    
+
     public static DownloadTask get(String username, DownloadType downloadType) {
         return new DownloadTask(username, downloadType);
     }
 
+    @Override
     public void run() {
         playerData = CHDatabase.manager.downloadPlayerData(username, downloadType);
     }

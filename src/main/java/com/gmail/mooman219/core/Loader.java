@@ -79,7 +79,7 @@ public class Loader extends JavaPlugin {
         moduleList.add(new CCMineral(this));
         moduleList.add(new CCChat(this));
         moduleList.add(new CCRegion(this));
-        
+
         //moduleList.add(new CCVanilla(this));
         //moduleList.add(new CCDiscipline(this));
         //moduleList.add(new CCShop(this));

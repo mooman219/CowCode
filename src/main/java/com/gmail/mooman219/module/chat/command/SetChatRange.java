@@ -21,6 +21,6 @@ public class SetChatRange extends CCommand {
         ConfigGlobal.chatRadius = Integer.parseInt(args[0]);
         CHConfig.configGlobal.save();
         TextHelper.message(sender, CMChat.F_SETRANGE, oldRange, ConfigGlobal.chatRadius);
-        
+
     }
 }

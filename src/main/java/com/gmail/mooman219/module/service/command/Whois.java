@@ -43,9 +43,9 @@ public class Whois extends CCommand {
                 Chat.lineInfo + Chat.GRAY + "Rank" + Chat.DARK_GRAY + ": " + target.serviceData.rank.color + target.serviceData.rank.name() + "\n" +
                 Chat.lineInfo + Chat.GRAY + "First joined" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.firstlogin, TimeType.MILLISECOND) + " ago\n" +
                 Chat.lineInfo + Chat.GRAY + "Last login" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.lastlogin, TimeType.MILLISECOND) + " ago" + Chat.DARK_GRAY + " (" + (target.loginData.isOnline ? Chat.DARK_GREEN + "Online" : Chat.DARK_RED + "Offline") + Chat.DARK_GRAY + ")");
-        sender.sendMessage(target.loginData.isOnline ? 
+        sender.sendMessage(target.loginData.isOnline ?
                 Chat.lineInfo + Chat.GRAY + "Time played" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.lastlogin + target.loginData.timeplayed, TimeType.MILLISECOND) :
-                Chat.lineInfo + Chat.GRAY + "Time played" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(target.loginData.timeplayed, TimeType.MILLISECOND));
+                    Chat.lineInfo + Chat.GRAY + "Time played" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(target.loginData.timeplayed, TimeType.MILLISECOND));
     }
     // ≣ ≡ ≛ ≜
 }

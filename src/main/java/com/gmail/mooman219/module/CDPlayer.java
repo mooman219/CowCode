@@ -44,6 +44,15 @@ public class CDPlayer {
         this.chatData = new PDChat();
     }
 
+    public void initializePlayer(Player player) {
+        this.player = player;
+        this.loadTag();
+
+        this.service = new PLService();
+        this.region = new PLRegion();
+        this.chat = new PLChat();
+    }
+
     public void sync(DBObject playerObject) {
         serviceData.sync(MongoHelper.getValue(playerObject, serviceData.tag, new BasicDBObject()));
         loginData.sync(MongoHelper.getValue(playerObject, loginData.tag, new BasicDBObject()));
@@ -61,31 +70,31 @@ public class CDPlayer {
     /*
      * Tag
      */
-    
+
     private int test = 0;
-    
+
     public void setTest(int test) {
-    	this.test = test;
-    	getHandle().dataTag.setInt("test", test);
+        this.test = test;
+        getHandle().dataTag.setInt("test", test);
     }
-    
+
     public int getTest() {
-    	return test;
+        return test;
     }
-    
+
     public void loadTag() {
-    	NBTTagCompound tag = getHandle().dataTag;
-    	test = TagHelper.getInt(tag, "test", test);
+        NBTTagCompound tag = getHandle().dataTag;
+        test = TagHelper.getInt(tag, "test", test);
     }
-    
+
     /*
      * Default
      */
-    
+
     public net.minecraft.server.EntityPlayer getHandle() {
-    	return ((CraftPlayer)player).getHandle();
+        return ((CraftPlayer)player).getHandle();
     }
-    
+
     public static CDPlayer get(Player player) {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
         if(handle.dataLive == null || !(handle.dataLive instanceof CDPlayer)) {
@@ -93,16 +102,15 @@ public class CDPlayer {
         }
         CDPlayer ret = (CDPlayer) handle.dataLive;
         if(ret.player == null) {
-        	ret.player = player;
-        	ret.loadTag();
+            ret.initializePlayer(player);
         }
         return ret;
     }
-    
+
     public static void set(Player player, CDPlayer dataPlayer) {
         ((CraftPlayer)player).getHandle().dataLive = dataPlayer;
     }
-    
+
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer dataPlayer) {
         ((PendingConnection) event.getPendingConnection()).dataLive = dataPlayer;
     }

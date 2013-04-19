@@ -30,6 +30,7 @@ public class CCService implements Module {
         plugin = head;
     }
 
+    @Override
     public void onEnable(){
         listenerData = new ListenerData();
         messingAround = new MessingAround();
@@ -41,6 +42,7 @@ public class CCService implements Module {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable() {
         Loader.info(cast + "Removing players");
         for(Player player : Bukkit.getOnlinePlayers()) {
@@ -51,9 +53,11 @@ public class CCService implements Module {
         }
         Loader.info(cast + "Disabled");
     }
-    
+
+    @Override
     public void registerConfigurationSerialization() {}
 
+    @Override
     public void loadCommands() {
         plugin.getCommand("whois").setExecutor(new Whois());
         plugin.getCommand("test").setExecutor(new Test());

@@ -31,10 +31,10 @@ public class ListenerData implements Listener {
 
     @EventHandler()
     public void onCreation(DataCreateEvent event) {
-    	CDPlayer playerData = CDPlayer.get(event.getPlayer());
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         long currentTime = System.currentTimeMillis();
         if(playerData.loginData.firstlogin == 0) {
-        	playerData.loginData.firstlogin = currentTime;
+            playerData.loginData.firstlogin = currentTime;
         }
         playerData.loginData.lastlogin = currentTime;
         playerData.loginData.isOnline = true;
@@ -42,7 +42,7 @@ public class ListenerData implements Listener {
 
     @EventHandler()
     public void onRemoval(DataRemovalEvent event) {
-    	CDPlayer playerData = CDPlayer.get(event.getPlayer());
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         long currentTime = System.currentTimeMillis();
         playerData.loginData.lastKnownIP = playerData.player.getAddress().getAddress().getHostAddress();
         playerData.loginData.timeplayed += currentTime - playerData.loginData.lastlogin;

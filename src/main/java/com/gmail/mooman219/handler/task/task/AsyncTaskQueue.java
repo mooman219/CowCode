@@ -8,8 +8,10 @@ public class AsyncTaskQueue extends CCLinkedBlockingQueue<CCTask>{
         super(true, "CC AsyncTaskQueue");
     }
 
+    @Override
     public Runnable getConsumer() {
         return new Runnable() {
+            @Override
             public void run() {
                 try {
                     take().run();

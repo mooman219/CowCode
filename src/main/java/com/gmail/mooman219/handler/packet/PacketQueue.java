@@ -17,8 +17,10 @@ public class PacketQueue extends CCLinkedBlockingQueue<PacketWrapper>{
         this.put(new PacketWrapper(target, packet));
     }
 
+    @Override
     public Runnable getConsumer() {
         return new Runnable() {
+            @Override
             public void run() {
                 PacketWrapper packetQueueItem = take();
                 if(packetQueueItem != null) {

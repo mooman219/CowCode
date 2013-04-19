@@ -14,37 +14,37 @@ public class CDChunk {
         this.chunk = chunk;
         loadTag();
     }
-    
+
     /*
      * Live
      */
-    
+
     // None
 
     /*
      * Tag
      */
-    
+
     private int test = 0;
-    
+
     public void setTest(int test) {
-    	this.test = test;
-    	getHandle().dataTag.setInt("test", test);
+        this.test = test;
+        getHandle().dataTag.setInt("test", test);
     }
-    
+
     public int getTest() {
-    	return test;
+        return test;
     }
-    
+
     public void loadTag() {
-    	NBTTagCompound tag = getHandle().dataTag;
-    	test = TagHelper.getInt(tag, "test", test);
+        NBTTagCompound tag = getHandle().dataTag;
+        test = TagHelper.getInt(tag, "test", test);
     }
-    
+
     /*
      * Default
      */
-    
+
     public net.minecraft.server.Chunk getHandle() {
         return ((CraftChunk)chunk).getHandle();
     }

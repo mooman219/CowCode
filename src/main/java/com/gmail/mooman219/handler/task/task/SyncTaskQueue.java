@@ -8,8 +8,10 @@ public class SyncTaskQueue extends CCSynchronizer<CCTask> {
         super("CC SyncTaskQueue");
     }
 
+    @Override
     public Runnable getConsumer() {
         return new Runnable() {
+            @Override
             public void run() {
                 CCTask task = takeTo();
                 task.run();

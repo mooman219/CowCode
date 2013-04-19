@@ -9,19 +9,19 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 
-public class MetaHelper {    
+public class MetaHelper {
     public static NBTTagCompound getEntityTagCompound(Entity entity) {
         NBTTagCompound tag = new NBTTagCompound();
         ((CraftEntity)entity).getHandle().e(tag);
         return tag;
     }
-    
+
     public static NBTTagCompound getLivingEntityTagCompound(LivingEntity livingEntity) {
         NBTTagCompound tag = new NBTTagCompound();
         ((CraftLivingEntity)livingEntity).getHandle().b(tag);
         return tag;
     }
-    
+
     public static NBTTagCompound getItemstackTagCompound(ItemStack itemstack) {
         if(!(itemstack instanceof CraftItemStack) || ((CraftItemStack)itemstack).getHandle() == null) {
             throw new IllegalArgumentException("Invalid itemstack.");

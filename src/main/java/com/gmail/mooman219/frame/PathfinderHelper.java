@@ -316,13 +316,13 @@ public class PathfinderHelper {
     public static void setupPathfinder(Ocelot ocelot) {
         EntityOcelot entityOcelot = ((CraftOcelot) ocelot).getHandle();
     }
-    
+
     /**
         this.a(0.9F, 0.9F); // SetSize(Width, Height)
         this.d = new PathfinderGoalPassengerCarrotStick(this, 0.34F);
         this.getNavigation().a(true); // SetAvoidsWater
         float f = 0.25F;
-        
+
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
         this.goalSelector.a(1, new PathfinderGoalPanic(this, 0.38F));
         this.goalSelector.a(2, this.d);
@@ -337,7 +337,7 @@ public class PathfinderHelper {
     public static void setupPathfinder(Pig pig) {
         EntityPig entitPig = ((CraftPig) pig).getHandle();
     }
-    
+
     // Enderman
     // Spidee -> CaveSpider
     // Silverfish

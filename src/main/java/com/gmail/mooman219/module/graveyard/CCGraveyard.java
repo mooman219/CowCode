@@ -29,6 +29,7 @@ public class CCGraveyard implements Module {
         this.plugin = plugin;
     }
 
+    @Override
     public void onEnable(){
         storeGraveyard = new StoreGraveyard();
         Loader.info(cast + "Loaded " + storeGraveyard.fileName);
@@ -41,16 +42,19 @@ public class CCGraveyard implements Module {
         Loader.info(cast + "Enabled");
     }
 
+    @Override
     public void onDisable(){
         Loader.info(cast + "Saving " + storeGraveyard.fileName);
         storeGraveyard.save();
         Loader.info(cast + "Disabled");
     }
-    
+
+    @Override
     public void registerConfigurationSerialization() {
         ConfigurationSerialization.registerClass(CSGraveyard.class, "CSGraveyard");
     }
 
+    @Override
     public void loadCommands() {
         plugin.getCommand("addgraveyard").setExecutor(new AddGraveyard(this));
         plugin.getCommand("cleargraveyards").setExecutor(new ClearGraveyards(this));

@@ -15,11 +15,12 @@ public class ChatTask extends CCTask {
         this.sender = sender;
         this.message = message;
     }
-    
+
     public static ChatTask get(Player sender, String message) {
         return new ChatTask(sender, message);
     }
 
+    @Override
     public void run() {
         PlayerConnection target = ((CraftPlayer)sender).getHandle().playerConnection;
         if(target == null) {

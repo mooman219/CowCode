@@ -27,7 +27,6 @@ import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.CMService;
-import com.gmail.mooman219.module.service.store.PLService;
 
 public class ListenerData implements Listener {
     @EventHandler
@@ -39,7 +38,7 @@ public class ListenerData implements Listener {
     public void onDataRemoval(DataRemovalEvent event) {
         Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getName());
     }
-    
+
     @EventHandler
     public void onDataCreate(DataCreateEvent event) {
         Loader.info(CCService.cast + "[EVENT] DataCreate: " + event.getPlayer().getName());
@@ -48,7 +47,7 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
         Loader.info(CCService.cast + "[EVENT] PreLogin: " + event.getName());
-        
+
         event.setKickMessage("");
         DownloadTask task = CHTask.manager.runSyncPluginTask(DownloadTask.get(event.getName(), DownloadType.LOGIN));
         if(task.playerData == null) {
@@ -71,7 +70,6 @@ public class ListenerData implements Listener {
 
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
         // Service - DataCreateEvent
-        playerData.service = new PLService();
         playerData.service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
         //
         CEventFactory.callDataCreateEvent(event, event.getPlayer());
@@ -83,7 +81,7 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
-        
+
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
         playerData.service.scoreboard.addWatcher(event.getPlayer());
     }
@@ -91,7 +89,7 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuit(PlayerQuitEvent event) {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
-        
+
         CEventFactory.callDataRemovalEvent(true, event.getPlayer());
         CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, CDPlayer.get(event.getPlayer())));
     }

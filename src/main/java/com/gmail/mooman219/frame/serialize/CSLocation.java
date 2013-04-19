@@ -62,33 +62,45 @@ public class CSLocation implements ConfigurationSerializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         CSLocation other = (CSLocation) obj;
-        if (Float.floatToIntBits(pitch) != Float.floatToIntBits(other.pitch))
+        if (Float.floatToIntBits(pitch) != Float.floatToIntBits(other.pitch)) {
             return false;
+        }
         if (uuid == null) {
-            if (other.uuid != null)
+            if (other.uuid != null) {
                 return false;
-        } else if (!uuid.equals(other.uuid))
+            }
+        } else if (!uuid.equals(other.uuid)) {
             return false;
+        }
         if (world == null) {
-            if (other.world != null)
+            if (other.world != null) {
                 return false;
-        } else if (!world.equals(other.world))
+            }
+        } else if (!world.equals(other.world)) {
             return false;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+        }
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
             return false;
-        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+        }
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
             return false;
-        if (Float.floatToIntBits(yaw) != Float.floatToIntBits(other.yaw))
+        }
+        if (Float.floatToIntBits(yaw) != Float.floatToIntBits(other.yaw)) {
             return false;
-        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+        }
+        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z)) {
             return false;
+        }
         return true;
     }
 

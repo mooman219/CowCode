@@ -50,29 +50,39 @@ public class CSBasicLocation implements ConfigurationSerializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         CSBasicLocation other = (CSBasicLocation) obj;
         if (uuid == null) {
-            if (other.uuid != null)
+            if (other.uuid != null) {
                 return false;
-        } else if (!uuid.equals(other.uuid))
+            }
+        } else if (!uuid.equals(other.uuid)) {
             return false;
+        }
         if (world == null) {
-            if (other.world != null)
+            if (other.world != null) {
                 return false;
-        } else if (!world.equals(other.world))
+            }
+        } else if (!world.equals(other.world)) {
             return false;
-        if (x != other.x)
+        }
+        if (x != other.x) {
             return false;
-        if (y != other.y)
+        }
+        if (y != other.y) {
             return false;
-        if (z != other.z)
+        }
+        if (z != other.z) {
             return false;
+        }
         return true;
     }
 

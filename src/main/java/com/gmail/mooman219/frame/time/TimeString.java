@@ -9,6 +9,7 @@ public class TimeString {
         this.time = time;
     }
 
+    @Override
     public String toString() {
         String ret = time + " " + type.name;
         if(time > 1) {

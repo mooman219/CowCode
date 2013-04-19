@@ -28,7 +28,7 @@ public abstract class CStorage<T> {
         }
         throw new IllegalArgumentException(type.getName() + " does not implement DefaultTag.");
     }
-    
+
     public <E> E get(String key, E fallback) {
         if(!isInitialized()) {
             return null;
@@ -56,7 +56,7 @@ public abstract class CStorage<T> {
         }
         throw new IllegalArgumentException(object.getClass().getName() + " does not implement DefaultTag.");
     }
-    
+
     public boolean set(String key, T object) {
         initialize();
         boolean ret = store.containsKey(key);
@@ -93,7 +93,7 @@ public abstract class CStorage<T> {
     }
 
     public boolean initialize() {
-        if(this.store == null) {            
+        if(this.store == null) {
             this.store = new HashMap<String, T>();
             return true;
         } else {

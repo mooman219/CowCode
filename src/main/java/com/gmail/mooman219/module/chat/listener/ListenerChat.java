@@ -65,7 +65,7 @@ public class ListenerChat implements Listener{
         } else {
             event.setFormat(playerData.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
             for(Player otherPlayer : event.getRecipients()) {
-            	CDPlayer otherPlayerData = CDPlayer.get(otherPlayer);
+                CDPlayer otherPlayerData = CDPlayer.get(otherPlayer);
                 if(!playerData.username.equals(otherPlayerData.username)) {
                     double distance = LocationHelper.get2DistanceSquared(playerData.player.getLocation(), otherPlayerData.player.getLocation());
                     if(distance > Math.pow(ConfigGlobal.chatRadius, 2)) {
