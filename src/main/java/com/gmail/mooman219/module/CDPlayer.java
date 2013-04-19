@@ -1,6 +1,5 @@
 package com.gmail.mooman219.module;
 
-import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.PendingConnection;
 
 import org.bson.types.ObjectId;
@@ -8,6 +7,8 @@ import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
+import com.gmail.mooman219.craftbukkit.CowData;
+import com.gmail.mooman219.craftbukkit.CowTaggable;
 import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
@@ -20,7 +21,7 @@ import com.gmail.mooman219.module.service.store.PLService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class CDPlayer {
+public class CDPlayer implements CowData {
     // [+] Data information
     public final ObjectId id;
     public final String username;
@@ -46,7 +47,7 @@ public class CDPlayer {
 
     public void initializePlayer(Player player) {
         this.player = player;
-        this.loadTag();
+        onLoad(getHandle());
 
         this.service = new PLService();
         this.region = new PLRegion();
@@ -71,20 +72,17 @@ public class CDPlayer {
      * Tag
      */
 
-    private int test = 0;
-
-    public void setTest(int test) {
-        this.test = test;
-        getHandle().dataTag.setInt("test", test);
+    public int test = 0;
+    
+    @Override
+    public void onLoad(CowTaggable handle) {
+        test = TagHelper.getInt(handle.dataTag, "test", test);
     }
-
-    public int getTest() {
-        return test;
-    }
-
-    public void loadTag() {
-        NBTTagCompound tag = getHandle().dataTag;
-        test = TagHelper.getInt(tag, "test", test);
+    
+    @Override
+    public void onSave(CowTaggable handle) {
+        handle.clearStoreTag();
+        handle.dataTag.setInt("test", test);
     }
 
     /*

@@ -1,18 +1,18 @@
 package com.gmail.mooman219.module;
 
-import net.minecraft.server.NBTTagCompound;
-
 import org.bukkit.Chunk;
 import org.bukkit.craftbukkit.CraftChunk;
 
+import com.gmail.mooman219.craftbukkit.CowData;
+import com.gmail.mooman219.craftbukkit.CowTaggable;
 import com.gmail.mooman219.frame.TagHelper;
 
-public class CDChunk {
+public class CDChunk implements CowData {
     public final Chunk chunk;
 
     public CDChunk(Chunk chunk) {
         this.chunk = chunk;
-        loadTag();
+        onLoad(getHandle());
     }
 
     /*
@@ -25,20 +25,17 @@ public class CDChunk {
      * Tag
      */
 
-    private int test = 0;
-
-    public void setTest(int test) {
-        this.test = test;
-        getHandle().dataTag.setInt("test", test);
+    public int test = 0;
+    
+    @Override
+    public void onLoad(CowTaggable handle) {
+        test = TagHelper.getInt(handle.dataTag, "test", test);
     }
-
-    public int getTest() {
-        return test;
-    }
-
-    public void loadTag() {
-        NBTTagCompound tag = getHandle().dataTag;
-        test = TagHelper.getInt(tag, "test", test);
+    
+    @Override
+    public void onSave(CowTaggable handle) {
+        handle.clearStoreTag();
+        handle.dataTag.setInt("test", test);
     }
 
     /*
