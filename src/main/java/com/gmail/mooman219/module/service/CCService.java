@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.handler.databse.task.UploadTask;
 import com.gmail.mooman219.handler.task.CHTask;
@@ -17,7 +17,7 @@ import com.gmail.mooman219.module.service.command.Whois;
 import com.gmail.mooman219.module.service.listener.ListenerData;
 import com.gmail.mooman219.module.service.listener.MessingAround;
 
-public class CCService implements Module {
+public class CCService implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";

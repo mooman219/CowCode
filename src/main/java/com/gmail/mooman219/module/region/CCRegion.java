@@ -3,7 +3,7 @@ package com.gmail.mooman219.module.region;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
 import com.gmail.mooman219.module.region.command.ModifyInformation;
 import com.gmail.mooman219.module.region.command.ModifyName;
@@ -11,7 +11,7 @@ import com.gmail.mooman219.module.region.command.NewInformation;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
 
-public class CCRegion implements Module {
+public class CCRegion implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";

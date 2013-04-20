@@ -1,9 +1,9 @@
 package com.gmail.mooman219.handler.databse;
 
-import com.gmail.mooman219.core.Handler;
+import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 
-public class CHDatabase implements Handler {
+public class CHDatabase implements CowHandler {
     public final static String cast = "[CC][H][Database] ";
 
     public static DatabaseManager manager;

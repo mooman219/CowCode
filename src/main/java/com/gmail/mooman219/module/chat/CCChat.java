@@ -3,7 +3,7 @@ package com.gmail.mooman219.module.chat;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.module.chat.command.Global;
 import com.gmail.mooman219.module.chat.command.Message;
 import com.gmail.mooman219.module.chat.command.Reply;
@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
 
-public class CCChat implements Module {
+public class CCChat implements CowComponent {
     public final Loader plugin;
 
     public final static String directord = "plugins/CowCraft/";

@@ -1,9 +1,9 @@
 package com.gmail.mooman219.handler.packet;
 
-import com.gmail.mooman219.core.Handler;
+import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 
-public class CHPacket implements Handler {
+public class CHPacket implements CowHandler {
     public static PacketQueue packetQueue;
 
     public static String cast = "[CC][H][Packet] ";

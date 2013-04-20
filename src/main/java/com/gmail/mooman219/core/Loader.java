@@ -25,11 +25,9 @@ import com.gmail.mooman219.module.world.CCWorld;
 
 public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
-    public static ArrayList<Module> moduleList = new ArrayList<Module>();
-    public static ArrayList<Handler> handlerList = new ArrayList<Handler>();
+    public static ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
+    public static ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
     public static String cast = "[CC] ";
-    public static String version;
-    public static String authors;
 
     public void registerConfigurationSerialization() {
         try {
@@ -39,7 +37,7 @@ public class Loader extends JavaPlugin {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        for(Module p : moduleList) {
+        for(CowComponent p : componentList) {
             try {
                 p.registerConfigurationSerialization();
             } catch(Exception e) {
@@ -51,8 +49,8 @@ public class Loader extends JavaPlugin {
     /*
      * C    | Cow             | Cow related files
      * CD	| Cow Data		  |
-     * CH   | Cow Handler     | Handler modules
-     * CC   | Cow Component   | Plugin modules
+     * CH   | Cow Handler     | Handler component
+     * CC   | Cow Component   | Plugin components
      * CM   | Cow Message     | Strings for messages
      * CS   | Cow Serialize   | Custom ConfigurationSerializables
      * 
@@ -72,19 +70,19 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHDatabase());
         handlerList.add(new CHTask(this));
         handlerList.add(new CHPacket());
-        moduleList.add(new CCService(this));
-        moduleList.add(new CCLogin(this));
-        moduleList.add(new CCWorld(this));
-        moduleList.add(new CCGraveyard(this));
-        moduleList.add(new CCMineral(this));
-        moduleList.add(new CCChat(this));
-        moduleList.add(new CCRegion(this));
+        componentList.add(new CCService(this));
+        componentList.add(new CCLogin(this));
+        componentList.add(new CCWorld(this));
+        componentList.add(new CCGraveyard(this));
+        componentList.add(new CCMineral(this));
+        componentList.add(new CCChat(this));
+        componentList.add(new CCRegion(this));
 
-        //moduleList.add(new CCVanilla(this));
-        //moduleList.add(new CCDiscipline(this));
-        //moduleList.add(new CCShop(this));
-        //moduleList.add(new CCRPGProfession(this));
-        //moduleList.add(new CCRPGSkill(this));
+        //componentList.add(new CCVanilla(this));
+        //componentList.add(new CCDiscipline(this));
+        //componentList.add(new CCShop(this));
+        //componentList.add(new CCRPGProfession(this));
+        //componentList.add(new CCRPGSkill(this));
     }
 
     @Override
@@ -94,16 +92,16 @@ public class Loader extends JavaPlugin {
         registerConfigurationSerialization();
         // Start handlers
         Loader.info(cast + "Loading handlers");
-        for(Handler p : handlerList) {
+        for(CowHandler p : handlerList) {
             try {
                 p.onEnable();
             } catch(Exception e) {
                 e.printStackTrace();
             }
         }
-        // Start modules
-        Loader.info(cast + "Loading modules");
-        for(Module p : moduleList) {
+        // Start components
+        Loader.info(cast + "Loading components");
+        for(CowComponent p : componentList) {
             try {
                 p.onEnable();
                 p.loadCommands();
@@ -119,11 +117,11 @@ public class Loader extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Shutdown modules
-        Loader.info(cast + "Unloading modules");
-        for(int i = moduleList.size() - 1; i >= 0; i--) {
+        // Shutdown components
+        Loader.info(cast + "Unloading components");
+        for(int i = componentList.size() - 1; i >= 0; i--) {
             try {
-                moduleList.get(i).onDisable();
+                componentList.get(i).onDisable();
             } catch(Exception e) {
                 e.printStackTrace();
             }

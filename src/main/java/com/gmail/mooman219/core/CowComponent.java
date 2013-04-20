@@ -1,6 +1,6 @@
 package com.gmail.mooman219.core;
 
-public interface Module {
+public interface CowComponent {
     public void onEnable();
 
     public void onDisable();

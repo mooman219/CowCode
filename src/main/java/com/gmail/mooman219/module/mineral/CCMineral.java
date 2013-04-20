@@ -4,7 +4,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.module.mineral.command.AddMineral;
 import com.gmail.mooman219.module.mineral.command.ClearMinerals;
 import com.gmail.mooman219.module.mineral.command.ListMinerals;
@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.mineral.listener.ListenerTime;
 import com.gmail.mooman219.module.mineral.store.CSMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
-public class CCMineral implements Module {
+public class CCMineral implements CowComponent {
     public final Loader plugin;
     public StoreMineral storeMineral;
 

@@ -3,10 +3,10 @@ package com.gmail.mooman219.module.world;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.module.world.listener.ListenerBlock;
 
-public class CCWorld implements Module {
+public class CCWorld implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";

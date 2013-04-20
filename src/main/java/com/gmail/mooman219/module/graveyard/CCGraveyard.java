@@ -4,7 +4,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.Module;
+import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.module.graveyard.command.AddGraveyard;
 import com.gmail.mooman219.module.graveyard.command.ClearGraveyards;
 import com.gmail.mooman219.module.graveyard.command.ListGraveyards;
@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.graveyard.listener.ListenerPlayer;
 import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
-public class CCGraveyard implements Module {
+public class CCGraveyard implements CowComponent {
     public final Loader plugin;
     public StoreGraveyard storeGraveyard;
 

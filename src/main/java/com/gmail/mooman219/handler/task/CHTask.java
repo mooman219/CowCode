@@ -1,11 +1,11 @@
 package com.gmail.mooman219.handler.task;
 
-import com.gmail.mooman219.core.Handler;
+import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.handler.task.task.TimeKeeperAsync;
 import com.gmail.mooman219.handler.task.task.TimeKeeperSync;
 
-public class CHTask implements Handler {
+public class CHTask implements CowHandler {
     public final Loader plugin;
 
     public final static String cast = "[CC][H][Task] ";

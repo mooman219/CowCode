@@ -1,9 +1,9 @@
 package com.gmail.mooman219.handler.config;
 
-import com.gmail.mooman219.core.Handler;
+import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 
-public class CHConfig implements Handler {
+public class CHConfig implements CowHandler {
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][H][Database] ";
 
