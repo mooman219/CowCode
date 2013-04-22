@@ -68,7 +68,7 @@
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit</artifactId>
+            <artifactId>milkbukkit</artifactId>
             <version>${bukkit.version}</version>
         </dependency>
     </dependencies>
