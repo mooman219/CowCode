@@ -5,10 +5,11 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.module.CDChunk;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.region.CMRegion;
+import com.gmail.mooman219.module.region.store.CSRegionInformation;
 import com.gmail.mooman219.module.region.store.StoreRegionInformation;
-import com.gmail.mooman219.module.region.store.CFRegion;
 
 public class SetRegion extends CCommand {
     public SetRegion() {
@@ -17,8 +18,9 @@ public class SetRegion extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        if(StoreRegionInformation.getInformationByID(args[0]) != null) {
-            CFRegion.getChunkRegion(sender).setCSRegionInformation(StoreRegionInformation.getInformationByID(args[0]));
+        CSRegionInformation region = StoreRegionInformation.getInformationByID(args[0]); 
+        if(region != null) {
+            CDChunk.get(sender).setParentInformation(region);
             TextHelper.message(sender, CMRegion.M_MODIFIED);
         } else {
             TextHelper.message(sender, CMRegion.M_NONEXISTS);

@@ -51,12 +51,13 @@ public class CDEntity implements CowData {
         net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
         if(entity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered entities.");
-        }
-        if(handle.dataLive == null) {
+        } else if(handle.dataLive == null) {
             handle.dataLive = new CDEntity(entity);
-        } else if(!(handle.dataLive instanceof CDEntity)) {
-            throw new IllegalArgumentException("Invalid data on entity.");
         }
+        // It SHOULD always be a CDEntity
+        /**else if(!(handle.dataLive instanceof CDEntity)) {
+            throw new IllegalArgumentException("Invalid data on entity.");
+        }**/
         return (CDEntity) handle.dataLive;
     }
 }

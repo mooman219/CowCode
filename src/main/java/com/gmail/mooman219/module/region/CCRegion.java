@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.region;
 
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
@@ -10,6 +11,7 @@ import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewInformation;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
+import com.gmail.mooman219.module.region.store.CSRegionInformation;
 
 public class CCRegion implements CowComponent {
     public final Loader plugin;
@@ -39,7 +41,9 @@ public class CCRegion implements CowComponent {
     }
 
     @Override
-    public void registerConfigurationSerialization() {}
+    public void registerConfigurationSerialization() {
+        ConfigurationSerialization.registerClass(CSRegionInformation.class, "CSRegionInformation");
+    }
 
     @Override
     public void loadCommands() {

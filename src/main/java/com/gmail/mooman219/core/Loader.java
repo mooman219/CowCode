@@ -30,13 +30,9 @@ public class Loader extends JavaPlugin {
     public static String cast = "[CC] ";
 
     public void registerConfigurationSerialization() {
-        try {
-            ConfigurationSerialization.registerClass(CSBasicLocation.class, "CSBasicLocation");
-            ConfigurationSerialization.registerClass(CSChunkLocation.class, "CSChunkLocation");
-            ConfigurationSerialization.registerClass(CSLocation.class, "CSLocation");
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        ConfigurationSerialization.registerClass(CSBasicLocation.class, "CSBasicLocation");
+        ConfigurationSerialization.registerClass(CSChunkLocation.class, "CSChunkLocation");
+        ConfigurationSerialization.registerClass(CSLocation.class, "CSLocation");
         for(CowComponent p : componentList) {
             try {
                 p.registerConfigurationSerialization();
@@ -142,11 +138,11 @@ public class Loader extends JavaPlugin {
     }
 
     public static void info(String message) {
-        Loader.log.info("[" + (Boolean.valueOf(Bukkit.isPrimaryThread()) ? "-" : "+") + "] " + message);
+        Loader.log.info("[" + (Bukkit.isPrimaryThread() ? "-" : "+") + "] " + message);
     }
 
     public static void warning(String message) {
-        Loader.log.warning("[" + (Boolean.valueOf(Bukkit.isPrimaryThread()) ? "-" : "+") + "] " + message);
+        Loader.log.warning("[" + (Bukkit.isPrimaryThread() ? "-" : "+") + "] " + message);
     }
 }
 // Mooman219's code. | CowCoding == CC | Cow == C

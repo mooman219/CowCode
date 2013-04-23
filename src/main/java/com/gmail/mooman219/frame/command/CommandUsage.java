@@ -37,7 +37,7 @@ public class CommandUsage {
 
     public boolean isNumber(String parameter) {
         try {
-            Integer.valueOf(parameter);
+            Integer.parseInt(parameter);
             return true;
         } catch(Exception e) {
             return false;

@@ -4,6 +4,7 @@ import net.minecraft.server.WorldData;
 
 import org.bukkit.World;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.CowData;
 import com.gmail.mooman219.craftbukkit.CowTaggable;
@@ -47,14 +48,20 @@ public class CDWorld implements CowData {
     public WorldData getHandle() {
         return ((CraftWorld)world).getHandle().getWorldData();
     }
+    
+    public static CDWorld get(Entity entity) {
+        return get(entity.getLocation().getWorld());
+    }
 
     public static CDWorld get(World world) {
         WorldData handle = ((CraftWorld)world).getHandle().getWorldData();
         if(handle.dataLive == null) {
             handle.dataLive = new CDWorld(world);
-        } else if(!(handle.dataLive instanceof CDWorld)) {
-            throw new IllegalArgumentException("Invalid data on world.");
         }
+        // It should always be a CDWorld
+        /**else if(!(handle.dataLive instanceof CDWorld)) {
+            throw new IllegalArgumentException("Invalid data on world.");
+        }**/
         return (CDWorld) handle.dataLive;
     }
 }

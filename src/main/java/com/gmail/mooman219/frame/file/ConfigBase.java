@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import com.gmail.mooman219.core.Loader;
+
 public abstract class ConfigBase {
     public File hardFile;
     public YamlConfiguration file = new YamlConfiguration();
@@ -20,6 +22,7 @@ public abstract class ConfigBase {
         if(directory.charAt(directory.length()-1) != '/') {
             directory = directory+"/";
         }
+        Loader.info("Loading file: " + directory + fileName);
         //Loader.log.info(Loader.cast + "Loading file: " + directory + fileName);
     }
 

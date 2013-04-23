@@ -79,7 +79,7 @@ public class TextHelper {
     }
 
     public static void message(CommandSender target, String pattern, Object... arguments) {
-        target.sendMessage(MessageFormat.format(pattern, arguments));
+        target.sendMessage(parse(pattern, arguments));
     }
 
     public static void message(CommandSender target, String message) {

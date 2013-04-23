@@ -15,7 +15,6 @@ import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
-import com.gmail.mooman219.module.region.store.PLRegion;
 import com.gmail.mooman219.module.service.store.PDService;
 import com.gmail.mooman219.module.service.store.PLService;
 import com.mongodb.BasicDBObject;
@@ -30,10 +29,9 @@ public class CDPlayer implements CowData {
     public PDLogin loginData = null;
     public PDChat chatData = null;
     // [+] Live information
-    public Player player;
+    public Player player = null;
     // [-]---[+] Module
     public PLService service = null;
-    public PLRegion region = null;
     public PLChat chat = null;
 
     public CDPlayer(ObjectId id, String username) {
@@ -50,7 +48,6 @@ public class CDPlayer implements CowData {
         onLoad(getHandle());
 
         this.service = new PLService();
-        this.region = new PLRegion();
         this.chat = new PLChat();
     }
 
@@ -95,7 +92,7 @@ public class CDPlayer implements CowData {
 
     public static CDPlayer get(Player player) {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
-        if(handle.dataLive == null || !(handle.dataLive instanceof CDPlayer)) {
+        if(handle.dataLive == null) {
             throw new IllegalArgumentException("Invalid data on player.");
         }
         CDPlayer ret = (CDPlayer) handle.dataLive;
@@ -103,10 +100,6 @@ public class CDPlayer implements CowData {
             ret.initializePlayer(player);
         }
         return ret;
-    }
-
-    public static void set(Player player, CDPlayer dataPlayer) {
-        ((CraftPlayer)player).getHandle().dataLive = dataPlayer;
     }
 
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer dataPlayer) {
