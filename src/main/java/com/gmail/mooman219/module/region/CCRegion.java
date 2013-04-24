@@ -12,9 +12,11 @@ import com.gmail.mooman219.module.region.command.NewInformation;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
 import com.gmail.mooman219.module.region.store.CSRegionInformation;
+import com.gmail.mooman219.module.region.store.StoreRegionInformation;
 
 public class CCRegion implements CowComponent {
     public final Loader plugin;
+    public StoreRegionInformation storeRegionInformation;
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][M][Region] ";
@@ -27,6 +29,9 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onEnable(){
+        storeRegionInformation = new StoreRegionInformation();
+        Loader.info(cast + "Loaded " + storeRegionInformation.fileName);
+        
         listenerPlayer = new ListenerPlayer();
 
         PluginManager pm = plugin.getServer().getPluginManager();
@@ -37,6 +42,8 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onDisable(){
+        Loader.info(cast + "Saving " + storeRegionInformation.fileName);
+        storeRegionInformation.save();
         Loader.info(cast + "Disabled");
     }
 

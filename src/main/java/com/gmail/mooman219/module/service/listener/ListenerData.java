@@ -90,7 +90,7 @@ public class ListenerData implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
 
-        CEventFactory.callDataRemovalEvent(true, event.getPlayer());
+        CEventFactory.callDataRemovalEvent(false, event.getPlayer());
         CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, CDPlayer.get(event.getPlayer())));
     }
 

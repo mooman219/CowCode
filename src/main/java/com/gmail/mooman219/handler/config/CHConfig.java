@@ -5,7 +5,7 @@ import com.gmail.mooman219.core.Loader;
 
 public class CHConfig implements CowHandler {
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][H][Database] ";
+    public final static String cast = "[CC][H][Config] ";
 
     public static ConfigGlobal configGlobal;
 
