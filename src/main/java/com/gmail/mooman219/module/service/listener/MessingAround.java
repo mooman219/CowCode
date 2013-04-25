@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
@@ -47,6 +48,9 @@ public class MessingAround implements Listener {
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), " 2", true, false);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "       8", true, false);
         CHPacket.helper.sendPlayerInfo(event.getPlayer(), "             14", true, false);
+        
+        event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
+        event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
     }
 
     @EventHandler

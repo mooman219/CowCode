@@ -339,7 +339,8 @@ public class PathfinderHelper {
     }
 
     // Enderman
-    // Spidee -> CaveSpider
+    // Spider -> CaveSpider
     // Silverfish
     // Pigzombie
+    // Blaze
 }

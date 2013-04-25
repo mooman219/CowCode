@@ -36,7 +36,7 @@ public class ListenerData implements Listener {
 
     @EventHandler
     public void onDataRemoval(DataRemovalEvent event) {
-        Loader.info(CCService.cast + "[EVENT] Removal: (" + event.getPlayer().getName());
+        Loader.info(CCService.cast + "[EVENT] Removal: " + event.getPlayer().getName());
     }
 
     @EventHandler
