@@ -12,8 +12,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.database.mongo.DownloadType;
-import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.frame.event.DataCreateEvent;
 import com.gmail.mooman219.frame.event.DataRemovalEvent;
@@ -21,10 +19,13 @@ import com.gmail.mooman219.frame.event.DataVerifyEvent;
 import com.gmail.mooman219.frame.scoreboard.Scoreboard;
 import com.gmail.mooman219.frame.scoreboard.ScoreboardDisplayType;
 import com.gmail.mooman219.frame.text.TextHelper;
-import com.gmail.mooman219.handler.databse.task.DownloadTask;
-import com.gmail.mooman219.handler.databse.task.UploadTask;
+import com.gmail.mooman219.handler.database.CHDatabase;
+import com.gmail.mooman219.handler.database.DownloadReason;
+import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.UploadThread;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.CDPlayer;
+import com.gmail.mooman219.module.login.CMLogin;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.CMService;
 
@@ -49,14 +50,14 @@ public class ListenerData implements Listener {
         Loader.info(CCService.cast + "[EVENT] PreLogin: " + event.getName());
 
         event.setKickMessage("");
-        DownloadTask task = CHTask.manager.runSyncPluginTask(DownloadTask.get(event.getName(), DownloadType.LOGIN));
-        if(task.playerData == null) {
+        CDPlayer playerData = CHDatabase.manager.downloadPlayer(event.getName(), DownloadReason.LOGIN);
+        if(playerData == null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CMService.M_LOGINERROR);
             return;
         }
-        CEventFactory.callDataVerifyEvent(event, task.playerData);
+        CEventFactory.callDataVerifyEvent(event, playerData);
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.ALLOWED) {
-            CDPlayer.set(event, task.playerData);
+            CDPlayer.set(event, playerData);
         } else if(event.getKickMessage().length() <= 0) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CMService.M_LOGINERROR);
         } else {
@@ -74,7 +75,7 @@ public class ListenerData implements Listener {
         //
         CEventFactory.callDataCreateEvent(event, event.getPlayer());
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
-        CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.STATUS, playerData));
+        CHDatabase.manager.uploadPlayer(playerData, UploadReason.STATUS, UploadThread.ASYNC);
         TextHelper.message(event.getPlayer(), CMService.M_DATALOAD);
     }
 
@@ -90,12 +91,19 @@ public class ListenerData implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
 
-        CEventFactory.callDataRemovalEvent(false, event.getPlayer());
-        CHTask.manager.runAsyncPluginTask(UploadTask.get(UploadType.NORMAL, CDPlayer.get(event.getPlayer())));
+        CDPlayer playerData = CDPlayer.get(event.getPlayer());
+        CHDatabase.manager.uploadPlayer(playerData, UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDisable(PluginDisableEvent event) {
+        Loader.info(cast + "Removing players");
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            CDPlayer playerData = CDPlayer.get(player);
+            CHTask.manager.runPluginAsyncTask(UploadTask.get(UploadType.NORMAL, player, false));
+            player.kickPlayer(CMLogin.M_SHUTDOWN);
+            Loader.info(CCService.cast + "[STOP] (" + Bukkit.getOnlinePlayers().length + ") normal: " + playerData.username);
+        }
         for(Player player : Bukkit.getOnlinePlayers()) {
             CEventFactory.callDataRemovalEvent(false, player);
         }

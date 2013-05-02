@@ -2,9 +2,26 @@ package com.gmail.mooman219.frame;
 
 import java.util.Map;
 
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+
 import net.minecraft.server.NBTTagCompound;
 
 public class TagHelper {
+    public static NBTTagCompound getEntityTagCompound(Entity entity) {
+        NBTTagCompound tag = new NBTTagCompound();
+        ((CraftEntity)entity).getHandle().e(tag);
+        return tag;
+    }
+
+    public static NBTTagCompound getLivingEntityTagCompound(LivingEntity livingEntity) {
+        NBTTagCompound tag = new NBTTagCompound();
+        ((CraftLivingEntity)livingEntity).getHandle().b(tag);
+        return tag;
+    }
+    
     public static byte getByte(NBTTagCompound tag, String key, byte fallback) {
         return tag.hasKey(key) ? tag.getByte(key) : fallback;
     }

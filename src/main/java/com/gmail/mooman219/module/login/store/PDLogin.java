@@ -1,8 +1,8 @@
 package com.gmail.mooman219.module.login.store;
 
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
-import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.handler.database.UploadReason;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -24,10 +24,11 @@ public class PDLogin {
         this.lastKnownIP = MongoHelper.getValue(login, "lastknownip", lastKnownIP);
     }
 
-    public DBObject getTemplate(UploadType uploadType) {
-        switch(uploadType) {
-        case CREATE:
-        case NORMAL:
+    public DBObject getTemplate(UploadReason reason) {
+        switch(reason) {
+        case CREATION:
+        case REMOVE:
+        case SAVE:
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "firstlogin", firstlogin) + "," +
                     TextHelper.buildQuery(tag, "lastlogin", lastlogin) + "," +

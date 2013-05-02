@@ -25,6 +25,17 @@ public class Scoreboard {
 
     public void addWatcher(Player player) {
         if(watchers.contains(player)) {
+            CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.REMOVE);
+        } else {
+            watchers.add(player);
+        }
+        CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.UPDATE);
+        for(ScoreboardValue scoreboardValue : rows.values()) {
+            CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
+        }
+        CHPacket.manager.sendSetScoreboardDisplay(player, title, scoreboardDisplayType);
+        /**
+        if(watchers.contains(player)) {
             CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.REMOVE);
             CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.UPDATE);
             for(ScoreboardValue scoreboardValue : rows.values()) {
@@ -39,11 +50,12 @@ public class Scoreboard {
             CHPacket.helper.sendSetScoreboardDisplay(player, title, scoreboardDisplayType);
             watchers.add(player);
         }
+        /**/
     }
 
     public void removeWatcher(Player player) {
         if(watchers.contains(player)) {
-            CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.REMOVE);
+            CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.REMOVE);
             watchers.remove(player);
         }
     }
@@ -51,7 +63,7 @@ public class Scoreboard {
     public void modifyDisplayTitle(String displayTitle) {
         this.displayTitle = displayTitle;
         for(Player player : watchers) {
-            CHPacket.helper.sendSetScoreboardObjective(player, title, this.displayTitle, ScoreboardModifyType.TITLE);
+            CHPacket.manager.sendSetScoreboardObjective(player, title, this.displayTitle, ScoreboardModifyType.TITLE);
         }
     }
 
@@ -63,8 +75,8 @@ public class Scoreboard {
         if(rows.containsKey(key)) {
             ScoreboardValue currentValue = rows.get(key);
             for(Player player : watchers) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), ScoreboardModifyType.REMOVE);
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), ScoreboardModifyType.REMOVE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
             }
             currentValue.setName(scoreboardValue.getName());
             currentValue.setValue(scoreboardValue.getValue());
@@ -72,7 +84,7 @@ public class Scoreboard {
         } else {
             rows.put(key, scoreboardValue);
             for(Player player : watchers) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
             }
         }
     }
@@ -82,7 +94,7 @@ public class Scoreboard {
             ScoreboardValue scoreboardValue = rows.get(key);
             rows.remove(key);
             for(Player player : watchers) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.REMOVE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.REMOVE);
             }
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
@@ -94,7 +106,7 @@ public class Scoreboard {
             ScoreboardValue scoreboardValue = rows.get(key);
             scoreboardValue.setValue(value);
             for(Player player : watchers) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
             }
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
@@ -106,8 +118,8 @@ public class Scoreboard {
             ScoreboardValue scoreboardValue = rows.get(key);
             scoreboardValue.setName(name);
             for(Player player : watchers) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.REMOVE);
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.REMOVE);
+                CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
             }
             scoreboardValue.setClientName(name);
         } else {

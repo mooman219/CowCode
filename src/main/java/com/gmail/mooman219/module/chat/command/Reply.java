@@ -16,6 +16,6 @@ public class Reply extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CHTask.manager.runAsyncPluginTask(ChatTask.get(sender, "@ " + TextHelper.merge(args)));
+        CHTask.manager.runPluginAsyncTask(ChatTask.get(sender, "@ " + TextHelper.merge(args, 0)));
     }
 }

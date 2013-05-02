@@ -9,10 +9,11 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
+import com.gmail.mooman219.handler.database.CHDatabase;
+import com.gmail.mooman219.handler.database.DownloadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.service.CMService;
-import com.gmail.mooman219.module.service.task.WhoisTask;
 
 public class Whois extends CCommand {
     public Whois() {
@@ -20,7 +21,7 @@ public class Whois extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
+    public void processPlayer(final Player sender, final CDPlayer playerData, final String[] args) {
         if(args.length == 1) {
             if(args[0].length() > 16 || args[0].length() < 3) {
                 TextHelper.message(sender, CMService.F_WHOIS_NOEXIST, args[0]);
@@ -31,13 +32,24 @@ public class Whois extends CCommand {
                 displayWhois(sender, CDPlayer.get(player));
                 return;
             }
-            CHTask.manager.runAsyncPluginTask(WhoisTask.get(sender, args[0]));
+            Runnable task = new Runnable() {
+                @Override
+                public void run() {
+                    CDPlayer playerData = CHDatabase.manager.downloadPlayer(args[0], DownloadReason.QUERY);
+                    if(playerData == null) {
+                        TextHelper.message(sender, CMService.F_WHOIS_NOEXIST, args[0]);
+                    } else {
+                        displayWhois(sender, playerData);
+                    }
+                }
+            };
+            CHTask.manager.runPlugin(task, true);
         } else {
             displayWhois(sender, playerData);
         }
     }
 
-    public static void displayWhois(Player sender, CDPlayer target) {
+    public void displayWhois(Player sender, CDPlayer target) {
         long currentTime = System.currentTimeMillis();
         sender.sendMessage(Chat.msgInfo + "Displaying " + target.serviceData.rank.color + target.username + Chat.GREEN + "'s data:\n" +
                 Chat.lineInfo + Chat.GRAY + "Rank" + Chat.DARK_GRAY + ": " + target.serviceData.rank.color + target.serviceData.rank.name() + "\n" +

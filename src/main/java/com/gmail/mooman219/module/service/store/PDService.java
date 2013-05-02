@@ -1,9 +1,9 @@
 package com.gmail.mooman219.module.service.store;
 
 import com.gmail.mooman219.frame.database.mongo.MongoHelper;
-import com.gmail.mooman219.frame.database.mongo.UploadType;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.handler.database.UploadReason;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -21,14 +21,14 @@ public class PDService {
         this.rank = Rank.getRank(this.donorLevel, this.staffLevel);
     }
 
-    public DBObject getTemplate(UploadType uploadType) {
-        switch(uploadType) {
-        case CREATE:
+    public DBObject getTemplate(UploadReason reason) {
+        switch(reason) {
+        case CREATION:
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "donorlevel", donorLevel) + "," +
                     TextHelper.buildQuery(tag, "stafflevel", staffLevel) +
                     "}");
-        case NORMAL:
+        case SAVE:
         case STATUS:
         default:
             return new BasicDBObject();

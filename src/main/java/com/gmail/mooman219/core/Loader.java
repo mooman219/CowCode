@@ -12,7 +12,7 @@ import com.gmail.mooman219.frame.serialize.CSBasicLocation;
 import com.gmail.mooman219.frame.serialize.CSChunkLocation;
 import com.gmail.mooman219.frame.serialize.CSLocation;
 import com.gmail.mooman219.handler.config.CHConfig;
-import com.gmail.mooman219.handler.databse.CHDatabase;
+import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.chat.CCChat;
@@ -25,9 +25,9 @@ import com.gmail.mooman219.module.world.CCWorld;
 
 public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
-    public static ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
-    public static ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
-    public static String cast = "[CC] ";
+    private static ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
+    private static ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
+    public final static String cast = "[CC] ";
 
     public void registerConfigurationSerialization() {
         ConfigurationSerialization.registerClass(CSBasicLocation.class, "CSBasicLocation");
@@ -73,12 +73,6 @@ public class Loader extends JavaPlugin {
         componentList.add(new CCMineral(this));
         componentList.add(new CCChat(this));
         componentList.add(new CCRegion(this));
-
-        //componentList.add(new CCVanilla(this));
-        //componentList.add(new CCDiscipline(this));
-        //componentList.add(new CCShop(this));
-        //componentList.add(new CCRPGProfession(this));
-        //componentList.add(new CCRPGSkill(this));
     }
 
     @Override

@@ -16,6 +16,6 @@ public class Message extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CHTask.manager.runAsyncPluginTask(ChatTask.get(sender, "@" + args[0] + " " + TextHelper.merge(args, 1)));
+        CHTask.manager.runPluginAsyncTask(ChatTask.get(sender, "@" + args[0] + " " + TextHelper.merge(args, 1)));
     }
 }

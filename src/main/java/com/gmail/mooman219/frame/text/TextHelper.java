@@ -90,14 +90,6 @@ public class TextHelper {
         return MessageFormat.format(pattern, arguments);
     }
 
-    public static String merge(String[] arguments) {
-        String ret = "";
-        for(String arg : arguments) {
-            ret += arg + " ";
-        }
-        return ret.trim();
-    }
-
     public static String merge(String[] arguments, int startIndex) {
         String ret = "";
         for (int i = startIndex; i < arguments.length; i++) {

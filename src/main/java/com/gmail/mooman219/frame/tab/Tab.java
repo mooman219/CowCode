@@ -43,7 +43,7 @@ public class Tab {
     public void updatePlayer(Player player, boolean login) {
         for(int x = 0; x < maxTabWidth; x++) {
             for(int y = 0; y < maxTabHeight; y++) {
-                CHPacket.helper.sendPlayerInfo(player, tab[x][y].getClientName(), login, true);
+                CHPacket.manager.sendPlayerInfo(player, tab[x][y].getClientName(), login, true);
             }
         }
     }

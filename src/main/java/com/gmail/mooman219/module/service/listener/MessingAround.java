@@ -39,15 +39,15 @@ public class MessingAround implements Listener {
         playerData.service.scoreboard.addKey("memory", "Memory: Init", 3);
         playerData.service.scoreboard.addKey("lastdamage", "LastDmg: Init", 1);
 
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "  Health", true, true);
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "1,234,567", true, true);
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "*       8", true, true);
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "*             14", true, true);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Health", true, true);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Mana", true, true);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Cows", true, true);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Children", true, true);
 
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "1,234,567", true, false);
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), " 2", true, false);
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "       8", true, false);
-        CHPacket.helper.sendPlayerInfo(event.getPlayer(), "             14", true, false);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "1,234,567", true, false);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "9001", true, false);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "219", true, false);
+        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "-2", true, false);
         
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
         event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));

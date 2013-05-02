@@ -38,11 +38,11 @@ public class CCommand implements CommandExecutor {
         return true;
     }
 
-    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
+    public void processPlayer(final Player sender, final CDPlayer playerData, final String[] args) {
         sender.sendMessage(Chat.msgError + "Unable to use command");
     }
 
-    public void processConsole(CommandSender sender, String[] args) {
+    public void processConsole(final CommandSender sender, final String[] args) {
         sender.sendMessage(Chat.msgError + "Unable to use command");
     }
 }
