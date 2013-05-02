@@ -5,9 +5,7 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
-import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.chat.task.ChatTask;
 
 public class Global extends CCommand {
     public Global() {
@@ -15,7 +13,7 @@ public class Global extends CCommand {
     }
 
     @Override
-    public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CHTask.manager.runPluginAsyncTask(ChatTask.get(sender, "!" + TextHelper.merge(args, 0)));
+    public void processPlayer(final Player sender, final CDPlayer playerData, final String[] args) {
+        CDPlayer.get(sender).chat("!" + TextHelper.merge(args, 0));
     }
 }

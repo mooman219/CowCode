@@ -32,7 +32,7 @@ public class CHTask implements CowHandler {
         syncQueue = new PluginSyncQueue();
         syncQueue.start();
         Loader.info(cast + "Starting second clocks");
-        manager.runThread(new SecondClockAsync(), 1000l, 1000l);
+        manager.runThread(new SecondClockAsync(), 1000l, 1000l).setName("CC SecondClockAsync");
         manager.runBukkit(new SecondClockSync(), false, 20, 20);
         Loader.info(cast + "Enabled");
     }

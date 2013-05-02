@@ -1,6 +1,6 @@
 package com.gmail.mooman219.module.login.store;
 
-import com.gmail.mooman219.frame.database.mongo.MongoHelper;
+import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.mongodb.BasicDBObject;
@@ -27,7 +27,6 @@ public class PDLogin {
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
         case CREATION:
-        case REMOVE:
         case SAVE:
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "firstlogin", firstlogin) + "," +

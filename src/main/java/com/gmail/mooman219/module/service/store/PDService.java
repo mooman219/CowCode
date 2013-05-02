@@ -1,6 +1,6 @@
 package com.gmail.mooman219.module.service.store;
 
-import com.gmail.mooman219.frame.database.mongo.MongoHelper;
+import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;

@@ -23,7 +23,6 @@ import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.database.UploadThread;
-import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.login.CMLogin;
 import com.gmail.mooman219.module.service.CCService;
@@ -97,15 +96,11 @@ public class ListenerData implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDisable(PluginDisableEvent event) {
-        Loader.info(cast + "Removing players");
+        Loader.info(CCService.cast + "Removing players");
         for(Player player : Bukkit.getOnlinePlayers()) {
             CDPlayer playerData = CDPlayer.get(player);
-            CHTask.manager.runPluginAsyncTask(UploadTask.get(UploadType.NORMAL, player, false));
             player.kickPlayer(CMLogin.M_SHUTDOWN);
             Loader.info(CCService.cast + "[STOP] (" + Bukkit.getOnlinePlayers().length + ") normal: " + playerData.username);
-        }
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            CEventFactory.callDataRemovalEvent(false, player);
         }
     }
 }
