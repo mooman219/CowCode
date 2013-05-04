@@ -83,4 +83,8 @@ public class NumberHelper {
     public static UUID nextUUID() {
         return new UUID(random.nextLong(), random.nextLong());
     }
+    
+    public static Random nextRandom() {
+        return new XORShiftRNG();
+    }
 }

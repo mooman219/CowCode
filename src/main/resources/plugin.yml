@@ -83,3 +83,6 @@ commands:
     setchatrange:
         aliases:
         - csr
+    setoverheadname:
+        aliases:
+        - cshn

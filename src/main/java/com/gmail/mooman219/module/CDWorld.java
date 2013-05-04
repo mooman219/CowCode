@@ -22,23 +22,20 @@ public class CDWorld implements CowData {
      * Live
      */
 
-    // None
+    @Override
+    public void onTick(CowTaggable handle) {}
 
     /*
      * Tag
      */
-
-    public int test = 0;
     
     @Override
     public void onLoad(CowTaggable handle) {
-        test = TagHelper.getInt(handle.dataTag, "test", test);
     }
     
     @Override
     public void onSave(CowTaggable handle) {
         handle.clearStoreTag();
-        handle.dataTag.setInt("test", test);
     }
 
     /*

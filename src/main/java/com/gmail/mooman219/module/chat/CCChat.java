@@ -8,6 +8,7 @@ import com.gmail.mooman219.module.chat.command.Global;
 import com.gmail.mooman219.module.chat.command.Message;
 import com.gmail.mooman219.module.chat.command.Reply;
 import com.gmail.mooman219.module.chat.command.SetChatRange;
+import com.gmail.mooman219.module.chat.command.SetOverheadName;
 import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
@@ -54,5 +55,6 @@ public class CCChat implements CowComponent {
         plugin.getCommand("reply").setExecutor(new Reply());
         plugin.getCommand("message").setExecutor(new Message());
         plugin.getCommand("setchatrange").setExecutor(new SetChatRange());
+        plugin.getCommand("setoverheadname").setExecutor(new SetOverheadName());
     }
 }

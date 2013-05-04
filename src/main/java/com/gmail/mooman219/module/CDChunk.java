@@ -22,6 +22,9 @@ public class CDChunk implements CowData {
      * Live
      */
     
+    @Override
+    public void onTick(CowTaggable handle) {}
+    
     // Region
     private CSRegionInformation parentInformation;
     
@@ -42,21 +45,17 @@ public class CDChunk implements CowData {
      * Tag
      */
 
-    // Other
-    public int test = 0;
     // Region
     public String parentUUID = "";
     
     @Override
     public void onLoad(CowTaggable handle) {
-        test = TagHelper.getInt(handle.dataTag, "test", test);
         parentUUID = TagHelper.getString(handle.dataTag, "region.uuid", parentUUID);
     }
     
     @Override
     public void onSave(CowTaggable handle) {
         handle.clearStoreTag();
-        handle.dataTag.setInt("test", test);
         handle.dataTag.setString("region.uuid", parentUUID);
     }
 
@@ -77,10 +76,6 @@ public class CDChunk implements CowData {
         if(handle.dataLive == null) {
             handle.dataLive = new CDChunk(chunk);
         }
-        // It should always be a CDChunk
-        /** else if(!(handle.dataLive instanceof CDChunk)) {
-            throw new IllegalArgumentException("Invalid data on chunk.");
-        }**/
         return (CDChunk) handle.dataLive;
     }
 }
