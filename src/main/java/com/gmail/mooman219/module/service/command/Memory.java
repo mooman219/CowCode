@@ -10,7 +10,7 @@ import com.gmail.mooman219.module.CDPlayer;
 
 public class Memory extends CCommand {
     public Memory() {
-        super("", Rank.REGULAR, "/Memory");
+        super(Rank.REGULAR, "/Memory");
     }
 
     @Override

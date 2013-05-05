@@ -34,23 +34,6 @@ public class Scoreboard {
             CHPacket.manager.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
         }
         CHPacket.manager.sendSetScoreboardDisplay(player, title, scoreboardDisplayType);
-        /**
-        if(watchers.contains(player)) {
-            CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.REMOVE);
-            CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.UPDATE);
-            for(ScoreboardValue scoreboardValue : rows.values()) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
-            }
-            CHPacket.helper.sendSetScoreboardDisplay(player, title, scoreboardDisplayType);
-        } else {
-            CHPacket.helper.sendSetScoreboardObjective(player, title, displayTitle, ScoreboardModifyType.UPDATE);
-            for(ScoreboardValue scoreboardValue : rows.values()) {
-                CHPacket.helper.sendSetScoreboardScore(player, title, scoreboardValue.getClientName(), scoreboardValue.getValue(), ScoreboardModifyType.UPDATE);
-            }
-            CHPacket.helper.sendSetScoreboardDisplay(player, title, scoreboardDisplayType);
-            watchers.add(player);
-        }
-        /**/
     }
 
     public void removeWatcher(Player player) {
@@ -60,7 +43,7 @@ public class Scoreboard {
         }
     }
 
-    public void modifyDisplayTitle(String displayTitle) {
+    public void modifyTitle(String displayTitle) {
         this.displayTitle = displayTitle;
         for(Player player : watchers) {
             CHPacket.manager.sendSetScoreboardObjective(player, title, this.displayTitle, ScoreboardModifyType.TITLE);
@@ -101,7 +84,7 @@ public class Scoreboard {
         }
     }
 
-    public void modifyKeyValue(String key, int value) {
+    public void modifyValue(String key, int value) {
         if(rows.containsKey(key)) {
             ScoreboardValue scoreboardValue = rows.get(key);
             scoreboardValue.setValue(value);
@@ -113,7 +96,7 @@ public class Scoreboard {
         }
     }
 
-    public void modifyKeyName(String key, String name) {
+    public void modifyName(String key, String name) {
         if(rows.containsKey(key)) {
             ScoreboardValue scoreboardValue = rows.get(key);
             scoreboardValue.setName(name);

@@ -2,6 +2,7 @@ package com.gmail.mooman219.module.region.command;
 
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.frame.command.CCArg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -11,7 +12,7 @@ import com.gmail.mooman219.module.region.store.StoreRegionInformation;
 
 public class NewInformation extends CCommand {
     public NewInformation() {
-        super("string string", Rank.DEVELOPER, "/NewRegionInformation (id) (name)");
+        super(Rank.DEVELOPER, "/NewRegionInformation (id) (name)", CCArg.STRING, CCArg.STRING);
     }
 
     @Override

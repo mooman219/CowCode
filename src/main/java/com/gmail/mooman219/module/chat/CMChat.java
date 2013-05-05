@@ -16,4 +16,5 @@ public class CMChat {
     public static final String F_LOGIN = TextHelper.buildString(Chat.msgPassive, "{0} has logged in.", Chat.formatPassive);
     public static final String F_KICK = TextHelper.buildString(Chat.msgPassive, "{0} has been kicked.", Chat.formatPassive);
     public static final String F_QUIT = TextHelper.buildString(Chat.msgPassive, "{0} has logged out.", Chat.formatPassive);
+    public static final String F_SETOVERHEAD = TextHelper.buildString(Chat.msgInfo, "Your overhead name is now [{0}].", Chat.formatInfo);
 }

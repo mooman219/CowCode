@@ -8,24 +8,29 @@ import net.minecraft.server.PathfinderGoalTarget;
 
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.CDEntity;
+import com.gmail.mooman219.module.CDLiving;
 import com.gmail.mooman219.module.CDPlayer;
 
 public class Test extends CCommand {
     public Test() {
-        super("", Rank.REGULAR, "/Test");
+        super(Rank.REGULAR, "/Test");
     }
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         for(Entity entity : sender.getNearbyEntities(5, 5, 5)) {
             //net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
-            CDEntity.get(entity).aiFace(sender);
+            if(entity instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity) entity;
+                CDLiving.get(livingEntity).controller.face(sender);
+            }
         }
         //sender.sendMessage("test: " + playerData.test++);
         /**

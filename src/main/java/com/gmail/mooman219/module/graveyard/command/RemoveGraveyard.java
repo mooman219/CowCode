@@ -18,7 +18,7 @@ public class RemoveGraveyard extends CCommand {
     public CCGraveyard module;
 
     public RemoveGraveyard(CCGraveyard module) {
-        super("", Rank.GAMEMASTER, "/RemoveGraveyard");
+        super(Rank.GAMEMASTER, "/RemoveGraveyard");
         this.module = module;
     }
 

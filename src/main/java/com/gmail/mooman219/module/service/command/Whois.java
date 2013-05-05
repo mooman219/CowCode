@@ -3,6 +3,7 @@ package com.gmail.mooman219.module.service.command;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.frame.command.CCArg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
@@ -17,7 +18,7 @@ import com.gmail.mooman219.module.service.CMService;
 
 public class Whois extends CCommand {
     public Whois() {
-        super("optional", Rank.REGULAR, "/Whois (Playername)");
+        super(Rank.REGULAR, "/Whois (Playername)", CCArg.OPTIONAL);
     }
 
     @Override

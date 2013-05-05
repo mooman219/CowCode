@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class ListMinerals extends CCommand {
     public ListMinerals() {
-        super("", Rank.GAMEMASTER, "/ListMinerals");
+        super(Rank.GAMEMASTER, "/ListMinerals");
     }
 
     @Override

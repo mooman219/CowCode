@@ -6,6 +6,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.WorldHelper;
+import com.gmail.mooman219.frame.command.CCArg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -19,7 +20,7 @@ public class AddGraveyard extends CCommand {
     public CCGraveyard module;
 
     public AddGraveyard(CCGraveyard module) {
-        super("number", Rank.GAMEMASTER, "/AddGraveyard (Level)");
+        super(Rank.GAMEMASTER, "/AddGraveyard (Level)", CCArg.INT);
         this.module = module;
     }
 

@@ -22,7 +22,7 @@ public class RemoveMineral extends CCommand {
     public CCMineral module;
 
     public RemoveMineral(CCMineral module) {
-        super("", Rank.GAMEMASTER, "/RemoveMineral");
+        super(Rank.GAMEMASTER, "/RemoveMineral");
         this.module = module;
         this.skippedBlocks = new HashSet<Byte>();
         this.skippedBlocks.add((byte) 6); this.skippedBlocks.add((byte) 8); this.skippedBlocks.add((byte) 9);

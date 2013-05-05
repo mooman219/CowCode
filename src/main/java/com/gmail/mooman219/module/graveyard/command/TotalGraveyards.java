@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class TotalGraveyards extends CCommand {
     public TotalGraveyards() {
-        super("", Rank.GAMEMASTER, "/GetTotalGraveyards");
+        super(Rank.GAMEMASTER, "/GetTotalGraveyards");
     }
 
     @Override

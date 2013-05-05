@@ -19,7 +19,7 @@ public class MessingAround implements Listener {
     @EventHandler
     public void onDamageScoreBoard(EntityDamageEvent event) {
         if(event.getEntity().getType() == EntityType.PLAYER) {
-            CDPlayer.get(((Player) event.getEntity())).service.scoreboard.modifyKeyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
+            CDPlayer.get(((Player) event.getEntity())).service.scoreboard.modifyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
         }
     }
 
@@ -58,7 +58,7 @@ public class MessingAround implements Listener {
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
         for(Player player : Bukkit.getOnlinePlayers()) {
             CDPlayer playerData = CDPlayer.get(player);
-            playerData.service.scoreboard.modifyKeyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
+            playerData.service.scoreboard.modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
         }
     }
 

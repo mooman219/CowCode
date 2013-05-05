@@ -15,8 +15,8 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
             CDChunk chunkData = CDChunk.get(event.getPlayer());
-            playerData.service.scoreboard.modifyKeyName("regionn", Chat.GREEN + chunkData.getParentInformation().name);
-            playerData.service.scoreboard.modifyKeyName("regionc", "• " + Chat.GREEN + chunkData.getParentInformation().combatType.name());
+            playerData.service.scoreboard.modifyName("regionn", Chat.GREEN + chunkData.getParentInformation().name);
+            playerData.service.scoreboard.modifyName("regionc", "• " + Chat.GREEN + chunkData.getParentInformation().combatType.name());
         }
     }
 

@@ -80,11 +80,43 @@ public class NumberHelper {
         return 0;
     }
 
+    public static boolean toBoolean(Object object) {
+        if (object instanceof Boolean) {
+            return (boolean) object;
+        }
+        switch(object.toString().toLowerCase()) {
+        case "true":
+            return true;
+        case "yes":
+            return true;
+        case "1":
+            return true;
+        case "y":
+            return true;
+        case "sure":
+            return true;
+        case "ok":
+            return true;
+        case "okay":
+            return true;
+        case "please":
+            return true;
+        default:
+            return false;
+        }
+    }
+
     public static UUID nextUUID() {
         return new UUID(random.nextLong(), random.nextLong());
     }
-    
+
     public static Random nextRandom() {
         return new XORShiftRNG();
+    }
+
+    public static double sqrt(double number) {
+        double sqrt = Double.longBitsToDouble(
+                ( ( Double.doubleToLongBits(number) - (1l << 52) ) >> 1 ) + ( 1l << 61 ) );
+        return ( sqrt + number / sqrt ) / 2.0D;
     }
 }

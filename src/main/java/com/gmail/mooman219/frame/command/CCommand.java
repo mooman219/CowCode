@@ -14,8 +14,8 @@ public class CCommand implements CommandExecutor {
     public Rank requiredRank;
     public String help;
 
-    public CCommand(String usage, Rank requiredRank, String help) {
-        this.usage = new CommandUsage(usage);
+    public CCommand(Rank requiredRank, String help, CCArg... arguments) {
+        this.usage = new CommandUsage(arguments);
         this.requiredRank = requiredRank;
         this.help = help;
     }

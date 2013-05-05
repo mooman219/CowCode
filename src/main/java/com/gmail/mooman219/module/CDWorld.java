@@ -8,7 +8,6 @@ import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.CowData;
 import com.gmail.mooman219.craftbukkit.CowTaggable;
-import com.gmail.mooman219.frame.TagHelper;
 
 public class CDWorld implements CowData {
     public final World world;
