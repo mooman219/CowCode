@@ -15,7 +15,7 @@ public class ClearMinerals extends CCommand {
     public CCMineral module;
 
     public ClearMinerals(CCMineral module) {
-        super(Rank.GAMEMASTER, "/ClearMinerals");
+        super("clearminerals", Rank.GAMEMASTER, "/ClearMinerals");
         this.module = module;
     }
 

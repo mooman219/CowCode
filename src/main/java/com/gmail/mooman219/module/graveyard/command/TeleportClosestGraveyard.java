@@ -15,7 +15,7 @@ import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 
 public class TeleportClosestGraveyard extends CCommand {
     public TeleportClosestGraveyard() {
-        super(Rank.GAMEMASTER, "/TeleportClosestGraveyard");
+        super("teleportclosestgraveyard", Rank.GAMEMASTER, "/TeleportClosestGraveyard");
     }
 
     @Override

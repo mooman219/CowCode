@@ -54,10 +54,10 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void loadCommands() {
-        plugin.getCommand("modifycombat").setExecutor(new ModifyCombat());
-        plugin.getCommand("modifyinformation").setExecutor(new ModifyInformation());
-        plugin.getCommand("modifyname").setExecutor(new ModifyName());
-        plugin.getCommand("newinformation").setExecutor(new NewInformation());
-        plugin.getCommand("setregion").setExecutor(new SetRegion());
+        plugin.addCommand(new ModifyCombat());
+        plugin.addCommand(new ModifyInformation());
+        plugin.addCommand(new ModifyName());
+        plugin.addCommand(new NewInformation());
+        plugin.addCommand(new SetRegion());
     }
 }

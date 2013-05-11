@@ -86,6 +86,6 @@ commands:
     setoverheadname:
         aliases:
         - cshn
-    entityface:
+    entityturn:
         aliases:
-        - eface
+        - eturn

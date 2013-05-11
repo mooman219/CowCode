@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.craftbukkit.CowData;
 import com.gmail.mooman219.craftbukkit.CowTaggable;
+import com.gmail.mooman219.entity.EntityController;
 
 public class CDLiving implements CowData {
     public final LivingEntity livingEntity;

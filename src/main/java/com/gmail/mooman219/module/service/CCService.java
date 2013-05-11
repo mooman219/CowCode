@@ -4,7 +4,7 @@ import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
-import com.gmail.mooman219.module.service.command.EntityFace;
+import com.gmail.mooman219.module.service.command.EntityTurn;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
 import com.gmail.mooman219.module.service.command.Whois;
@@ -46,10 +46,9 @@ public class CCService implements CowComponent {
 
     @Override
     public void loadCommands() {
-        plugin.getCommand("whois").setExecutor(new Whois());
-        plugin.getCommand("test").setExecutor(new Test());
-        plugin.getCommand("memory").setExecutor(new Memory());
-        //
-        plugin.getCommand("entityface").setExecutor(new EntityFace());
+        plugin.addCommand(new Whois());
+        plugin.addCommand(new Test());
+        plugin.addCommand(new Memory());
+        plugin.addCommand(new EntityTurn());
     }
 }

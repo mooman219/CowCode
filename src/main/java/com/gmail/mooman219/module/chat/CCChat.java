@@ -51,10 +51,10 @@ public class CCChat implements CowComponent {
 
     @Override
     public void loadCommands() {
-        plugin.getCommand("global").setExecutor(new Global());
-        plugin.getCommand("reply").setExecutor(new Reply());
-        plugin.getCommand("message").setExecutor(new Message());
-        plugin.getCommand("setchatrange").setExecutor(new SetChatRange());
-        plugin.getCommand("setoverheadname").setExecutor(new SetOverheadName());
+        plugin.addCommand(new Global());
+        plugin.addCommand(new Message());
+        plugin.addCommand(new Reply());
+        plugin.addCommand(new SetChatRange());
+        plugin.addCommand(new SetOverheadName());
     }
 }

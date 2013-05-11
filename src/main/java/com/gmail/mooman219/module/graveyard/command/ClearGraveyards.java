@@ -15,7 +15,7 @@ public class ClearGraveyards extends CCommand {
     public CCGraveyard module;
 
     public ClearGraveyards(CCGraveyard module) {
-        super(Rank.GAMEMASTER, "/ClearGraveyards");
+        super("cleargraveyards", Rank.GAMEMASTER, "/ClearGraveyards");
         this.module = module;
     }
 

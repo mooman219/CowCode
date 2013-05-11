@@ -56,12 +56,12 @@ public class CCGraveyard implements CowComponent {
 
     @Override
     public void loadCommands() {
-        plugin.getCommand("addgraveyard").setExecutor(new AddGraveyard(this));
-        plugin.getCommand("cleargraveyards").setExecutor(new ClearGraveyards(this));
-        plugin.getCommand("totalgraveyards").setExecutor(new TotalGraveyards());
-        plugin.getCommand("teleportclosestgraveyard").setExecutor(new TeleportClosestGraveyard());
-        plugin.getCommand("removegraveyard").setExecutor(new RemoveGraveyard(this));
-        plugin.getCommand("listgraveyards").setExecutor(new ListGraveyards());
-        plugin.getCommand("teleportgraveyard").setExecutor(new TeleportGraveyard());
+        plugin.addCommand(new AddGraveyard(this));
+        plugin.addCommand(new ClearGraveyards(this));
+        plugin.addCommand(new ListGraveyards());
+        plugin.addCommand(new RemoveGraveyard(this));
+        plugin.addCommand(new TeleportClosestGraveyard());
+        plugin.addCommand(new TeleportGraveyard());
+        plugin.addCommand(new TotalGraveyards());
     }
 }

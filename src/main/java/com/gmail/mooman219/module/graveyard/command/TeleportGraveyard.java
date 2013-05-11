@@ -5,7 +5,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.WorldHelper;
-import com.gmail.mooman219.frame.command.CCArg;
+import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 
 public class TeleportGraveyard extends CCommand {
     public TeleportGraveyard() {
-        super(Rank.GAMEMASTER, "/TeleportGraveyard (Grave ID)", CCArg.INT);
+        super("teleportgraveyard", Rank.GAMEMASTER, "/TeleportGraveyard (Grave ID)", Carg.INT);
     }
 
     @Override

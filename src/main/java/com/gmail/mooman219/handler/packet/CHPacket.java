@@ -70,7 +70,7 @@ public class CHPacket implements CowHandler {
         }
 
         public void toAllPlayers(final Packet packet) {
-            Runnable task = new Runnable() {
+            final Runnable task = new Runnable() {
                 @Override
                 public void run() {
                     for(Player bukkitPlayer : Bukkit.getOnlinePlayers()) {
@@ -85,7 +85,7 @@ public class CHPacket implements CowHandler {
         }
 
         public void toPlayer(final Player bukkitPlayer, final Packet packet) {
-            Runnable task = new Runnable() {
+            final Runnable task = new Runnable() {
                 @Override
                 public void run() {
                     ((CraftPlayer)bukkitPlayer).getHandle().playerConnection.sendPacket(packet);

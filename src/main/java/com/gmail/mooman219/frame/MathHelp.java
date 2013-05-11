@@ -3,8 +3,8 @@ package com.gmail.mooman219.frame;
 import java.util.Random;
 import java.util.UUID;
 
-public class NumberHelper {
-    public static final Random random = new Random();
+public class MathHelp {
+    public static final Random random = nextRandom();
 
     public static int floor(double num) {
         final int floor = (int) num;
@@ -18,6 +18,23 @@ public class NumberHelper {
 
     public static int round(double num) {
         return floor(num + 0.5d);
+    }
+    
+    public static UUID nextUUID() {
+        return new UUID(random.nextLong(), random.nextLong());
+    }
+
+    public static Random nextRandom() {
+        return new XORShiftRNG();
+    }
+    
+    public static double random() {
+        return random.nextDouble();
+    }
+
+    public static double sqrt(double number) {
+        double approx = Double.longBitsToDouble(((Double.doubleToRawLongBits(number) >> 32) + 1072632448) << 31);
+        return (approx + number / approx) / 2D;
     }
 
     public static int toInt(Object object) {
@@ -104,19 +121,5 @@ public class NumberHelper {
         default:
             return false;
         }
-    }
-
-    public static UUID nextUUID() {
-        return new UUID(random.nextLong(), random.nextLong());
-    }
-
-    public static Random nextRandom() {
-        return new XORShiftRNG();
-    }
-
-    public static double sqrt(double number) {
-        double sqrt = Double.longBitsToDouble(
-                ( ( Double.doubleToLongBits(number) - (1l << 52) ) >> 1 ) + ( 1l << 61 ) );
-        return ( sqrt + number / sqrt ) / 2.0D;
     }
 }

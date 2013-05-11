@@ -1,13 +1,12 @@
 package com.gmail.mooman219.frame.command;
 
 public class CommandUsage {
-    public final CCArg[] arguments;
+    public final Carg[] arguments;
 
-    // Tags: string number message optional
-    public CommandUsage(CCArg... arguments) {
+    public CommandUsage(Carg... arguments) {
         this.arguments = arguments;
         for(int i = 0; i < arguments.length - 1; i++) {
-            if(arguments[i] == CCArg.OPTIONAL || arguments[i] == CCArg.MESSAGE) {
+            if(arguments[i] == Carg.OPTIONAL || arguments[i] == Carg.MESSAGE) {
                 throw new IllegalArgumentException("ArgTypes OPTIONAL or MESSAGE must be last.");
             }
         }

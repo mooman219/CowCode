@@ -8,6 +8,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.serialize.CSBasicLocation;
 import com.gmail.mooman219.frame.serialize.CSChunkLocation;
 import com.gmail.mooman219.frame.serialize.CSLocation;
@@ -42,7 +43,9 @@ public class Loader extends JavaPlugin {
         }
     }
 
-    /*
+    /* Cheat sheet, most likely out of date due to lazyness.
+     * I like to append letters to my files that have common names
+     * to clarify I want to use my version of said file.
      * C    | Cow             | Cow related files
      * CD	| Cow Data		  |
      * CH   | Cow Handler     | Handler component
@@ -129,6 +132,10 @@ public class Loader extends JavaPlugin {
         PluginDescriptionFile pdfFile = getDescription();
         Loader.info(cast + "Version: " + pdfFile.getVersion() + " Disabled.");
         Loader.info(cast + "Created by: " + pdfFile.getAuthors());
+    }
+    
+    public void addCommand(CCommand command) {
+        this.getCommand(command.command).setExecutor(command);
     }
 
     public static void info(String message) {

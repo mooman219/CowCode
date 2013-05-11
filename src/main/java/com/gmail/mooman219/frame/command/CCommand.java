@@ -10,11 +10,13 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.CDPlayer;
 
 public class CCommand implements CommandExecutor {
+    public String command;
     public CommandUsage usage;
     public Rank requiredRank;
     public String help;
 
-    public CCommand(Rank requiredRank, String help, CCArg... arguments) {
+    public CCommand(String command, Rank requiredRank, String help, Carg... arguments) {
+        this.command = command;
         this.usage = new CommandUsage(arguments);
         this.requiredRank = requiredRank;
         this.help = help;

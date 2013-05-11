@@ -1,6 +1,6 @@
 package com.gmail.mooman219.handler.task;
 
-public class Task implements Runnable{
+public class Task implements Runnable {
     public final Runnable slave;
     public final boolean hasDelay;
     public final boolean hasPeriod;

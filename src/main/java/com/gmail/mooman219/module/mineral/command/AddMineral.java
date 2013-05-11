@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.WorldHelper;
-import com.gmail.mooman219.frame.command.CCArg;
+import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -23,7 +23,7 @@ public class AddMineral extends CCommand {
     public CCMineral module;
 
     public AddMineral(CCMineral module) {
-        super(Rank.GAMEMASTER, "/AddMineral (Delay)", CCArg.INT);
+        super("addmineral", Rank.GAMEMASTER, "/AddMineral (Delay)", Carg.INT);
         this.module = module;
         this.skippedBlocks = new HashSet<Byte>();
         this.skippedBlocks.add((byte) 6); this.skippedBlocks.add((byte) 8); this.skippedBlocks.add((byte) 9);

@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.mineral.MineralManager;
 
 public class RevertMinerals extends CCommand {
     public RevertMinerals() {
-        super(Rank.GAMEMASTER, "/RevertMinerals");
+        super("revertminerals", Rank.GAMEMASTER, "/RevertMinerals");
     }
 
     @Override

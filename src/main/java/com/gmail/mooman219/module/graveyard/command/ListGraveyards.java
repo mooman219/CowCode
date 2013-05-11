@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class ListGraveyards extends CCommand {
     public ListGraveyards() {
-        super(Rank.GAMEMASTER, "/ListGraveyards");
+        super("listgraveyards", Rank.GAMEMASTER, "/ListGraveyards");
     }
 
     @Override

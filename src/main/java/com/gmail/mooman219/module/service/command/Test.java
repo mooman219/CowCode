@@ -11,7 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.MathHelp;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.CDEntity;
@@ -20,7 +20,7 @@ import com.gmail.mooman219.module.CDPlayer;
 
 public class Test extends CCommand {
     public Test() {
-        super(Rank.REGULAR, "/Test");
+        super("test", Rank.REGULAR, "/Test");
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Test extends CCommand {
             //net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
             if(entity instanceof LivingEntity) {
                 LivingEntity livingEntity = (LivingEntity) entity;
-                CDLiving.get(livingEntity).controller.face(sender);
+                CDLiving.get(livingEntity).controller.face(sender.getLocation().toVector());
             }
         }
         //sender.sendMessage("test: " + playerData.test++);

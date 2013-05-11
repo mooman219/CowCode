@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class TotalMinerals extends CCommand {
     public TotalMinerals() {
-        super(Rank.GAMEMASTER, "/TotalMinerals");
+        super("totalminerals", Rank.GAMEMASTER, "/TotalMinerals");
     }
 
     @Override

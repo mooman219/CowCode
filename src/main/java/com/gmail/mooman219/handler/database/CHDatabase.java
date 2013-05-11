@@ -49,7 +49,7 @@ public class CHDatabase implements CowHandler {
     
     public class Manager {
         public void uploadPlayer(final CDPlayer playerData, final UploadReason reason, final UploadThread thread) {
-            Runnable task = new Runnable() {
+            final Runnable task = new Runnable() {
                 @Override
                 public void run() {
                     if(thread.remove) {

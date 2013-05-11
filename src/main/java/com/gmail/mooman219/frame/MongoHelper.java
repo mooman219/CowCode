@@ -26,10 +26,10 @@ public class MongoHelper {
     }
 
     public static long getValue(DBObject document, String query, long defaultValue) {
-        return NumberHelper.toLong(document.get(query));
+        return MathHelp.toLong(document.get(query));
     }
 
     public static int getValue(DBObject document, String query, int defaultValue) {
-        return NumberHelper.toInt(document.get(query));
+        return MathHelp.toInt(document.get(query));
     }
 }

@@ -63,11 +63,11 @@ public class CCMineral implements CowComponent {
 
     @Override
     public void loadCommands() {
-        plugin.getCommand("addmineral").setExecutor(new AddMineral(this));
-        plugin.getCommand("clearminerals").setExecutor(new ClearMinerals(this));
-        plugin.getCommand("listminerals").setExecutor(new ListMinerals());
-        plugin.getCommand("removemineral").setExecutor(new RemoveMineral(this));
-        plugin.getCommand("revertminerals").setExecutor(new RevertMinerals());
-        plugin.getCommand("totalminerals").setExecutor(new TotalMinerals());
+        plugin.addCommand(new AddMineral(this));
+        plugin.addCommand(new ClearMinerals(this));
+        plugin.addCommand(new ListMinerals());
+        plugin.addCommand(new RemoveMineral(this));
+        plugin.addCommand(new RevertMinerals());
+        plugin.addCommand(new TotalMinerals());
     }
 }
