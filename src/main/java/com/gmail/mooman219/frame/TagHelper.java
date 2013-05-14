@@ -21,7 +21,7 @@ public class TagHelper {
         ((CraftLivingEntity)livingEntity).getHandle().b(tag);
         return tag;
     }
-    
+
     public static byte getByte(NBTTagCompound tag, String key, byte fallback) {
         return tag.hasKey(key) ? tag.getByte(key) : fallback;
     }

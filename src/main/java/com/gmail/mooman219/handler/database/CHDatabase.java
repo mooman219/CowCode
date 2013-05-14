@@ -25,7 +25,7 @@ public class CHDatabase implements CowHandler {
     private MongoClient client;
 
     @Override
-    public void onEnable() { 
+    public void onEnable() {
         manager = new Manager();
         try {
             client = new MongoClient(ConfigGlobal.hostname, ConfigGlobal.portnmbr);
@@ -46,7 +46,7 @@ public class CHDatabase implements CowHandler {
     public void onDisable() {
         client.close();
     }
-    
+
     public class Manager {
         public void uploadPlayer(final CDPlayer playerData, final UploadReason reason, final UploadThread thread) {
             final Runnable task = new Runnable() {
@@ -57,17 +57,17 @@ public class CHDatabase implements CowHandler {
                     }
                     DBObject playerObject = playerData.getTemplate(reason);
                     c_Users.update(new BasicDBObject("_id", playerData.id)
-                                 , new BasicDBObject("$set", playerObject));
+                    , new BasicDBObject("$set", playerObject));
                     Loader.info(cast + "[UP] ["+reason.name()+"] : " + playerData.username);
                 }
             };
-            if(thread.async) {                
+            if(thread.async) {
                 CHTask.manager.runPlugin(task, true);
             } else {
                 task.run();
             }
         }
-        
+
         public CDPlayer downloadPlayer(final String username, final DownloadReason reason) {
             CDPlayer playerData;
             DBObject playerObject;
@@ -81,8 +81,8 @@ public class CHDatabase implements CowHandler {
                     return playerData;
                 } else {
                     c_Users.insert(new BasicDBObject("username", username)
-                                             .append("usernamelowercase", username.toLowerCase()));
-                    playerObject = c_Users.findOne(new BasicDBObject("username", username)); 
+                    .append("usernamelowercase", username.toLowerCase()));
+                    playerObject = c_Users.findOne(new BasicDBObject("username", username));
                     playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
                     uploadPlayer(playerData, UploadReason.CREATION, UploadThread.ASYNC);
                     return playerData;
@@ -94,7 +94,7 @@ public class CHDatabase implements CowHandler {
                     playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
                     playerData.sync(playerObject);
                     return playerData;
-                } else {                    
+                } else {
                     return null;
                 }
             default:

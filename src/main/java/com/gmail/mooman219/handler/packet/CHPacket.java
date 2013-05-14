@@ -32,13 +32,13 @@ public class CHPacket implements CowHandler {
     public void onDisable() {
         Loader.info(cast + "Disabled");
     }
-    
+
     public class Manager {
         public void sendCloseWindow(Player bukkitPlayer, int windowID) {
             Packet101CloseWindow packet101 = new Packet101CloseWindow(windowID);
             toPlayer(bukkitPlayer, packet101);
         }
-        
+
         public void sendSetScoreboardObjective(Player bukkitPlayer, String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {
             Packet206SetScoreboardObjective packet206 = new Packet206SetScoreboardObjective();
             packet206.a = scoreboardTitle;

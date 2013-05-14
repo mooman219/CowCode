@@ -31,7 +31,7 @@ public class CCRegion implements CowComponent {
     public void onEnable(){
         storeRegionInformation = new StoreRegionInformation();
         Loader.info(cast + "Loaded " + storeRegionInformation.fileName);
-        
+
         listenerPlayer = new ListenerPlayer();
 
         PluginManager pm = plugin.getServer().getPluginManager();

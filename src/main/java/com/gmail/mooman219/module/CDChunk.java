@@ -21,11 +21,11 @@ public class CDChunk implements CowData {
     /*
      * Live
      */
-    
+
     // Region
     private CSRegionInformation parentInformation;
     //
-    
+
     public CSRegionInformation getParentInformation() {
         if(parentInformation == null) {
             parentInformation = StoreRegionInformation.getInformation(parentUUID);
@@ -33,7 +33,7 @@ public class CDChunk implements CowData {
         }
         return parentInformation;
     }
-    
+
     public void setParentInformation(CSRegionInformation information) {
         parentInformation = information;
         parentUUID = information.uuid;
@@ -46,15 +46,15 @@ public class CDChunk implements CowData {
     // Region
     public String parentUUID = "";
     //
-    
+
     @Override
     public void onTick(CowTaggable handle) {}
-    
+
     @Override
     public void onLoad(CowTaggable handle) {
         parentUUID = TagHelper.getString(handle.dataTag, "region.uuid", parentUUID);
     }
-    
+
     @Override
     public void onSave(CowTaggable handle) {
         handle.clearStoreTag();
@@ -68,7 +68,7 @@ public class CDChunk implements CowData {
     public net.minecraft.server.Chunk getHandle() {
         return ((CraftChunk)chunk).getHandle();
     }
-    
+
     public static CDChunk get(Entity entity) {
         return get(entity.getLocation().getChunk());
     }

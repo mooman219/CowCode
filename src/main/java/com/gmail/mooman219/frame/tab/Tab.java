@@ -19,11 +19,7 @@ public class Tab {
     public Tab() {
         this.watchers = new ArrayList<Player>();
         this.tab = new TabValue[maxTabWidth][maxTabHeight];
-        for(int x = 0; x < maxTabWidth; x++) {
-            for(int y = 0; y < maxTabHeight; y++) {
-                tab[x][y] = new TabValue(nextUnique(), true);
-            }
-        }
+        clear();
     }
 
     public void addWatcher(Player player) {
@@ -34,17 +30,24 @@ public class Tab {
         updatePlayer(player, true);
     }
 
-    public void removeWatcher(Player player) {
-        if(watchers.contains(player)) {
-            updatePlayer(player, false);
+    public void clear() {
+        for(int x = 0; x < maxTabWidth; x++) {
+            for(int y = 0; y < maxTabHeight; y++) {
+                tab[x][y] = new TabValue(nextUnique(), true);
+            }
         }
     }
 
-    public void updatePlayer(Player player, boolean login) {
-        for(int x = 0; x < maxTabWidth; x++) {
-            for(int y = 0; y < maxTabHeight; y++) {
-                CHPacket.manager.sendPlayerInfo(player, tab[x][y].getClientName(), login, true);
-            }
+    public String nextUnique() {
+        index = index > 256 ? 0 : index + 1;
+        String name = Chat.COLOR_CHAR + tabSafeColors[MathHelp.floor((index / 16d) % 16)];
+        name += Chat.COLOR_CHAR + tabSafeColors[index % 16];
+        return name;
+    }
+
+    public void removeWatcher(Player player) {
+        if(watchers.contains(player)) {
+            updatePlayer(player, false);
         }
     }
 
@@ -53,10 +56,11 @@ public class Tab {
         this.tab[x][y].setPing(ping);
     }
 
-    public String nextUnique() {
-        index = index > 256 ? 0 : index + 1;
-        String name = Chat.COLOR_CHAR + tabSafeColors[MathHelp.floor((index / 16d) % 16)];
-        name += Chat.COLOR_CHAR + tabSafeColors[index % 16];
-        return name;
+    public void updatePlayer(Player player, boolean login) {
+        for(int x = 0; x < maxTabWidth; x++) {
+            for(int y = 0; y < maxTabHeight; y++) {
+                CHPacket.manager.sendPlayerInfo(player, tab[x][y].getClientName(), login, true);
+            }
+        }
     }
 }

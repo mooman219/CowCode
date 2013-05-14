@@ -133,7 +133,7 @@ public class Loader extends JavaPlugin {
         Loader.info(cast + "Version: " + pdfFile.getVersion() + " Disabled.");
         Loader.info(cast + "Created by: " + pdfFile.getAuthors());
     }
-    
+
     public void addCommand(CCommand command) {
         this.getCommand(command.command).setExecutor(command);
     }

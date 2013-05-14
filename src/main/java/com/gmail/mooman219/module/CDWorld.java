@@ -24,14 +24,14 @@ public class CDWorld implements CowData {
     /*
      * Tag
      */
-    
+
     @Override
     public void onTick(CowTaggable handle) {}
-    
+
     @Override
     public void onLoad(CowTaggable handle) {
     }
-    
+
     @Override
     public void onSave(CowTaggable handle) {
         handle.clearStoreTag();
@@ -44,7 +44,7 @@ public class CDWorld implements CowData {
     public WorldData getHandle() {
         return ((CraftWorld)world).getHandle().getWorldData();
     }
-    
+
     public static CDWorld get(Entity entity) {
         return get(entity.getLocation().getWorld());
     }

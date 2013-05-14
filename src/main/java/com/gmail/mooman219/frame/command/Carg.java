@@ -11,13 +11,13 @@ public enum Carg {
     DOUBLE("double"),
     LONG("long"),
     BOOLEAN("boolean");
-    
+
     public final String name;
-    
+
     Carg(String name) {
         this.name = name.toLowerCase();
     }
-    
+
     public static Carg get(String name) {
         for(Carg param : Carg.values()) {
             if(name.toLowerCase().equals(param.name)) {

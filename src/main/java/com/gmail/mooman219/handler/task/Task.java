@@ -59,7 +59,7 @@ public class Task implements Runnable {
                     break;
                 }
                 rest(period);
-            }            
+            }
         } else {
             runTask();
         }

@@ -19,7 +19,7 @@ public class MathHelp {
     public static int round(double num) {
         return floor(num + 0.5d);
     }
-    
+
     public static UUID nextUUID() {
         return new UUID(random.nextLong(), random.nextLong());
     }
@@ -27,7 +27,7 @@ public class MathHelp {
     public static Random nextRandom() {
         return new XORShiftRNG();
     }
-    
+
     public static double random() {
         return random.nextDouble();
     }

@@ -19,7 +19,7 @@ public class SetRegion extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CSRegionInformation region = StoreRegionInformation.getInformationByID(args[0]); 
+        CSRegionInformation region = StoreRegionInformation.getInformationByID(args[0]);
         if(region != null) {
             CDChunk.get(sender).setParentInformation(region);
             TextHelper.message(sender, CMRegion.M_MODIFIED);

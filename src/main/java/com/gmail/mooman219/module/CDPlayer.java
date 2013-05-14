@@ -18,6 +18,8 @@ import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.tab.Tab;
+import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
@@ -52,6 +54,10 @@ public class CDPlayer implements CowData {
         this.chatData = new PDChat();
     }
 
+    /*
+     * Special
+     */
+
     public void initializePlayer(Player player) {
         this.player = player;
         onLoad(getHandle());
@@ -75,23 +81,11 @@ public class CDPlayer implements CowData {
         template.putAll(chatData.getTemplate(reason));
         return template;
     }
-    
+
     /*
      * Live
      */
-    
-    public void closeInventory() {
-        EntityPlayer handle = getHandle();
-        CHPacket.manager.sendCloseWindow(player, handle.activeContainer.windowId); // Tell the player to close their inventory
-        handle.activeContainer.transferTo(handle.defaultContainer, (CraftHumanEntity) player); // Tell bukkit to close the inventory
-        PlayerInventory playerinventory = handle.inventory; // Drop any items being held while in the inventory
-        if (playerinventory.getCarried() != null) {
-            handle.drop(playerinventory.getCarried());
-            playerinventory.setCarried((ItemStack) null);
-        }
-        handle.activeContainer = handle.defaultContainer; // Close the inventory
-    }
-    
+
     public void chat(final String message) {
         Runnable task = new Runnable() {
             @Override
@@ -105,25 +99,45 @@ public class CDPlayer implements CowData {
         };
         CHTask.manager.runPlugin(task, true);
     }
-    
+
+    public void closeInventory() {
+        EntityPlayer handle = getHandle();
+        CHPacket.manager.sendCloseWindow(player, handle.activeContainer.windowId); // Tell the player to close their inventory
+        handle.activeContainer.transferTo(handle.defaultContainer, (CraftHumanEntity) player); // Tell bukkit to close the inventory
+        PlayerInventory playerinventory = handle.inventory; // Drop any items being held while in the inventory
+        if (playerinventory.getCarried() != null) {
+            handle.drop(playerinventory.getCarried());
+            playerinventory.setCarried((ItemStack) null);
+        }
+        handle.activeContainer = handle.defaultContainer; // Close the inventory
+    }
+
     public Board getSidebar() {
         return sidebar;
     }
-    
+
     public Tab getTab() {
         return tabList;
+    }
+
+    public void setDisplayName(String name) {
+        player.setDisplayName(name + Chat.RESET);
+    }
+
+    public void setTabListName(String name) {
+        player.setPlayerListName(TextHelper.shrink(name));
     }
 
     /*
      * Tag
      */
-    
+
     @Override
     public void onTick(CowTaggable handle) {}
-    
+
     @Override
     public void onLoad(CowTaggable handle) {}
-    
+
     @Override
     public void onSave(CowTaggable handle) {
         handle.clearStoreTag();

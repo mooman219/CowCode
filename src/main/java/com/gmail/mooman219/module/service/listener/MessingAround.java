@@ -48,7 +48,7 @@ public class MessingAround implements Listener {
         CHPacket.manager.sendPlayerInfo(event.getPlayer(), "9001", true, false);
         CHPacket.manager.sendPlayerInfo(event.getPlayer(), "219", true, false);
         CHPacket.manager.sendPlayerInfo(event.getPlayer(), "-2", true, false);
-        
+
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
         event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
     }

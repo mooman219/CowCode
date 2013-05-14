@@ -13,6 +13,6 @@ public class Test extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        
+
     }
 }

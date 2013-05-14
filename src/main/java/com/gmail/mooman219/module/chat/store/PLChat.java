@@ -8,14 +8,14 @@ public class PLChat {
     private SoftReference<CDPlayer> softLastMessaged;
     public long lastGlobalChat = 0l;
 
-    public final CDPlayer getLastMessaged() {
+    public CDPlayer getLastMessaged() {
         if (softLastMessaged == null || softLastMessaged.get() == null) {
             return null;
         }
         return softLastMessaged.get();
     }
 
-    public final void setLastMessaged(CDPlayer lastMessaged) {
+    public void setLastMessaged(CDPlayer lastMessaged) {
         if(softLastMessaged != null) {
             softLastMessaged.clear();
         }

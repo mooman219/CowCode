@@ -11,12 +11,12 @@ import com.gmail.mooman219.core.Loader;
 
 public class CHTask implements CowHandler {
     private Loader plugin;
-    
+
     public final static String cast = "[CC][H][Task] ";
 
     public static Manager manager;
     public boolean test = false;
-    protected static boolean halt = false; 
+    protected static boolean halt = false;
     private ExecutorService asyncPool;
     private PluginSyncQueue syncQueue;
 
@@ -44,25 +44,25 @@ public class CHTask implements CowHandler {
         asyncPool.shutdown();
         Loader.info(cast + "Disabled");
     }
-    
+
     public class Manager {
         public BukkitTask runBukkit(Runnable runnable, boolean async) {
             if(async) {
-                return Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);            
+                return Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
             }
             return Bukkit.getScheduler().runTask(plugin, runnable);
         }
-        
+
         public BukkitTask runBukkit(Runnable runnable, boolean async, long delay) {
             if(async) {
-                return Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay);            
+                return Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay);
             }
             return Bukkit.getScheduler().runTaskLater(plugin, runnable, delay);
         }
-        
+
         public BukkitTask runBukkit(Runnable runnable, boolean async, long delay, long period) {
             if(async) {
-                return Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period);            
+                return Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period);
             }
             return Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period);
         }
@@ -70,23 +70,23 @@ public class CHTask implements CowHandler {
         public Thread runThread(Runnable runnable) {
             return runThread(runnable, -1l, -1l);
         }
-        
+
         public Thread runThread(Runnable runnable, long delay) {
             return runThread(runnable, delay, -1l);
         }
-        
+
         public Thread runThread(Runnable runnable, long delay, long period) {
             Thread thread = new Thread(new Task(runnable, delay, period));
             thread.start();
             return thread;
         }
-        
+
         public Runnable runPlugin(Runnable runnable, boolean async) {
             if(async) {
                 asyncPool.submit(runnable);
                 return null;
             }
-            return syncQueue.put(runnable);            
+            return syncQueue.put(runnable);
         }
     }
 }

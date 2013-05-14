@@ -24,14 +24,14 @@ public class CDLiving implements CowData {
     /*
      * Tag
      */
-    
+
     @Override
     public void onTick(CowTaggable handle) {}
-    
+
     @Override
     public void onLoad(CowTaggable handle) {
     }
-    
+
     @Override
     public void onSave(CowTaggable handle) {
         handle.clearStoreTag();
