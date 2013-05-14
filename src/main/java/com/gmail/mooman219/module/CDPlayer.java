@@ -63,7 +63,7 @@ public class CDPlayer implements CowData {
         onLoad(getHandle());
 
         sidebar = new Board(username, BoardDisplayType.SIDEBAR, serviceData.rank.color + username);
-        tabList = new Tab();
+        tabList = new Tab(player);
 
         this.chat = new PLChat();
     }

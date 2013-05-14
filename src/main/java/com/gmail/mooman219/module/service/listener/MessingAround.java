@@ -39,16 +39,37 @@ public class MessingAround implements Listener {
         playerData.getSidebar().addKey("memory", "Memory: Init", 3);
         playerData.getSidebar().addKey("lastdamage", "LastDmg: Init", 1);
 
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Health", true, true);
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Mana", true, true);
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Cows", true, true);
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Children", true, true);
-
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "1,234,567", true, false);
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "9001", true, false);
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "219", true, false);
-        CHPacket.manager.sendPlayerInfo(event.getPlayer(), "-2", true, false);
-
+        playerData.getTab().setTab(0, 0, Chat.RED + "" + Chat.BOLD + "Health:");
+        playerData.getTab().setTab(1, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");
+        playerData.getTab().setTab(2, 0, Chat.GRAY + "" + Chat.BOLD + "Level:");
+        playerData.getTab().setTab(3, 0, Chat.GOLD + "" + Chat.BOLD + "Gold:");
+        
+        playerData.getTab().setTab(0, 1, "100/100");
+        playerData.getTab().setTab(1, 1, "120/200");
+        playerData.getTab().setTab(2, 1, "3");
+        playerData.getTab().setTab(3, 1, "8320");
+        
+        playerData.getTab().setTab(0, 2, Chat.GRAY + "" + Chat.BOLD + "==========");
+        playerData.getTab().setTab(1, 2, Chat.GRAY + "" + Chat.BOLD + "==========");
+        playerData.getTab().setTab(2, 2, Chat.GRAY + "" + Chat.BOLD + "==========");
+        playerData.getTab().setTab(3, 2, Chat.GRAY + "" + Chat.BOLD + "=========");
+        
+        playerData.getTab().setTab(0, 3, Chat.RED + "" + Chat.BOLD + "STR:");
+        playerData.getTab().setTab(2, 3, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:");
+        playerData.getTab().setTab(1, 3, Chat.GREEN + "" + Chat.BOLD + "AGI:");
+        playerData.getTab().setTab(3, 3, Chat.PURPLE + "" + Chat.BOLD + "KNW:");
+        
+        playerData.getTab().setTab(0, 4, "10");
+        playerData.getTab().setTab(1, 4, "31");
+        playerData.getTab().setTab(2, 4, "28");
+        playerData.getTab().setTab(3, 4, "19");
+        
+        playerData.getTab().setTab(0, 5, Chat.GRAY + "" + Chat.BOLD + "==========");
+        playerData.getTab().setTab(1, 5, Chat.GRAY + "" + Chat.BOLD + "==========");
+        playerData.getTab().setTab(2, 5, Chat.GRAY + "" + Chat.BOLD + "==========");
+        playerData.getTab().setTab(3, 5, Chat.GRAY + "" + Chat.BOLD + "=========");
+        playerData.getTab().update();
+        
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
         event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
     }

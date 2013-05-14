@@ -64,7 +64,7 @@ public class CHPacket implements CowHandler {
         }
 
         public void sendPlayerInfo(Player bukkitPlayer, String name, boolean online, boolean ping) {
-            Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, true, ping ? 0 : 40000);
+            Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, online, ping ? 0 : 5000);
             toPlayer(bukkitPlayer, packet201);
         }
 
