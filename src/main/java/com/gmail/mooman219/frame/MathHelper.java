@@ -3,7 +3,7 @@ package com.gmail.mooman219.frame;
 import java.util.Random;
 import java.util.UUID;
 
-public class MathHelp {
+public class MathHelper {
     public static final Random random = nextRandom();
 
     public static int floor(double num) {

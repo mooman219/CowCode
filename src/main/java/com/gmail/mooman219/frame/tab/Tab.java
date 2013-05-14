@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.frame.MathHelp;
+import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.packet.CHPacket;
 
@@ -40,7 +40,7 @@ public class Tab {
 
     public String nextUnique() {
         index = index > 256 ? 0 : index + 1;
-        String name = Chat.COLOR_CHAR + tabSafeColors[MathHelp.floor((index / 16d) % 16)];
+        String name = Chat.COLOR_CHAR + tabSafeColors[MathHelper.floor((index / 16D) % 16)];
         name += Chat.COLOR_CHAR + tabSafeColors[index % 16];
         return name;
     }

@@ -5,7 +5,7 @@ import java.util.Map;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-import com.gmail.mooman219.frame.MathHelp;
+import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.module.region.store.RegionCombatType;
 
@@ -20,14 +20,14 @@ public class CSRegionInformation implements ConfigurationSerializable {
     public RegionCombatType combatType = RegionCombatType.SAFE;
 
     public CSRegionInformation(String id, String name) {
-        this.uuid = MathHelp.nextUUID().toString();
+        this.uuid = MathHelper.nextUUID().toString();
         this.id = id.toLowerCase();
 
         this.name = name;
     }
 
     public CSRegionInformation(Map<String, Object> map) {
-        this.uuid = TagHelper.getValue(map, "uuid", MathHelp.nextUUID().toString());
+        this.uuid = TagHelper.getValue(map, "uuid", MathHelper.nextUUID().toString());
         this.id = TagHelper.getValue(map, "id", "tmp" + uuid); // The fallback should be renamed later
 
         this.name = TagHelper.getValue(map, "name", name);
