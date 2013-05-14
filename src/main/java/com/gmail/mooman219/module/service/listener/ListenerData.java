@@ -16,8 +16,6 @@ import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.frame.event.DataCreateEvent;
 import com.gmail.mooman219.frame.event.DataRemovalEvent;
 import com.gmail.mooman219.frame.event.DataVerifyEvent;
-import com.gmail.mooman219.frame.scoreboard.Scoreboard;
-import com.gmail.mooman219.frame.scoreboard.ScoreboardDisplayType;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
@@ -69,9 +67,6 @@ public class ListenerData implements Listener {
         Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
 
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
-        // Service - DataCreateEvent
-        playerData.service.scoreboard = new Scoreboard(playerData.username, ScoreboardDisplayType.SIDEBAR, playerData.serviceData.rank.color + playerData.username);
-        //
         CEventFactory.callDataCreateEvent(event, event.getPlayer());
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
         CHDatabase.manager.uploadPlayer(playerData, UploadReason.STATUS, UploadThread.ASYNC);
@@ -82,16 +77,14 @@ public class ListenerData implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
 
-        CDPlayer playerData = CDPlayer.get(event.getPlayer());
-        playerData.service.scoreboard.addWatcher(event.getPlayer());
+        CDPlayer.get(event.getPlayer()).getSidebar().addWatcher(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuit(PlayerQuitEvent event) {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
 
-        CDPlayer playerData = CDPlayer.get(event.getPlayer());
-        CHDatabase.manager.uploadPlayer(playerData, UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
+        CHDatabase.manager.uploadPlayer(CDPlayer.get(event.getPlayer()), UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

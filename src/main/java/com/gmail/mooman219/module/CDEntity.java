@@ -18,13 +18,13 @@ public class CDEntity implements CowData {
     /*
      * Live
      */
-    
-    @Override
-    public void onTick(CowTaggable handle) {}
 
     /*
      * Tag
      */
+    
+    @Override
+    public void onTick(CowTaggable handle) {}
     
     @Override
     public void onLoad(CowTaggable handle) {

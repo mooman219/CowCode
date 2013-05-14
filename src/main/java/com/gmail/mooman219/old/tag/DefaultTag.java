@@ -1,4 +1,4 @@
-package com.gmail.mooman219.old;
+package com.gmail.mooman219.old.tag;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

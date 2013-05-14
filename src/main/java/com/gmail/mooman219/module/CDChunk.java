@@ -22,11 +22,9 @@ public class CDChunk implements CowData {
      * Live
      */
     
-    @Override
-    public void onTick(CowTaggable handle) {}
-    
     // Region
     private CSRegionInformation parentInformation;
+    //
     
     public CSRegionInformation getParentInformation() {
         if(parentInformation == null) {
@@ -47,6 +45,10 @@ public class CDChunk implements CowData {
 
     // Region
     public String parentUUID = "";
+    //
+    
+    @Override
+    public void onTick(CowTaggable handle) {}
     
     @Override
     public void onLoad(CowTaggable handle) {

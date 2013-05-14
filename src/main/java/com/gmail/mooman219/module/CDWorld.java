@@ -21,12 +21,12 @@ public class CDWorld implements CowData {
      * Live
      */
 
-    @Override
-    public void onTick(CowTaggable handle) {}
-
     /*
      * Tag
      */
+    
+    @Override
+    public void onTick(CowTaggable handle) {}
     
     @Override
     public void onLoad(CowTaggable handle) {
@@ -54,10 +54,6 @@ public class CDWorld implements CowData {
         if(handle.dataLive == null) {
             handle.dataLive = new CDWorld(world);
         }
-        // It should always be a CDWorld
-        /**else if(!(handle.dataLive instanceof CDWorld)) {
-            throw new IllegalArgumentException("Invalid data on world.");
-        }**/
         return (CDWorld) handle.dataLive;
     }
 }

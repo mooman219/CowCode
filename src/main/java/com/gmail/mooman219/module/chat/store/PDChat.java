@@ -28,8 +28,4 @@ public class PDChat {
             return new BasicDBObject();
         }
     }
-
-    public String getTag() {
-        return tag;
-    }
 }

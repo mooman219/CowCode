@@ -54,9 +54,7 @@ public class Tab {
     }
 
     public String nextUnique() {
-        if(index > 256) {
-            index = 0;
-        }
+        index = index > 256 ? 0 : index + 1;
         String name = Chat.COLOR_CHAR + tabSafeColors[MathHelp.floor((index / 16d) % 16)];
         name += Chat.COLOR_CHAR + tabSafeColors[index % 16];
         return name;

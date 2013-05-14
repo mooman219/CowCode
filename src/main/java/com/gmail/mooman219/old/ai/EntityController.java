@@ -1,34 +1,42 @@
-package com.gmail.mooman219.entity;
+package com.gmail.mooman219.old.ai;
 
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 
-import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
 public class EntityController {
-    private final Entity entity;
-    private final net.minecraft.server.Entity handle;
-    private EntityGoal goal;
+    public final Entity entity;
+    public final net.minecraft.server.Entity handle;
     
     public EntityController(Entity entity) {
         this.entity = entity;
-        this.handle = getHandle();
+        this.handle = ((CraftEntity)entity).getHandle();
     }
     
-    public EntityLiving getHandle() {
-        return ((CraftLivingEntity)entity).getHandle();
+    public void tick() {}
+    
+    public void move() {
+        handle.motX = -0.1D * Math.sin(Math.toRadians(handle.yaw));
+        handle.motZ = 0.1D * Math.cos(Math.toRadians(handle.yaw));
+    }
+    
+    public void jump() {
+        if(handle.onGround) {            
+            handle.motY = 0.4D;
+        }
     }
     
     public void turn(Vector point) {
-        Vector diff = point.subtract(entity.getLocation().toVector());
+        Vector diff = point.clone().subtract(entity.getLocation().toVector());
         float yaw = (float)(Math.toDegrees(Math.atan2(diff.getZ(), diff.getX())) + 270F);
         look(yaw, 0F);
     }
     
     public void face(Vector point) {
-        Vector diff = point.subtract(entity.getLocation().toVector());
+        Vector diff = point.clone().subtract(entity.getLocation().toVector());
         double distanceXZ = Math.sqrt(diff.getX() * diff.getX() + diff.getZ() * diff.getZ());
         double distanceY = Math.sqrt(distanceXZ * distanceXZ + diff.getY() * diff.getY());
 
@@ -42,8 +50,8 @@ public class EntityController {
     
     public void look(float yaw, float pitch) {
         handle.yaw = yaw;
-        handle.pitch = pitch;
         setHeadYaw(yaw);
+        handle.pitch = pitch;
     }
 
     public void setHeadYaw(float yaw) {

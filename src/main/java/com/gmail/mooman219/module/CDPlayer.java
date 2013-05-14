@@ -15,6 +15,9 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import com.gmail.mooman219.craftbukkit.CowData;
 import com.gmail.mooman219.craftbukkit.CowTaggable;
 import com.gmail.mooman219.frame.MongoHelper;
+import com.gmail.mooman219.frame.scoreboard.Board;
+import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
+import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
@@ -22,7 +25,6 @@ import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
 import com.gmail.mooman219.module.service.store.PDService;
-import com.gmail.mooman219.module.service.store.PLService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -36,8 +38,9 @@ public class CDPlayer implements CowData {
     public PDChat chatData = null;
     // [+] Live information
     public Player player = null;
+    private Board sidebar = null;
+    private Tab tabList = null;
     // [-]---[+] Module
-    public PLService service = null;
     public PLChat chat = null;
 
     public CDPlayer(ObjectId id, String username) {
@@ -53,7 +56,9 @@ public class CDPlayer implements CowData {
         this.player = player;
         onLoad(getHandle());
 
-        this.service = new PLService();
+        sidebar = new Board(username, BoardDisplayType.SIDEBAR, serviceData.rank.color + username);
+        tabList = new Tab();
+
         this.chat = new PLChat();
     }
 
@@ -72,7 +77,7 @@ public class CDPlayer implements CowData {
     }
     
     /*
-     * Special
+     * Live
      */
     
     public void closeInventory() {
@@ -101,20 +106,23 @@ public class CDPlayer implements CowData {
         CHTask.manager.runPlugin(task, true);
     }
     
-    /*
-     * Live
-     */
+    public Board getSidebar() {
+        return sidebar;
+    }
     
-    @Override
-    public void onTick(CowTaggable handle) {}
+    public Tab getTab() {
+        return tabList;
+    }
 
     /*
      * Tag
      */
     
     @Override
-    public void onLoad(CowTaggable handle) {
-    }
+    public void onTick(CowTaggable handle) {}
+    
+    @Override
+    public void onLoad(CowTaggable handle) {}
     
     @Override
     public void onSave(CowTaggable handle) {

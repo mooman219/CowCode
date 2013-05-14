@@ -19,7 +19,7 @@ public class MessingAround implements Listener {
     @EventHandler
     public void onDamageScoreBoard(EntityDamageEvent event) {
         if(event.getEntity().getType() == EntityType.PLAYER) {
-            CDPlayer.get(((Player) event.getEntity())).service.scoreboard.modifyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
+            CDPlayer.get(((Player) event.getEntity())).getSidebar().modifyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
         }
     }
 
@@ -31,13 +31,13 @@ public class MessingAround implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
-        playerData.service.scoreboard.addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
-        playerData.service.scoreboard.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
-        playerData.service.scoreboard.addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
-        playerData.service.scoreboard.addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
-        playerData.service.scoreboard.addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
-        playerData.service.scoreboard.addKey("memory", "Memory: Init", 3);
-        playerData.service.scoreboard.addKey("lastdamage", "LastDmg: Init", 1);
+        playerData.getSidebar().addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
+        playerData.getSidebar().addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
+        playerData.getSidebar().addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
+        playerData.getSidebar().addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
+        playerData.getSidebar().addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
+        playerData.getSidebar().addKey("memory", "Memory: Init", 3);
+        playerData.getSidebar().addKey("lastdamage", "LastDmg: Init", 1);
 
         CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Health", true, true);
         CHPacket.manager.sendPlayerInfo(event.getPlayer(), "  Mana", true, true);
@@ -58,7 +58,7 @@ public class MessingAround implements Listener {
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
         for(Player player : Bukkit.getOnlinePlayers()) {
             CDPlayer playerData = CDPlayer.get(player);
-            playerData.service.scoreboard.modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
+            playerData.getSidebar().modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
         }
     }
 

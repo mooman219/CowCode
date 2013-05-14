@@ -1,4 +1,4 @@
-package com.gmail.mooman219.entity;
+package com.gmail.mooman219.old.ai;
 
 public abstract class EntityGoal {
     public abstract boolean canExecute();

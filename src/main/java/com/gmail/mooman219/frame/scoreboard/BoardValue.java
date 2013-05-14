@@ -2,12 +2,12 @@ package com.gmail.mooman219.frame.scoreboard;
 
 import com.gmail.mooman219.frame.text.TextHelper;
 
-public class ScoreboardValue {
+public class BoardValue {
     private String clientName;
     private String name;
     private int value;
 
-    public ScoreboardValue(String name, int value) {
+    public BoardValue(String name, int value) {
         this.clientName = name;
         this.name = name;
         this.value = value;

@@ -1,18 +1,18 @@
 package com.gmail.mooman219.frame.scoreboard;
 
-public enum ScoreboardModifyType {
+public enum BoardModifyType {
     UPDATE(0),
     REMOVE(1),
     TITLE(2);
 
     public final int id;
 
-    ScoreboardModifyType(int id) {
+    BoardModifyType(int id) {
         this.id = id;
     }
 
-    public static ScoreboardModifyType getID(int id) {
-        for(ScoreboardModifyType scoreboardModifyType : ScoreboardModifyType.values()) {
+    public static BoardModifyType getID(int id) {
+        for(BoardModifyType scoreboardModifyType : BoardModifyType.values()) {
             if(scoreboardModifyType.id == id) {
                 return scoreboardModifyType;
             }

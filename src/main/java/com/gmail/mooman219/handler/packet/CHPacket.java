@@ -14,9 +14,8 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.scoreboard.ScoreboardDisplayType;
-import com.gmail.mooman219.frame.scoreboard.ScoreboardModifyType;
-import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
+import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
 
 public class CHPacket implements CowHandler {
     public static String cast = "[CC][H][Packet] ";
@@ -40,7 +39,7 @@ public class CHPacket implements CowHandler {
             toPlayer(bukkitPlayer, packet101);
         }
         
-        public void sendSetScoreboardObjective(Player bukkitPlayer, String scoreboardTitle, String scoreboardDisplayTitle, ScoreboardModifyType scoreboardModifyType) {
+        public void sendSetScoreboardObjective(Player bukkitPlayer, String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {
             Packet206SetScoreboardObjective packet206 = new Packet206SetScoreboardObjective();
             packet206.a = scoreboardTitle;
             packet206.b = scoreboardDisplayTitle;
@@ -48,7 +47,7 @@ public class CHPacket implements CowHandler {
             toPlayer(bukkitPlayer, packet206);
         }
 
-        public void sendSetScoreboardScore(Player bukkitPlayer, String scoreboardTitle, String itemName, int itemValue, ScoreboardModifyType scoreboardModifyType) {
+        public void sendSetScoreboardScore(Player bukkitPlayer, String scoreboardTitle, String itemName, int itemValue, BoardModifyType scoreboardModifyType) {
             Packet207SetScoreboardScore packet207 = new Packet207SetScoreboardScore();
             packet207.a = itemName;
             packet207.b = scoreboardTitle;
@@ -57,7 +56,7 @@ public class CHPacket implements CowHandler {
             toPlayer(bukkitPlayer, packet207);
         }
 
-        public void sendSetScoreboardDisplay(Player bukkitPlayer, String scoreboardTitle, ScoreboardDisplayType scoreboardDisplayType) {
+        public void sendSetScoreboardDisplay(Player bukkitPlayer, String scoreboardTitle, BoardDisplayType scoreboardDisplayType) {
             Packet208SetScoreboardDisplayObjective packet208 = new Packet208SetScoreboardDisplayObjective();
             packet208.a = scoreboardDisplayType.id; // 0 List - 1 Sidebar - 2 belowName
             packet208.b = scoreboardTitle;
@@ -81,7 +80,7 @@ public class CHPacket implements CowHandler {
                     }
                 }
             };
-            CHTask.manager.runPlugin(task, true);
+            task.run();
         }
 
         public void toPlayer(final Player bukkitPlayer, final Packet packet) {
@@ -91,7 +90,7 @@ public class CHPacket implements CowHandler {
                     ((CraftPlayer)bukkitPlayer).getHandle().playerConnection.sendPacket(packet);
                 }
             };
-            CHTask.manager.runPlugin(task, true);
+            task.run();
         }
 
         // Old research

@@ -8,28 +8,25 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.craftbukkit.CowData;
 import com.gmail.mooman219.craftbukkit.CowTaggable;
-import com.gmail.mooman219.entity.EntityController;
 
 public class CDLiving implements CowData {
     public final LivingEntity livingEntity;
-    public final EntityController controller;
 
     private CDLiving(LivingEntity livingEntity) {
         this.livingEntity = livingEntity;
-        this.controller = new EntityController(livingEntity);
         onLoad(getHandle());
     }
 
     /*
      * Live
      */
-    
-    @Override
-    public void onTick(CowTaggable handle) {}
 
     /*
      * Tag
      */
+    
+    @Override
+    public void onTick(CowTaggable handle) {}
     
     @Override
     public void onLoad(CowTaggable handle) {

@@ -34,8 +34,4 @@ public class PDService {
             return new BasicDBObject();
         }
     }
-
-    public String getTag() {
-        return tag;
-    }
 }
