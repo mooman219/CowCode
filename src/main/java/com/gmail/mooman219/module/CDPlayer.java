@@ -1,5 +1,9 @@
 package com.gmail.mooman219.module;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.PendingConnection;
@@ -22,8 +26,6 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.handler.task.PluginThread;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
@@ -41,7 +43,9 @@ public class CDPlayer implements CowData {
     public PDChat chatData = null;
     // [+] Live information
     public Player player = null;
+    private ExecutorService thread = null;
     private Board sidebar = null;
+    private Board nametagbar = null;
     private Tab tabList = null;
     // [+] Loading information
     private boolean initialized = false;
@@ -65,6 +69,7 @@ public class CDPlayer implements CowData {
         // This is fired normally in Login
         if(this.player == null) {
             this.player = player;
+            this.thread = Executors.newSingleThreadExecutor();
             onLoad(getHandle());
 
             this.chat = new PLChat();
@@ -72,6 +77,8 @@ public class CDPlayer implements CowData {
         // This is fired after Login
         if(getHandle().playerConnection != null) {
             this.sidebar = new Board(player, username, serviceData.rank.color + username, BoardDisplayType.SIDEBAR);
+            this.nametagbar = new Board(player, "nametag", "NametagTest", BoardDisplayType.BELOWNAME);
+            // ▀▀▀▀▀▀▀▀▀▀
             this.tabList = new Tab(player);
             
             this.initialized = true;
@@ -97,7 +104,7 @@ public class CDPlayer implements CowData {
      */
 
     public void chat(final String message) {
-        Runnable task = new Runnable() {
+        CDPlayer.get(player).runTask(new Runnable() {
             @Override
             public void run() {
                 PlayerConnection target = getHandle().playerConnection;
@@ -106,8 +113,7 @@ public class CDPlayer implements CowData {
                 }
                 target.chat(message, true);
             }
-        };
-        CHTask.manager.runPlugin(task, PluginThread.ASYNC);
+        });
     }
 
     public void closeInventory() {
@@ -125,6 +131,10 @@ public class CDPlayer implements CowData {
     public Board getSidebar() {
         return sidebar;
     }
+    
+    public Board getNametagBar() {
+        return nametagbar;
+    }
 
     public Tab getTab() {
         return tabList;
@@ -136,6 +146,10 @@ public class CDPlayer implements CowData {
 
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
+    }
+    
+    public Future<?> runTask(Runnable task) {
+        return thread.submit(task);
     }
 
     /*

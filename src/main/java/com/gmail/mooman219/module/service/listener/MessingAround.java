@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffectType;
 
+import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.CDPlayer;
@@ -37,6 +38,8 @@ public class MessingAround implements Listener {
         playerData.getSidebar().addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
         playerData.getSidebar().addKey("memory", "Memory: Init", 3);
         playerData.getSidebar().addKey("lastdamage", "LastDmg: Init", 1);
+        
+        //playerData.getNametagBar().addKey("test", "Apple", MathHelper.floor(Math.random() * 10));
 
         playerData.getTab().setTab(0, 0, Chat.RED + "" + Chat.BOLD + "Health:");
         playerData.getTab().setTab(1, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");

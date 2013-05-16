@@ -1,14 +1,16 @@
 package com.gmail.mooman219.handler.task;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
+import com.gmail.mooman219.frame.event.CEventFactory;
 
 public class CHTask implements CowHandler {
     private Loader plugin;
@@ -17,9 +19,7 @@ public class CHTask implements CowHandler {
 
     public static Manager manager;
     public boolean test = false;
-    protected static boolean halt = false;
-    private ExecutorService asyncPool;
-    private ExecutorService orderedPool;
+    private ScheduledExecutorService asyncPool;
 
     public CHTask(Loader plugin) {
         this.plugin = plugin;
@@ -29,68 +29,56 @@ public class CHTask implements CowHandler {
     public void onEnable() {
         manager = new Manager();
         Loader.info(cast + "Starting plugin threads");
-        asyncPool = Executors.newFixedThreadPool(5);
-        orderedPool = Executors.newSingleThreadExecutor();
+        asyncPool = Executors.newScheduledThreadPool(5);
         Loader.info(cast + "Starting second clocks");
-        manager.runThread(new SecondClockAsync(), 1000l, 1000l).setName("CC SecondClockAsync");
-        manager.runBukkit(new SecondClockSync(), false, 20, 20);
+        
+        manager.runPlugin(new Runnable() {
+            @Override
+            public void run() {
+                CEventFactory.callTickSecondAsyncEvent();
+            }
+        }, 1000, 1000);
+        
+        manager.runBukkit(new Runnable() {
+            @Override
+            public void run() {
+                CEventFactory.callTickSecondSyncEvent();
+            }
+        }, 20, 20);
+        
         Loader.info(cast + "Enabled");
     }
 
     @Override
     public void onDisable() {
         Loader.info(cast + "Stopping all threads");
-        halt = true;
         asyncPool.shutdown();
         Loader.info(cast + "Disabled");
     }
 
     public class Manager {
-        public BukkitTask runBukkit(Runnable runnable, boolean async) {
-            if(async) {
-                return Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
-            }
+        public BukkitTask runBukkit(Runnable runnable) {
             return Bukkit.getScheduler().runTask(plugin, runnable);
         }
 
-        public BukkitTask runBukkit(Runnable runnable, boolean async, long delay) {
-            if(async) {
-                return Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay);
-            }
+        public BukkitTask runBukkit(Runnable runnable, long delay) {
             return Bukkit.getScheduler().runTaskLater(plugin, runnable, delay);
         }
 
-        public BukkitTask runBukkit(Runnable runnable, boolean async, long delay, long period) {
-            if(async) {
-                return Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period);
-            }
+        public BukkitTask runBukkit(Runnable runnable, long delay, long period) {
             return Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period);
         }
 
-        public Thread runThread(Runnable runnable) {
-            return runThread(runnable, -1l, -1l);
+        public Future<?> runPlugin(Runnable runnable) {
+            return asyncPool.submit(runnable);
         }
-
-        public Thread runThread(Runnable runnable, long delay) {
-            return runThread(runnable, delay, -1l);
+        
+        public Future<?> runPlugin(Runnable runnable, long delay) {
+            return asyncPool.schedule(runnable, delay, TimeUnit.MILLISECONDS);
         }
-
-        public Thread runThread(Runnable runnable, long delay, long period) {
-            Thread thread = new Thread(new Task(runnable, delay, period));
-            thread.start();
-            return thread;
-        }
-
-        public Future<?> runPlugin(Runnable runnable, PluginThread thread) {
-            switch(thread) {
-            case ASYNC:
-                return asyncPool.submit(runnable);
-            case ORDERED:
-                return orderedPool.submit(runnable);
-            default:
-                runnable.run();
-                return null;
-            }
+        
+        public Future<?> runPlugin(Runnable runnable, long delay, long period) {
+            return asyncPool.scheduleAtFixedRate(runnable, delay, period, TimeUnit.MILLISECONDS);
         }
     }
 }

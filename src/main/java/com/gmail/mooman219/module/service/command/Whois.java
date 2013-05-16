@@ -12,8 +12,6 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
-import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.handler.task.PluginThread;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.service.CMService;
 
@@ -34,7 +32,7 @@ public class Whois extends CCommand {
                 displayWhois(sender, CDPlayer.get(player));
                 return;
             }
-            Runnable task = new Runnable() {
+            playerData.runTask(new Runnable() {
                 @Override
                 public void run() {
                     CDPlayer playerData = CHDatabase.manager.downloadPlayer(args[0], DownloadReason.QUERY);
@@ -44,8 +42,7 @@ public class Whois extends CCommand {
                         displayWhois(sender, playerData);
                     }
                 }
-            };
-            CHTask.manager.runPlugin(task, PluginThread.ASYNC);
+            });
         } else {
             displayWhois(sender, playerData);
         }

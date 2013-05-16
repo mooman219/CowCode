@@ -4,8 +4,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.handler.task.PluginThread;
+import com.gmail.mooman219.module.CDPlayer;
 
 public class Tab {
     public final static int maxTabWidth = 5;
@@ -43,7 +42,7 @@ public class Tab {
     }
 
     public void update() {
-        final Runnable task = new Runnable() {
+        CDPlayer.get(player).runTask(new Runnable() {
             @Override
             public void run() {
                 for(int y = 0; y < maxTabHeight; y++) {
@@ -58,7 +57,6 @@ public class Tab {
                     }
                 }
             }
-        };
-        CHTask.manager.runPlugin(task, PluginThread.ASYNC);
+        });
     }
 }

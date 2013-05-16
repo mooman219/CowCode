@@ -8,7 +8,6 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.handler.task.PluginThread;
 import com.gmail.mooman219.module.CDPlayer;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -63,7 +62,7 @@ public class CHDatabase implements CowHandler {
                 }
             };
             if(thread.async) {
-                CHTask.manager.runPlugin(task, PluginThread.ASYNC);
+                CHTask.manager.runPlugin(task);
             } else {
                 task.run();
             }
