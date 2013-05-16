@@ -76,8 +76,6 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
-
-        CDPlayer.get(event.getPlayer()).getSidebar().addWatcher(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

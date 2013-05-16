@@ -23,6 +23,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.handler.task.PluginThread;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
@@ -42,6 +43,8 @@ public class CDPlayer implements CowData {
     public Player player = null;
     private Board sidebar = null;
     private Tab tabList = null;
+    // [+] Loading information
+    private boolean initialized = false;
     // [-]---[+] Module
     public PLChat chat = null;
 
@@ -59,13 +62,20 @@ public class CDPlayer implements CowData {
      */
 
     public void initializePlayer(Player player) {
-        this.player = player;
-        onLoad(getHandle());
+        // This is fired normally in Login
+        if(this.player == null) {
+            this.player = player;
+            onLoad(getHandle());
 
-        sidebar = new Board(username, BoardDisplayType.SIDEBAR, serviceData.rank.color + username);
-        tabList = new Tab(player);
-
-        this.chat = new PLChat();
+            this.chat = new PLChat();
+        }
+        // This is fired after Login
+        if(getHandle().playerConnection != null) {
+            this.sidebar = new Board(player, username, serviceData.rank.color + username, BoardDisplayType.SIDEBAR);
+            this.tabList = new Tab(player);
+            
+            this.initialized = true;
+        }
     }
 
     public void sync(DBObject playerObject) {
@@ -97,7 +107,7 @@ public class CDPlayer implements CowData {
                 target.chat(message, true);
             }
         };
-        CHTask.manager.runPlugin(task, true);
+        CHTask.manager.runPlugin(task, PluginThread.ASYNC);
     }
 
     public void closeInventory() {
@@ -157,7 +167,7 @@ public class CDPlayer implements CowData {
             throw new IllegalArgumentException("Invalid data on player.");
         }
         CDPlayer ret = (CDPlayer) handle.dataLive;
-        if(ret.player == null) {
+        if(!ret.initialized) {
             ret.initializePlayer(player);
         }
         return ret;

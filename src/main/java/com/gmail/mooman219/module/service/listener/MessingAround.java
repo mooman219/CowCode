@@ -12,7 +12,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.module.CDPlayer;
 
 public class MessingAround implements Listener {
@@ -49,14 +48,14 @@ public class MessingAround implements Listener {
         playerData.getTab().setTab(2, 1, "3");
         playerData.getTab().setTab(3, 1, "8320");
         
-        playerData.getTab().setTab(0, 2, Chat.GRAY + "" + Chat.BOLD + "==========");
-        playerData.getTab().setTab(1, 2, Chat.GRAY + "" + Chat.BOLD + "==========");
-        playerData.getTab().setTab(2, 2, Chat.GRAY + "" + Chat.BOLD + "==========");
-        playerData.getTab().setTab(3, 2, Chat.GRAY + "" + Chat.BOLD + "=========");
+        playerData.getTab().setTab(0, 2, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(1, 2, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(2, 2, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(3, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         
         playerData.getTab().setTab(0, 3, Chat.RED + "" + Chat.BOLD + "STR:");
-        playerData.getTab().setTab(2, 3, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:");
-        playerData.getTab().setTab(1, 3, Chat.GREEN + "" + Chat.BOLD + "AGI:");
+        playerData.getTab().setTab(1, 3, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:");
+        playerData.getTab().setTab(2, 3, Chat.GREEN + "" + Chat.BOLD + "AGI:");
         playerData.getTab().setTab(3, 3, Chat.PURPLE + "" + Chat.BOLD + "KNW:");
         
         playerData.getTab().setTab(0, 4, "10");
@@ -64,10 +63,10 @@ public class MessingAround implements Listener {
         playerData.getTab().setTab(2, 4, "28");
         playerData.getTab().setTab(3, 4, "19");
         
-        playerData.getTab().setTab(0, 5, Chat.GRAY + "" + Chat.BOLD + "==========");
-        playerData.getTab().setTab(1, 5, Chat.GRAY + "" + Chat.BOLD + "==========");
-        playerData.getTab().setTab(2, 5, Chat.GRAY + "" + Chat.BOLD + "==========");
-        playerData.getTab().setTab(3, 5, Chat.GRAY + "" + Chat.BOLD + "=========");
+        playerData.getTab().setTab(0, 5, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(1, 5, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(2, 5, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(3, 5, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().update();
         
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);

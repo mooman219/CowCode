@@ -2,6 +2,7 @@ package com.gmail.mooman219.handler.task;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
@@ -18,7 +19,7 @@ public class CHTask implements CowHandler {
     public boolean test = false;
     protected static boolean halt = false;
     private ExecutorService asyncPool;
-    private PluginSyncQueue syncQueue;
+    private ExecutorService orderedPool;
 
     public CHTask(Loader plugin) {
         this.plugin = plugin;
@@ -29,8 +30,7 @@ public class CHTask implements CowHandler {
         manager = new Manager();
         Loader.info(cast + "Starting plugin threads");
         asyncPool = Executors.newFixedThreadPool(5);
-        syncQueue = new PluginSyncQueue();
-        syncQueue.start();
+        orderedPool = Executors.newSingleThreadExecutor();
         Loader.info(cast + "Starting second clocks");
         manager.runThread(new SecondClockAsync(), 1000l, 1000l).setName("CC SecondClockAsync");
         manager.runBukkit(new SecondClockSync(), false, 20, 20);
@@ -81,12 +81,16 @@ public class CHTask implements CowHandler {
             return thread;
         }
 
-        public Runnable runPlugin(Runnable runnable, boolean async) {
-            if(async) {
-                asyncPool.submit(runnable);
+        public Future<?> runPlugin(Runnable runnable, PluginThread thread) {
+            switch(thread) {
+            case ASYNC:
+                return asyncPool.submit(runnable);
+            case ORDERED:
+                return orderedPool.submit(runnable);
+            default:
+                runnable.run();
                 return null;
             }
-            return syncQueue.put(runnable);
         }
     }
 }

@@ -64,33 +64,21 @@ public class CHPacket implements CowHandler {
         }
 
         public void sendPlayerInfo(Player bukkitPlayer, String name, boolean online, boolean ping) {
-            Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, online, ping ? 0 : 5000);
+            Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, online, ping ? 0 : 40000);
             toPlayer(bukkitPlayer, packet201);
         }
 
         public void toAllPlayers(final Packet packet) {
-            final Runnable task = new Runnable() {
-                @Override
-                public void run() {
-                    for(Player bukkitPlayer : Bukkit.getOnlinePlayers()) {
-                        EntityPlayer handle = ((CraftPlayer)bukkitPlayer).getHandle();
-                        if(handle.playerConnection != null) {
-                            handle.playerConnection.sendPacket(packet);
-                        }
-                    }
+            for(Player bukkitPlayer : Bukkit.getOnlinePlayers()) {
+                EntityPlayer handle = ((CraftPlayer)bukkitPlayer).getHandle();
+                if(handle.playerConnection != null) {
+                    handle.playerConnection.sendPacket(packet);
                 }
-            };
-            task.run();
+            }
         }
 
         public void toPlayer(final Player bukkitPlayer, final Packet packet) {
-            final Runnable task = new Runnable() {
-                @Override
-                public void run() {
-                    ((CraftPlayer)bukkitPlayer).getHandle().playerConnection.sendPacket(packet);
-                }
-            };
-            task.run();
+            ((CraftPlayer)bukkitPlayer).getHandle().playerConnection.sendPacket(packet);
         }
 
         // Old research
