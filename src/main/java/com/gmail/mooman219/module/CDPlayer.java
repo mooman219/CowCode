@@ -42,7 +42,7 @@ public class CDPlayer implements CowData {
     public PDLogin loginData = null;
     public PDChat chatData = null;
     // [+] Live information
-    public Player player = null;
+    private Player player = null;
     private ExecutorService thread = null;
     private Board sidebar = null;
     private Board nametagbar = null;
@@ -76,10 +76,10 @@ public class CDPlayer implements CowData {
         }
         // This is fired after Login
         if(getHandle().playerConnection != null) {
-            this.sidebar = new Board(player, username, serviceData.rank.color + username, BoardDisplayType.SIDEBAR);
-            this.nametagbar = new Board(player, "nametag", "NametagTest", BoardDisplayType.BELOWNAME);
+            this.sidebar = new Board(this, username, serviceData.rank.color + username, BoardDisplayType.SIDEBAR);
+            this.nametagbar = new Board(this, "nametag", "NametagTest", BoardDisplayType.BELOWNAME);
             // ▀▀▀▀▀▀▀▀▀▀
-            this.tabList = new Tab(player);
+            this.tabList = new Tab(this);
             
             this.initialized = true;
         }
@@ -150,6 +150,10 @@ public class CDPlayer implements CowData {
     
     public Future<?> runTask(Runnable task) {
         return thread.submit(task);
+    }
+    
+    public Player getPlayer() {
+        return player;
     }
 
     /*
