@@ -15,6 +15,6 @@ public class Global extends CCommand {
 
     @Override
     public void processPlayer(final Player sender, final CDPlayer playerData, final String[] args) {
-        CDPlayer.get(sender).chat("!" + TextHelper.merge(args, 0));
+        playerData.chat("!" + TextHelper.merge(args, 0));
     }
 }

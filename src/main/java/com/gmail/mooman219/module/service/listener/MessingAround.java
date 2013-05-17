@@ -1,28 +1,20 @@
 package com.gmail.mooman219.module.service.listener;
 
+import net.minecraft.server.MinecraftServer;
+
 import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffectType;
 
-import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.CDPlayer;
 
 public class MessingAround implements Listener {
-    @EventHandler
-    public void onDamageScoreBoard(EntityDamageEvent event) {
-        if(event.getEntity().getType() == EntityType.PLAYER) {
-            CDPlayer.get(((Player) event.getEntity())).getSidebar().modifyName("lastdamage", "LastDmg: " + Chat.RED + event.getDamage());
-        }
-    }
-
     @EventHandler
     public void onShoot(EntityShootBowEvent event) {
         event.getProjectile().setVelocity(event.getProjectile().getVelocity().multiply(1.5));
@@ -37,7 +29,8 @@ public class MessingAround implements Listener {
         playerData.getSidebar().addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
         playerData.getSidebar().addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
         playerData.getSidebar().addKey("memory", "Memory: Init", 3);
-        playerData.getSidebar().addKey("lastdamage", "LastDmg: Init", 1);
+        playerData.getSidebar().addKey("tps", "TPS: Init", 2);
+        playerData.getSidebar().addKey("mob", "Mobs: Init", 1);
         
         //playerData.getNametagBar().addKey("test", "Apple", MathHelper.floor(Math.random() * 10));
 
@@ -79,9 +72,12 @@ public class MessingAround implements Listener {
     @EventHandler
     public void onSecond(TickSecondSyncEvent event){
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
+        double tps = Math.min(20,  Math.round(MinecraftServer.currentTPS * 10D) / 10.0D);
+        int mobs = Bukkit.getOnlinePlayers().length > 0 ? Bukkit.getOnlinePlayers()[0].getWorld().getEntities().size() : 0;
         for(Player player : Bukkit.getOnlinePlayers()) {
-            CDPlayer playerData = CDPlayer.get(player);
-            playerData.getSidebar().modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
+            CDPlayer.get(player).getSidebar().modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
+            CDPlayer.get(player).getSidebar().modifyName("tps", "TPS: " + Chat.GREEN + tps);
+            CDPlayer.get(player).getSidebar().modifyName("mob", "Mobs: " + Chat.GREEN + mobs);
         }
     }
 

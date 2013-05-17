@@ -15,6 +15,6 @@ public class Message extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CDPlayer.get(sender).chat("@" + args[0] + TextHelper.merge(args, 1));
+        playerData.chat("@" + args[0] + TextHelper.merge(args, 1));
     }
 }

@@ -20,11 +20,11 @@ public class ListenerChat implements Listener{
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        // Muted players
+//    ~ Muted players
         if(player.chatData.mutedUntil - System.currentTimeMillis() > 0) {
             event.setCancelled(true);
             TextHelper.message(event.getPlayer(), CMChat.F_MUTED, TimeHelper.getLargestType(player.chatData.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
-            // Private chat
+//    ~ Private chat
         } else if(event.getMessage().charAt(0) == '@') {
             event.setCancelled(true);
             String[] message = TextHelper.spacePattern.split(event.getMessage(), 2);
@@ -45,7 +45,7 @@ public class ListenerChat implements Listener{
                     }
                 }
             }
-            // Global chat
+//    ~ Global chat
         } else if(event.getMessage().charAt(0) == '!') {
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
@@ -61,7 +61,7 @@ public class ListenerChat implements Listener{
                     player.chat.lastGlobalChat = System.currentTimeMillis();
                 }
             }
-            // Normal chat
+//    ~ Normal chat
         } else {
             event.setFormat(player.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
             for(Player recipient : event.getRecipients()) {
