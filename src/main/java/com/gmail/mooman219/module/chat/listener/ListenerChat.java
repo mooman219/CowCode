@@ -14,7 +14,7 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.chat.CMChat;
+import com.gmail.mooman219.module.chat.CCChat;
 
 public class ListenerChat implements Listener{
     @EventHandler()
@@ -23,23 +23,23 @@ public class ListenerChat implements Listener{
 //    ~ Muted players
         if(player.chatData.mutedUntil - System.currentTimeMillis() > 0) {
             event.setCancelled(true);
-            TextHelper.message(event.getPlayer(), CMChat.F_MUTED, TimeHelper.getLargestType(player.chatData.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
+            CCChat.FRM.MUTED.send(event.getPlayer(), TimeHelper.getLargestType(player.chatData.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
 //    ~ Private chat
         } else if(event.getMessage().charAt(0) == '@') {
             event.setCancelled(true);
             String[] message = TextHelper.spacePattern.split(event.getMessage(), 2);
             if(message.length <= 1) {
-                TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_EMPTY);
+                CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
             } else if(message[0].length() == 1) {
                 message(player, player.chat.getLastMessaged(), message[1]);
             } else {
                 Player foundPlayer = Bukkit.getPlayer(message[0].substring(1));
                 if(foundPlayer == null) {
-                    TextHelper.message(event.getPlayer(), CMChat.F_MESSAGE_EXIST, message[0].substring(1));
+                    CCChat.FRM.MESSAGE_EXIST.send(event.getPlayer(), message[0].substring(1));
                 } else {
                     CDPlayer otherPlayer = CDPlayer.get(foundPlayer);
                     if(otherPlayer.username.equals(player.username)) {
-                        TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_SELF);
+                        CCChat.MSG.MESSAGE_SELF.send(event.getPlayer());
                     } else {
                         message(player, otherPlayer, message[1]);
                     }
@@ -49,9 +49,9 @@ public class ListenerChat implements Listener{
         } else if(event.getMessage().charAt(0) == '!') {
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
-                TextHelper.message(event.getPlayer(), CMChat.M_MESSAGE_EMPTY);
+                CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
             } else if(System.currentTimeMillis() - player.chat.lastGlobalChat <= ConfigGlobal.chatGlobalDelay) {
-                TextHelper.message(event.getPlayer(), CMChat.F_GLOBAL_DELAY, TimeHelper.getLargestType(ConfigGlobal.chatGlobalDelay - (System.currentTimeMillis() - player.chat.lastGlobalChat), TimeType.MILLISECOND));
+                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.chatGlobalDelay - (System.currentTimeMillis() - player.chat.lastGlobalChat), TimeType.MILLISECOND));
             } else {
                 event.setFormat(Chat.msgGlobal + player.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
@@ -73,7 +73,7 @@ public class ListenerChat implements Listener{
                 }
             }
             if(event.getRecipients().size() <= 1) {
-                TextHelper.message(event.getPlayer(), CMChat.M_NOHEAR);
+                CCChat.MSG.NOHEAR.send(event.getPlayer());
             }
         }
     }
@@ -81,7 +81,7 @@ public class ListenerChat implements Listener{
     public void message(CDPlayer sender, CDPlayer receiver, String message) {
         if(receiver == null || !receiver.getPlayer().isOnline()) {
             sender.chat.setLastMessaged(null);
-            TextHelper.message(sender.getPlayer(), CMChat.M_MESSAGE_LOST);
+            CCChat.MSG.MESSAGE_LOST.send(sender.getPlayer());
         } else {
             sender.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "TO " + Chat.RESET + receiver.serviceData.rank.tag + receiver.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
             receiver.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "FROM " + Chat.RESET + sender.serviceData.rank.tag + sender.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);

@@ -1,9 +1,6 @@
 package com.gmail.mooman219.frame.text;
 
-import java.text.MessageFormat;
 import java.util.regex.Pattern;
-
-import org.bukkit.command.CommandSender;
 
 public class TextHelper {
     public static final Pattern chatPattern = Pattern.compile("&([A-FK-OR0-9])", Pattern.CASE_INSENSITIVE);
@@ -53,10 +50,6 @@ public class TextHelper {
         return newstring;
     }
 
-    public static String buildString(String prefix, String string, String format) {
-        return prefix + punctuationPattern.matcher(string).replaceAll(format);
-    }
-
     public static <T> String buildQuery(String tag, String name, T value) {
         String ret = '"' + tag + "." + name + "\":";
         if(value instanceof String) {
@@ -76,18 +69,6 @@ public class TextHelper {
             }
         }
         return string;
-    }
-
-    public static void message(CommandSender target, String pattern, Object... arguments) {
-        target.sendMessage(parse(pattern, arguments));
-    }
-
-    public static void message(CommandSender target, String message) {
-        target.sendMessage(message);
-    }
-
-    public static String parse(String pattern, Object... arguments) {
-        return MessageFormat.format(pattern, arguments);
     }
 
     public static String merge(String[] arguments, int startIndex) {

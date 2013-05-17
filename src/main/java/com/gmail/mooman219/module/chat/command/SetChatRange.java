@@ -5,11 +5,10 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.chat.CMChat;
+import com.gmail.mooman219.module.chat.CCChat;
 
 public class SetChatRange extends CCommand {
     public SetChatRange() {
@@ -21,7 +20,7 @@ public class SetChatRange extends CCommand {
         int oldRange = ConfigGlobal.chatRadius;
         ConfigGlobal.chatRadius = Integer.parseInt(args[0]);
         CHConfig.configGlobal.save();
-        TextHelper.message(sender, CMChat.F_SETRANGE, oldRange, ConfigGlobal.chatRadius);
+        CCChat.FRM.SETRANGE.send(sender, oldRange, ConfigGlobal.chatRadius);
 
     }
 }

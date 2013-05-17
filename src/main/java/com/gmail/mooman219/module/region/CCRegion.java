@@ -5,6 +5,8 @@ import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
+import com.gmail.mooman219.frame.text.Bulletin;
+import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
 import com.gmail.mooman219.module.region.command.ModifyInformation;
 import com.gmail.mooman219.module.region.command.ModifyName;
@@ -20,11 +22,15 @@ public class CCRegion implements CowComponent {
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][M][Region] ";
+    public static Messages MSG;
+    public static Formats FRM;
 
     public ListenerPlayer listenerPlayer;
 
     public CCRegion(Loader plugin){
         this.plugin = plugin;
+        MSG = new Messages();
+        FRM = new Formats();
     }
 
     @Override
@@ -60,4 +66,13 @@ public class CCRegion implements CowComponent {
         plugin.addCommand(new NewInformation());
         plugin.addCommand(new SetRegion());
     }
+    
+    public class Messages {
+        public final Bulletin EXISTS = new Bulletin(Chat.msgError, "Region already exists.", Chat.formatError);
+        public final Bulletin NONEXISTS = new Bulletin(Chat.msgError, "The region does not exist.", Chat.formatError);
+        public final Bulletin ADDED = new Bulletin(Chat.msgInfo, "Region added!", Chat.formatInfo);
+        public final Bulletin MODIFIED = new Bulletin(Chat.msgInfo, "Region modified!", Chat.formatInfo);
+    }
+    
+    public class Formats {}
 }

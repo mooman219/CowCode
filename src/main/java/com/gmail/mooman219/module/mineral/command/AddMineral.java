@@ -11,10 +11,8 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
@@ -44,9 +42,9 @@ public class AddMineral extends CCommand {
             if(block.getType() != Material.AIR) {
                 int delay = Integer.parseInt(args[0]);
                 if(MineralManager.addMineral(block.getLocation(), block.getType(), delay)) {
-                    TextHelper.message(sender, CMMineral.F_EDIT, StoreMineral.minerals.size(), delay);
+                    CCMineral.FRM.EDIT.send(sender, StoreMineral.minerals.size(), delay);
                 } else {
-                    TextHelper.message(sender, CMMineral.F_ADD, StoreMineral.minerals.size(), delay);
+                    CCMineral.FRM.ADD.send(sender, StoreMineral.minerals.size(), delay);
                 }
                 WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
                 WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
@@ -54,6 +52,6 @@ public class AddMineral extends CCommand {
                 return;
             }
         }
-        TextHelper.message(sender, CMMineral.M_LOCATE_FAILED);
+        CCMineral.MSG.LOCATE_FAILED.send(sender);
     }
 }

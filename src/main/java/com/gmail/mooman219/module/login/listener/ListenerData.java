@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.login.listener;
 
-import java.text.MessageFormat;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,7 +13,7 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.login.CMLogin;
+import com.gmail.mooman219.module.login.CCLogin;
 
 public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
@@ -23,7 +21,7 @@ public class ListenerData implements Listener {
         if(event.getPlayerData().serviceData.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
             if(currentTime - event.getPlayerData().loginData.lastlogin < ConfigGlobal.loginDelay) {
-                event.getEvent().disallow(Result.KICK_OTHER, MessageFormat.format(CMLogin.F_LOGINDELAY, TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - event.getPlayerData().loginData.lastlogin), TimeType.MILLISECOND)));
+                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - event.getPlayerData().loginData.lastlogin), TimeType.MILLISECOND)));
                 return;
             }
         }

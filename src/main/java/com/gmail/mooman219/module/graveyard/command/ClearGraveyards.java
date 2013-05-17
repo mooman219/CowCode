@@ -5,10 +5,8 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
-import com.gmail.mooman219.module.graveyard.CMGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class ClearGraveyards extends CCommand {
@@ -21,14 +19,12 @@ public class ClearGraveyards extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        TextHelper.message(sender, CMGraveyard.F_CLEAR, StoreGraveyard.graveyards.size());
-        StoreGraveyard.graveyards.clear();
-        module.storeGraveyard.save();
+        processConsole(sender, args);
     }
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        TextHelper.message(sender, CMGraveyard.F_CLEAR, StoreGraveyard.graveyards.size());
+        CCGraveyard.FRM.CLEAR.send(sender, StoreGraveyard.graveyards.size());
         StoreGraveyard.graveyards.clear();
         module.storeGraveyard.save();
     }

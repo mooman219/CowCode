@@ -8,9 +8,8 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.mineral.CMMineral;
+import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.store.CSMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
@@ -21,11 +20,11 @@ public class ListMinerals extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        TextHelper.message(sender, CMMineral.F_LIST_TITLE, StoreMineral.minerals.size());
+        CCMineral.FRM.LIST_TITLE.send(sender, StoreMineral.minerals.size());
         int i = 0;
         for(CSMineral mineralData : StoreMineral.minerals.values()) {
             Location location = mineralData.getLocation();
-            TextHelper.message(sender, CMMineral.F_LIST, i, StoreMineral.minerals.size(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), mineralData.respawnDelay);
+            CCMineral.FRM.LIST.send(sender, i, StoreMineral.minerals.size(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), mineralData.respawnDelay);
             WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
             i++;
@@ -34,11 +33,11 @@ public class ListMinerals extends CCommand {
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        TextHelper.message(sender, CMMineral.F_LIST_TITLE, StoreMineral.minerals.size());
+        CCMineral.FRM.LIST_TITLE.send(sender, StoreMineral.minerals.size());
         int i = 0;
         for(CSMineral mineralData : StoreMineral.minerals.values()) {
             Location location = mineralData.getLocation();
-            TextHelper.message(sender, CMMineral.F_LIST, i, StoreMineral.minerals.size(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), mineralData.respawnDelay);
+            CCMineral.FRM.LIST.send(sender, i, StoreMineral.minerals.size(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), mineralData.respawnDelay);
             i++;
         }
     }

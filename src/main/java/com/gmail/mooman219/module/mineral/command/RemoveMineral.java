@@ -10,10 +10,8 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.CMMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
@@ -42,7 +40,7 @@ public class RemoveMineral extends CCommand {
         for(Block block : sender.getLineOfSight(skippedBlocks, 6)){
             if(block.getType() != Material.AIR) {
                 if(MineralManager.removeMineral(block.getLocation()) != null) {
-                    TextHelper.message(sender, CMMineral.F_REMOVE, StoreMineral.minerals.size());
+                    CCMineral.FRM.REMOVE.send(sender, StoreMineral.minerals.size());
                     WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
                     WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
                     module.storeMineral.save();
@@ -52,6 +50,6 @@ public class RemoveMineral extends CCommand {
                 }
             }
         }
-        TextHelper.message(sender, CMMineral.M_LOCATE_FAILED);
+        CCMineral.MSG.LOCATE_FAILED.send(sender);
     }
 }

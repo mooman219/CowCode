@@ -6,24 +6,23 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.chat.CMChat;
+import com.gmail.mooman219.module.chat.CCChat;
 
 public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        event.setJoinMessage(TextHelper.parse(CMChat.F_LOGIN, event.getPlayer().getName()));
+        event.setJoinMessage(CCChat.FRM.LOGIN.parse(event.getPlayer().getName()));
         event.getPlayer().setOverHeadName(CDPlayer.get(event.getPlayer()).serviceData.rank.color + event.getPlayer().getName());
     }
 
     @EventHandler()
     public void onKick(PlayerKickEvent event) {
-        event.setLeaveMessage(TextHelper.parse(CMChat.F_KICK, event.getPlayer().getName()));
+        event.setLeaveMessage(CCChat.FRM.KICK.parse(event.getPlayer().getName()));
     }
 
     @EventHandler()
     public void onQuit(PlayerQuitEvent event) {
-        event.setQuitMessage(TextHelper.parse(CMChat.F_QUIT, event.getPlayer().getName()));
+        event.setQuitMessage(CCChat.FRM.QUIT.parse(event.getPlayer().getName()));
     }
 }

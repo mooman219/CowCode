@@ -8,9 +8,8 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.graveyard.CMGraveyard;
+import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 
@@ -27,9 +26,9 @@ public class TeleportGraveyard extends CCommand {
             WorldHelper.playEffect(graveyardData.getLocation(), Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playEffect(graveyardData.getLocation().clone().add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playSound(graveyardData.getLocation(), Sound.ENDERMAN_TELEPORT);
-            TextHelper.message(sender, CMGraveyard.F_TP, args[0]);
+            CCGraveyard.FRM.TP.send(sender, args[0]);
         } else {
-            TextHelper.message(sender, CMGraveyard.F_TP_FAILED, args[0]);
+            CCGraveyard.FRM.TP_FAILED.send(sender, args[0]);
         }
     }
 }
