@@ -20,18 +20,18 @@ public class Whois extends CCommand {
     }
 
     @Override
-    public void processPlayer(final Player sender, final CDPlayer playerData, final String[] args) {
+    public void processPlayer(final Player sender, final CDPlayer player, final String[] args) {
         if(args.length == 1) {
             if(args[0].length() > 16 || args[0].length() < 3) {
                 CCService.FRM.WHOISERROR.send(sender, args[0]);
                 return;
             }
-            Player player = Bukkit.getPlayer(args[0]);
-            if(player != null) {
-                displayWhois(sender, CDPlayer.get(player));
+            Player other = Bukkit.getPlayer(args[0]);
+            if(other != null) {
+                displayWhois(sender, CDPlayer.get(other));
                 return;
             }
-            playerData.runTask(new Runnable() {
+            player.runTask(new Runnable() {
                 @Override
                 public void run() {
                     CDPlayer playerData = CHDatabase.manager.downloadPlayer(args[0], DownloadReason.QUERY);
@@ -43,7 +43,7 @@ public class Whois extends CCommand {
                 }
             });
         } else {
-            displayWhois(sender, playerData);
+            displayWhois(sender, player);
         }
     }
 
