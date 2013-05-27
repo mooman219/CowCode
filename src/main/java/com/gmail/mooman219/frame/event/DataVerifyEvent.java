@@ -9,12 +9,12 @@ import com.gmail.mooman219.module.CDPlayer;
 public class DataVerifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    private final CDPlayer playerData;
+    private final CDPlayer player;
     private final AsyncPlayerPreLoginEvent event;
 
-    public DataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer playerData) {
+    public DataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer player) {
         super(true);
-        this.playerData = playerData;
+        this.player = player;
         this.event = event;
     }
 
@@ -27,8 +27,8 @@ public class DataVerifyEvent extends Event {
         return handlers;
     }
 
-    public CDPlayer getPlayerData() {
-        return playerData;
+    public CDPlayer getPlayer() {
+        return player;
     }
 
     public AsyncPlayerPreLoginEvent getEvent() {

@@ -1,30 +1,28 @@
 package com.gmail.mooman219.module;
 
+import net.minecraft.server.NBTTagCompound;
+
 import org.bukkit.Chunk;
 import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.entity.Entity;
 
-import com.gmail.mooman219.craftbukkit.CowData;
-import com.gmail.mooman219.craftbukkit.CowTaggable;
+import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.module.region.store.CSRegionInformation;
 import com.gmail.mooman219.module.region.store.StoreRegionInformation;
 
-public class CDChunk implements CowData {
+public class CDChunk extends BullData {
     public final Chunk chunk;
 
     public CDChunk(Chunk chunk) {
         this.chunk = chunk;
-        onLoad(getHandle());
     }
 
     /*
      * Live
      */
 
-    // Region
     private CSRegionInformation parentInformation;
-    //
 
     public CSRegionInformation getParentInformation() {
         if(parentInformation == null) {
@@ -40,25 +38,19 @@ public class CDChunk implements CowData {
     }
 
     /*
-     * Tag
+     * Event
      */
 
-    // Region
     public String parentUUID = "";
-    //
 
     @Override
-    public void onTick(CowTaggable handle) {}
-
-    @Override
-    public void onLoad(CowTaggable handle) {
-        parentUUID = TagHelper.getString(handle.dataTag, "region.uuid", parentUUID);
+    public void onTagLoad(NBTTagCompound tag) {
+        parentUUID = TagHelper.getString(tag, "region.uuid", parentUUID);
     }
 
     @Override
-    public void onSave(CowTaggable handle) {
-        handle.clearStoreTag();
-        handle.dataTag.setString("region.uuid", parentUUID);
+    public void onTagSave(NBTTagCompound tag) {
+        tag.setString("region.uuid", parentUUID);
     }
 
     /*
@@ -75,9 +67,10 @@ public class CDChunk implements CowData {
 
     public static CDChunk get(Chunk chunk) {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
-        if(handle.dataLive == null) {
-            handle.dataLive = new CDChunk(chunk);
+        if(handle.bull_live == null) {
+            handle.bull_live = new CDChunk(chunk);
+            ((BullData) handle.bull_live).onTagLoad(handle.bull_tag);
         }
-        return (CDChunk) handle.dataLive;
+        return (CDChunk) handle.bull_live;
     }
 }

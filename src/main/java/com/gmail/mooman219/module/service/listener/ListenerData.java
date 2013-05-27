@@ -27,7 +27,7 @@ import com.gmail.mooman219.module.service.CCService;
 public class ListenerData implements Listener {
     @EventHandler
     public void onDataVerify(DataVerifyEvent event) {
-        Loader.info(CCService.cast + "[EVENT] DataVerify: " + event.getPlayerData().username);
+        Loader.info(CCService.cast + "[EVENT] DataVerify: " + event.getPlayer().username);
     }
 
     @EventHandler
@@ -64,10 +64,10 @@ public class ListenerData implements Listener {
     public void onLogin(PlayerLoginEvent event) {
         Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
 
-        CDPlayer playerData = CDPlayer.get(event.getPlayer());
-        CEventFactory.callDataCreateEvent(event, event.getPlayer());
+        CDPlayer player = CDPlayer.get(event.getPlayer());
+        CEventFactory.callDataCreateEvent(event, player);
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
-        CHDatabase.manager.uploadPlayer(playerData, UploadReason.STATUS, UploadThread.ASYNC);
+        CHDatabase.manager.uploadPlayer(player, UploadReason.STATUS, UploadThread.ASYNC);
         CCService.MSG.DATALOAD.send(event.getPlayer());
     }
 
@@ -80,7 +80,8 @@ public class ListenerData implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
 
-        CHDatabase.manager.uploadPlayer(CDPlayer.get(event.getPlayer()), UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
+        CDPlayer player = CDPlayer.get(event.getPlayer());
+        CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

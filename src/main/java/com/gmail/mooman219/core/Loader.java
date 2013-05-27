@@ -1,6 +1,7 @@
 package com.gmail.mooman219.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -31,12 +32,44 @@ public class Loader extends JavaPlugin {
     public final static String cast = "[CC] ";
 
     public void registerConfigurationSerialization() {
+        Loader.info(cast + "Registering serializables");
         ConfigurationSerialization.registerClass(CSBasicLocation.class, "CSBasicLocation");
         ConfigurationSerialization.registerClass(CSChunkLocation.class, "CSChunkLocation");
         ConfigurationSerialization.registerClass(CSLocation.class, "CSLocation");
         for(CowComponent p : componentList) {
             try {
                 p.registerConfigurationSerialization();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void processHandlers(boolean enable) {
+        Loader.info(cast + (enable ? "Loading" : "Unloading") + " handlers");
+        for(CowHandler p : handlerList) {
+            try {
+                if(enable) {                    
+                    p.onEnable();
+                } else {
+                    p.onDisable();
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void processComponents(boolean enable) {
+        Loader.info(cast + (enable ? "Loading" : "Unloading") + " components");
+        for(CowComponent p : componentList) {
+            try {
+                if(enable) {                    
+                    p.onEnable();
+                    p.loadCommands();
+                } else {
+                    p.onDisable();
+                }
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -65,6 +98,7 @@ public class Loader extends JavaPlugin {
 
     @Override
     public void onLoad() {
+        // Order IS important
         handlerList.add(new CHConfig());
         handlerList.add(new CHDatabase());
         handlerList.add(new CHTask(this));
@@ -76,33 +110,17 @@ public class Loader extends JavaPlugin {
         componentList.add(new CCMineral(this));
         componentList.add(new CCChat(this));
         componentList.add(new CCRegion(this));
+        // Register early
+        registerConfigurationSerialization();
     }
 
     @Override
     public void onEnable() {
-        // Start Loader
-        Loader.info(cast + "Registering serializables");
-        registerConfigurationSerialization();
         // Start handlers
-        Loader.info(cast + "Loading handlers");
-        for(CowHandler p : handlerList) {
-            try {
-                p.onEnable();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
+        processHandlers(true);
         // Start components
-        Loader.info(cast + "Loading components");
-        for(CowComponent p : componentList) {
-            try {
-                p.onEnable();
-                p.loadCommands();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        //
+        processComponents(true);
+
         PluginDescriptionFile pdfFile = getDescription();
         Loader.info(cast + "Version: " + pdfFile.getVersion() + " Enabled.");
         Loader.info(cast + "Created by: " + pdfFile.getAuthors());
@@ -111,24 +129,12 @@ public class Loader extends JavaPlugin {
     @Override
     public void onDisable() {
         // Shutdown components
-        Loader.info(cast + "Unloading components");
-        for(int i = componentList.size() - 1; i >= 0; i--) {
-            try {
-                componentList.get(i).onDisable();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
+        Collections.reverse(componentList);
+        processComponents(false);
         // Shutdown handlers
-        Loader.info(cast + "Unloading handlers");
-        for(int i = handlerList.size() - 1; i >= 0; i--) {
-            try {
-                handlerList.get(i).onDisable();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        //
+        Collections.reverse(handlerList);
+        processHandlers(false);
+
         PluginDescriptionFile pdfFile = getDescription();
         Loader.info(cast + "Version: " + pdfFile.getVersion() + " Disabled.");
         Loader.info(cast + "Created by: " + pdfFile.getAuthors());

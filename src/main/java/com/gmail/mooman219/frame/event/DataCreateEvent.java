@@ -1,17 +1,18 @@
 package com.gmail.mooman219.frame.event;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import com.gmail.mooman219.module.CDPlayer;
+
 public class DataCreateEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    private final Player player;
+    private final CDPlayer player;
     private final PlayerLoginEvent event;
 
-    public DataCreateEvent(PlayerLoginEvent event, Player player) {
+    public DataCreateEvent(PlayerLoginEvent event, CDPlayer player) {
         this.player = player;
         this.event = event;
     }
@@ -25,7 +26,7 @@ public class DataCreateEvent extends Event {
         return handlers;
     }
 
-    public Player getPlayer() {
+    public CDPlayer getPlayer() {
         return player;
     }
 

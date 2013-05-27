@@ -4,15 +4,13 @@ import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
-import com.gmail.mooman219.craftbukkit.CowData;
-import com.gmail.mooman219.craftbukkit.CowTaggable;
+import com.gmail.mooman219.craftbukkit.BullData;
 
-public class CDEntity implements CowData {
+public class CDEntity extends BullData {
     public final Entity entity;
 
     private CDEntity(Entity entity) {
         this.entity = entity;
-        onLoad(getHandle());
     }
 
     /*
@@ -20,20 +18,8 @@ public class CDEntity implements CowData {
      */
 
     /*
-     * Tag
+     * Event
      */
-
-    @Override
-    public void onTick(CowTaggable handle) {}
-
-    @Override
-    public void onLoad(CowTaggable handle) {
-    }
-
-    @Override
-    public void onSave(CowTaggable handle) {
-        handle.clearStoreTag();
-    }
 
     /*
      * Default
@@ -47,9 +33,9 @@ public class CDEntity implements CowData {
         net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
         if(entity instanceof LivingEntity) {
             throw new IllegalArgumentException("LivingEntities are not considered Entities.");
-        } else if(handle.dataLive == null) {
-            handle.dataLive = new CDEntity(entity);
+        } else if(handle.bull_live == null) {
+            handle.bull_live = new CDEntity(entity);
         }
-        return (CDEntity) handle.dataLive;
+        return (CDEntity) handle.bull_live;
     }
 }

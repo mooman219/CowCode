@@ -18,10 +18,10 @@ import com.gmail.mooman219.module.login.CCLogin;
 public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onVerify(DataVerifyEvent event) {
-        if(event.getPlayerData().serviceData.rank.index < Rank.MODERATOR.index) {
+        if(event.getPlayer().serviceData.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
-            if(currentTime - event.getPlayerData().loginData.lastlogin < ConfigGlobal.loginDelay) {
-                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - event.getPlayerData().loginData.lastlogin), TimeType.MILLISECOND)));
+            if(currentTime - event.getPlayer().loginData.lastlogin < ConfigGlobal.loginDelay) {
+                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - event.getPlayer().loginData.lastlogin), TimeType.MILLISECOND)));
                 return;
             }
         }
@@ -29,22 +29,22 @@ public class ListenerData implements Listener {
 
     @EventHandler()
     public void onCreation(DataCreateEvent event) {
-        CDPlayer playerData = CDPlayer.get(event.getPlayer());
         long currentTime = System.currentTimeMillis();
-        if(playerData.loginData.firstlogin == 0) {
-            playerData.loginData.firstlogin = currentTime;
+        CDPlayer player = event.getPlayer();
+        if(player.loginData.firstlogin == 0) {
+            player.loginData.firstlogin = currentTime;
         }
-        playerData.loginData.lastlogin = currentTime;
-        playerData.loginData.isOnline = true;
+        player.loginData.lastlogin = currentTime;
+        player.loginData.isOnline = true;
     }
 
     @EventHandler()
     public void onRemoval(DataRemovalEvent event) {
-        CDPlayer playerData = CDPlayer.get(event.getPlayer());
+        CDPlayer player = event.getPlayer();
         long currentTime = System.currentTimeMillis();
-        playerData.loginData.lastKnownIP = playerData.getPlayer().getAddress().getAddress().getHostAddress();
-        playerData.loginData.timeplayed += currentTime - playerData.loginData.lastlogin;
-        playerData.loginData.lastlogin = currentTime;
-        playerData.loginData.isOnline = false;
+        player.loginData.lastKnownIP = player.getPlayer().getAddress().getAddress().getHostAddress();
+        player.loginData.timeplayed += currentTime - player.loginData.lastlogin;
+        player.loginData.lastlogin = currentTime;
+        player.loginData.isOnline = false;
     }
 }

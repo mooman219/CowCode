@@ -1,20 +1,16 @@
 package com.gmail.mooman219.module;
 
-import net.minecraft.server.WorldData;
-
 import org.bukkit.World;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Entity;
 
-import com.gmail.mooman219.craftbukkit.CowData;
-import com.gmail.mooman219.craftbukkit.CowTaggable;
+import com.gmail.mooman219.craftbukkit.BullData;
 
-public class CDWorld implements CowData {
+public class CDWorld extends BullData {
     public final World world;
 
-    public CDWorld(World world) {
+    public CDWorld(org.bukkit.World world) {
         this.world = world;
-        onLoad(getHandle());
     }
 
     /*
@@ -22,38 +18,27 @@ public class CDWorld implements CowData {
      */
 
     /*
-     * Tag
+     * Event
      */
-
-    @Override
-    public void onTick(CowTaggable handle) {}
-
-    @Override
-    public void onLoad(CowTaggable handle) {
-    }
-
-    @Override
-    public void onSave(CowTaggable handle) {
-        handle.clearStoreTag();
-    }
 
     /*
      * Default
      */
 
-    public WorldData getHandle() {
-        return ((CraftWorld)world).getHandle().getWorldData();
+    public net.minecraft.server.World getHandle() {
+        return ((CraftWorld)world).getHandle();
     }
 
     public static CDWorld get(Entity entity) {
         return get(entity.getLocation().getWorld());
     }
 
-    public static CDWorld get(World world) {
-        WorldData handle = ((CraftWorld)world).getHandle().getWorldData();
-        if(handle.dataLive == null) {
-            handle.dataLive = new CDWorld(world);
+    public static CDWorld get(org.bukkit.World world) {
+        net.minecraft.server.World handle = ((CraftWorld)world).getHandle();
+        if(handle.bull_live == null) {
+            handle.bull_live = new CDWorld(world);
+            ((BullData) handle.bull_live).onTagLoad(handle.bull_tag);
         }
-        return (CDWorld) handle.dataLive;
+        return (CDWorld) handle.bull_live;
     }
 }

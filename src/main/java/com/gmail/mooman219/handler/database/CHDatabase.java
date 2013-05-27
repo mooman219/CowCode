@@ -48,17 +48,16 @@ public class CHDatabase implements CowHandler {
     }
 
     public class Manager {
-        public void uploadPlayer(final CDPlayer playerData, final UploadReason reason, final UploadThread thread) {
+        public void uploadPlayer(final CDPlayer player, final UploadReason reason, final UploadThread thread) {
             final Runnable task = new Runnable() {
                 @Override
                 public void run() {
                     if(thread.remove) {
-                        CEventFactory.callDataRemovalEvent(thread.async || thread.removeAsync, playerData.getPlayer());
+                        CEventFactory.callDataRemovalEvent(thread.async || thread.removeAsync, player);
                     }
-                    DBObject playerObject = playerData.getTemplate(reason);
-                    c_Users.update(new BasicDBObject("_id", playerData.id)
-                    , new BasicDBObject("$set", playerObject));
-                    Loader.info(cast + "[UP] ["+reason.name()+"] : " + playerData.username);
+                    DBObject playerObject = player.getTemplate(reason);
+                    c_Users.update(new BasicDBObject("_id", player.id), new BasicDBObject("$set", playerObject));
+                    Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.username);
                 }
             };
             if(thread.async) {

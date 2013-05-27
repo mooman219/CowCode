@@ -16,11 +16,11 @@ import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import com.gmail.mooman219.craftbukkit.CowData;
-import com.gmail.mooman219.craftbukkit.CowTaggable;
+import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
+import com.gmail.mooman219.frame.scoreboard.GlobalBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -33,7 +33,8 @@ import com.gmail.mooman219.module.service.store.PDService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class CDPlayer implements CowData {
+public class CDPlayer extends BullData {
+    public final static GlobalBoard healthBoard = new GlobalBoard("health", "♥", BoardDisplayType.BELOWNAME);
     // [+] Data information
     public final ObjectId id;
     public final String username;
@@ -45,9 +46,8 @@ public class CDPlayer implements CowData {
     private Player player = null;
     private ExecutorService thread = null;
     private Board sidebar = null;
-    private Board nametagbar = null;
     private Tab tabList = null;
-    // [+] Loading information
+    // [-]---[+] Loading information
     private boolean initialized = false;
     // [-]---[+] Module
     public PLChat chat = null;
@@ -65,20 +65,19 @@ public class CDPlayer implements CowData {
      * Special
      */
 
-    public void initializePlayer(Player player) {
-        // This is fired normally in Login
+    // ▀▀▀▀▀▀▀▀▀▀
+    private void initializePlayer(Player player) {
+        // This is fired normally in Login, once there is a player.
         if(this.player == null) {
             this.player = player;
             this.thread = Executors.newSingleThreadExecutor();
-            onLoad(getHandle());
 
             this.chat = new PLChat();
         }
-        // This is fired after Login
+        // This is fired after Login, once the play can be sent packets.
         if(getHandle().playerConnection != null) {
+            healthBoard.addPlayer(this);
             this.sidebar = new Board(this, username, serviceData.rank.color + username, BoardDisplayType.SIDEBAR);
-            this.nametagbar = new Board(this, "nametag", "NametagTest", BoardDisplayType.BELOWNAME);
-            // ▀▀▀▀▀▀▀▀▀▀
             this.tabList = new Tab(this);
             
             this.initialized = true;
@@ -131,10 +130,6 @@ public class CDPlayer implements CowData {
     public Board getSidebar() {
         return sidebar;
     }
-    
-    public Board getNametagBar() {
-        return nametagbar;
-    }
 
     public Tab getTab() {
         return tabList;
@@ -152,24 +147,17 @@ public class CDPlayer implements CowData {
         return thread.submit(task);
     }
     
+    public String getName() {
+        return username;
+    }
+    
     public Player getPlayer() {
         return player;
     }
 
     /*
-     * Tag
+     * Event
      */
-
-    @Override
-    public void onTick(CowTaggable handle) {}
-
-    @Override
-    public void onLoad(CowTaggable handle) {}
-
-    @Override
-    public void onSave(CowTaggable handle) {
-        handle.clearStoreTag();
-    }
 
     /*
      * Default
@@ -181,10 +169,10 @@ public class CDPlayer implements CowData {
 
     public static CDPlayer get(Player player) {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
-        if(handle.dataLive == null) {
+        if(handle.bull_live == null) {
             throw new IllegalArgumentException("Invalid data on player.");
         }
-        CDPlayer ret = (CDPlayer) handle.dataLive;
+        CDPlayer ret = (CDPlayer) handle.bull_live;
         if(!ret.initialized) {
             ret.initializePlayer(player);
         }
@@ -192,6 +180,6 @@ public class CDPlayer implements CowData {
     }
 
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer dataPlayer) {
-        ((PendingConnection) event.getPendingConnection()).dataLive = dataPlayer;
+        ((PendingConnection) event.getPendingConnection()).bull_live = dataPlayer;
     }
 }

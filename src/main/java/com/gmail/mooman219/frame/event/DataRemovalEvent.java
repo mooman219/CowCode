@@ -1,15 +1,16 @@
 package com.gmail.mooman219.frame.event;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import com.gmail.mooman219.module.CDPlayer;
 
 public class DataRemovalEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    private final Player player;
+    private final CDPlayer player;
 
-    public DataRemovalEvent(boolean async, Player player) {
+    public DataRemovalEvent(boolean async, CDPlayer player) {
         super(async);
         this.player = player;
     }
@@ -23,7 +24,7 @@ public class DataRemovalEvent extends Event {
         return handlers;
     }
 
-    public Player getPlayer() {
+    public CDPlayer getPlayer() {
         return player;
     }
 }
