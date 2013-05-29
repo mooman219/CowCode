@@ -27,6 +27,7 @@ import com.gmail.mooman219.frame.scoreboard.FastHealthBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.module.chat.store.PDChat;
@@ -69,7 +70,7 @@ public class CDPlayer extends BullData {
     
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
-        case POST_VERIFY:
+        case POST_VERIFY: // This is done in another thread
             thread = Executors.newSingleThreadExecutor();
             /** Live module data to be added **/
                 chat = new PLChat();
@@ -157,6 +158,18 @@ public class CDPlayer extends BullData {
         handle.activeContainer = handle.defaultContainer; // Close the inventory
     }
 
+    public String getName() {
+        return username;
+    }
+
+    public String getOverheadName() {
+        return getHandle().overheadName;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
     public Board getSidebar() {
         return sidebar;
     }
@@ -165,37 +178,21 @@ public class CDPlayer extends BullData {
         return tabList;
     }
 
-    public void setDisplayName(String name) {
-        player.setDisplayName(name + Chat.RESET);
-    }
-
-    public void setTabListName(String name) {
-        player.setPlayerListName(TextHelper.shrink(name));
-    }
-
     public Future<?> runTask(Runnable task) {
         return thread.submit(task);
     }
 
-    public String getName() {
-        return username;
-    }
-
-    public Player getPlayer() {
-        return player;
+    public void setDisplayName(String name) {
+        player.setDisplayName(name + Chat.RESET);
     }
     
-    public String getOverheadName() {
-        return this.getHandle().overheadName;
-    }
-
     public String setOverheadName(String name) {
         EntityPlayer handle = getHandle();
         String oldName = handle.overheadName;
         handle.overheadName = name;
         if(handle.playerConnection != null) {
             for(Player other : player.getWorld().getPlayers()) {
-                if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > 57600) { // 240 Blocks // 15 Chunks
+                if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > ConfigGlobal.nameUpdateRadius) { // 240 Blocks // 15 Chunks
                     continue;
                 }
                 EntityPlayer otherHandle = ((CraftPlayer)other).getHandle();
@@ -204,6 +201,10 @@ public class CDPlayer extends BullData {
             }
         }
         return oldName;
+    }
+
+    public void setTabListName(String name) {
+        player.setPlayerListName(TextHelper.shrink(name));
     }
 
     /*
@@ -228,6 +229,10 @@ public class CDPlayer extends BullData {
     }
 
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer player) {
-        ((PendingConnection) event.getPendingConnection()).bull_live = player;
+        if(event.getPendingConnection() != null) {            
+            ((PendingConnection) event.getPendingConnection()).bull_live = player;
+        } else {
+            throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getName() + "'.");
+        }
     }
 }

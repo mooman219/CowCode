@@ -14,6 +14,8 @@ public class ConfigGlobal extends ConfigBase {
     public static String username = "cow";
     public static String password = "c4qNflnf6zQWp9h2";
     // [+] Module
+    // [ ]---[+] Service
+    public static int nameUpdateRadius = 57600;
     // [ ]---[+] Chat
     public static int chatRadius = 50;
     public static int chatGlobalDelay = 15000;
@@ -46,6 +48,8 @@ public class ConfigGlobal extends ConfigBase {
         username = loadVar("Mongo.User", username);
         password = loadVar("Mongo.Pass", password);
         // [+] Module
+        // [ ]---[+] Service
+        nameUpdateRadius = loadVar("Service.Player.Name_Update_Radius", nameUpdateRadius);
         // [ ]---[+] Chat
         chatRadius = loadVar("Chat.Max_Distance", chatRadius);
         chatGlobalDelay = loadVar("Chat.Global_Delay", chatGlobalDelay);
@@ -73,6 +77,9 @@ public class ConfigGlobal extends ConfigBase {
         saveVar("Mongo.Port", portnmbr);
         saveVar("Mongo.User", username);
         saveVar("Mongo.Pass", password);
+        // [+] Module
+        // [ ]---[+] Service
+        saveVar("Service.Player.Name_Update_Radius", nameUpdateRadius);
         // [ ]---[+] Chat
         saveVar("Chat.Max_Distance", chatRadius);
         saveVar("Chat.Global_Delay", chatGlobalDelay);
