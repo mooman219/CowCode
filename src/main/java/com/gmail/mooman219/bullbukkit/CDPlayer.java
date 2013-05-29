@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module;
+package com.gmail.mooman219.bullbukkit;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -6,6 +6,8 @@ import java.util.concurrent.Future;
 
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
+import net.minecraft.server.Packet20NamedEntitySpawn;
+import net.minecraft.server.Packet29DestroyEntity;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 import net.minecraft.server.PlayerInventory;
@@ -16,6 +18,7 @@ import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
+import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
@@ -38,21 +41,21 @@ public class CDPlayer extends BullData {
     // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
     public final static FastHealthBoard healthBoard = new FastHealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP"); // The slow one makes the client run faster
     // [+] Data information
-    // [+]---[+] Offline
+    // [ ]---[+] Offline
     public final ObjectId id;
     public final String username;
-    // [+]---[+] Online
+    // [ ]---[+] Online
     private Player player = null;
     private ExecutorService thread = null;
     private Board sidebar = null;
     private Tab tabList = null;
     private boolean[] loaded = {false, false, false};
     // [+] Module information
-    // [+]---[+] Offline
+    // [ ]---[+] Offline
     public PDService serviceData = null;
     public PDLogin loginData = null;
     public PDChat chatData = null;
-    // [+]---[+] Online
+    // [ ]---[+] Online
     public PLChat chat = null;
 
     public CDPlayer(ObjectId id, String username) {
@@ -69,7 +72,7 @@ public class CDPlayer extends BullData {
         case POST_VERIFY:
             thread = Executors.newSingleThreadExecutor();
             /** Live module data to be added **/
-            chat = new PLChat();
+                chat = new PLChat();
             /**/
             loaded[0] = true;
             break;
@@ -79,7 +82,7 @@ public class CDPlayer extends BullData {
             break;
         case PRE_JOIN:
             healthBoard.addPlayer(this);
-            sidebar = new Board(this, username, player.getOverHeadName(), BoardDisplayType.SIDEBAR);
+            sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
             tabList = new Tab(this);
             loaded[2] = true;
             break;
@@ -129,11 +132,12 @@ public class CDPlayer extends BullData {
      */
 
     public void chat(final String message) {
-        CDPlayer.get(player).runTask(new Runnable() {
+        runTask(new Runnable() {
             @Override
             public void run() {
                 PlayerConnection target = getHandle().playerConnection;
                 if(target == null) {
+                    Loader.warning("Null connection for '" + username + "'");
                     return;
                 }
                 target.chat(message, true);
@@ -179,6 +183,27 @@ public class CDPlayer extends BullData {
 
     public Player getPlayer() {
         return player;
+    }
+    
+    public String getOverheadName() {
+        return this.getHandle().overheadName;
+    }
+
+    public String setOverheadName(String name) {
+        EntityPlayer handle = getHandle();
+        String oldName = handle.overheadName;
+        handle.overheadName = name;
+        if(handle.playerConnection != null) {
+            for(Player other : player.getWorld().getPlayers()) {
+                if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > 57600) { // 240 Blocks // 15 Chunks
+                    continue;
+                }
+                EntityPlayer otherHandle = ((CraftPlayer)other).getHandle();
+                otherHandle.playerConnection.sendPacket(new Packet29DestroyEntity(handle.id));
+                otherHandle.playerConnection.sendPacket(new Packet20NamedEntitySpawn(handle));
+            }
+        }
+        return oldName;
     }
 
     /*

@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
+import com.gmail.mooman219.handler.config.ConfigGlobal;
 
 public class CHTask implements CowHandler {
     private Loader plugin;
@@ -30,7 +31,7 @@ public class CHTask implements CowHandler {
     public void onEnable() {
         manager = new Manager();
         Loader.info(cast + "Starting plugin threads");
-        asyncPool = Executors.newScheduledThreadPool(5);
+        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.threadCount);
         orderedPool = Executors.newSingleThreadExecutor();
         Loader.info(cast + "Starting second clocks");
         
@@ -55,6 +56,7 @@ public class CHTask implements CowHandler {
     public void onDisable() {
         Loader.info(cast + "Stopping all threads");
         asyncPool.shutdown();
+        orderedPool.shutdown();
         Loader.info(cast + "Disabled");
     }
 

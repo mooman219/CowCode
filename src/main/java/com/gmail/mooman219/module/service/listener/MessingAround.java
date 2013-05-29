@@ -11,9 +11,9 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffectType;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.CDPlayer;
 
 public class MessingAround implements Listener {
     @EventHandler

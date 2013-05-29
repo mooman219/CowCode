@@ -4,7 +4,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import com.gmail.mooman219.module.CDPlayer;
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 
 public class DataVerifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();

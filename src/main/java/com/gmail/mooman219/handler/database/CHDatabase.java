@@ -3,12 +3,12 @@ package com.gmail.mooman219.handler.database;
 import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.module.CDPlayer;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;

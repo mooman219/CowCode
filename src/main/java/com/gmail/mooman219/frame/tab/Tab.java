@@ -1,8 +1,8 @@
 package com.gmail.mooman219.frame.tab;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.handler.packet.CHPacket;
-import com.gmail.mooman219.module.CDPlayer;
 
 public class Tab {
     public final static int maxTabWidth = 5;

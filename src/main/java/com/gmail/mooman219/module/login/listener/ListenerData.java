@@ -5,6 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.event.DataCreateEvent;
 import com.gmail.mooman219.frame.event.DataRemovalEvent;
 import com.gmail.mooman219.frame.event.DataVerifyEvent;
@@ -12,7 +13,6 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.login.CCLogin;
 
 public class ListenerData implements Listener {

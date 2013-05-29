@@ -2,10 +2,10 @@ package com.gmail.mooman219.frame.scoreboard;
 
 import java.util.HashMap;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.module.CDPlayer;
 
 public class HealthBoard {
     private final String title;
@@ -35,7 +35,7 @@ public class HealthBoard {
                         CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, other.getClientName(), other.getValue(), BoardModifyType.UPDATE);
                     }
                     // Add player to the board
-                    final BoardValue target = rows.put(player, new BoardValue(player.getPlayer().getOverHeadName(), health));
+                    final BoardValue target = rows.put(player, new BoardValue(player.getOverheadName(), health));
                     // Tell all players on the board that the new player has joined
                     for(CDPlayer other : rows.keySet()) {
                         CHPacket.manager.sendSetScoreboardScore(other.getPlayer(), title, target.getClientName(), target.getValue(), BoardModifyType.UPDATE);

@@ -4,10 +4,10 @@ import org.bukkit.Effect;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.CSGraveyard;

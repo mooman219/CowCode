@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module;
+package com.gmail.mooman219.bullbukkit;
 
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Entity;

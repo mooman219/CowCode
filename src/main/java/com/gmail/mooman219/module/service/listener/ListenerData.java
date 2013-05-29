@@ -11,14 +11,14 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bullbukkit.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.database.UploadThread;
-import com.gmail.mooman219.module.CDPlayer;
-import com.gmail.mooman219.module.PlayerStartupType;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.service.CCService;
 

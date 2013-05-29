@@ -3,9 +3,9 @@ package com.gmail.mooman219.module.mineral.command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 

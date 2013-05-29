@@ -2,10 +2,10 @@ package com.gmail.mooman219.module.chat.command;
 
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.chat.CCChat;
 
 public class SetOverheadName extends CCommand {
@@ -15,7 +15,7 @@ public class SetOverheadName extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        sender.setOverHeadName(args[0]);
-        CCChat.FRM.SETOVERHEAD.send(sender, sender.getOverHeadName());
+        playerData.setOverheadName(args[0]);
+        CCChat.FRM.SETOVERHEAD.send(sender, playerData.getOverheadName());
     }
 }

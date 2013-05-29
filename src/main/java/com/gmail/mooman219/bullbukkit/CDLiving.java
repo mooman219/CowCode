@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module;
+package com.gmail.mooman219.bullbukkit;
 
 import net.minecraft.server.EntityLiving;
 

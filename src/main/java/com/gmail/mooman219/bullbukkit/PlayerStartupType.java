@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module;
+package com.gmail.mooman219.bullbukkit;
 
 public enum PlayerStartupType {
     POST_VERIFY,
