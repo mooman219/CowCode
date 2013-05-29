@@ -70,15 +70,17 @@ public class CHPacket implements CowHandler {
 
         public void toAllPlayers(final Packet packet) {
             for(Player bukkitPlayer : Bukkit.getOnlinePlayers()) {
-                EntityPlayer handle = ((CraftPlayer)bukkitPlayer).getHandle();
-                if(handle.playerConnection != null) {
-                    handle.playerConnection.sendPacket(packet);
-                }
+                toPlayer(bukkitPlayer, packet);
             }
         }
 
         public void toPlayer(final Player bukkitPlayer, final Packet packet) {
-            ((CraftPlayer)bukkitPlayer).getHandle().playerConnection.sendPacket(packet);
+            EntityPlayer handle = ((CraftPlayer)bukkitPlayer).getHandle();
+            if(handle.playerConnection != null) {
+                handle.playerConnection.sendPacket(packet);
+            } else {
+                Loader.warning("Null connection for '" + handle.name + "'");
+            }
         }
 
         // Old research

@@ -149,7 +149,9 @@ public class Loader extends JavaPlugin {
     }
 
     public static void warning(String message) {
+        Loader.log.warning("");
         Loader.log.warning("[" + (Bukkit.isPrimaryThread() ? "-" : "+") + "] " + message);
+        Loader.log.warning("");
     }
 }
 // Mooman219's code. | CowCoding == CC | Cow == C

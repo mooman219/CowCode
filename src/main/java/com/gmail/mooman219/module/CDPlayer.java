@@ -20,7 +20,7 @@ import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
-import com.gmail.mooman219.frame.scoreboard.GlobalBoard;
+import com.gmail.mooman219.frame.scoreboard.FastHealthBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -29,27 +29,30 @@ import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
+import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.store.PDService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class CDPlayer extends BullData {
-    public final static GlobalBoard healthBoard = new GlobalBoard("health", "♥", BoardDisplayType.BELOWNAME);
+    // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
+    public final static FastHealthBoard healthBoard = new FastHealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP"); // The slow one makes the client run faster
     // [+] Data information
+    // [+]---[+] Offline
     public final ObjectId id;
     public final String username;
-    // [-]---[+] Module
-    public PDService serviceData = null;
-    public PDLogin loginData = null;
-    public PDChat chatData = null;
-    // [+] Live information
+    // [+]---[+] Online
     private Player player = null;
     private ExecutorService thread = null;
     private Board sidebar = null;
     private Tab tabList = null;
-    // [-]---[+] Loading information
-    private boolean initialized = false;
-    // [-]---[+] Module
+    private boolean[] loaded = {false, false, false};
+    // [+] Module information
+    // [+]---[+] Offline
+    public PDService serviceData = null;
+    public PDLogin loginData = null;
+    public PDChat chatData = null;
+    // [+]---[+] Online
     public PLChat chat = null;
 
     public CDPlayer(ObjectId id, String username) {
@@ -60,29 +63,52 @@ public class CDPlayer extends BullData {
         this.loginData = new PDLogin();
         this.chatData = new PDChat();
     }
-
-    /*
-     * Special
-     */
-
-    // ▀▀▀▀▀▀▀▀▀▀
-    private void initializePlayer(Player player) {
-        // This is fired normally in Login, once there is a player.
-        if(this.player == null) {
+    
+    public void startup(Player player, PlayerStartupType startupType) {
+        switch(startupType) {
+        case POST_VERIFY:
+            thread = Executors.newSingleThreadExecutor();
+            /** Live module data to be added **/
+            chat = new PLChat();
+            /**/
+            loaded[0] = true;
+            break;
+        case PRE_CREATION:
             this.player = player;
-            this.thread = Executors.newSingleThreadExecutor();
-
-            this.chat = new PLChat();
-        }
-        // This is fired after Login, once the play can be sent packets.
-        if(getHandle().playerConnection != null) {
+            loaded[1] = true;
+            break;
+        case PRE_JOIN:
             healthBoard.addPlayer(this);
-            this.sidebar = new Board(this, username, serviceData.rank.color + username, BoardDisplayType.SIDEBAR);
-            this.tabList = new Tab(this);
-            
-            this.initialized = true;
+            sidebar = new Board(this, username, player.getOverHeadName(), BoardDisplayType.SIDEBAR);
+            tabList = new Tab(this);
+            loaded[2] = true;
+            break;
+        default:
+            break;
         }
     }
+
+    // Shutdown is done in another thread
+    public void shutdown() {
+        if(loaded[0]) {
+            thread.shutdown();
+            /** Live module data to be removed **/
+                chat = null;
+            /**/
+        }
+        if(loaded[1]) {
+            player = null;
+        }
+        if(loaded[2]) {
+            healthBoard.removePlayer(this);
+            sidebar = null;
+            tabList = null;
+        }
+    }
+
+    /*
+     * Database
+     */
 
     public void sync(DBObject playerObject) {
         serviceData.sync(MongoHelper.getValue(playerObject, serviceData.tag, new BasicDBObject()));
@@ -142,15 +168,15 @@ public class CDPlayer extends BullData {
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
     }
-    
+
     public Future<?> runTask(Runnable task) {
         return thread.submit(task);
     }
-    
+
     public String getName() {
         return username;
     }
-    
+
     public Player getPlayer() {
         return player;
     }
@@ -170,16 +196,13 @@ public class CDPlayer extends BullData {
     public static CDPlayer get(Player player) {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
         if(handle.bull_live == null) {
+            CCService.MSG.DATAERROR.send(player);
             throw new IllegalArgumentException("Invalid data on player.");
         }
-        CDPlayer ret = (CDPlayer) handle.bull_live;
-        if(!ret.initialized) {
-            ret.initializePlayer(player);
-        }
-        return ret;
+        return (CDPlayer) handle.bull_live;
     }
 
-    public static void set(AsyncPlayerPreLoginEvent event, CDPlayer dataPlayer) {
-        ((PendingConnection) event.getPendingConnection()).bull_live = dataPlayer;
+    public static void set(AsyncPlayerPreLoginEvent event, CDPlayer player) {
+        ((PendingConnection) event.getPendingConnection()).bull_live = player;
     }
 }

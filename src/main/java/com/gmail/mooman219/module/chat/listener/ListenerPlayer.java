@@ -6,14 +6,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.gmail.mooman219.module.CDPlayer;
 import com.gmail.mooman219.module.chat.CCChat;
 
 public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         event.setJoinMessage(CCChat.FRM.LOGIN.parse(event.getPlayer().getName()));
-        event.getPlayer().setOverHeadName(CDPlayer.get(event.getPlayer()).serviceData.rank.color + event.getPlayer().getName());
     }
 
     @EventHandler()

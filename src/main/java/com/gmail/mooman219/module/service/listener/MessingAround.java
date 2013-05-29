@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffectType;
@@ -32,8 +33,6 @@ public class MessingAround implements Listener {
         playerData.getSidebar().addKey("tps", "TPS: Init", 2);
         playerData.getSidebar().addKey("mob", "Mobs: Init", 1);
         
-        //playerData.getNametagBar().addKey("test", "Apple", MathHelper.floor(Math.random() * 10));
-
         playerData.getTab().setTab(0, 0, Chat.RED + "" + Chat.BOLD + "Health:");
         playerData.getTab().setTab(1, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");
         playerData.getTab().setTab(2, 0, Chat.GRAY + "" + Chat.BOLD + "Level:");
@@ -78,6 +77,13 @@ public class MessingAround implements Listener {
             CDPlayer.get(player).getSidebar().modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
             CDPlayer.get(player).getSidebar().modifyName("tps", "TPS: " + Chat.GREEN + tps);
             CDPlayer.get(player).getSidebar().modifyName("mob", "Mobs: " + Chat.GREEN + mobs);
+        }
+    }
+    
+    @EventHandler()
+    public void onDamage(EntityDamageEvent event) {
+        if(event.getEntity() instanceof Player) {
+            CDPlayer.healthBoard.updatePlayer(CDPlayer.get((Player) event.getEntity()));
         }
     }
 

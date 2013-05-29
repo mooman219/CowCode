@@ -54,6 +54,7 @@ public class CHDatabase implements CowHandler {
                 public void run() {
                     if(thread.remove) {
                         CEventFactory.callDataRemovalEvent(thread.async || thread.removeAsync, player);
+                        player.shutdown();
                     }
                     DBObject playerObject = player.getTemplate(reason);
                     c_Users.update(new BasicDBObject("_id", player.id), new BasicDBObject("$set", playerObject));
