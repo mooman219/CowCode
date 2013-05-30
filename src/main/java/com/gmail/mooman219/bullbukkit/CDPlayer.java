@@ -213,6 +213,7 @@ public class CDPlayer extends BullData {
                 otherHandle.playerConnection.sendPacket(new Packet29DestroyEntity(handle.id));
                 otherHandle.playerConnection.sendPacket(new Packet20NamedEntitySpawn(handle));
             }
+            healthBoard.updatePlayer(this);
         }
         return oldName;
     }

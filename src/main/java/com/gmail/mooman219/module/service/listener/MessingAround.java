@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.module.rpg.item.Hotbar;
 
 public class MessingAround implements Listener {
     @EventHandler
@@ -66,6 +67,8 @@ public class MessingAround implements Listener {
         
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
         event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
+        
+        Hotbar.apply(playerData);
     }
 
     @EventHandler
