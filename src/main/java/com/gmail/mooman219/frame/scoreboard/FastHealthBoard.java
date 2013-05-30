@@ -30,16 +30,17 @@ public class FastHealthBoard {
             @Override
             public void run() {
                 // Create the board on the client for the new player
-                CHPacket.manager.sendSetScoreboardObjective(player.getPlayer(), title, displayTitle, BoardModifyType.UPDATE);
-                CHPacket.manager.sendSetScoreboardDisplay(player.getPlayer(), title, BoardDisplayType.BELOWNAME);
+                CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
+                CHPacket.manager.sendSetScoreboardDisplay(player, title, BoardDisplayType.BELOWNAME);
                 // Tell all players on the server the given player's name and health,
                 // Also tell the given player the health of all other players
                 for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
                     if(bukkitOther.getName().equals(player.getName())) {
                         continue;
                     }
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, CDPlayer.get(bukkitOther).getOverheadName(), bukkitOther.getHealth(), BoardModifyType.UPDATE);
-                    CHPacket.manager.sendSetScoreboardScore(bukkitOther, title, name, health, BoardModifyType.UPDATE);
+                    CDPlayer other = CDPlayer.get(bukkitOther);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, other.getOverheadName(), bukkitOther.getHealth(), BoardModifyType.UPDATE);
+                    CHPacket.manager.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
                 }
             }
         });
@@ -59,7 +60,8 @@ public class FastHealthBoard {
                     if(bukkitOther.getName().equals(player.getName())) {
                         continue;
                     }
-                    CHPacket.manager.sendSetScoreboardScore(bukkitOther, title, name, health, BoardModifyType.UPDATE);
+                    CDPlayer other = CDPlayer.get(bukkitOther);
+                    CHPacket.manager.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
                 }
             }
         });

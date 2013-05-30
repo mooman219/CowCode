@@ -45,12 +45,12 @@ public class Tab {
             public void run() {
                 for(int y = 0; y < maxTabHeight; y++) {
                     for(int x = 0; x < maxTabWidth; x++) {
-                        CHPacket.manager.sendPlayerInfo(player.getPlayer(), tab[x][y].getClientName(), false, true);
+                        CHPacket.manager.sendPlayerInfo(player, tab[x][y].getClientName(), false, true);
                     }
                 }
                 for(int y = 0; y < maxTabHeight; y++) {
                     for(int x = 0; x < maxTabWidth; x++) {
-                        CHPacket.manager.sendPlayerInfo(player.getPlayer(), tab[x][y].getName(), true, false);
+                        CHPacket.manager.sendPlayerInfo(player, tab[x][y].getName(), true, false);
                         tab[x][y].setClientName(tab[x][y].getName());
                     }
                 }

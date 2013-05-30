@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
 import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bullbukkit.PlayerShutdownType;
 import com.gmail.mooman219.bullbukkit.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
@@ -69,6 +70,7 @@ public class ListenerData implements Listener {
         Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
 
         CDPlayer player = CDPlayer.get(event.getPlayer());
+        player.shutdown(PlayerShutdownType.POST_QUIT);
         CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
     }
 

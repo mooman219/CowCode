@@ -28,17 +28,17 @@ public class HealthBoard {
                 @Override
                 public void run() {
                     // Create the board on the client for the new player
-                    CHPacket.manager.sendSetScoreboardObjective(player.getPlayer(), title, displayTitle, BoardModifyType.UPDATE);
-                    CHPacket.manager.sendSetScoreboardDisplay(player.getPlayer(), title, BoardDisplayType.BELOWNAME);
+                    CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
+                    CHPacket.manager.sendSetScoreboardDisplay(player, title, BoardDisplayType.BELOWNAME);
                     // Give the new player all current entries in the board
                     for(BoardValue other : rows.values()) {
-                        CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, other.getClientName(), other.getValue(), BoardModifyType.UPDATE);
+                        CHPacket.manager.sendSetScoreboardScore(player, title, other.getClientName(), other.getValue(), BoardModifyType.UPDATE);
                     }
                     // Add player to the board
                     final BoardValue target = rows.put(player, new BoardValue(player.getOverheadName(), health));
                     // Tell all players on the board that the new player has joined
                     for(CDPlayer other : rows.keySet()) {
-                        CHPacket.manager.sendSetScoreboardScore(other.getPlayer(), title, target.getClientName(), target.getValue(), BoardModifyType.UPDATE);
+                        CHPacket.manager.sendSetScoreboardScore(other, title, target.getClientName(), target.getValue(), BoardModifyType.UPDATE);
                     }
                 }
             });
@@ -56,7 +56,7 @@ public class HealthBoard {
                     final BoardValue target =  rows.get(player);
                     // Tell all players on the board that a player has left
                     for(CDPlayer other : rows.keySet()) {
-                        CHPacket.manager.sendSetScoreboardScore(other.getPlayer(), title, target.getClientName(), target.getValue(), BoardModifyType.REMOVE);
+                        CHPacket.manager.sendSetScoreboardScore(other, title, target.getClientName(), target.getValue(), BoardModifyType.REMOVE);
                     }
                     // Remove the player from the board
                     rows.remove(player);
@@ -79,7 +79,7 @@ public class HealthBoard {
                     target.setValue(health);
                     // Tell all players on the board that a value has updated 
                     for(CDPlayer other : rows.keySet()) {
-                        CHPacket.manager.sendSetScoreboardScore(other.getPlayer(), title, target.getClientName(), target.getValue(), BoardModifyType.UPDATE);
+                        CHPacket.manager.sendSetScoreboardScore(other, title, target.getClientName(), target.getValue(), BoardModifyType.UPDATE);
                     }
                 }
             });

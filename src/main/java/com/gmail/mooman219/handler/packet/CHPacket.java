@@ -1,17 +1,12 @@
 package com.gmail.mooman219.handler.packet;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.Packet;
 import net.minecraft.server.Packet101CloseWindow;
 import net.minecraft.server.Packet201PlayerInfo;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
 import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
 
-import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-
+import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
@@ -34,53 +29,38 @@ public class CHPacket implements CowHandler {
     }
 
     public class Manager {
-        public void sendCloseWindow(Player bukkitPlayer, int windowID) {
+        public void sendCloseWindow(CDPlayer player, int windowID) {
             Packet101CloseWindow packet101 = new Packet101CloseWindow(windowID);
-            toPlayer(bukkitPlayer, packet101);
+            player.sendPacket(packet101);
         }
 
-        public void sendSetScoreboardObjective(Player bukkitPlayer, String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {
+        public void sendSetScoreboardObjective(CDPlayer player, String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {
             Packet206SetScoreboardObjective packet206 = new Packet206SetScoreboardObjective();
             packet206.a = scoreboardTitle;
             packet206.b = scoreboardDisplayTitle;
             packet206.c = scoreboardModifyType.id; // 0 Create - 1 Remove
-            toPlayer(bukkitPlayer, packet206);
+            player.sendPacket(packet206);
         }
 
-        public void sendSetScoreboardScore(Player bukkitPlayer, String scoreboardTitle, String itemName, int itemValue, BoardModifyType scoreboardModifyType) {
+        public void sendSetScoreboardScore(CDPlayer player, String scoreboardTitle, String itemName, int itemValue, BoardModifyType scoreboardModifyType) {
             Packet207SetScoreboardScore packet207 = new Packet207SetScoreboardScore();
             packet207.a = itemName;
             packet207.b = scoreboardTitle;
             packet207.c = itemValue;
             packet207.d = scoreboardModifyType.id; // 0 Create - 1 Remove
-            toPlayer(bukkitPlayer, packet207);
+            player.sendPacket(packet207);
         }
 
-        public void sendSetScoreboardDisplay(Player bukkitPlayer, String scoreboardTitle, BoardDisplayType scoreboardDisplayType) {
+        public void sendSetScoreboardDisplay(CDPlayer player, String scoreboardTitle, BoardDisplayType scoreboardDisplayType) {
             Packet208SetScoreboardDisplayObjective packet208 = new Packet208SetScoreboardDisplayObjective();
             packet208.a = scoreboardDisplayType.id; // 0 List - 1 Sidebar - 2 belowName
             packet208.b = scoreboardTitle;
-            toPlayer(bukkitPlayer, packet208);
+            player.sendPacket(packet208);
         }
 
-        public void sendPlayerInfo(Player bukkitPlayer, String name, boolean online, boolean ping) {
+        public void sendPlayerInfo(CDPlayer player, String name, boolean online, boolean ping) {
             Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, online, ping ? 0 : 40000);
-            toPlayer(bukkitPlayer, packet201);
-        }
-
-        public void toAllPlayers(final Packet packet) {
-            for(Player bukkitPlayer : Bukkit.getOnlinePlayers()) {
-                toPlayer(bukkitPlayer, packet);
-            }
-        }
-
-        public void toPlayer(final Player bukkitPlayer, final Packet packet) {
-            EntityPlayer handle = ((CraftPlayer)bukkitPlayer).getHandle();
-            if(handle.playerConnection != null) {
-                handle.playerConnection.sendPacket(packet);
-            } else {
-                Loader.warning("Null connection for '" + handle.name + "'");
-            }
+            player.sendPacket(packet201);
         }
 
         // Old research

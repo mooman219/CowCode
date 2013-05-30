@@ -6,6 +6,7 @@ import java.util.concurrent.Future;
 
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
+import net.minecraft.server.Packet;
 import net.minecraft.server.Packet20NamedEntitySpawn;
 import net.minecraft.server.Packet29DestroyEntity;
 import net.minecraft.server.PendingConnection;
@@ -50,7 +51,6 @@ public class CDPlayer extends BullData {
     private ExecutorService thread = null;
     private Board sidebar = null;
     private Tab tabList = null;
-    private boolean[] loaded = {false, false, false};
     // [+] Module information
     // [ ]---[+] Offline
     public PDService serviceData = null;
@@ -67,46 +67,44 @@ public class CDPlayer extends BullData {
         this.loginData = new PDLogin();
         this.chatData = new PDChat();
     }
-    
+
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
         case POST_VERIFY: // This is done in another thread
             thread = Executors.newSingleThreadExecutor();
             /** Live module data to be added **/
-                chat = new PLChat();
+            chat = new PLChat();
             /**/
-            loaded[0] = true;
             break;
         case PRE_CREATION:
             this.player = player;
-            loaded[1] = true;
             break;
         case PRE_JOIN:
             healthBoard.addPlayer(this);
             sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
             tabList = new Tab(this);
-            loaded[2] = true;
             break;
         default:
             break;
         }
     }
 
-    // Shutdown is done in another thread
-    public void shutdown() {
-        if(loaded[0]) {
-            thread.shutdown();
-            /** Live module data to be removed **/
-                chat = null;
-            /**/
-        }
-        if(loaded[1]) {
-            player = null;
-        }
-        if(loaded[2]) {
+    public void shutdown(PlayerShutdownType shutdownType) {
+        switch(shutdownType) {
+        case POST_QUIT:
+            thread.shutdownNow().clear();
             healthBoard.removePlayer(this);
             sidebar = null;
             tabList = null;
+            break;
+        case POST_REMOVAL: // This is done in another thread
+            player = null;
+            /** Live module data to be removed **/
+            chat = null;
+            /**/
+            break;
+        default:
+            break;
         }
     }
 
@@ -148,7 +146,7 @@ public class CDPlayer extends BullData {
 
     public void closeInventory() {
         EntityPlayer handle = getHandle();
-        CHPacket.manager.sendCloseWindow(player, handle.activeContainer.windowId); // Tell the player to close their inventory
+        CHPacket.manager.sendCloseWindow(this, handle.activeContainer.windowId); // Tell the player to close their inventory
         handle.activeContainer.transferTo(handle.defaultContainer, (CraftHumanEntity) player); // Tell bukkit to close the inventory
         PlayerInventory playerinventory = handle.inventory; // Drop any items being held while in the inventory
         if (playerinventory.getCarried() != null) {
@@ -179,18 +177,34 @@ public class CDPlayer extends BullData {
     }
 
     public Future<?> runTask(Runnable task) {
-        return thread.submit(task);
+        if(thread.isTerminated()) {
+            return null;
+        } else {
+            return thread.submit(task);
+        }
+    }
+
+    public void sendPacket(final Packet packet) {
+        EntityPlayer handle = getHandle();
+        if(handle == null) {
+            Loader.warning("Null handle for '" + username + "'");
+        } else if(handle.playerConnection == null) {
+            Loader.warning("Null connection for '" + username + "'");
+        } else {
+            handle.playerConnection.sendPacket(packet);
+        }
     }
 
     public void setDisplayName(String name) {
         player.setDisplayName(name + Chat.RESET);
     }
-    
+
     public String setOverheadName(String name) {
         EntityPlayer handle = getHandle();
         String oldName = handle.overheadName;
         handle.overheadName = name;
         if(handle.playerConnection != null) {
+            sidebar.modifyTitle(name);
             for(Player other : player.getWorld().getPlayers()) {
                 if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > ConfigGlobal.nameUpdateRadius) { // 240 Blocks // 15 Chunks
                     continue;

@@ -19,8 +19,8 @@ public class Board {
         player.runTask(new Runnable() {
             @Override
             public void run() {
-                CHPacket.manager.sendSetScoreboardObjective(player.getPlayer(), title, displayTitle, BoardModifyType.UPDATE);
-                CHPacket.manager.sendSetScoreboardDisplay(player.getPlayer(), title, displayType);
+                CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
+                CHPacket.manager.sendSetScoreboardDisplay(player, title, displayType);
             }
         });
     }
@@ -29,7 +29,7 @@ public class Board {
         player.runTask(new Runnable() {
             @Override
             public void run() {
-                CHPacket.manager.sendSetScoreboardObjective(player.getPlayer(), title, displayTitle, BoardModifyType.TITLE);
+                CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.TITLE);
             }
         });
     }
@@ -44,8 +44,8 @@ public class Board {
             player.runTask(new Runnable() {
                 @Override
                 public void run() {
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE);
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
                     currentValue.setName(boardValue.getName());
                     currentValue.setValue(boardValue.getValue());
                     currentValue.setClientName(currentValue.getName());
@@ -56,7 +56,7 @@ public class Board {
             player.runTask(new Runnable() {
                 @Override
                 public void run() {
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
                 }
             });
         }
@@ -69,7 +69,7 @@ public class Board {
             player.runTask(new Runnable() {
                 @Override
                 public void run() {
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
                 }
             });
         } else {
@@ -84,7 +84,7 @@ public class Board {
                 @Override
                 public void run() {
                     boardValue.setValue(value);
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.UPDATE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.UPDATE);
                 }
             });
         } else {
@@ -99,8 +99,8 @@ public class Board {
                 @Override
                 public void run() {
                     boardValue.setName(name);
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
-                    CHPacket.manager.sendSetScoreboardScore(player.getPlayer(), title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
+                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
                     boardValue.setClientName(name);
                 }
             });

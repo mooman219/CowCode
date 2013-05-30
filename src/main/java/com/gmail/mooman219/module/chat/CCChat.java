@@ -79,6 +79,6 @@ public class CCChat implements CowComponent {
         public final Bulletin LOGIN = new Bulletin(Chat.msgPassive, "{0} has logged in.", Chat.formatPassive);
         public final Bulletin KICK = new Bulletin(Chat.msgPassive, "{0} has been kicked.", Chat.formatPassive);
         public final Bulletin QUIT = new Bulletin(Chat.msgPassive, "{0} has logged out.", Chat.formatPassive);
-        public final Bulletin SETOVERHEAD = new Bulletin(Chat.msgInfo, "Your overhead name is now '{0}'.", Chat.formatInfo);
+        public final Bulletin SETOVERHEAD = new Bulletin(Chat.msgInfo, "Your overhead name is now \"{0}\".", Chat.formatInfo);
     }
 }

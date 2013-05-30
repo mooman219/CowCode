@@ -29,6 +29,7 @@ public class ConfigGlobal extends ConfigBase {
     public static boolean disableBlockGrow = false;
     public static boolean disableBlockFromTo = false;
     public static boolean disableLeafDecay = false;
+    public static boolean disableLightningStrike = false;
 
     public ConfigGlobal() {
         super(CHConfig.directory, "config.yml");
@@ -63,13 +64,14 @@ public class ConfigGlobal extends ConfigBase {
         disableBlockGrow = loadVar("World.Disable.Block_Grow", disableBlockGrow);
         disableBlockFromTo = loadVar("World.Disable.Block_From_To", disableBlockFromTo);
         disableLeafDecay = loadVar("World.Disable.Leaf_Decay", disableLeafDecay);
+        disableLightningStrike = loadVar("World.Disable.Lightning_Strike", disableLightningStrike);
     }
 
     @Override
     public void onSave() {
         // [+] Handler
         // [ ]---[+] Task
-        saveVar("Task.Thread_Count", server_id);
+        saveVar("Task.Thread_Count", threadCount);
         // [ ]---[+] Database
         saveVar("Server.ID", server_id);
         saveVar("Server.Location", server_loc);
@@ -93,5 +95,6 @@ public class ConfigGlobal extends ConfigBase {
         saveVar("World.Disable.Block_Grow", disableBlockGrow);
         saveVar("World.Disable.Block_From_To", disableBlockFromTo);
         saveVar("World.Disable.Leaf_Decay", disableLeafDecay);
+        saveVar("World.Disable.Lightning_Strike", disableLightningStrike);
     }
 }

@@ -105,11 +105,11 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHPacket());
         componentList.add(new CCService(this));
         componentList.add(new CCLogin(this));
-        componentList.add(new CCWorld(this));
         componentList.add(new CCGraveyard(this));
         componentList.add(new CCMineral(this));
         componentList.add(new CCChat(this));
         componentList.add(new CCRegion(this));
+        componentList.add(new CCWorld(this));
         // Register early
         registerConfigurationSerialization();
     }

@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 
 import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bullbukkit.PlayerShutdownType;
 import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
@@ -54,7 +55,7 @@ public class CHDatabase implements CowHandler {
                 public void run() {
                     if(thread.remove) {
                         CEventFactory.callDataRemovalEvent(thread.async || thread.removeAsync, player);
-                        player.shutdown();
+                        player.shutdown(PlayerShutdownType.POST_REMOVAL);
                     }
                     DBObject playerObject = player.getTemplate(reason);
                     c_Users.update(new BasicDBObject("_id", player.id), new BasicDBObject("$set", playerObject));

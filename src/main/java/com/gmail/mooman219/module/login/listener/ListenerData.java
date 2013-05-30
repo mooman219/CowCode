@@ -21,6 +21,11 @@ public class ListenerData implements Listener {
         if(event.getPlayer().serviceData.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
             if(currentTime - event.getPlayer().loginData.lastlogin < ConfigGlobal.loginDelay) {
+                try { // Sleep to prevent abusing players.
+                    Thread.sleep(200);
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
                 event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - event.getPlayer().loginData.lastlogin), TimeType.MILLISECOND)));
                 return;
             }
