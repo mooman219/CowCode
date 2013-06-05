@@ -1,7 +1,6 @@
 package com.gmail.mooman219.module.mineral;
 
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
@@ -46,9 +45,8 @@ public class CCMineral implements CowComponent {
         listenerBlock = new ListenerBlock();
         listenerTime = new ListenerTime();
 
-        PluginManager pm = plugin.getServer().getPluginManager();
-        pm.registerEvents(listenerBlock, plugin);
-        pm.registerEvents(listenerTime, plugin);
+        plugin.addListener(listenerBlock);
+        plugin.addListener(listenerTime);
 
         Loader.info(cast + "Enabled");
     }

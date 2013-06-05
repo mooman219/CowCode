@@ -5,7 +5,7 @@ import com.gmail.mooman219.frame.file.ConfigBase;
 public class ConfigGlobal extends ConfigBase {
     // [+] Handler
     // [ ]---[+] Task
-    public static int threadCount = 3;
+    public static int threadCount = 5;
     // [ ]---[+] Database
     public static String server_id = "Alpha";
     public static String server_loc = "US";
@@ -22,14 +22,14 @@ public class ConfigGlobal extends ConfigBase {
     // [ ]---[+] Login
     public static int loginDelay = 20000;
     // [ ]---[+] World
-    public static boolean disableBlockBurn = false;
-    public static boolean disableBlockSpread = false;
-    public static boolean disableBlockFade = false;
-    public static boolean disableBlockForm = false;
-    public static boolean disableBlockGrow = false;
-    public static boolean disableBlockFromTo = false;
-    public static boolean disableLeafDecay = false;
-    public static boolean disableLightningStrike = false;
+    public static boolean disableBlockBurn = true;
+    public static boolean disableBlockSpread = true;
+    public static boolean disableBlockFade = true;
+    public static boolean disableBlockForm = true;
+    public static boolean disableBlockGrow = true;
+    public static boolean disableBlockFromTo = true;
+    public static boolean disableLeafDecay = true;
+    public static boolean disableLightningStrike = true;
 
     public ConfigGlobal() {
         super(CHConfig.directory, "config.yml");

@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.service;
 
-import org.bukkit.plugin.PluginManager;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
@@ -34,9 +32,8 @@ public class CCService implements CowComponent {
         listenerData = new ListenerData();
         messingAround = new MessingAround();
 
-        PluginManager pm = plugin.getServer().getPluginManager();
-        pm.registerEvents(listenerData, plugin);
-        pm.registerEvents(messingAround, plugin);
+        plugin.addListener(listenerData);
+        plugin.addListener(messingAround);
 
         Loader.info(cast + "Enabled");
     }

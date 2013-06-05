@@ -165,6 +165,9 @@ public class CDPlayer extends BullData {
     }
 
     public Player getPlayer() {
+        if(player == null) {
+            throw new IllegalStateException("Null player");
+        }
         return player;
     }
 

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +23,7 @@ import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.region.CCRegion;
+import com.gmail.mooman219.module.rpg.item.CCItem;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.world.CCWorld;
 
@@ -110,6 +112,8 @@ public class Loader extends JavaPlugin {
         componentList.add(new CCChat(this));
         componentList.add(new CCRegion(this));
         componentList.add(new CCWorld(this));
+        // RPG
+        componentList.add(new CCItem(this));
         // Register early
         registerConfigurationSerialization();
     }
@@ -142,6 +146,10 @@ public class Loader extends JavaPlugin {
 
     public void addCommand(CCommand command) {
         this.getCommand(command.command).setExecutor(command);
+    }
+    
+    public void addListener(Listener listener) {
+        this.getServer().getPluginManager().registerEvents(listener, this);
     }
 
     public static void info(String message) {

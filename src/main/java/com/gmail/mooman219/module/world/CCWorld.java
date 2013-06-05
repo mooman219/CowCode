@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.world;
 
-import org.bukkit.plugin.PluginManager;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.module.world.listener.ListenerBlock;
@@ -22,8 +20,7 @@ public class CCWorld implements CowComponent {
     public void onEnable(){
         listenerBlock = new ListenerBlock();
 
-        PluginManager pm = plugin.getServer().getPluginManager();
-        pm.registerEvents(listenerBlock, plugin);
+        plugin.addListener(listenerBlock);
 
         Loader.info(cast + "Enabled");
     }

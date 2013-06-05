@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.chat;
 
-import org.bukkit.plugin.PluginManager;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
@@ -39,10 +37,9 @@ public class CCChat implements CowComponent {
         listenerPlayer = new ListenerPlayer();
         listenerData = new ListenerData();
 
-        PluginManager pm = plugin.getServer().getPluginManager();
-        pm.registerEvents(listenerChat, plugin);
-        pm.registerEvents(listenerPlayer, plugin);
-        pm.registerEvents(listenerData, plugin);
+        plugin.addListener(listenerChat);
+        plugin.addListener(listenerPlayer);
+        plugin.addListener(listenerData);
 
         Loader.info(cast + "Enabled");
     }

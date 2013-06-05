@@ -1,7 +1,6 @@
 package com.gmail.mooman219.module.graveyard;
 
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
@@ -42,8 +41,7 @@ public class CCGraveyard implements CowComponent {
 
         listenerPlayer = new ListenerPlayer();
 
-        PluginManager pm = plugin.getServer().getPluginManager();
-        pm.registerEvents(listenerPlayer, plugin);
+        plugin.addListener(listenerPlayer);
 
         Loader.info(cast + "Enabled");
     }

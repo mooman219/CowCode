@@ -14,7 +14,6 @@ import org.bukkit.potion.PotionEffectType;
 import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.rpg.item.Hotbar;
 
 public class MessingAround implements Listener {
     @EventHandler
@@ -34,41 +33,48 @@ public class MessingAround implements Listener {
         playerData.getSidebar().addKey("tps", "TPS: Init", 2);
         playerData.getSidebar().addKey("mob", "Mobs: Init", 1);
         
-        playerData.getTab().setTab(0, 0, Chat.RED + "" + Chat.BOLD + "Health:");
-        playerData.getTab().setTab(1, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");
-        playerData.getTab().setTab(2, 0, Chat.GRAY + "" + Chat.BOLD + "Level:");
-        playerData.getTab().setTab(3, 0, Chat.GOLD + "" + Chat.BOLD + "Gold:");
+        playerData.getTab().setTab(0, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Welcome:");
+        playerData.getTab().setTab(1, 0, Chat.GOLD + "" + Chat.BOLD + "Gold:");
+        playerData.getTab().setTab(3, 0, "Online:");
+        playerData.getTab().setTab(4, 0, Chat.DARK_GREEN + "" + Chat.BOLD + "C" + Chat.GOLD + "" + Chat.BOLD + "RPG");
         
-        playerData.getTab().setTab(0, 1, "100/100");
-        playerData.getTab().setTab(1, 1, "120/200");
-        playerData.getTab().setTab(2, 1, "3");
-        playerData.getTab().setTab(3, 1, "8320");
+        playerData.getTab().setTab(0, 1, "mooman219");
+        playerData.getTab().setTab(1, 1, "3000");
+        playerData.getTab().setTab(3, 1, "132/200");
         
         playerData.getTab().setTab(0, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().setTab(1, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().setTab(2, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().setTab(3, 2, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(4, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         
-        playerData.getTab().setTab(0, 3, Chat.RED + "" + Chat.BOLD + "STR:");
-        playerData.getTab().setTab(1, 3, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:");
-        playerData.getTab().setTab(2, 3, Chat.GREEN + "" + Chat.BOLD + "AGI:");
-        playerData.getTab().setTab(3, 3, Chat.PURPLE + "" + Chat.BOLD + "KNW:");
+        playerData.getTab().setTab(0, 3, Chat.RED + "" + Chat.BOLD + "STR:" + Chat.RED + " 1");
+        playerData.getTab().setTab(0, 4, Chat.GREEN + "" + Chat.BOLD + "DEX:" + Chat.GREEN + " 8");
+        playerData.getTab().setTab(0, 5, Chat.PURPLE + "" + Chat.BOLD + "CHA:" + Chat.PURPLE + " 2");
+        playerData.getTab().setTab(1, 3, Chat.YELLOW + "" + Chat.BOLD + "CON:" + Chat.YELLOW + " 6");
+        playerData.getTab().setTab(1, 4, Chat.BLUE + "" + Chat.BOLD + "WIS:" + Chat.BLUE + " 3");
+        playerData.getTab().setTab(1, 5, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:" + Chat.DARK_AQUA + " 1");
         
-        playerData.getTab().setTab(0, 4, "10");
-        playerData.getTab().setTab(1, 4, "31");
-        playerData.getTab().setTab(2, 4, "28");
-        playerData.getTab().setTab(3, 4, "19");
+        playerData.getTab().setTab(0, 17, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(1, 17, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(2, 17, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(3, 17, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(4, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         
-        playerData.getTab().setTab(0, 5, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().setTab(1, 5, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().setTab(2, 5, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().setTab(3, 5, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().setTab(0, 18, Chat.RED + "" + Chat.BOLD + "Health:");
+        playerData.getTab().setTab(1, 18, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");
+        playerData.getTab().setTab(3, 18, Chat.GRAY + "" + Chat.BOLD + "Level:");
+        playerData.getTab().setTab(4, 18, Chat.GRAY + "" + Chat.BOLD + "EXP:");
+        
+        playerData.getTab().setTab(0, 19, "100/100");
+        playerData.getTab().setTab(1, 19, "120/200");
+        playerData.getTab().setTab(3, 19, "3");
+        playerData.getTab().setTab(4, 19, "3/10");
+        
         playerData.getTab().update();
         
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
         event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
-        
-        Hotbar.apply(playerData);
     }
 
     @EventHandler

@@ -18,15 +18,11 @@ import com.gmail.mooman219.module.login.CCLogin;
 public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onVerify(DataVerifyEvent event) {
-        if(event.getPlayer().serviceData.rank.index < Rank.MODERATOR.index) {
+        CDPlayer player = event.getPlayer();
+        if(player.serviceData.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
-            if(currentTime - event.getPlayer().loginData.lastlogin < ConfigGlobal.loginDelay) {
-                try { // Sleep to prevent abusing players.
-                    Thread.sleep(200);
-                } catch(InterruptedException e) {
-                    e.printStackTrace();
-                }
-                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - event.getPlayer().loginData.lastlogin), TimeType.MILLISECOND)));
+            if(currentTime - player.loginData.lastlogin < ConfigGlobal.loginDelay) {
+                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - player.loginData.lastlogin), TimeType.MILLISECOND)));
                 return;
             }
         }
@@ -34,8 +30,8 @@ public class ListenerData implements Listener {
 
     @EventHandler()
     public void onCreation(DataCreateEvent event) {
-        long currentTime = System.currentTimeMillis();
         CDPlayer player = event.getPlayer();
+        long currentTime = System.currentTimeMillis();
         if(player.loginData.firstlogin == 0) {
             player.loginData.firstlogin = currentTime;
         }
