@@ -44,6 +44,11 @@ public class CDChunk extends BullData {
     public String parentUUID = "";
 
     @Override
+    public void onTick() {
+        
+    }
+    
+    @Override
     public void onTagLoad(NBTTagCompound tag) {
         parentUUID = TagHelper.getString(tag, "region.uuid", parentUUID);
     }

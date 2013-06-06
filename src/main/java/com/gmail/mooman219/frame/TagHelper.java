@@ -33,6 +33,10 @@ public class TagHelper {
     public static int getInt(NBTTagCompound tag, String key, int fallback) {
         return tag.hasKey(key) ? tag.getInt(key) : fallback;
     }
+    
+    public static int[] getIntArray(NBTTagCompound tag, String key, int[] fallback) {
+        return tag.hasKey(key) ? tag.getIntArray(key) : fallback;
+    }
 
     public static long getLong(NBTTagCompound tag, String key, long fallback) {
         return tag.hasKey(key) ? tag.getLong(key) : fallback;
