@@ -13,7 +13,7 @@ public class BoardValue {
         this.value = value;
     }
 
-    protected String getClientName() {
+    public String getClientName() {
         return clientName;
     }
 

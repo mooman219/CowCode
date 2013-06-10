@@ -24,7 +24,7 @@ import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
-import com.gmail.mooman219.frame.scoreboard.FastHealthBoard;
+import com.gmail.mooman219.frame.scoreboard.HealthBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -41,7 +41,7 @@ import com.mongodb.DBObject;
 
 public class CDPlayer extends BullData {
     // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
-    public final static FastHealthBoard healthBoard = new FastHealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP"); // The slow one makes the client run faster
+    public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP"); // The slow one makes the client run faster
     // [+] Data information
     // [ ]---[+] Offline
     public final ObjectId id;
@@ -93,7 +93,6 @@ public class CDPlayer extends BullData {
         switch(shutdownType) {
         case POST_QUIT:
             thread.shutdownNow().clear();
-            healthBoard.removePlayer(this);
             sidebar = null;
             tabList = null;
             break;
@@ -223,6 +222,14 @@ public class CDPlayer extends BullData {
 
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
+    }
+    
+    public int getArrowsStuck() {
+        return getHandle().bM();
+    }
+    
+    public void setArrowsStuck(int arrows) {
+        getHandle().r(arrows);
     }
 
     /*
