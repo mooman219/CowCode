@@ -204,6 +204,9 @@ public class CDPlayer extends BullData {
     public String setOverheadName(String name) {
         EntityPlayer handle = getHandle();
         String oldName = handle.overheadName;
+        if(name == null || name.equals(oldName)) {
+            return oldName;
+        }
         handle.overheadName = name;
         if(handle.playerConnection != null) {
             sidebar.modifyTitle(name);

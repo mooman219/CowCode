@@ -28,7 +28,7 @@ public class Tab {
         return bigList[MathHelper.floor((index / 160D) % bigList.length)] + bigList[index % bigList.length];
     }
 
-    public void setTab(int x, int y, String name) {
+    public void set(int x, int y, String name) {
         if(name.length() > 16) {
             name = name.substring(0, 16);
         } else if(name.length() >= 13) {
