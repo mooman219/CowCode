@@ -14,17 +14,7 @@ public class Stockpile {
         charList = new HashMap<Character, ItemStack>();
     }
 
-    // # ---Col---
-    // | 000000000
-    // R 000000000
-    // o 000000000
-    // W 000000000
-    //  
-    //    4 Rows by 9 Cols
-
     public void set(String[] characters) {
-        // characters.length      == 4
-        // characters[#].length() == 9
         for(int y = 0; y < charMap.length; y++) {
             for(int x = 0; x < charMap[y].length; x++) {
                 if(characters.length <= y || characters[y].length() <= x) {
