@@ -28,6 +28,10 @@ public class ListenerData implements Listener {
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
         Loader.info(CCService.cast + "[EVENT] PreLogin: " + event.getName());
 
+        if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.KICK_VERIFY) {
+            event.setKickMessage(CCService.MSG.USERNAMEFAIL + "");
+            return;
+        }
         event.setKickMessage("");
         CDPlayer player = CHDatabase.manager.downloadPlayer(event.getName(), DownloadReason.LOGIN);
         if(player == null) {

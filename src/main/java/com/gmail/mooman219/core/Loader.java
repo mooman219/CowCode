@@ -24,6 +24,7 @@ import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.rpg.item.CCItem;
+import com.gmail.mooman219.module.rpg.stat.CCStat;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.world.CCWorld;
 
@@ -85,7 +86,6 @@ public class Loader extends JavaPlugin {
      * CD	| Cow Data		  |
      * CH   | Cow Handler     | Handler component
      * CC   | Cow Component   | Plugin components
-     * CM   | Cow Message     | Strings for messages
      * CS   | Cow Serialize   | Custom ConfigurationSerializables
      * 
      * 
@@ -105,6 +105,7 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHDatabase());
         handlerList.add(new CHTask(this));
         handlerList.add(new CHPacket());
+        // ~
         componentList.add(new CCService(this));
         componentList.add(new CCLogin(this));
         componentList.add(new CCGraveyard(this));
@@ -114,6 +115,7 @@ public class Loader extends JavaPlugin {
         componentList.add(new CCWorld(this));
         // RPG
         componentList.add(new CCItem(this));
+        componentList.add(new CCStat(this));
         // Register early
         registerConfigurationSerialization();
     }

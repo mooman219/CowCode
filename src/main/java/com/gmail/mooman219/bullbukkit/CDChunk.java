@@ -1,5 +1,7 @@
 package com.gmail.mooman219.bullbukkit;
 
+import java.util.ArrayList;
+
 import net.minecraft.server.NBTTagCompound;
 
 import org.bukkit.Chunk;
@@ -8,6 +10,7 @@ import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
+import com.gmail.mooman219.module.mineral.store.Mineral;
 import com.gmail.mooman219.module.region.store.CSRegionInformation;
 import com.gmail.mooman219.module.region.store.StoreRegionInformation;
 
@@ -42,20 +45,31 @@ public class CDChunk extends BullData {
      */
 
     public String parentUUID = "";
+    public ArrayList<Mineral> minerals;
+    private byte tick = 0;
 
     @Override
     public void onTick() {
-        
+        if(tick % 30 == 0) {
+            long time = System.currentTimeMillis();
+            tick = 0;
+            for(Mineral mineral : minerals) {
+                mineral.tick(chunk, time);
+            }
+        }
+        tick++;
     }
-    
+
     @Override
     public void onTagLoad(NBTTagCompound tag) {
         parentUUID = TagHelper.getString(tag, "region.uuid", parentUUID);
+        minerals = Mineral.fromCompoundList(TagHelper.getCompound(tag, "mineral.list", new NBTTagCompound()));
     }
 
     @Override
     public void onTagSave(NBTTagCompound tag) {
         tag.setString("region.uuid", parentUUID);
+        tag.setCompound("mineral.list", Mineral.toCompoundList(minerals));
     }
 
     /*

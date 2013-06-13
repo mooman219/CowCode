@@ -9,7 +9,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
 import com.gmail.mooman219.module.region.command.ModifyInformation;
 import com.gmail.mooman219.module.region.command.ModifyName;
-import com.gmail.mooman219.module.region.command.NewInformation;
+import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
 import com.gmail.mooman219.module.region.store.CSRegionInformation;
@@ -61,7 +61,7 @@ public class CCRegion implements CowComponent {
         plugin.addCommand(new ModifyCombat());
         plugin.addCommand(new ModifyInformation());
         plugin.addCommand(new ModifyName());
-        plugin.addCommand(new NewInformation());
+        plugin.addCommand(new NewRegion());
         plugin.addCommand(new SetRegion());
     }
     

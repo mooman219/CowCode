@@ -34,6 +34,7 @@ import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
+import com.gmail.mooman219.module.rpg.stat.store.PDStat;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.store.PDService;
 import com.mongodb.BasicDBObject;
@@ -56,6 +57,7 @@ public class CDPlayer extends BullData {
     public PDService serviceData = null;
     public PDLogin loginData = null;
     public PDChat chatData = null;
+    public PDStat statData = null;
     // [ ]---[+] Online
     public PLChat chat = null;
 
@@ -66,6 +68,7 @@ public class CDPlayer extends BullData {
         this.serviceData = new PDService();
         this.loginData = new PDLogin();
         this.chatData = new PDChat();
+        this.statData = new PDStat();
     }
 
     public void startup(Player player, PlayerStartupType startupType) {

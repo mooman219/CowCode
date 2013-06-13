@@ -9,9 +9,9 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.store.StoreRegionInformation;
 
-public class NewInformation extends CCommand {
-    public NewInformation() {
-        super("newinformation", Rank.DEVELOPER, "/NewRegionInformation (id) (name)", Carg.STRING, Carg.STRING);
+public class NewRegion extends CCommand {
+    public NewRegion() {
+        super("newregion", Rank.DEVELOPER, "/NewRegion (id) (name)", Carg.STRING, Carg.STRING);
     }
 
     @Override
