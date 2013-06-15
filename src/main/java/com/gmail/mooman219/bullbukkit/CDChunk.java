@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import net.minecraft.server.NBTTagCompound;
 
 import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.entity.Entity;
 
@@ -39,18 +41,27 @@ public class CDChunk extends BullData {
         parentInformation = information;
         parentUUID = information.uuid;
     }
+    
+    public Mineral getMineral(Location loc) {
+        for(Mineral mineral : minerals) {
+            if(mineral.match(loc)) {
+                return mineral;
+            }
+        }
+        return null;
+    }
 
     /*
      * Event
      */
 
     public String parentUUID = "";
-    public ArrayList<Mineral> minerals;
+    public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
     private byte tick = 0;
 
     @Override
     public void onTick() {
-        if(tick % 30 == 0) {
+        if(tick >= 30) {
             long time = System.currentTimeMillis();
             tick = 0;
             for(Mineral mineral : minerals) {
@@ -80,6 +91,10 @@ public class CDChunk extends BullData {
         return ((CraftChunk)chunk).getHandle();
     }
 
+    public static CDChunk get(Block block) {
+        return get(block.getChunk());
+    }
+    
     public static CDChunk get(Entity entity) {
         return get(entity.getLocation().getChunk());
     }

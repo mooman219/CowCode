@@ -56,7 +56,7 @@ public class ListenerPlayer implements Listener {
             return false;
         }
         switch(item.getTypeId()) {
-        case 118:
+        case 371:
             return true;
         }
         return false;

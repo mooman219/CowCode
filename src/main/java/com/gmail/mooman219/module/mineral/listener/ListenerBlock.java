@@ -4,17 +4,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.store.CSMineral;
+import com.gmail.mooman219.bullbukkit.CDChunk;
+import com.gmail.mooman219.module.mineral.store.Mineral;
 
 public class ListenerBlock implements Listener{
     @EventHandler(ignoreCancelled = false)
     public void onBreak(BlockBreakEvent event) {
-        CSMineral mineralData = MineralManager.getMineral(event.getBlock().getLocation());
-        if(mineralData != null && event.getBlock().getType() == mineralData.type) {
-            mineralData.timeLeft = (int) (mineralData.respawnDelay + (4 * Math.random()));
-            MineralManager.addActiveMineral(mineralData);
-            event.setCancelled(false);
+        Mineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock().getLocation());
+        if(mineral != null && event.getBlock().getType() == mineral.type) {
+            mineral.mine();
         }
     }
 }

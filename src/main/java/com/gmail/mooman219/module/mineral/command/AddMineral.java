@@ -7,14 +7,14 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.bullbukkit.CDChunk;
 import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.mineral.store.Mineral;
 
 public class AddMineral extends CCommand {
     public HashSet<Byte> skippedBlocks;
@@ -40,15 +40,19 @@ public class AddMineral extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         for(Block block : sender.getLineOfSight(skippedBlocks, 6)){
             if(block.getType() != Material.AIR) {
+                CDChunk chunk = CDChunk.get(sender);
                 int delay = Integer.parseInt(args[0]);
-                if(MineralManager.addMineral(block.getLocation(), block.getType(), delay)) {
-                    CCMineral.FRM.EDIT.send(sender, StoreMineral.minerals.size(), delay);
+                Mineral mineral = chunk.getMineral(block.getLocation());
+                if(mineral != null) {
+                    mineral.type = block.getType();
+                    mineral.respawnDelay = delay;
+                    mineral.respawnTime = -1L;
+                    CCMineral.FRM.EDIT.send(sender, chunk.minerals.size(), delay);
                 } else {
-                    CCMineral.FRM.ADD.send(sender, StoreMineral.minerals.size(), delay);
+                    chunk.minerals.add(new Mineral(block, delay));
+                    CCMineral.FRM.ADD.send(sender, chunk.minerals.size(), delay);
                 }
                 WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
-                WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
-                module.storeMineral.save();
                 return;
             }
         }

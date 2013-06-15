@@ -7,13 +7,12 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.bullbukkit.CDChunk;
 import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class RemoveMineral extends CCommand {
     public HashSet<Byte> skippedBlocks;
@@ -39,11 +38,10 @@ public class RemoveMineral extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         for(Block block : sender.getLineOfSight(skippedBlocks, 6)){
             if(block.getType() != Material.AIR) {
-                if(MineralManager.removeMineral(block.getLocation()) != null) {
-                    CCMineral.FRM.REMOVE.send(sender, StoreMineral.minerals.size());
+                CDChunk chunk = CDChunk.get(sender);
+                if(chunk.minerals.remove(chunk.getMineral(block.getLocation()))) {
+                    CCMineral.FRM.REMOVE.send(sender, chunk.minerals.size());
                     WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
-                    WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
-                    module.storeMineral.save();
                     return;
                 } else {
                     break;

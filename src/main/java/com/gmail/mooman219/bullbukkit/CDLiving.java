@@ -10,11 +10,9 @@ import com.gmail.mooman219.craftbukkit.BullData;
 
 public class CDLiving extends BullData {
     public final LivingEntity livingEntity;
-    public final EntityLiving handle;
 
-    private CDLiving(LivingEntity livingEntity, EntityLiving handle) {
+    private CDLiving(LivingEntity livingEntity) {
         this.livingEntity = livingEntity;
-        this.handle = handle;
     }
 
     /*
@@ -38,7 +36,7 @@ public class CDLiving extends BullData {
         if(livingEntity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered LivingEntities.");
         } else if(handle.bull_live == null) {
-            handle.bull_live = new CDLiving(livingEntity, (EntityLiving) handle);
+            handle.bull_live = new CDLiving(livingEntity);
         }
         return (CDLiving) handle.bull_live;
     }

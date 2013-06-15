@@ -2,6 +2,7 @@ package com.gmail.mooman219.frame;
 
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
@@ -53,6 +54,16 @@ public class TagHelper {
     public static String getString(NBTTagCompound tag, String key, String fallback) {
         return tag.hasKey(key) ? tag.getString(key) : fallback;
     }
+    
+    public static Material getMaterial(NBTTagCompound tag, String key, Material fallback) {
+        if(tag.hasKey(key)) {
+            Material ret = Material.getMaterial(tag.getString(key));
+            if(ret != null) {
+                return ret;
+            }
+        }
+        return fallback;
+    }
 
     public static NBTTagCompound getCompound(NBTTagCompound tag, String key, NBTTagCompound fallback) {
         return tag.hasKey(key) ? tag.getCompound(key) : fallback;
@@ -67,5 +78,9 @@ public class TagHelper {
             }
         }
         return fallback;
+    }
+    
+    public static void setMaterial(NBTTagCompound tag, String key, Material material) {
+        tag.setString(key, material.name());
     }
 }

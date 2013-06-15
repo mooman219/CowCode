@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.mineral;
 
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
@@ -13,13 +11,9 @@ import com.gmail.mooman219.module.mineral.command.RemoveMineral;
 import com.gmail.mooman219.module.mineral.command.RevertMinerals;
 import com.gmail.mooman219.module.mineral.command.TotalMinerals;
 import com.gmail.mooman219.module.mineral.listener.ListenerBlock;
-import com.gmail.mooman219.module.mineral.listener.ListenerTime;
-import com.gmail.mooman219.module.mineral.store.CSMineral;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class CCMineral implements CowComponent {
     public final Loader plugin;
-    public StoreMineral storeMineral;
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][M][Mineral] ";
@@ -27,7 +21,6 @@ public class CCMineral implements CowComponent {
     public static Formats FRM;
 
     public ListenerBlock listenerBlock;
-    public ListenerTime listenerTime;
 
     public CCMineral(Loader plugin){
         this.plugin = plugin;
@@ -37,33 +30,20 @@ public class CCMineral implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeMineral = new StoreMineral();
-        Loader.info(cast + "Loaded " + storeMineral.fileName);
-        Loader.info(cast + "Starting MineralManager");
-        MineralManager.start();
-
         listenerBlock = new ListenerBlock();
-        listenerTime = new ListenerTime();
 
         plugin.addListener(listenerBlock);
-        plugin.addListener(listenerTime);
 
         Loader.info(cast + "Enabled");
     }
 
     @Override
     public void onDisable(){
-        Loader.info(cast + "Stopping MineralManager");
-        MineralManager.stop();
-        Loader.info(cast + "Saving " + storeMineral.fileName);
-        storeMineral.save();
         Loader.info(cast + "Disabled");
     }
 
     @Override
-    public void registerConfigurationSerialization() {
-        ConfigurationSerialization.registerClass(CSMineral.class, "CSMineral");
-    }
+    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {
@@ -76,16 +56,16 @@ public class CCMineral implements CowComponent {
     }
     
     public class Messages {
-        public final Bulletin REVERT = new Bulletin(Chat.msgInfo, "All minerals reverted.", Chat.formatInfo);
         public final Bulletin LOCATE_FAILED = new Bulletin(Chat.msgError, "Unable to find a block.", Chat.formatError);
     }
     
     public class Formats {
+        public final Bulletin REVERT = new Bulletin(Chat.msgInfo, "Reverted [{0}] minerals.", Chat.formatInfo);
         public final Bulletin EDIT = new Bulletin(Chat.msgInfo, "Edited mineral [{0}] Delay [{1}].", Chat.formatInfo);
-        public final Bulletin TOTAL = new Bulletin(Chat.msgPassive, "Total minerals [{0}].", Chat.formatPassive);
+        public final Bulletin TOTAL = new Bulletin(Chat.msgPassive, "Total minerals [{0}] for current chunk.", Chat.formatPassive);
         public final Bulletin ADD = new Bulletin(Chat.msgInfo, "Added new mineral [{0}] Delay [{1}].", Chat.formatInfo);
         public final Bulletin CLEAR = new Bulletin(Chat.msgWarn, "Cleared [{0}] minerals.", Chat.formatWarn);
-        public final Bulletin LIST_TITLE = new Bulletin(Chat.msgPassive, "Listing [{0}] minerals.", Chat.formatPassive);
+        public final Bulletin LIST_TITLE = new Bulletin(Chat.msgPassive, "Listing [{0}] minerals from chunk.", Chat.formatPassive);
         public final Bulletin LIST = new Bulletin(Chat.linePassive, "ID: [{0}] | [X:Y:Z] [{1}:{2}:{3}] Delay [{4}].", Chat.formatPassive);
         public final Bulletin REMOVE = new Bulletin(Chat.msgWarn, "Removed mineral [{0}].", Chat.formatWarn);
     }

@@ -11,12 +11,12 @@ public class ItemDefaults {
                                    "         ",
                                    "         ",
                                    "         ",});
-        playerInv.map('M', ItemHelper.setName(118, Chat.GOLD + "Main hand"));
-        playerInv.map('H', ItemHelper.setName(118, Chat.GRAY + "Off hand"));
-        playerInv.map('1', ItemHelper.setName(118, Chat.PURPLE + "Spell slot 1"));
-        playerInv.map('2', ItemHelper.setName(118, Chat.PURPLE + "Spell slot 2"));
-        playerInv.map('3', ItemHelper.setName(118, Chat.PURPLE + "Spell slot 3"));
-        playerInv.map('4', ItemHelper.setName(118, Chat.PURPLE + "Spell slot 4"));
-        playerInv.map('5', ItemHelper.setName(118, Chat.PURPLE + "Spell slot 5"));
+        playerInv.map('M', ItemHelper.setName(371, Chat.GOLD + "Main hand"));
+        playerInv.map('H', ItemHelper.setName(371, Chat.GRAY + "Off hand"));
+        playerInv.map('1', ItemHelper.setName(371, Chat.PURPLE + "Spell slot 1"));
+        playerInv.map('2', ItemHelper.setName(371, Chat.PURPLE + "Spell slot 2"));
+        playerInv.map('3', ItemHelper.setName(371, Chat.PURPLE + "Spell slot 3"));
+        playerInv.map('4', ItemHelper.setName(371, Chat.PURPLE + "Spell slot 4"));
+        playerInv.map('5', ItemHelper.setName(371, Chat.PURPLE + "Spell slot 5"));
     }
 }
