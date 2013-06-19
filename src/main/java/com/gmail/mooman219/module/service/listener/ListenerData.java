@@ -16,10 +16,10 @@ import com.gmail.mooman219.bullbukkit.PlayerShutdownType;
 import com.gmail.mooman219.bullbukkit.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
+import com.gmail.mooman219.frame.event.TickSecondAsyncEvent;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
 import com.gmail.mooman219.handler.database.UploadReason;
-import com.gmail.mooman219.handler.database.UploadThread;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.service.CCService;
 
@@ -57,7 +57,7 @@ public class ListenerData implements Listener {
         player.startup(event.getPlayer(), PlayerStartupType.PRE_CREATION);
         CEventFactory.callDataCreateEvent(event, player);
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
-        CHDatabase.manager.uploadPlayer(player, UploadReason.STATUS, UploadThread.ASYNC);
+        CHDatabase.manager.uploadPlayer(player, UploadReason.STATUS, false, true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -75,7 +75,7 @@ public class ListenerData implements Listener {
 
         CDPlayer player = CDPlayer.get(event.getPlayer());
         player.shutdown(PlayerShutdownType.POST_QUIT);
-        CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, UploadThread.ASYNC_REMOVE);
+        CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, true, true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -84,5 +84,10 @@ public class ListenerData implements Listener {
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer(CCLogin.MSG.SHUTDOWN + "");
         }
+    }
+    
+    @EventHandler()
+    public void onSecond(TickSecondAsyncEvent event) {
+        Loader.info(CCService.cast + "Tick");
     }
 }

@@ -42,14 +42,14 @@ public class AddMineral extends CCommand {
             if(block.getType() != Material.AIR) {
                 CDChunk chunk = CDChunk.get(sender);
                 int delay = Integer.parseInt(args[0]);
-                Mineral mineral = chunk.getMineral(block.getLocation());
+                Mineral mineral = chunk.getMineral(block);
                 if(mineral != null) {
                     mineral.type = block.getType();
-                    mineral.respawnDelay = delay;
+                    mineral.respawnDelay = delay * 1000;
                     mineral.respawnTime = -1L;
                     CCMineral.FRM.EDIT.send(sender, chunk.minerals.size(), delay);
                 } else {
-                    chunk.minerals.add(new Mineral(block, delay));
+                    chunk.minerals.add(new Mineral(block, delay * 1000));
                     CCMineral.FRM.ADD.send(sender, chunk.minerals.size(), delay);
                 }
                 WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);

@@ -42,6 +42,10 @@ public class CDChunk extends BullData {
         parentUUID = information.uuid;
     }
     
+    public Mineral getMineral(Block block) {
+        return getMineral(block.getLocation());
+    }
+    
     public Mineral getMineral(Location loc) {
         for(Mineral mineral : minerals) {
             if(mineral.match(loc)) {

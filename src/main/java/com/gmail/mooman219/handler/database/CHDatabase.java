@@ -49,12 +49,12 @@ public class CHDatabase implements CowHandler {
     }
 
     public class Manager {
-        public void uploadPlayer(final CDPlayer player, final UploadReason reason, final UploadThread thread) {
+        public void uploadPlayer(final CDPlayer player, final UploadReason reason, final boolean shouldRemove, final boolean runAsync) {
             final Runnable task = new Runnable() {
                 @Override
                 public void run() {
-                    if(thread.remove) {
-                        CEventFactory.callDataRemovalEvent(thread.async || thread.removeAsync, player);
+                    if(shouldRemove) {
+                        CEventFactory.callDataRemovalEvent(runAsync || !Bukkit.isPrimaryThread(), player);
                         player.shutdown(PlayerShutdownType.POST_REMOVAL);
                     }
                     DBObject playerObject = player.getTemplate(reason);
@@ -62,7 +62,7 @@ public class CHDatabase implements CowHandler {
                     Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.username);
                 }
             };
-            if(thread.async) {
+            if(runAsync) {
                 CHTask.manager.runPlugin(task);
             } else {
                 task.run();
@@ -85,7 +85,7 @@ public class CHDatabase implements CowHandler {
                     .append("usernamelowercase", username.toLowerCase()));
                     playerObject = c_Users.findOne(new BasicDBObject("username", username));
                     playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
-                    uploadPlayer(playerData, UploadReason.CREATION, UploadThread.ASYNC);
+                    uploadPlayer(playerData, UploadReason.CREATION, false, false);
                     return playerData;
                 }
             case QUERY:

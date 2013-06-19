@@ -9,6 +9,7 @@ import net.minecraft.server.ItemStack;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet20NamedEntitySpawn;
 import net.minecraft.server.Packet29DestroyEntity;
+import net.minecraft.server.Packet8UpdateHealth;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 import net.minecraft.server.PlayerInventory;
@@ -118,6 +119,7 @@ public class CDPlayer extends BullData {
         serviceData.sync(MongoHelper.getValue(playerObject, serviceData.tag, new BasicDBObject()));
         loginData.sync(MongoHelper.getValue(playerObject, loginData.tag, new BasicDBObject()));
         chatData.sync(MongoHelper.getValue(playerObject, chatData.tag, new BasicDBObject()));
+        statData.sync(MongoHelper.getValue(playerObject, statData.tag, new BasicDBObject()));
     }
 
     public BasicDBObject getTemplate(UploadReason reason) {
@@ -125,6 +127,7 @@ public class CDPlayer extends BullData {
         template.putAll(serviceData.getTemplate(reason));
         template.putAll(loginData.getTemplate(reason));
         template.putAll(chatData.getTemplate(reason));
+        template.putAll(statData.getTemplate(reason));
         return template;
     }
 
@@ -217,13 +220,19 @@ public class CDPlayer extends BullData {
                 if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > ConfigGlobal.nameUpdateRadius) { // 240 Blocks // 15 Chunks
                     continue;
                 }
-                EntityPlayer otherHandle = ((CraftPlayer)other).getHandle();
-                otherHandle.playerConnection.sendPacket(new Packet29DestroyEntity(handle.id));
-                otherHandle.playerConnection.sendPacket(new Packet20NamedEntitySpawn(handle));
+                CDPlayer otherPlayer = get(other);
+                otherPlayer.sendPacket(new Packet29DestroyEntity(handle.id));
+                otherPlayer.sendPacket(new Packet20NamedEntitySpawn(handle));
             }
             healthBoard.updatePlayer(this);
         }
         return oldName;
+    }
+    
+    // Updates the current player's (health, foodlevel, foodsaturation)
+    public void updateStatus() {
+        EntityPlayer handle = getHandle();
+        sendPacket(new Packet8UpdateHealth(handle.getScaledHealth(), 20, 5F));
     }
 
     public void setTabListName(String name) {
@@ -257,6 +266,10 @@ public class CDPlayer extends BullData {
             throw new IllegalArgumentException("Invalid data on player.");
         }
         return (CDPlayer) handle.bull_live;
+    }
+    
+    public static CDPlayer get(EntityPlayer player) {
+        return get(player.getBukkitEntity());
     }
 
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer player) {

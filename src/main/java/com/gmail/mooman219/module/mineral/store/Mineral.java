@@ -73,16 +73,12 @@ public class Mineral {
     }
 
     public void revert(Chunk chunk) {
-        if(respawnTime != -1) {            
-            chunk.getWorld().getBlockAt(x, y, z).setType(type);
-            respawnTime = -1;
-        }
+        chunk.getWorld().getBlockAt(x, y, z).setType(type);
+        respawnTime = -1;
     }
 
-    public void mine() {
-        if(respawnTime == -1) {
-            respawnTime = System.currentTimeMillis() + respawnDelay;
-        }
+    public void mine(Chunk chunk) {
+        respawnTime = System.currentTimeMillis() + respawnDelay;
     }
 
     public NBTTagCompound toCompound() {

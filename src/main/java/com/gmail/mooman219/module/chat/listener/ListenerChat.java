@@ -46,7 +46,7 @@ public class ListenerChat implements Listener{
                 }
             }
 //    ~ Global chat
-        } else if(event.getMessage().charAt(0) == '!') {
+        } else if(event.getMessage().charAt(0) == '!' || event.getMessage().charAt(0) == '`') {
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
                 CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());

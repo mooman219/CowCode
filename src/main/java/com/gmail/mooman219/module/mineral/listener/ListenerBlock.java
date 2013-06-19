@@ -10,9 +10,9 @@ import com.gmail.mooman219.module.mineral.store.Mineral;
 public class ListenerBlock implements Listener{
     @EventHandler(ignoreCancelled = false)
     public void onBreak(BlockBreakEvent event) {
-        Mineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock().getLocation());
+        Mineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock());
         if(mineral != null && event.getBlock().getType() == mineral.type) {
-            mineral.mine();
+            mineral.mine(event.getBlock().getChunk());
         }
     }
 }
