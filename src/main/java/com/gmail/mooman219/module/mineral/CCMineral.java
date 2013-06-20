@@ -54,11 +54,11 @@ public class CCMineral implements CowComponent {
         plugin.addCommand(new RevertMinerals());
         plugin.addCommand(new TotalMinerals());
     }
-    
+
     public class Messages {
         public final Bulletin LOCATE_FAILED = new Bulletin(Chat.msgError, "Unable to find a block.", Chat.formatError);
     }
-    
+
     public class Formats {
         public final Bulletin REVERT = new Bulletin(Chat.msgInfo, "Reverted [{0}] minerals.", Chat.formatInfo);
         public final Bulletin EDIT = new Bulletin(Chat.msgInfo, "Edited mineral [{0}] Delay [{1}].", Chat.formatInfo);

@@ -32,10 +32,10 @@ public class FileBase{
     }
 
     /**
-     * 
+     *
      * Unsaved Write Methods (Faster)
      * You need to run 'updateFile()' when you are done though
-     * 
+     *
      */
 
     /**
@@ -144,9 +144,9 @@ public class FileBase{
     }
 
     /**
-     * 
+     *
      * Saved Write Methods (Slower)
-     * 
+     *
      */
 
     /**
@@ -256,9 +256,9 @@ public class FileBase{
     }
 
     /**
-     * 
+     *
      * Read Methods
-     * 
+     *
      */
 
     /**
@@ -302,9 +302,9 @@ public class FileBase{
     }
 
     /**
-     * 
+     *
      * Save Methods
-     * 
+     *
      */
 
     /**

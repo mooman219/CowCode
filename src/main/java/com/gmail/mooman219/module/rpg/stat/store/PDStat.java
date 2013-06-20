@@ -12,40 +12,40 @@ public class PDStat {
 
     public int level = 1;
     public int exp = 0;
-    
+
     public int healthCur = 10;
     public int healthMax = 10;
     public int manaCur = 10;
     public int manaMax = 10;
-    
-    // -+ Strength is a measure of muscle, endurance and stamina combined. Strength affects 
-    // the ability of characters to lift and carry weights, melee attack rolls, damage rolls 
-    // (for both melee and ranged weapons,) the Jump, Climb, and Swim skills, several combat 
+
+    // -+ Strength is a measure of muscle, endurance and stamina combined. Strength affects
+    // the ability of characters to lift and carry weights, melee attack rolls, damage rolls
+    // (for both melee and ranged weapons,) the Jump, Climb, and Swim skills, several combat
     // actions, and general checks involving moving or breaking stubborn objects.
     //
     // Attack Power
     // Block
-    // Parry 
+    // Parry
     // Physical Crit
     public int strength = 3;
     // -+ Dexterity encompasses a number of physical attributes including eye–hand coordination,
-    // agility, reflexes, fine motor skills, balance and speed of movement; a high dexterity 
-    // score indicates superiority in all these attributes. Dexterity affects characters with 
-    // regard to initiative in combat, ranged attack rolls, Armor Class, Reflex saves, and 
-    // the Balance, Escape Artist, Hide, Move Silently, Open Lock, Ride, Sleight of Hand, 
-    // Tumble, and Use Rope skills. It also affects the number of additional attacks of 
-    // opportunity granted by the Combat Reflexes feat. Dexterity is the ability most 
+    // agility, reflexes, fine motor skills, balance and speed of movement; a high dexterity
+    // score indicates superiority in all these attributes. Dexterity affects characters with
+    // regard to initiative in combat, ranged attack rolls, Armor Class, Reflex saves, and
+    // the Balance, Escape Artist, Hide, Move Silently, Open Lock, Ride, Sleight of Hand,
+    // Tumble, and Use Rope skills. It also affects the number of additional attacks of
+    // opportunity granted by the Combat Reflexes feat. Dexterity is the ability most
     // influenced by outside influences (such as armor).
     //
     // Physical Crit
-    // Dodge 
+    // Dodge
     // Parry
     public int dexterity = 3;
     // -+ Constitution is a term which encompasses the character's physique, toughness, health
     // and resistance to disease and poison. The higher a character's Constitution, the more
     // hit points that character will have. Constitution also is important for Fortitude saves,
-    // the Concentration skill, and fatigue-based general checks. Constitution also determines 
-    // the duration of a barbarian's rage. Unlike the other ability scores, which render the 
+    // the Concentration skill, and fatigue-based general checks. Constitution also determines
+    // the duration of a barbarian's rage. Unlike the other ability scores, which render the
     // character unconscious or immobile when they hit 0, having 0 Constitution is fatal.
     //
     // Max Health
@@ -72,32 +72,32 @@ public class PDStat {
     // Mana Regen
     public int wisdom = 3;
     // -+ Charisma is the measure of the character's combined physical attractiveness, persuasiveness,
-    // and personal magnetism. A generally non-beautiful character can have a very high charisma due 
-    // to strong measures of the other two aspects of charisma. Charisma influences how many spells 
+    // and personal magnetism. A generally non-beautiful character can have a very high charisma due
+    // to strong measures of the other two aspects of charisma. Charisma influences how many spells
     // spontaneous arcane spellcasters (like sorcerers and bards) can cast per day, and the effectiveness
     // of said spells. It also affects Bluff, Diplomacy, Disguise, Gather Information, Handle Animal,
-    // Intimidate, Perform, and Use Magic Device checks, how often and how effectively clerics and 
+    // Intimidate, Perform, and Use Magic Device checks, how often and how effectively clerics and
     // paladins can turn undead, the wild empathy of druids and rangers, and a paladin's lay on hands ability.
     public int charisma = 3;
-    
+
     public int unspentPoints = 3;
 
     public void sync(DBObject stat) {
         this.level = MongoHelper.getValue(stat, "level", level);
         this.exp = MongoHelper.getValue(stat, "exp", exp);
-        
+
         this.healthCur = MongoHelper.getValue(stat, "healthcurrent", healthCur);
         this.healthMax = MongoHelper.getValue(stat, "healthmax", healthMax);
         this.manaCur = MongoHelper.getValue(stat, "manacurrent", manaCur);
         this.manaMax = MongoHelper.getValue(stat, "manamax", manaMax);
-        
+
         this.strength = MongoHelper.getValue(stat, "strength", strength);
         this.dexterity = MongoHelper.getValue(stat, "dexterity", dexterity);
         this.constitution = MongoHelper.getValue(stat, "constitution", constitution);
         this.intelligence = MongoHelper.getValue(stat, "intelligence", intelligence);
         this.wisdom = MongoHelper.getValue(stat, "wisdom", wisdom);
         this.charisma = MongoHelper.getValue(stat, "charisma", charisma);
-        
+
         this.unspentPoints = MongoHelper.getValue(stat, "unspentpoints", unspentPoints);
     }
 
@@ -108,19 +108,19 @@ public class PDStat {
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "level", level) +
                     TextHelper.buildQuery(tag, "exp", exp) +
-                    
+
                     TextHelper.buildQuery(tag, "healthcurrent", healthCur) +
                     TextHelper.buildQuery(tag, "healthmax", healthMax) +
                     TextHelper.buildQuery(tag, "manacurrent", manaCur) +
                     TextHelper.buildQuery(tag, "manamax", manaMax) +
-                    
+
                     TextHelper.buildQuery(tag, "strength", strength) +
                     TextHelper.buildQuery(tag, "dexterity", dexterity) +
                     TextHelper.buildQuery(tag, "constitution", constitution) +
                     TextHelper.buildQuery(tag, "intelligence", intelligence) +
                     TextHelper.buildQuery(tag, "wisdom", wisdom) +
                     TextHelper.buildQuery(tag, "charisma", charisma) +
-                    
+
                     TextHelper.buildQuery(tag, "unspentpoints", unspentPoints) +
                     "}");
         case STATUS:

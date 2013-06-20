@@ -47,12 +47,12 @@ public class Loader extends JavaPlugin {
             }
         }
     }
-    
+
     public void processHandlers(boolean enable) {
         Loader.info(cast + (enable ? "Loading" : "Unloading") + " handlers");
         for(CowHandler p : handlerList) {
             try {
-                if(enable) {                    
+                if(enable) {
                     p.onEnable();
                 } else {
                     p.onDisable();
@@ -62,12 +62,12 @@ public class Loader extends JavaPlugin {
             }
         }
     }
-    
+
     public void processComponents(boolean enable) {
         Loader.info(cast + (enable ? "Loading" : "Unloading") + " components");
         for(CowComponent p : componentList) {
             try {
-                if(enable) {                    
+                if(enable) {
                     p.onEnable();
                     p.loadCommands();
                 } else {
@@ -87,8 +87,8 @@ public class Loader extends JavaPlugin {
      * CH   | Cow Handler     | Handler component
      * CC   | Cow Component   | Plugin components
      * CS   | Cow Serialize   | Custom ConfigurationSerializables
-     * 
-     * 
+     *
+     *
      * PD   | Player Data
      * PL   | Player Live
      * PT   | Player Tag
@@ -149,7 +149,7 @@ public class Loader extends JavaPlugin {
     public void addCommand(CCommand command) {
         this.getCommand(command.command).setExecutor(command);
     }
-    
+
     public void addListener(Listener listener) {
         this.getServer().getPluginManager().registerEvents(listener, this);
     }

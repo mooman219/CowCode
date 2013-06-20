@@ -35,21 +35,21 @@ public class CHTask implements CowHandler {
         asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.threadCount);
         orderedPool = Executors.newSingleThreadExecutor();
         Loader.info(cast + "Starting second clocks");
-        
+
         manager.runPlugin(new Runnable() {
             @Override
             public void run() {
                 CEventFactory.callTickSecondAsyncEvent();
             }
         }, 1000, 1000);
-        
+
         manager.runBukkit(new Runnable() {
             @Override
             public void run() {
                 CEventFactory.callTickSecondSyncEvent();
             }
         }, 20, 20);
-        
+
         Loader.info(cast + "Enabled");
     }
 
@@ -73,7 +73,7 @@ public class CHTask implements CowHandler {
         public BukkitTask runBukkit(Runnable runnable, long delay, long period) {
             return Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period);
         }
-        
+
         public <T> Future<T> runPlugin(Callable<T> callable) {
             return asyncPool.submit(callable);
         }
@@ -81,15 +81,15 @@ public class CHTask implements CowHandler {
         public Future<?> runPlugin(Runnable runnable) {
             return asyncPool.submit(runnable);
         }
-        
+
         public Future<?> runPlugin(Runnable runnable, long delay) {
             return asyncPool.schedule(runnable, delay, TimeUnit.MILLISECONDS);
         }
-        
+
         public Future<?> runPlugin(Runnable runnable, long delay, long period) {
             return asyncPool.scheduleAtFixedRate(runnable, delay, period, TimeUnit.MILLISECONDS);
         }
-        
+
         public Future<?> runOrdered(Runnable runnable) {
             return orderedPool.submit(runnable);
         }

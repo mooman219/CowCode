@@ -32,47 +32,47 @@ public class MessingAround implements Listener {
         playerData.getSidebar().addKey("memory", "Memory: Init", 3);
         playerData.getSidebar().addKey("tps", "TPS: Init", 2);
         playerData.getSidebar().addKey("mob", "Mobs: Init", 1);
-        
+
         playerData.getTab().set(0, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Welcome:");
         playerData.getTab().set(1, 0, Chat.GOLD + "" + Chat.BOLD + "Gold:");
         playerData.getTab().set(3, 0, "Online:");
         playerData.getTab().set(4, 0, Chat.DARK_GREEN + "" + Chat.BOLD + "C" + Chat.GOLD + "" + Chat.BOLD + "RPG");
-        
+
         playerData.getTab().set(0, 1, "mooman219");
         playerData.getTab().set(1, 1, "3000");
         playerData.getTab().set(3, 1, "132/200");
-        
+
         playerData.getTab().set(0, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(1, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(2, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(3, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(4, 2, Chat.GRAY + "" + Chat.BOLD + "========");
-        
+
         playerData.getTab().set(0, 3, Chat.RED + "" + Chat.BOLD + "STR:" + Chat.RED + " 1");
         playerData.getTab().set(0, 4, Chat.GREEN + "" + Chat.BOLD + "DEX:" + Chat.GREEN + " 8");
         playerData.getTab().set(0, 5, Chat.PURPLE + "" + Chat.BOLD + "CHA:" + Chat.PURPLE + " 2");
         playerData.getTab().set(1, 3, Chat.YELLOW + "" + Chat.BOLD + "CON:" + Chat.YELLOW + " 6");
         playerData.getTab().set(1, 4, Chat.BLUE + "" + Chat.BOLD + "WIS:" + Chat.BLUE + " 3");
         playerData.getTab().set(1, 5, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:" + Chat.DARK_AQUA + " 1");
-        
+
         playerData.getTab().set(0, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(1, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(2, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(3, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(4, 17, Chat.GRAY + "" + Chat.BOLD + "========");
-        
+
         playerData.getTab().set(0, 18, Chat.RED + "" + Chat.BOLD + "Health:");
         playerData.getTab().set(1, 18, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");
         playerData.getTab().set(3, 18, Chat.GRAY + "" + Chat.BOLD + "Level:");
         playerData.getTab().set(4, 18, Chat.GRAY + "" + Chat.BOLD + "EXP:");
-        
+
         playerData.getTab().set(0, 19, "100/100");
         playerData.getTab().set(1, 19, "120/200");
         playerData.getTab().set(3, 19, "3");
         playerData.getTab().set(4, 19, "3/10");
-        
+
         playerData.getTab().update();
-        
+
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
         event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
     }
@@ -88,7 +88,7 @@ public class MessingAround implements Listener {
             CDPlayer.get(player).getSidebar().modifyName("mob", "Mobs: " + Chat.GREEN + mobs);
         }
     }
-    
+
     @EventHandler()
     public void onDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player) {

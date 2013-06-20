@@ -64,13 +64,13 @@ public class CCRegion implements CowComponent {
         plugin.addCommand(new NewRegion());
         plugin.addCommand(new SetRegion());
     }
-    
+
     public class Messages {
         public final Bulletin EXISTS = new Bulletin(Chat.msgError, "Region already exists.", Chat.formatError);
         public final Bulletin NONEXISTS = new Bulletin(Chat.msgError, "The region does not exist.", Chat.formatError);
         public final Bulletin ADDED = new Bulletin(Chat.msgInfo, "Region added!", Chat.formatInfo);
         public final Bulletin MODIFIED = new Bulletin(Chat.msgInfo, "Region modified!", Chat.formatInfo);
     }
-    
+
     public class Formats {}
 }

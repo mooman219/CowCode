@@ -32,8 +32,8 @@ public class CCStat implements CowComponent {
 
     @Override
     public void loadCommands() {}
-    
+
     public class Messages {}
-    
+
     public class Formats {}
 }

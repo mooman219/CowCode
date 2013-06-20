@@ -62,7 +62,7 @@ public class ListenerBlock implements Listener {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onLightningStrike(LightningStrikeEvent event) {
         if(ConfigGlobal.disableLightningStrike) {

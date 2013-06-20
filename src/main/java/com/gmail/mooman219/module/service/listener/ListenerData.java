@@ -75,7 +75,7 @@ public class ListenerData implements Listener {
         CDPlayer player = CDPlayer.getSafe(event.getPlayer());
         if(player == null) {
             return;
-        }            
+        }
         player.shutdown(PlayerShutdownType.POST_QUIT);
         CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, true, true);
     }

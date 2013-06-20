@@ -34,7 +34,7 @@ public class TagHelper {
     public static int getInt(NBTTagCompound tag, String key, int fallback) {
         return tag.hasKey(key) ? tag.getInt(key) : fallback;
     }
-    
+
     public static int[] getIntArray(NBTTagCompound tag, String key, int[] fallback) {
         return tag.hasKey(key) ? tag.getIntArray(key) : fallback;
     }
@@ -54,7 +54,7 @@ public class TagHelper {
     public static String getString(NBTTagCompound tag, String key, String fallback) {
         return tag.hasKey(key) ? tag.getString(key) : fallback;
     }
-    
+
     public static Material getMaterial(NBTTagCompound tag, String key, Material fallback) {
         if(tag.hasKey(key)) {
             Material ret = Material.getMaterial(tag.getString(key));
@@ -79,7 +79,7 @@ public class TagHelper {
         }
         return fallback;
     }
-    
+
     public static void setMaterial(NBTTagCompound tag, String key, Material material) {
         tag.setString(key, material.name());
     }

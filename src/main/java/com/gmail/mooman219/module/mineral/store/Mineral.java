@@ -57,17 +57,17 @@ public class Mineral {
     public boolean match(int x, int y, int z) {
         return this.x == x && this.y == y && this.z == z;
     }
-    
+
     public Location getLocation(CDChunk chunk) {
         return new Location(chunk.chunk.getWorld(), x, y, z);
     }
-    
+
     public Location getLocation(Chunk chunk) {
         return new Location(chunk.getWorld(), x, y, z);
     }
 
     public void tick(Chunk chunk, long time) {
-        if(respawnTime != -1 && time - respawnTime > 0) {            
+        if(respawnTime != -1 && time - respawnTime > 0) {
             revert(chunk);
         }
     }

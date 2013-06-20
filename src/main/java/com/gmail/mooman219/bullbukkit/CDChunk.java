@@ -41,11 +41,11 @@ public class CDChunk extends BullData {
         parentInformation = information;
         parentUUID = information.uuid;
     }
-    
+
     public Mineral getMineral(Block block) {
         return getMineral(block.getLocation());
     }
-    
+
     public Mineral getMineral(Location loc) {
         for(Mineral mineral : minerals) {
             if(mineral.match(loc)) {
@@ -98,7 +98,7 @@ public class CDChunk extends BullData {
     public static CDChunk get(Block block) {
         return get(block.getChunk());
     }
-    
+
     public static CDChunk get(Entity entity) {
         return get(entity.getLocation().getChunk());
     }
@@ -107,7 +107,7 @@ public class CDChunk extends BullData {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
         if(handle.bull_live == null) {
             handle.bull_live = new CDChunk(chunk);
-            ((BullData) handle.bull_live).onTagLoad(handle.bull_tag);
+            handle.bull_live.onTagLoad(handle.bull_tag);
         }
         return (CDChunk) handle.bull_live;
     }

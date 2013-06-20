@@ -44,12 +44,12 @@ public class CCLogin implements CowComponent{
 
     @Override
     public void loadCommands() {}
-    
+
     public class Messages {
         public final Bulletin SHUTDOWN = new Bulletin(Chat.GRAY, "The server will be " + Chat.DARK_GREEN + "restarting. Kicking to save data.", Chat.formatPassive);
     }
-    
+
     public class Formats {
-        public final Bulletin LOGINDELAY = new Bulletin(Chat.GRAY + "Please wait another " + Chat.RED + "{0}" + Chat.GRAY + " before joining" + Chat.DARK_GRAY + ".");         
+        public final Bulletin LOGINDELAY = new Bulletin(Chat.GRAY + "Please wait another " + Chat.RED + "{0}" + Chat.GRAY + " before joining" + Chat.DARK_GRAY + ".");
     }
 }

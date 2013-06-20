@@ -60,15 +60,15 @@ public class CCChat implements CowComponent {
         plugin.addCommand(new SetChatRange());
         plugin.addCommand(new SetOverheadName());
     }
-    
+
     public class Messages {
         public final Bulletin MESSAGE_EMPTY = new Bulletin(Chat.msgError, "Please specify a message.", Chat.formatError);
         public final Bulletin MESSAGE_SELF = new Bulletin(Chat.msgError, "You should stop talking to yourself.", Chat.formatError);
         public final Bulletin MESSAGE_LOST = new Bulletin(Chat.msgError, "No suitable player to respond to.", Chat.formatError);
         public final Bulletin NOHEAR = new Bulletin(Chat.msgWarn, "No one can hear you. Try adding \"!\" before your message.", Chat.formatWarn);
     }
-    
-    public class Formats {        
+
+    public class Formats {
         public final Bulletin SETRANGE = new Bulletin(Chat.msgInfo, "Chat range updated from [{0}] to [{1}]!", Chat.formatInfo);
         public final Bulletin MUTED = new Bulletin(Chat.msgError, "You're currently muted for {0}.", Chat.formatError);
         public final Bulletin MESSAGE_EXIST = new Bulletin(Chat.msgError, "\"{0}\" does not exist.", Chat.formatError);

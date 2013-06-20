@@ -80,7 +80,7 @@ public class HealthBoard {
                     final BoardValue target = rows.get(player);
                     // Update the value to the new one
                     target.setValue(health);
-                    // Tell all players on the board that a value has updated 
+                    // Tell all players on the board that a value has updated
                     for(CDPlayer other : rows.keySet()) {
                         CHPacket.manager.sendSetScoreboardScore(other, title, target.getClientName(), target.getValue(), BoardModifyType.UPDATE);
                     }

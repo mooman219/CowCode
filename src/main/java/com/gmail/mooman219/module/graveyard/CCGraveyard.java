@@ -68,13 +68,13 @@ public class CCGraveyard implements CowComponent {
         plugin.addCommand(new TeleportGraveyard());
         plugin.addCommand(new TotalGraveyards());
     }
-    
+
     public class Messages {
         public final Bulletin RESPAWN = new Bulletin(Chat.msgPassive, "You have spawned at the nearest graveyard.", Chat.formatPassive);
         public final Bulletin TPCLOSE = new Bulletin(Chat.msgInfo, "Teleported to the closest graveyard.", Chat.formatInfo);
         public final Bulletin TPCLOSE_FAILED = new Bulletin(Chat.msgError, "Unable to find suitable graveyard.", Chat.formatError);
     }
-    
+
     public class Formats {
         public final Bulletin ADD = new Bulletin(Chat.msgInfo, "Graveyard added. Total graveyards [{0}]", Chat.formatInfo);
         public final Bulletin CLEAR = new Bulletin(Chat.msgWarn, "Cleared [{0}] graveyards.", Chat.formatWarn);
@@ -83,6 +83,6 @@ public class CCGraveyard implements CowComponent {
         public final Bulletin REMOVE = new Bulletin(Chat.msgWarn, "Removed graveyard at [X,Z] [{0},{1}]", Chat.formatWarn);
         public final Bulletin TP = new Bulletin(Chat.msgInfo, "Teleported to graveyard [{0}].", Chat.formatInfo);
         public final Bulletin TP_FAILED = new Bulletin(Chat.msgError, "Unable to find graveyard [{0}].", Chat.formatError);
-        public final Bulletin TOTAL = new Bulletin(Chat.msgPassive, "Total graveyards [{0}]", Chat.formatPassive);        
+        public final Bulletin TOTAL = new Bulletin(Chat.msgPassive, "Total graveyards [{0}]", Chat.formatPassive);
     }
 }

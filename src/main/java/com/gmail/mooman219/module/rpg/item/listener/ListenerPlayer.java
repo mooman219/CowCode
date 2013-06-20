@@ -22,35 +22,35 @@ public class ListenerPlayer implements Listener {
             event.getPlayer().updateInventory();
         }
     }
-    
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
     }
-    
+
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event) {
         if(isLocked(event.getItemDrop().getItemStack())) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
     }
-    
+
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Iterator<ItemStack> iterator = event.getDrops().iterator();
         while(iterator.hasNext()) {
             ItemStack itemStack = iterator.next();
-            if(isLocked(itemStack)) {                
+            if(isLocked(itemStack)) {
                 iterator.remove();
             }
         }
     }
-    
+
     public static boolean isLocked(ItemStack item) {
         if(item == null) {
             return false;

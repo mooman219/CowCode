@@ -29,7 +29,7 @@ public class Stockpile {
     public void map(Character character, ItemStack item) {
         if(item == null) {
             charList.remove(character);
-        } else {            
+        } else {
             charList.put(character, item.clone());
         }
     }

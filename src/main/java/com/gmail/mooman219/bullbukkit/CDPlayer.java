@@ -228,7 +228,7 @@ public class CDPlayer extends BullData {
         }
         return oldName;
     }
-    
+
     // Updates the current player's (health, foodlevel, foodsaturation)
     public void updateStatus() {
         EntityPlayer handle = getHandle();
@@ -238,11 +238,11 @@ public class CDPlayer extends BullData {
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
     }
-    
+
     public int getArrowsStuck() {
         return getHandle().bM();
     }
-    
+
     public void setArrowsStuck(int arrows) {
         getHandle().r(arrows);
     }
@@ -263,7 +263,7 @@ public class CDPlayer extends BullData {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
         return handle.bull_live == null ? null : (CDPlayer) handle.bull_live;
     }
-    
+
     public static CDPlayer get(Player player) {
         CDPlayer ret = getSafe(player);
         if(ret == null) {
@@ -272,13 +272,13 @@ public class CDPlayer extends BullData {
         }
         return ret;
     }
-    
+
     public static CDPlayer get(EntityPlayer player) {
         return get(player.getBukkitEntity());
     }
 
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer player) {
-        if(event.getPendingConnection() != null) {            
+        if(event.getPendingConnection() != null) {
             ((PendingConnection) event.getPendingConnection()).bull_live = player;
         } else {
             throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getName() + "'.");
