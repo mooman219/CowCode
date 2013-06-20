@@ -3,6 +3,7 @@ package com.gmail.mooman219.frame.text;
 import java.text.MessageFormat;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Bulletin {
     public final String message;
@@ -33,6 +34,14 @@ public class Bulletin {
     
     public void send(CommandSender target, Object... args) {
         target.sendMessage(parse(args));
+    }
+    
+    public void kick(Player player) {
+        player.kickPlayer(message);
+    }
+    
+    public void kick(Player player, Object... args) {
+        player.kickPlayer(parse(args));
     }
     
     public String toString() {

@@ -9,6 +9,7 @@ public class ConfigGlobal extends ConfigBase {
     // [ ]---[+] Database
     public static String server_id = "Alpha";
     public static String server_loc = "US";
+    public static long downloadTimeout = 5L;
     public static String hostname = "localhost";
     public static int portnmbr = 27017;
     public static String username = "cow";
@@ -44,6 +45,7 @@ public class ConfigGlobal extends ConfigBase {
         // [ ]---[+] Database
         server_id = loadVar("Server.ID", server_id);
         server_loc = loadVar("Server.Location", server_loc);
+        downloadTimeout = loadVar("Server.Player.Download_Timeout", downloadTimeout);
         hostname = loadVar("Mongo.Host", hostname);
         portnmbr = loadVar("Mongo.Port", portnmbr);
         username = loadVar("Mongo.User", username);
@@ -75,6 +77,7 @@ public class ConfigGlobal extends ConfigBase {
         // [ ]---[+] Database
         saveVar("Server.ID", server_id);
         saveVar("Server.Location", server_loc);
+        saveVar("Server.Player.Download_Timeout", downloadTimeout);
         saveVar("Mongo.Host", hostname);
         saveVar("Mongo.Port", portnmbr);
         saveVar("Mongo.User", username);

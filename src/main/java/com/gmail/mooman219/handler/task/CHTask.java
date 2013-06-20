@@ -1,5 +1,6 @@
 package com.gmail.mooman219.handler.task;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -71,6 +72,10 @@ public class CHTask implements CowHandler {
 
         public BukkitTask runBukkit(Runnable runnable, long delay, long period) {
             return Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period);
+        }
+        
+        public <T> Future<T> runPlugin(Callable<T> callable) {
+            return asyncPool.submit(callable);
         }
 
         public Future<?> runPlugin(Runnable runnable) {

@@ -55,9 +55,9 @@ public class CCService implements CowComponent {
     
     public class Messages {
         public final Bulletin DATALOAD = new Bulletin(Chat.msgPassive, "Your data has been loaded successfully.", Chat.formatPassive);
-        public final Bulletin DATAERROR = new Bulletin(Chat.RED, "An error has occured while attempting to access your data.\n You may want to logout and log back in or try a different server to avoid losing information.", Chat.formatError);
-        public final Bulletin LOGINERROR = new Bulletin(Chat.RED, "This server is unable to handle your login request currently,\n please try a different server.", Chat.formatError);
-        public final Bulletin USERNAMEFAIL = new Bulletin(Chat.RED, "Unable to verify your username, please try restarting your client.", Chat.formatError);
+        public final Bulletin DATAERROR = new Bulletin(Chat.RED, "An error has occured while attempting to access your data.\nYou may want to logout and log back in or try a different server to avoid losing information.", Chat.formatError);
+        public final Bulletin LOGINERROR = new Bulletin(Chat.RED, "This server is unable to handle your login request currently.\nPlease try a different server.", Chat.formatError);
+        public final Bulletin USERNAMEFAIL = new Bulletin(Chat.RED, "Unable to verify your username, please try restarting your client.\nThe login servers may be down.", Chat.formatError);
     }
     
     public class Formats {

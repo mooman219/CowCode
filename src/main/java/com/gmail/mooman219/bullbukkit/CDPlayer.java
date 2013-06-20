@@ -259,13 +259,18 @@ public class CDPlayer extends BullData {
         return ((CraftPlayer)player).getHandle();
     }
 
-    public static CDPlayer get(Player player) {
+    public static CDPlayer getSafe(Player player) {
         net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
-        if(handle.bull_live == null) {
-            CCService.MSG.DATAERROR.send(player);
-            throw new IllegalArgumentException("Invalid data on player.");
+        return handle.bull_live == null ? null : (CDPlayer) handle.bull_live;
+    }
+    
+    public static CDPlayer get(Player player) {
+        CDPlayer ret = getSafe(player);
+        if(ret == null) {
+            CCService.MSG.DATAERROR.kick(player);
+            Loader.warning("Invalid data on player '" + player.getName() + "'.");
         }
-        return (CDPlayer) handle.bull_live;
+        return ret;
     }
     
     public static CDPlayer get(EntityPlayer player) {
