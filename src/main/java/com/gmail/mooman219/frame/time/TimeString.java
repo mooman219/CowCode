@@ -14,6 +14,8 @@ public class TimeString {
         String ret = time + " " + type.name;
         if(time > 1) {
             ret += "s";
+        } else if(time < 0) {
+            ret += "z"; // Lol idk how you get negative time
         }
         return ret;
     }
