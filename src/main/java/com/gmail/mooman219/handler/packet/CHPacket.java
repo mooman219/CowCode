@@ -8,32 +8,28 @@ import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
 
 import com.gmail.mooman219.bullbukkit.CDPlayer;
 import com.gmail.mooman219.core.CowHandler;
-import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
 
 public class CHPacket implements CowHandler {
-    public static String cast = "[CC][H][Packet] ";
+    public static String cast = "[CC][Packet] ";
 
     public static Manager manager;
 
     public CHPacket() {}
     
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Packet"; 
     }
 
     @Override
     public void onEnable() {
         manager = new Manager();
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable() {
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable() {}
 
     public class Manager {
         public void sendCloseWindow(CDPlayer player, int windowID) {

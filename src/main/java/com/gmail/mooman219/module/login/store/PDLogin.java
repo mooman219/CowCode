@@ -26,7 +26,6 @@ public class PDLogin {
 
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
-        case CREATION:
         case SAVE:
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "firstlogin", firstlogin) + "," +

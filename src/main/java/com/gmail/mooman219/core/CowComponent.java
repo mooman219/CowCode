@@ -1,7 +1,7 @@
 package com.gmail.mooman219.core;
 
 public interface CowComponent {
-    public String getCast();
+    public String getName();
 
     public void onEnable();
 

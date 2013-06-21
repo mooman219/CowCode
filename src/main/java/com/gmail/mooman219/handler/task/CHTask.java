@@ -18,7 +18,7 @@ import com.gmail.mooman219.handler.config.ConfigGlobal;
 public class CHTask implements CowHandler {
     private Loader plugin;
 
-    public final static String cast = "[CC][H][Task] ";
+    public final static String cast = "[CC][Task] ";
 
     public static Manager manager;
     private ScheduledExecutorService asyncPool;
@@ -29,8 +29,8 @@ public class CHTask implements CowHandler {
     }
 
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Task"; 
     }
 
     @Override
@@ -54,8 +54,6 @@ public class CHTask implements CowHandler {
                 CEventFactory.callTickSecondSyncEvent();
             }
         }, 20, 20);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
@@ -63,7 +61,6 @@ public class CHTask implements CowHandler {
         Loader.info(cast + "Stopping all threads");
         asyncPool.shutdown();
         orderedPool.shutdown();
-        Loader.info(cast + "Disabled");
     }
 
     public class Manager {

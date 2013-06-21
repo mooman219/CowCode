@@ -23,12 +23,11 @@ public class PDService {
 
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
-        case CREATION:
+        case SAVE:
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "donorlevel", donorLevel) + "," +
                     TextHelper.buildQuery(tag, "stafflevel", staffLevel) +
                     "}");
-        case SAVE:
         case STATUS:
         default:
             return new BasicDBObject();

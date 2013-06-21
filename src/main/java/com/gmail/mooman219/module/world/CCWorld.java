@@ -8,7 +8,7 @@ public class CCWorld implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][World] ";
+    public final static String cast = "[CC][World] ";
 
     public ListenerBlock listenerBlock;
 
@@ -17,8 +17,8 @@ public class CCWorld implements CowComponent {
     }
     
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "World"; 
     }
 
     @Override
@@ -26,14 +26,10 @@ public class CCWorld implements CowComponent {
         listenerBlock = new ListenerBlock();
 
         plugin.addListener(listenerBlock);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable() {
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable() {}
 
     @Override
     public void registerConfigurationSerialization() {}

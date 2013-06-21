@@ -20,7 +20,7 @@ public class CCRegion implements CowComponent {
     public StoreRegionInformation storeRegionInformation;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][Region] ";
+    public final static String cast = "[CC][Region] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -33,8 +33,8 @@ public class CCRegion implements CowComponent {
     }
     
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Region"; 
     }
 
     @Override
@@ -45,15 +45,12 @@ public class CCRegion implements CowComponent {
         listenerPlayer = new ListenerPlayer();
 
         plugin.addListener(listenerPlayer);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
     public void onDisable(){
         Loader.info(cast + "Saving " + storeRegionInformation.fileName);
         storeRegionInformation.save();
-        Loader.info(cast + "Disabled");
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CCChat implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][Chat] ";
+    public final static String cast = "[CC][Chat] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -32,8 +32,8 @@ public class CCChat implements CowComponent {
     }
 
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Chat"; 
     }
 
     @Override
@@ -45,14 +45,10 @@ public class CCChat implements CowComponent {
         plugin.addListener(listenerChat);
         plugin.addListener(listenerPlayer);
         plugin.addListener(listenerData);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable(){
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable(){}
 
     @Override
     public void registerConfigurationSerialization() {}

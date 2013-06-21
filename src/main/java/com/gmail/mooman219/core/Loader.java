@@ -49,8 +49,9 @@ public class Loader extends JavaPlugin {
     }
 
     public void processHandlers(boolean enable) {
-        Loader.info(cast + (enable ? "Loading" : "Unloading") + " handlers");
+        Loader.info(cast + (enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
         for(CowHandler p : handlerList) {
+            Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
             try {
                 if(enable) {
                     p.onEnable();
@@ -64,8 +65,9 @@ public class Loader extends JavaPlugin {
     }
 
     public void processComponents(boolean enable) {
-        Loader.info(cast + (enable ? "Loading" : "Unloading") + " components");
+        Loader.info(cast + (enable ? "Loading" : "Unloading") + " " + componentList.size() + " components");
         for(CowComponent p : componentList) {
+            Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
             try {
                 if(enable) {
                     p.onEnable();
@@ -159,9 +161,7 @@ public class Loader extends JavaPlugin {
     }
 
     public static void warning(String message) {
-        Loader.log.warning("");
-        Loader.log.warning("[" + (Bukkit.isPrimaryThread() ? "-" : "+") + "] " + message);
-        Loader.log.warning("");
+        Loader.log.warning("[X] " + "[" + (Bukkit.isPrimaryThread() ? "-" : "+") + "] " + message);
     }
 }
 // Mooman219's code. | CowCoding == CC | Cow == C

@@ -12,7 +12,7 @@ public class CCLogin implements CowComponent{
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][Login] ";
+    public final static String cast = "[CC][Login] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -25,8 +25,8 @@ public class CCLogin implements CowComponent{
     }
     
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Login"; 
     }
 
     @Override
@@ -35,14 +35,10 @@ public class CCLogin implements CowComponent{
 
         PluginManager pm = plugin.getServer().getPluginManager();
         pm.registerEvents(listenerPlayerData, plugin);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable(){
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable(){}
 
     @Override
     public void registerConfigurationSerialization() {}

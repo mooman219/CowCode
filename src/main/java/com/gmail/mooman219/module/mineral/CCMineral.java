@@ -16,7 +16,7 @@ public class CCMineral implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][Mineral] ";
+    public final static String cast = "[CC][Mineral] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -29,8 +29,8 @@ public class CCMineral implements CowComponent {
     }
     
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Mineral";
     }
 
     @Override
@@ -38,14 +38,10 @@ public class CCMineral implements CowComponent {
         listenerBlock = new ListenerBlock();
 
         plugin.addListener(listenerBlock);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable(){
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable(){}
 
     @Override
     public void registerConfigurationSerialization() {}

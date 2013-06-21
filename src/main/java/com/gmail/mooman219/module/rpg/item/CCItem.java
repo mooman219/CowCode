@@ -8,7 +8,7 @@ public class CCItem implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][RPG Item] ";
+    public final static String cast = "[CC][RPG][Item] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -21,18 +21,19 @@ public class CCItem implements CowComponent {
     }
 
     @Override
+    public String getName() {
+        return "RPG Item"; 
+    }
+
+    @Override
     public void onEnable(){
         listenerPlayer = new ListenerPlayer();
 
         plugin.addListener(listenerPlayer);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable(){
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable(){}
 
     @Override
     public void registerConfigurationSerialization() {}

@@ -22,7 +22,7 @@ public class CCGraveyard implements CowComponent {
     public StoreGraveyard storeGraveyard;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][Graveyard] ";
+    public final static String cast = "[CC][Graveyard] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -35,8 +35,8 @@ public class CCGraveyard implements CowComponent {
     }
     
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Graveyard"; 
     }
 
     @Override
@@ -47,15 +47,12 @@ public class CCGraveyard implements CowComponent {
         listenerPlayer = new ListenerPlayer();
 
         plugin.addListener(listenerPlayer);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
     public void onDisable(){
         Loader.info(cast + "Saving " + storeGraveyard.fileName);
         storeGraveyard.save();
-        Loader.info(cast + "Disabled");
     }
 
     @Override

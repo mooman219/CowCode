@@ -7,7 +7,7 @@ public class CCSkill implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][RPG Skill] ";
+    public final static String cast = "[CC][RPG][Skill] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -18,14 +18,15 @@ public class CCSkill implements CowComponent {
     }
 
     @Override
-    public void onEnable(){
-        Loader.info(cast + "Enabled");
+    public String getName() {
+        return "RPG Skill"; 
     }
 
     @Override
-    public void onDisable(){
-        Loader.info(cast + "Disabled");
-    }
+    public void onEnable(){}
+
+    @Override
+    public void onDisable(){}
 
     @Override
     public void registerConfigurationSerialization() {}

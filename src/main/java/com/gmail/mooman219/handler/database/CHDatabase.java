@@ -23,7 +23,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 
 public class CHDatabase implements CowHandler {
-    public final static String cast = "[CC][H][Database] ";
+    public final static String cast = "[CC][Database] ";
 
     public static Manager manager;
     private DB database;
@@ -33,8 +33,8 @@ public class CHDatabase implements CowHandler {
     public CHDatabase() {}
 
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Database"; 
     }
 
     @Override
@@ -53,13 +53,11 @@ public class CHDatabase implements CowHandler {
             Bukkit.shutdown();
         }
         Loader.info(cast + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
-        Loader.info(cast + "Enabled");
     }
 
     @Override
     public void onDisable() {
         client.close();
-        Loader.info(cast + "Disabled");
     }
 
     public class Manager {
@@ -133,11 +131,10 @@ public class CHDatabase implements CowHandler {
                         playerData.sync(playerObject);
                         return playerData;
                     } else {
-                        c_Users.insert(new BasicDBObject("username", username)
-                        .append("usernamelowercase", username.toLowerCase()));
+                        c_Users.insert(new BasicDBObject("username", username).append("usernamelowercase", username.toLowerCase()));
                         playerObject = c_Users.findOne(new BasicDBObject("username", username));
                         playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
-                        CHDatabase.manager.uploadPlayer(playerData, UploadReason.CREATION, false, false);
+                        CHDatabase.manager.uploadPlayer(playerData, UploadReason.SAVE, false, false);
                         return playerData;
                     }
                 case QUERY:
@@ -154,6 +151,7 @@ public class CHDatabase implements CowHandler {
                     return null;
                 }
             } catch(Exception e) {
+                Loader.warning("Something has gone wrong during " + username + "'s download request.");
                 Loader.warning(cast + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
                 e.printStackTrace();
             }

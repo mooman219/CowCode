@@ -14,7 +14,7 @@ public class CCService implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][Services] ";
+    public final static String cast = "[CC][Services] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -28,8 +28,8 @@ public class CCService implements CowComponent {
     }
 
     @Override
-    public String getCast() {
-        return cast; 
+    public String getName() {
+        return "Service"; 
     }
 
     @Override
@@ -39,14 +39,10 @@ public class CCService implements CowComponent {
 
         plugin.addListener(listenerData);
         plugin.addListener(messingAround);
-
-        Loader.info(cast + "Enabled");
     }
 
     @Override
-    public void onDisable() {
-        Loader.info(cast + "Disabled");
-    }
+    public void onDisable() {}
 
     @Override
     public void registerConfigurationSerialization() {}

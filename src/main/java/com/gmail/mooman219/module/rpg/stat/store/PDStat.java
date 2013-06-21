@@ -103,7 +103,6 @@ public class PDStat {
 
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
-        case CREATION:
         case SAVE:
             return (DBObject) JSON.parse("{" +
                     TextHelper.buildQuery(tag, "level", level) + "," +

@@ -7,7 +7,7 @@ public class CCStat implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][M][RPG Stat] ";
+    public final static String cast = "[CC][RPG][Stat] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -18,14 +18,15 @@ public class CCStat implements CowComponent {
     }
 
     @Override
-    public void onEnable(){
-        Loader.info(cast + "Enabled");
+    public String getName() {
+        return "RPG Stat"; 
     }
 
     @Override
-    public void onDisable(){
-        Loader.info(cast + "Disabled");
-    }
+    public void onEnable(){}
+
+    @Override
+    public void onDisable(){}
 
     @Override
     public void registerConfigurationSerialization() {}
