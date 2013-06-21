@@ -12,12 +12,12 @@ import com.gmail.mooman219.module.region.store.RegionCombatType;
 @SerializableAs(value = "CSRegionInformation")
 public class CSRegionInformation implements ConfigurationSerializable {
     // These identify the region, don't fuck with them
-    public final String uuid;
-    public final String id;
+    private final String uuid;
+    private final String id;
 
-    public String name = "DefaultName";
-    public String description = "Default description.";
-    public RegionCombatType combatType = RegionCombatType.SAFE;
+    private String name = "DefaultName";
+    private String description = "Default description.";
+    private RegionCombatType combatType = RegionCombatType.SAFE;
 
     public CSRegionInformation(String id, String name) {
         this.uuid = MathHelper.nextUUID().toString();
@@ -49,5 +49,37 @@ public class CSRegionInformation implements ConfigurationSerializable {
         map.put("description", description);
         map.put("combattype", combatType.id);
         return map;
+    }
+
+    public RegionCombatType getCombatType() {
+        return combatType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getID() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUUID() {
+        return uuid;
+    }
+
+    public void setCombatType(RegionCombatType combatType) {
+        this.combatType = combatType;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -20,7 +20,7 @@ public class ModifyInformation extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         CSRegionInformation region = StoreRegionInformation.getInformationByID(args[0]);
         if(region != null) {
-            region.description = TextHelper.merge(args, 1);
+            region.setDescription(TextHelper.merge(args, 1));
             CCRegion.MSG.MODIFIED.send(sender);
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);

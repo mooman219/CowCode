@@ -12,15 +12,15 @@ public class StoreRegionInformation extends ConfigBase {
     public StoreRegionInformation() {
         super(CCRegion.directory, "regions.yml");
         super.init();
-        globalInformation.description = "No region exists here";
-        globalInformation.combatType = RegionCombatType.SAFE;
+        globalInformation.setDescription("No region exists here");
+        globalInformation.setCombatType(RegionCombatType.SAFE);
     }
 
     @Override
     public void onLoad() {
         regions = new HashMap<String, CSRegionInformation>();
         for(CSRegionInformation regionInformation : loadVar("Regions", new ArrayList<CSRegionInformation>())) {
-            regions.put(regionInformation.uuid, regionInformation);
+            regions.put(regionInformation.getUUID(), regionInformation);
         }
     }
 
@@ -35,7 +35,7 @@ public class StoreRegionInformation extends ConfigBase {
         CSRegionInformation information = getInformationByID(id);
         if(getInformationByID(id) == null) {
             information = new CSRegionInformation(id, name);
-            regions.put(information.uuid, information);
+            regions.put(information.getUUID(), information);
         }
         return information;
     }
@@ -45,7 +45,7 @@ public class StoreRegionInformation extends ConfigBase {
             return globalInformation;
         }
         for(CSRegionInformation information : regions.values()) {
-            if(information.id.equals(id)) {
+            if(information.getID().equals(id)) {
                 return information;
             }
         }

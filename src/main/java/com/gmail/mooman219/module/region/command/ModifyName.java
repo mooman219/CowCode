@@ -19,7 +19,7 @@ public class ModifyName extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         CSRegionInformation region = StoreRegionInformation.getInformationByID(args[0]);
         if(region != null) {
-            region.name = args[1];
+            region.setName(args[1]);
             CCRegion.MSG.MODIFIED.send(sender);
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
