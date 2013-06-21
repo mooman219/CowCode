@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.LocationHelper;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;

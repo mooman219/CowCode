@@ -3,9 +3,9 @@ package com.gmail.mooman219.module.login;
 import org.bukkit.plugin.PluginManager;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.Bulletin;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.login.listener.ListenerData;
 
 public class CCLogin implements CowComponent{
@@ -23,10 +23,10 @@ public class CCLogin implements CowComponent{
         MSG = new Messages();
         FRM = new Formats();
     }
-    
+
     @Override
     public String getName() {
-        return "Login"; 
+        return "Login";
     }
 
     @Override

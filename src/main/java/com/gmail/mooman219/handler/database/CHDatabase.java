@@ -8,13 +8,13 @@ import java.util.concurrent.TimeoutException;
 import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
-import com.gmail.mooman219.bullbukkit.PlayerShutdownType;
-import com.gmail.mooman219.core.CowHandler;
+import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.bull.PlayerShutdownType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.layout.CowHandler;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -29,12 +29,12 @@ public class CHDatabase implements CowHandler {
     private DB database;
     private DBCollection c_Users;
     private MongoClient client;
-    
+
     public CHDatabase() {}
 
     @Override
     public String getName() {
-        return "Database"; 
+        return "Database";
     }
 
     @Override

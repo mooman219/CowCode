@@ -1,4 +1,4 @@
-package com.gmail.mooman219.core;
+package com.gmail.mooman219.layout;
 
 public interface CowComponent {
     public String getName();

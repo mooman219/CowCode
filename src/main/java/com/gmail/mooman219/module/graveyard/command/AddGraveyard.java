@@ -5,7 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;

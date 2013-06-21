@@ -3,7 +3,7 @@ package com.gmail.mooman219.frame.scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.handler.packet.CHPacket;
 
 /**

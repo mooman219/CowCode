@@ -4,7 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import com.gmail.mooman219.bullbukkit.CDChunk;
+import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.module.mineral.store.Mineral;
 
 public class ListenerBlock implements Listener{

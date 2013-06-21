@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
-import com.gmail.mooman219.core.CowHandler;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.layout.CowHandler;
 
 public class CHTask implements CowHandler {
     private Loader plugin;
@@ -30,7 +30,7 @@ public class CHTask implements CowHandler {
 
     @Override
     public String getName() {
-        return "Task"; 
+        return "Task";
     }
 
     @Override

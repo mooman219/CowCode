@@ -10,7 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
-import com.gmail.mooman219.bullbukkit.CDChunk;
+import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.frame.TagHelper;
 
 public class Mineral {

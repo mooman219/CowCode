@@ -1,4 +1,4 @@
-package com.gmail.mooman219.bullbukkit;
+package com.gmail.mooman219.bull;
 
 public enum PlayerShutdownType {
     POST_QUIT,

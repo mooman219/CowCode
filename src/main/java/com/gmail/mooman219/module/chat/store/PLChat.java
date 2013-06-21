@@ -2,7 +2,7 @@ package com.gmail.mooman219.module.chat.store;
 
 import java.lang.ref.SoftReference;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 
 public class PLChat {
     private SoftReference<CDPlayer> softLastMessaged;

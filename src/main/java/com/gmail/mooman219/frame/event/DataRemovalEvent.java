@@ -3,7 +3,7 @@ package com.gmail.mooman219.frame.event;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 
 public class DataRemovalEvent extends Event {
     private static final HandlerList handlers = new HandlerList();

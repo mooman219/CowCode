@@ -5,8 +5,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.gmail.mooman219.bullbukkit.CDChunk;
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDChunk;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class ListenerPlayer implements Listener{

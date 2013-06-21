@@ -1,7 +1,7 @@
 package com.gmail.mooman219.module.rpg.item;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.rpg.item.listener.ListenerPlayer;
 
 public class CCItem implements CowComponent {
@@ -22,7 +22,7 @@ public class CCItem implements CowComponent {
 
     @Override
     public String getName() {
-        return "RPG Item"; 
+        return "RPG Item";
     }
 
     @Override

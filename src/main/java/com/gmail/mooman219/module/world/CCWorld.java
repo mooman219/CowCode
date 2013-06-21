@@ -1,7 +1,7 @@
 package com.gmail.mooman219.module.world;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.world.listener.ListenerBlock;
 
 public class CCWorld implements CowComponent {
@@ -15,10 +15,10 @@ public class CCWorld implements CowComponent {
     public CCWorld(Loader head) {
         plugin = head;
     }
-    
+
     @Override
     public String getName() {
-        return "World"; 
+        return "World";
     }
 
     @Override

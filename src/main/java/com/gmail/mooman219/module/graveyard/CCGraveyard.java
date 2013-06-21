@@ -3,9 +3,9 @@ package com.gmail.mooman219.module.graveyard;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.graveyard.command.AddGraveyard;
 import com.gmail.mooman219.module.graveyard.command.ClearGraveyards;
 import com.gmail.mooman219.module.graveyard.command.ListGraveyards;
@@ -33,10 +33,10 @@ public class CCGraveyard implements CowComponent {
         MSG = new Messages();
         FRM = new Formats();
     }
-    
+
     @Override
     public String getName() {
-        return "Graveyard"; 
+        return "Graveyard";
     }
 
     @Override

@@ -6,10 +6,10 @@ import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
 import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
-import com.gmail.mooman219.core.CowHandler;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
+import com.gmail.mooman219.layout.CowHandler;
 
 public class CHPacket implements CowHandler {
     public static String cast = "[CC][Packet] ";
@@ -17,10 +17,10 @@ public class CHPacket implements CowHandler {
     public static Manager manager;
 
     public CHPacket() {}
-    
+
     @Override
     public String getName() {
-        return "Packet"; 
+        return "Packet";
     }
 
     @Override

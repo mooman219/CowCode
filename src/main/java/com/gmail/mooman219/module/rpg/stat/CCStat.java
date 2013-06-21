@@ -1,7 +1,7 @@
 package com.gmail.mooman219.module.rpg.stat;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
+import com.gmail.mooman219.layout.CowComponent;
 
 public class CCStat implements CowComponent {
     public final Loader plugin;
@@ -19,7 +19,7 @@ public class CCStat implements CowComponent {
 
     @Override
     public String getName() {
-        return "RPG Stat"; 
+        return "RPG Stat";
     }
 
     @Override

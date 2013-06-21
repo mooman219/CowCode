@@ -5,7 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.event.DataCreateEvent;
 import com.gmail.mooman219.frame.event.DataRemovalEvent;
 import com.gmail.mooman219.frame.event.DataVerifyEvent;

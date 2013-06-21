@@ -1,7 +1,7 @@
 package com.gmail.mooman219.module.rpg.skill;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
+import com.gmail.mooman219.layout.CowComponent;
 
 public class CCSkill implements CowComponent {
     public final Loader plugin;
@@ -19,7 +19,7 @@ public class CCSkill implements CowComponent {
 
     @Override
     public String getName() {
-        return "RPG Skill"; 
+        return "RPG Skill";
     }
 
     @Override

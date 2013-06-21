@@ -3,13 +3,12 @@ package com.gmail.mooman219.module.rpg.stat.store;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class PDStat {
-    public final String tag = "stat";
-
+public class PDStat implements PlayerData {
     public int level = 1;
     public int exp = 0;
 
@@ -82,6 +81,12 @@ public class PDStat {
 
     public int unspentPoints = 3;
 
+    @Override
+    public String getTag() {
+        return "stat";
+    }
+
+    @Override
     public void sync(DBObject stat) {
         this.level = MongoHelper.getValue(stat, "level", level);
         this.exp = MongoHelper.getValue(stat, "exp", exp);
@@ -101,26 +106,27 @@ public class PDStat {
         this.unspentPoints = MongoHelper.getValue(stat, "unspentpoints", unspentPoints);
     }
 
+    @Override
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
         case SAVE:
             return (DBObject) JSON.parse("{" +
-                    TextHelper.buildQuery(tag, "level", level) + "," +
-                    TextHelper.buildQuery(tag, "exp", exp) + "," +
+                    TextHelper.buildQuery(getTag(), "level", level) + "," +
+                    TextHelper.buildQuery(getTag(), "exp", exp) + "," +
 
-                    TextHelper.buildQuery(tag, "healthcurrent", healthCur) + "," +
-                    TextHelper.buildQuery(tag, "healthmax", healthMax) + "," +
-                    TextHelper.buildQuery(tag, "manacurrent", manaCur) + "," +
-                    TextHelper.buildQuery(tag, "manamax", manaMax) + "," +
+                    TextHelper.buildQuery(getTag(), "healthcurrent", healthCur) + "," +
+                    TextHelper.buildQuery(getTag(), "healthmax", healthMax) + "," +
+                    TextHelper.buildQuery(getTag(), "manacurrent", manaCur) + "," +
+                    TextHelper.buildQuery(getTag(), "manamax", manaMax) + "," +
 
-                    TextHelper.buildQuery(tag, "strength", strength) + "," +
-                    TextHelper.buildQuery(tag, "dexterity", dexterity) + "," +
-                    TextHelper.buildQuery(tag, "constitution", constitution) + "," +
-                    TextHelper.buildQuery(tag, "intelligence", intelligence) + "," +
-                    TextHelper.buildQuery(tag, "wisdom", wisdom) + "," +
-                    TextHelper.buildQuery(tag, "charisma", charisma) + "," +
+                    TextHelper.buildQuery(getTag(), "strength", strength) + "," +
+                    TextHelper.buildQuery(getTag(), "dexterity", dexterity) + "," +
+                    TextHelper.buildQuery(getTag(), "constitution", constitution) + "," +
+                    TextHelper.buildQuery(getTag(), "intelligence", intelligence) + "," +
+                    TextHelper.buildQuery(getTag(), "wisdom", wisdom) + "," +
+                    TextHelper.buildQuery(getTag(), "charisma", charisma) + "," +
 
-                    TextHelper.buildQuery(tag, "unspentpoints", unspentPoints) +
+                    TextHelper.buildQuery(getTag(), "unspentpoints", unspentPoints) +
                     "}");
         case STATUS:
         default:

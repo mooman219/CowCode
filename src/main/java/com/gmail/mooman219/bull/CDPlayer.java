@@ -1,4 +1,4 @@
-package com.gmail.mooman219.bullbukkit;
+package com.gmail.mooman219.bull;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -116,10 +116,10 @@ public class CDPlayer extends BullData {
      */
 
     public void sync(DBObject playerObject) {
-        serviceData.sync(MongoHelper.getValue(playerObject, serviceData.tag, new BasicDBObject()));
-        loginData.sync(MongoHelper.getValue(playerObject, loginData.tag, new BasicDBObject()));
-        chatData.sync(MongoHelper.getValue(playerObject, chatData.tag, new BasicDBObject()));
-        statData.sync(MongoHelper.getValue(playerObject, statData.tag, new BasicDBObject()));
+        serviceData.sync(MongoHelper.getValue(playerObject, serviceData.getTag(), new BasicDBObject()));
+        loginData.sync(MongoHelper.getValue(playerObject, loginData.getTag(), new BasicDBObject()));
+        chatData.sync(MongoHelper.getValue(playerObject, chatData.getTag(), new BasicDBObject()));
+        statData.sync(MongoHelper.getValue(playerObject, statData.getTag(), new BasicDBObject()));
     }
 
     public BasicDBObject getTemplate(UploadReason reason) {

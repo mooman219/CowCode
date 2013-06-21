@@ -1,9 +1,9 @@
 package com.gmail.mooman219.module.chat;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.chat.command.Global;
 import com.gmail.mooman219.module.chat.command.Message;
 import com.gmail.mooman219.module.chat.command.Reply;
@@ -33,7 +33,7 @@ public class CCChat implements CowComponent {
 
     @Override
     public String getName() {
-        return "Chat"; 
+        return "Chat";
     }
 
     @Override

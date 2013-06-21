@@ -2,7 +2,7 @@ package com.gmail.mooman219.module.rpg.stat.store;
 
 import java.lang.ref.SoftReference;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 
 public class PLStat {
     private SoftReference<CDPlayer> softLastMessaged;

@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
-import com.gmail.mooman219.bullbukkit.PlayerShutdownType;
-import com.gmail.mooman219.bullbukkit.PlayerStartupType;
+import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.bull.PlayerShutdownType;
+import com.gmail.mooman219.bull.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.event.CEventFactory;
 import com.gmail.mooman219.handler.database.CHDatabase;

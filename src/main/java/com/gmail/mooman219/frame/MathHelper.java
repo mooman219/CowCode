@@ -112,11 +112,19 @@ public class MathHelper {
             return true;
         case "sure":
             return true;
+        case "kk":
+            return true;
         case "ok":
             return true;
         case "okay":
             return true;
         case "please":
+            return true;
+        case "confirm":
+            return true;
+        case "accept":
+            return true;
+        case "correct":
             return true;
         default:
             return false;

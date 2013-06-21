@@ -2,7 +2,7 @@ package com.gmail.mooman219.frame.scoreboard;
 
 import java.util.HashMap;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.handler.packet.CHPacket;
 

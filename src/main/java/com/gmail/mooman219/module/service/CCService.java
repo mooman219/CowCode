@@ -1,9 +1,9 @@
 package com.gmail.mooman219.module.service;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
 import com.gmail.mooman219.module.service.command.Whois;
@@ -29,7 +29,7 @@ public class CCService implements CowComponent {
 
     @Override
     public String getName() {
-        return "Service"; 
+        return "Service";
     }
 
     @Override

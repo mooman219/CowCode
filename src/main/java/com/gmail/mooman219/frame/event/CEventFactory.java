@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import com.gmail.mooman219.bullbukkit.CDPlayer;
+import com.gmail.mooman219.bull.CDPlayer;
 
 public class CEventFactory {
     public static DataCreateEvent callDataCreateEvent(PlayerLoginEvent event, CDPlayer player) {

@@ -18,6 +18,8 @@ import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.module.chat.CCChat;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.login.CCLogin;

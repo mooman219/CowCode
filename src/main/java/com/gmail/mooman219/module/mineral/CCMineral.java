@@ -1,9 +1,9 @@
 package com.gmail.mooman219.module.mineral;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.core.CowComponent;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.mineral.command.AddMineral;
 import com.gmail.mooman219.module.mineral.command.ClearMinerals;
 import com.gmail.mooman219.module.mineral.command.ListMinerals;
@@ -27,7 +27,7 @@ public class CCMineral implements CowComponent {
         MSG = new Messages();
         FRM = new Formats();
     }
-    
+
     @Override
     public String getName() {
         return "Mineral";
