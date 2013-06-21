@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.chat.store;
 
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
@@ -8,8 +9,12 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class PDChat implements PlayerData {
+public class PDChat extends PlayerData {
     public long mutedUntil = 0l;
+
+    public PDChat(CDPlayer player) {
+        super(player);
+    }
 
     @Override
     public String getTag() {

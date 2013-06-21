@@ -12,7 +12,6 @@ import com.gmail.mooman219.frame.serialize.CSLocation;
 @SerializableAs(value = "CSGraveyard")
 public class CSGraveyard implements ConfigurationSerializable{
     public final CSLocation location;
-    //
     public int levelRequirement = 0;
 
     public CSGraveyard(Location location, int levelRequirement) {

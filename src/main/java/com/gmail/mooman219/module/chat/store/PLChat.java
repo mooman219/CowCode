@@ -3,10 +3,15 @@ package com.gmail.mooman219.module.chat.store;
 import java.lang.ref.SoftReference;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.layout.PlayerLive;
 
-public class PLChat {
+public class PLChat extends PlayerLive {
     private SoftReference<CDPlayer> softLastMessaged;
     public long lastGlobalChat = 0l;
+
+    public PLChat(CDPlayer player) {
+        super(player);
+    }
 
     public CDPlayer getLastMessaged() {
         if (softLastMessaged == null || softLastMessaged.get() == null) {

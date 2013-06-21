@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.Packet;
+import net.minecraft.server.Packet101CloseWindow;
 import net.minecraft.server.Packet20NamedEntitySpawn;
 import net.minecraft.server.Packet29DestroyEntity;
 import net.minecraft.server.Packet8UpdateHealth;
@@ -31,7 +32,6 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.handler.database.UploadReason;
-import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
@@ -66,10 +66,10 @@ public class CDPlayer extends BullData {
         this.id = id;
         this.username = username;
 
-        this.serviceData = new PDService();
-        this.loginData = new PDLogin();
-        this.chatData = new PDChat();
-        this.statData = new PDStat();
+        this.serviceData = new PDService(this);
+        this.loginData = new PDLogin(this);
+        this.chatData = new PDChat(this);
+        this.statData = new PDStat(this);
     }
 
     public void startup(Player player, PlayerStartupType startupType) {
@@ -77,7 +77,7 @@ public class CDPlayer extends BullData {
         case POST_VERIFY: // This is done in another thread
             thread = Executors.newSingleThreadExecutor();
             /** Live module data to be added **/
-            chat = new PLChat();
+            chat = new PLChat(this);
             /**/
             break;
         case PRE_CREATION:
@@ -151,7 +151,7 @@ public class CDPlayer extends BullData {
 
     public void closeInventory() {
         EntityPlayer handle = getHandle();
-        CHPacket.manager.sendCloseWindow(this, handle.activeContainer.windowId); // Tell the player to close their inventory
+        sendPacket(new Packet101CloseWindow(handle.activeContainer.windowId)); // Tell the player to close their inventoryry
         handle.activeContainer.transferTo(handle.defaultContainer, (CraftHumanEntity) player); // Tell bukkit to close the inventory
         PlayerInventory playerinventory = handle.inventory; // Drop any items being held while in the inventory
         if (playerinventory.getCarried() != null) {
@@ -230,9 +230,9 @@ public class CDPlayer extends BullData {
     }
 
     // Updates the current player's (health, foodlevel, foodsaturation)
-    public void updateStatus() {
-        EntityPlayer handle = getHandle();
-        sendPacket(new Packet8UpdateHealth(handle.getScaledHealth(), 20, 5F));
+    // Health max = 20, FoodLevel max = 20, FoodSaturation max = 5f
+    public void updateStatus(int health, int foodlevel, float foodsaturation) {
+        sendPacket(new Packet8UpdateHealth(health, foodlevel, foodsaturation));
     }
 
     public void setTabListName(String name) {

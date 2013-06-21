@@ -1,6 +1,5 @@
 package com.gmail.mooman219.handler.packet;
 
-import net.minecraft.server.Packet101CloseWindow;
 import net.minecraft.server.Packet201PlayerInfo;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
@@ -32,11 +31,6 @@ public class CHPacket implements CowHandler {
     public void onDisable() {}
 
     public class Manager {
-        public void sendCloseWindow(CDPlayer player, int windowID) {
-            Packet101CloseWindow packet101 = new Packet101CloseWindow(windowID);
-            player.sendPacket(packet101);
-        }
-
         public void sendSetScoreboardObjective(CDPlayer player, String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {
             Packet206SetScoreboardObjective packet206 = new Packet206SetScoreboardObjective();
             packet206.a = scoreboardTitle;
