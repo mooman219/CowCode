@@ -32,14 +32,14 @@ public class CDChunk extends BullData {
     public CSRegionInformation getParentInformation() {
         if(parentInformation == null) {
             parentInformation = StoreRegionInformation.getInformation(parentUUID);
-            parentUUID = parentInformation.uuid;
+            parentUUID = parentInformation.getUUID();
         }
         return parentInformation;
     }
 
     public void setParentInformation(CSRegionInformation information) {
         parentInformation = information;
-        parentUUID = information.uuid;
+        parentUUID = information.getUUID();
     }
 
     public Mineral getMineral(Block block) {
