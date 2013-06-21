@@ -48,8 +48,8 @@ public class CHDatabase implements CowHandler {
             }
             c_Users = database.getCollection("data_users");
         } catch(Exception e) {
-            e.printStackTrace();
             Loader.warning(cast + "Unable to connect to database");
+            e.printStackTrace();
             Bukkit.shutdown();
         }
         Loader.info(cast + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");

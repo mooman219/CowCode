@@ -31,6 +31,8 @@ public class ConfigGlobal extends ConfigBase {
     public static boolean disableBlockFromTo = true;
     public static boolean disableLeafDecay = true;
     public static boolean disableLightningStrike = true;
+    public static boolean disableStructureGrow = true;
+    public static boolean disableWorldSaving = false;
 
     public ConfigGlobal() {
         super(CHConfig.directory, "config.yml");
@@ -67,6 +69,8 @@ public class ConfigGlobal extends ConfigBase {
         disableBlockFromTo = loadVar("World.Disable.Block_From_To", disableBlockFromTo);
         disableLeafDecay = loadVar("World.Disable.Leaf_Decay", disableLeafDecay);
         disableLightningStrike = loadVar("World.Disable.Lightning_Strike", disableLightningStrike);
+        disableStructureGrow = loadVar("World.Disable.Structure_Grow", disableStructureGrow);
+        disableWorldSaving = loadVar("World.Disable.World_Saving", disableWorldSaving);
     }
 
     @Override
@@ -99,5 +103,7 @@ public class ConfigGlobal extends ConfigBase {
         saveVar("World.Disable.Block_From_To", disableBlockFromTo);
         saveVar("World.Disable.Leaf_Decay", disableLeafDecay);
         saveVar("World.Disable.Lightning_Strike", disableLightningStrike);
+        saveVar("World.Disable.Structure_Grow", disableStructureGrow);
+        saveVar("World.Disable.World_Saving", disableWorldSaving);
     }
 }
