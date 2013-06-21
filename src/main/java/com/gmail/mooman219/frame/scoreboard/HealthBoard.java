@@ -8,10 +8,7 @@ import com.gmail.mooman219.handler.packet.CHPacket;
 
 /**
  * The faster version (this one), basically just doesn't save any information and
- * relies on the client to store all the names.  The slower version keeps track of
- * all the names on the board and removes unused ones.  The only downside to the
- * faster version is that a client that has been playing for a few hours might
- * have a shit ton of names stored locally.
+ * relies on the client to store all the names.
  */
 public class HealthBoard {
     private final String title;

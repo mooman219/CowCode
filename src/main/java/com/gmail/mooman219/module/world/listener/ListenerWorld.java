@@ -18,7 +18,7 @@ public class ListenerWorld implements Listener {
 
     @EventHandler()
     public void onInit(WorldInitEvent event) {
-        if(ConfigGlobal.disableWorldSaving) {            
+        if(ConfigGlobal.disableWorldSaving) {
             event.getWorld().setAutoSave(false);
         }
         event.getWorld().setDifficulty(Difficulty.HARD);
