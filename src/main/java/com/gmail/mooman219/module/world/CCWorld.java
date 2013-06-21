@@ -15,6 +15,11 @@ public class CCWorld implements CowComponent {
     public CCWorld(Loader head) {
         plugin = head;
     }
+    
+    @Override
+    public String getCast() {
+        return cast; 
+    }
 
     @Override
     public void onEnable(){

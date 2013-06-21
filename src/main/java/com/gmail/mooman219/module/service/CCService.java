@@ -28,6 +28,11 @@ public class CCService implements CowComponent {
     }
 
     @Override
+    public String getCast() {
+        return cast; 
+    }
+
+    @Override
     public void onEnable(){
         listenerData = new ListenerData();
         messingAround = new MessingAround();

@@ -23,7 +23,6 @@ public abstract class ConfigBase {
             directory = directory+"/";
         }
         Loader.info("Loading file: " + directory + fileName);
-        //Loader.log.info(Loader.cast + "Loading file: " + directory + fileName);
     }
 
     public void init() {

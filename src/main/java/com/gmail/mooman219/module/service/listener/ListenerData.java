@@ -27,12 +27,15 @@ public class ListenerData implements Listener {
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
         Loader.info(CCService.cast + "[EVENT] PreLogin: " + event.getName());
 
+        // Kick the player if they do not have a minecraft account :)
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.KICK_VERIFY) {
             event.setKickMessage(CCService.MSG.USERNAMEFAIL + "");
             return;
         }
+        // Set the kick message blank so that I can tell if another module changed it
         event.setKickMessage("");
         CDPlayer player = CHDatabase.manager.downloadPlayer(event.getName(), DownloadReason.LOGIN);
+        // If there is no playerdata, don't let the player join, else MAJOR problems.
         if(player == null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CCService.MSG.LOGINERROR + "");
             return;

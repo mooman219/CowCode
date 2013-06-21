@@ -29,6 +29,11 @@ public class CHTask implements CowHandler {
     }
 
     @Override
+    public String getCast() {
+        return cast; 
+    }
+
+    @Override
     public void onEnable() {
         manager = new Manager();
         Loader.info(cast + "Starting plugin threads");

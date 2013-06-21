@@ -33,6 +33,11 @@ public class CCGraveyard implements CowComponent {
         MSG = new Messages();
         FRM = new Formats();
     }
+    
+    @Override
+    public String getCast() {
+        return cast; 
+    }
 
     @Override
     public void onEnable(){

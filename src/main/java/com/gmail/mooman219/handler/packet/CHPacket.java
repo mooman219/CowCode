@@ -17,6 +17,13 @@ public class CHPacket implements CowHandler {
 
     public static Manager manager;
 
+    public CHPacket() {}
+    
+    @Override
+    public String getCast() {
+        return cast; 
+    }
+
     @Override
     public void onEnable() {
         manager = new Manager();

@@ -9,7 +9,7 @@ public class ConfigGlobal extends ConfigBase {
     // [ ]---[+] Database
     public static String server_id = "Alpha";
     public static String server_loc = "US";
-    public static long downloadTimeout = 5L;
+    public static int downloadTimeout = 5;
     public static String hostname = "localhost";
     public static int portnmbr = 27017;
     public static String username = "cow";

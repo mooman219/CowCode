@@ -27,9 +27,15 @@ public class CHDatabase implements CowHandler {
 
     public static Manager manager;
     private DB database;
-    //private DBCollection c_Server;
     private DBCollection c_Users;
     private MongoClient client;
+    
+    public CHDatabase() {}
+
+    @Override
+    public String getCast() {
+        return cast; 
+    }
 
     @Override
     public void onEnable() {
@@ -40,18 +46,20 @@ public class CHDatabase implements CowHandler {
             if(!database.authenticate(ConfigGlobal.username, ConfigGlobal.password.toCharArray())) {
                 throw new IllegalArgumentException("Unable to authenticate to database.");
             }
-            //c_Server = database.getCollection("data_server");
             c_Users = database.getCollection("data_users");
         } catch(Exception e) {
             e.printStackTrace();
             Loader.warning(cast + "Unable to connect to database");
             Bukkit.shutdown();
         }
+        Loader.info(cast + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
+        Loader.info(cast + "Enabled");
     }
 
     @Override
     public void onDisable() {
         client.close();
+        Loader.info(cast + "Disabled");
     }
 
     public class Manager {
@@ -85,12 +93,16 @@ public class CHDatabase implements CowHandler {
         }
 
         public CDPlayer downloadPlayer(final String username, final DownloadReason reason) {
+            // Create a downloader
             PlayerDownloader downloader = new PlayerDownloader(username, reason);
+            // Run the downloader on the plugin's thread pool
             Future<CDPlayer> future = CHTask.manager.runPlugin(downloader);
             try {
+                // Wait for the download, if it is taking too long, then just stop
+                //  and return null. Anything that uses downloadPlayer should be r-
+                // -eady to handle a null player
                 return future.get(ConfigGlobal.downloadTimeout, TimeUnit.SECONDS);
             } catch(TimeoutException e) {
-                // Do nothing
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -142,7 +154,7 @@ public class CHDatabase implements CowHandler {
                     return null;
                 }
             } catch(Exception e) {
-                Loader.warning("Currently " + (CHDatabase.manager.isConnected() ? "" : "not") + " connected to database.");
+                Loader.warning(cast + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
                 e.printStackTrace();
             }
             return null;

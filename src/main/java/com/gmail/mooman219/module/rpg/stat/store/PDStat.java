@@ -106,20 +106,20 @@ public class PDStat {
         case CREATION:
         case SAVE:
             return (DBObject) JSON.parse("{" +
-                    TextHelper.buildQuery(tag, "level", level) +
-                    TextHelper.buildQuery(tag, "exp", exp) +
+                    TextHelper.buildQuery(tag, "level", level) + "," +
+                    TextHelper.buildQuery(tag, "exp", exp) + "," +
 
-                    TextHelper.buildQuery(tag, "healthcurrent", healthCur) +
-                    TextHelper.buildQuery(tag, "healthmax", healthMax) +
-                    TextHelper.buildQuery(tag, "manacurrent", manaCur) +
-                    TextHelper.buildQuery(tag, "manamax", manaMax) +
+                    TextHelper.buildQuery(tag, "healthcurrent", healthCur) + "," +
+                    TextHelper.buildQuery(tag, "healthmax", healthMax) + "," +
+                    TextHelper.buildQuery(tag, "manacurrent", manaCur) + "," +
+                    TextHelper.buildQuery(tag, "manamax", manaMax) + "," +
 
-                    TextHelper.buildQuery(tag, "strength", strength) +
-                    TextHelper.buildQuery(tag, "dexterity", dexterity) +
-                    TextHelper.buildQuery(tag, "constitution", constitution) +
-                    TextHelper.buildQuery(tag, "intelligence", intelligence) +
-                    TextHelper.buildQuery(tag, "wisdom", wisdom) +
-                    TextHelper.buildQuery(tag, "charisma", charisma) +
+                    TextHelper.buildQuery(tag, "strength", strength) + "," +
+                    TextHelper.buildQuery(tag, "dexterity", dexterity) + "," +
+                    TextHelper.buildQuery(tag, "constitution", constitution) + "," +
+                    TextHelper.buildQuery(tag, "intelligence", intelligence) + "," +
+                    TextHelper.buildQuery(tag, "wisdom", wisdom) + "," +
+                    TextHelper.buildQuery(tag, "charisma", charisma) + "," +
 
                     TextHelper.buildQuery(tag, "unspentpoints", unspentPoints) +
                     "}");
