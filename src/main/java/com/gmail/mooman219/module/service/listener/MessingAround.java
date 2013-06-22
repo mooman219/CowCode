@@ -8,10 +8,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.frame.ItemHelper;
+import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
 
@@ -93,6 +97,16 @@ public class MessingAround implements Listener {
     public void onDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player) {
             CDPlayer.healthBoard.updatePlayer(CDPlayer.get((Player) event.getEntity()));
+        }
+    }
+    
+    @EventHandler()
+    public void onInventoryClick(InventoryClickEvent event) {
+        if(event.getInventory().getTitle().startsWith("TEST")) {
+            CDPlayer player = CDPlayer.get((Player) event.getWhoClicked());
+            Inventory inv = Bukkit.createInventory(player.getPlayer(), 9, "TEST - " + (MathHelper.nextRandom().nextInt(100) + 1));
+            inv.setItem(0, ItemHelper.setName(1, Chat.GOLD + inv.getTitle()));
+            player.openInventory(inv);
         }
     }
 

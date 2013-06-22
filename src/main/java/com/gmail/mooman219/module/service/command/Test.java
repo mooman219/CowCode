@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.service.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
@@ -13,6 +14,6 @@ public class Test extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-
+        sender.openInventory(Bukkit.createInventory(sender, 9, "TEST - 0"));
     }
 }
