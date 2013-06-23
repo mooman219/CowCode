@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.server.NBTTagCompound;
 
 import org.bukkit.Chunk;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.frame.TagHelper;
+import com.gmail.mooman219.frame.WorldHelper;
 
 public class Mineral {
     public final int x;
@@ -58,6 +60,14 @@ public class Mineral {
         return this.x == x && this.y == y && this.z == z;
     }
 
+    public Block getBlock(CDChunk chunk) {
+        return chunk.chunk.getWorld().getBlockAt(x, y, z);
+    }
+
+    public Block getBlock(Chunk chunk) {
+        return chunk.getWorld().getBlockAt(x, y, z);
+    }
+
     public Location getLocation(CDChunk chunk) {
         return new Location(chunk.chunk.getWorld(), x, y, z);
     }
@@ -67,18 +77,21 @@ public class Mineral {
     }
 
     public void tick(Chunk chunk, long time) {
-        if(respawnTime != -1 && time - respawnTime > 0) {
+        if(respawnTime > -1 && time - respawnTime > 0) {
             revert(chunk);
         }
     }
 
     public void revert(Chunk chunk) {
-        chunk.getWorld().getBlockAt(x, y, z).setType(type);
+        Block block = getBlock(chunk);
+        WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
+        block.setType(type);
         respawnTime = -1;
     }
 
     public void mine(Chunk chunk) {
         respawnTime = System.currentTimeMillis() + respawnDelay;
+        getBlock(chunk).setType(Material.COBBLESTONE);
     }
 
     public NBTTagCompound toCompound() {

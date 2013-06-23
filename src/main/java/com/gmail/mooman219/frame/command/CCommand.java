@@ -10,22 +10,30 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class CCommand implements CommandExecutor {
-    public String command;
-    public CommandUsage usage;
-    public Rank requiredRank;
-    public String help;
+    public final String command;
+    private CommandUsage usage;
+    private Rank requiredRank;
+    private String help;
+    private String argumentList;
 
     public CCommand(String command, Rank requiredRank, String help, Carg... arguments) {
         this.command = command;
         this.usage = new CommandUsage(arguments);
         this.requiredRank = requiredRank;
         this.help = help;
+
+        this.argumentList = "";
+        for(Carg argument : arguments) {
+            argumentList += Chat.GRAY + "(" + Chat.WHITE + argument.name + Chat.GRAY + ") ";
+        }
     }
 
     @Override
     public final boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!usage.validate(args)) {
-            sender.sendMessage(Chat.msgError + "Invalid Usage.\n" + Chat.lineError + "Correct Usage" + Chat.DARK_GRAY + ": " + Chat.WHITE + help);
+            sender.sendMessage(Chat.msgError + "Invalid Usage.\n" +
+                    Chat.lineError + "Arguments" + Chat.DARK_GRAY + ": " + argumentList + "\n" +
+                    Chat.lineError + "Correct Usage" + Chat.DARK_GRAY + ": " + Chat.WHITE + help + "\n");
         } else if(sender instanceof Player) {
             Player player = (Player) sender;
             CDPlayer playerData = CDPlayer.get(player);

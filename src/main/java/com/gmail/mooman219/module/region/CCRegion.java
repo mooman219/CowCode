@@ -7,6 +7,7 @@ import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
+import com.gmail.mooman219.module.region.command.ModifyID;
 import com.gmail.mooman219.module.region.command.ModifyInformation;
 import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
@@ -60,6 +61,7 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void loadCommands() {
+        plugin.addCommand(new ModifyID());
         plugin.addCommand(new ModifyCombat());
         plugin.addCommand(new ModifyInformation());
         plugin.addCommand(new ModifyName());

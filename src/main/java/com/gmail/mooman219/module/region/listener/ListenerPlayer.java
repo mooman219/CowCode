@@ -14,7 +14,7 @@ public class ListenerPlayer implements Listener{
     public void onMove(PlayerMoveEvent event) {
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            CDChunk chunkData = CDChunk.get(event.getPlayer());
+            CDChunk chunkData = CDChunk.get(event.getTo());
             playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getParentInformation().getName());
             playerData.getSidebar().modifyName("regionc", "• " + Chat.GREEN + chunkData.getParentInformation().getCombatType().name());
         }

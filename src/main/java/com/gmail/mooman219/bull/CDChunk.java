@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.server.NBTTagCompound;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
+import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.mineral.store.Mineral;
 import com.gmail.mooman219.module.region.store.CSRegionInformation;
 import com.gmail.mooman219.module.region.store.StoreRegionInformation;
@@ -65,6 +67,7 @@ public class CDChunk extends BullData {
 
     @Override
     public void onTick() {
+        // Tick the minerals every 1.5 seconds because the system is based on REAL time.
         if(tick >= 30) {
             long time = System.currentTimeMillis();
             tick = 0;
@@ -97,6 +100,10 @@ public class CDChunk extends BullData {
 
     public static CDChunk get(Block block) {
         return get(block.getChunk());
+    }
+
+    public static CDChunk get(Location location) {
+        return get(location.getChunk());
     }
 
     public static CDChunk get(Entity entity) {

@@ -99,7 +99,7 @@ public class MessingAround implements Listener {
             CDPlayer.healthBoard.updatePlayer(CDPlayer.get((Player) event.getEntity()));
         }
     }
-    
+
     @EventHandler()
     public void onInventoryClick(InventoryClickEvent event) {
         if(event.getInventory().getTitle().startsWith("TEST")) {

@@ -65,6 +65,9 @@ commands:
     memory:
         aliases:
         - mem
+    modifyid:
+        aliases:
+        - rmid
     modifycombat:
         aliases:
         - rmc

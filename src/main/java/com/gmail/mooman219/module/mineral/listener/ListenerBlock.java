@@ -13,6 +13,7 @@ public class ListenerBlock implements Listener{
         Mineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock());
         if(mineral != null && event.getBlock().getType() == mineral.type) {
             mineral.mine(event.getBlock().getChunk());
+            event.setCancelled(true);
         }
     }
 }

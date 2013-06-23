@@ -13,8 +13,8 @@ import com.gmail.mooman219.module.region.store.RegionCombatType;
 public class CSRegionInformation implements ConfigurationSerializable {
     // These identify the region, don't fuck with them
     private final String uuid;
-    private final String id;
 
+    private String id;
     private String name = "DefaultName";
     private String description = "Default description.";
     private RegionCombatType combatType = RegionCombatType.SAFE;
@@ -135,6 +135,10 @@ public class CSRegionInformation implements ConfigurationSerializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setID(String id) {
+        this.id = id;
     }
 
     public void setName(String name) {

@@ -21,6 +21,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
+import com.mongodb.WriteResult;
 
 public class CHDatabase implements CowHandler {
     public final static String cast = "[CC][Database] ";
@@ -79,7 +80,11 @@ public class CHDatabase implements CowHandler {
                         player.shutdown(PlayerShutdownType.POST_REMOVAL);
                     }
                     DBObject playerObject = player.getTemplate(reason);
-                    c_Users.update(new BasicDBObject("_id", player.id), new BasicDBObject("$set", playerObject));
+                    WriteResult result = c_Users.update(new BasicDBObject("_id", player.id), new BasicDBObject("$set", playerObject));
+                    if(result.getError() != null) {
+                        Loader.warning(cast + "Mongo Error");
+                        Loader.warning(cast + result.getError());
+                    }
                     Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.username);
                 }
             };

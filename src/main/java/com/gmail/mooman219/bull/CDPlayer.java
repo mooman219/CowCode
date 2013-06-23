@@ -13,6 +13,7 @@ import net.minecraft.server.ItemStack;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet100OpenWindow;
 import net.minecraft.server.Packet101CloseWindow;
+import net.minecraft.server.Packet103SetSlot;
 import net.minecraft.server.Packet20NamedEntitySpawn;
 import net.minecraft.server.Packet29DestroyEntity;
 import net.minecraft.server.Packet8UpdateHealth;
@@ -159,21 +160,13 @@ public class CDPlayer extends BullData {
         });
     }
 
+    /**
+     * This returns true if the player has an inventory window open that's
+     * different from the main player inventory.
+     */
     public boolean isInventoryOpen() {
         EntityPlayer handle = getHandle();
         return handle.activeContainer != handle.defaultContainer;
-    }
-    
-    /**
-     * THIS DROPS AN ITEM A PLAYER IS HOLDING WHILE IN AN INVENTORY
-     */
-    public void dropItemInHand() {
-        EntityPlayer handle = getHandle();
-        PlayerInventory playerinventory = handle.inventory;
-        if (playerinventory.getCarried() != null) {
-            handle.drop(playerinventory.getCarried());
-            playerinventory.setCarried((ItemStack) null);
-        }
     }
 
     /**
@@ -182,7 +175,7 @@ public class CDPlayer extends BullData {
  |        this.playerConnection.sendPacket(new Packet101CloseWindow(this.activeContainer.windowId));
  |   +--  j() {
  |   |   +  b(EntityHuman entityhuman) {
- |   |   |    
+ |   |   |
  |   |   |    PlayerInventory playerinventory = entityhuman.inventory;
  |   |   |    if (playerinventory.getCarried() != null) {
  |   |   |        entityhuman.drop(playerinventory.getCarried());
@@ -197,7 +190,7 @@ public class CDPlayer extends BullData {
         EntityPlayer handle = getHandle();
         sendPacket(new Packet101CloseWindow(handle.activeContainer.windowId)); // Tell the player to close their inventory
         handle.activeContainer.transferTo(handle.defaultContainer, (CraftHumanEntity) player); // Tell bukkit to close the inventory
-        dropItemInHand();
+        // Drop item inhand
         handle.activeContainer = handle.defaultContainer; // Close the inventory
     }
 
@@ -208,17 +201,17 @@ public class CDPlayer extends BullData {
  |        InventoryType type = inventory.getType();
  |        Container formerContainer = getHandle().activeContainer;
  |        // TODO: Should we check that it really IS a CraftInventory first?
- |        CraftInventory craftinv = (CraftInventory) inventory;        
+ |        CraftInventory craftinv = (CraftInventory) inventory;
  |   +--  openContainer(IInventory iinventory) { [ getHandle().openContainer(craftinv.getInventory()); ]
  |   |      if (this.activeContainer != this.defaultContainer) {
  |   |          this.closeInventory();
  |   |      }
- |   |      
+ |   |
  |   |      // CraftBukkit start - Inventory open hook
  |   |      Container container = CraftEventFactory.callInventoryOpenEvent(this, new ContainerChest(this.inventory, iinventory));
  |   |      if(container == null) return;
  |   |      // CraftBukkit end
- |   |      
+ |   |
  |   |      this.nextContainerCounter();
  |   |      this.playerConnection.sendPacket(new Packet100OpenWindow(this.containerCounter, 0, iinventory.getName(), iinventory.getSize(), iinventory.c()));
  |   |      this.activeContainer = container; // CraftBukkit - Use container we passed to event
@@ -238,21 +231,26 @@ public class CDPlayer extends BullData {
             EntityPlayer handle = getHandle();
             CraftPlayer craftPlayer = (CraftPlayer) player;
             CraftInventory craftInventory = (CraftInventory) inventory;
+            PlayerInventory handleinventory = handle.inventory;
             IInventory iinventory = craftInventory.getInventory();
             Container container = new ContainerChest(handle.inventory, iinventory);
             container.checkReachable = false;
-            //
-            dropItemInHand();
+
             sendPacket(new Packet101CloseWindow(handle.activeContainer.windowId));
-            //
+            if (handleinventory.getCarried() != null) {
+                sendPacket(new Packet103SetSlot(-1, -1, null));
+                //handle.drop(handleinventory.getCarried());
+                handleinventory.setCarried((ItemStack) null);
+            }
+
             handle.activeContainer.transferTo(container, craftPlayer);
-            
+
             int counter = handle.nextContainerCounter();
             int windowType = CraftContainer.getNotchInventoryType(inventory.getType());
             String title = iinventory.getName();
             int size = iinventory.getSize();
             boolean useTitle = true;
-            
+
             handle.playerConnection.sendPacket(new Packet100OpenWindow(counter, windowType, title, size, useTitle));
             handle.activeContainer = container;
             handle.activeContainer.windowId = counter;
