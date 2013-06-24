@@ -16,6 +16,7 @@ import net.minecraft.server.Packet29DestroyEntity;
 import net.minecraft.server.Packet8UpdateHealth;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
+
 import org.bson.types.ObjectId;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftContainer;
@@ -310,6 +311,20 @@ public class CDPlayer extends BullData {
             ((PendingConnection) event.getPendingConnection()).bull_live = player;
         } else {
             throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getName() + "'.");
+        }
+    }
+    
+    /**
+     * This method will save any of the CDPlayer data then remove it from the Player object.
+     * This should be called when the Player leaves to prevent the data from presisting.
+     */
+    public static void unload(Player player) {
+        net.minecraft.server.Entity handle = ((CraftPlayer)player).getHandle();
+        if(handle.bull_live != null) {
+            if(handle.bull_live instanceof BullData) {                
+                ((BullData) handle.bull_live).onTagSave(handle.bull_tag);
+            }
+            handle.bull_live = null;
         }
     }
 }

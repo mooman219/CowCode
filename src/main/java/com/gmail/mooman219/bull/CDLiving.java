@@ -41,6 +41,10 @@ public class CDLiving extends BullData {
         return (CDLiving) handle.bull_live;
     }
     
+    /**
+     * This method will save any of the CDLiving data then remove it from the LivingEntity object.
+     * This should be called when the LivingEntity dies to prevent the data from presisting.
+     */
     public static void unload(LivingEntity livingEntity) {
         net.minecraft.server.Entity handle = ((CraftLivingEntity)livingEntity).getHandle();
         if(livingEntity instanceof Player) {

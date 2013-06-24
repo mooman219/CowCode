@@ -8,8 +8,8 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.store.CSRegionInformation;
-import com.gmail.mooman219.module.region.store.StoreRegionInformation;
+import com.gmail.mooman219.module.region.store.CSRegionInfo;
+import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class ModifyName extends CCommand {
     public ModifyName() {
@@ -18,7 +18,7 @@ public class ModifyName extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CSRegionInformation region = StoreRegionInformation.getInformationByID(args[0]);
+        CSRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
         String name = TextHelper.merge(args, 1);
         if(region != null) {
             region.setName(name);

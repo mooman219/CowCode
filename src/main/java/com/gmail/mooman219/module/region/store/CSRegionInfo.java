@@ -10,7 +10,7 @@ import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.module.region.store.RegionCombatType;
 
 @SerializableAs(value = "CSRegionInformation")
-public class CSRegionInformation implements ConfigurationSerializable {
+public class CSRegionInfo implements ConfigurationSerializable {
     // These identify the region, don't fuck with them
     private final String uuid;
 
@@ -19,14 +19,14 @@ public class CSRegionInformation implements ConfigurationSerializable {
     private String description = "Default description.";
     private RegionCombatType combatType = RegionCombatType.SAFE;
 
-    public CSRegionInformation(String id, String name) {
+    public CSRegionInfo(String id, String name) {
         this.uuid = MathHelper.nextUUID().toString();
         this.id = id.toLowerCase();
 
         this.name = name;
     }
 
-    public CSRegionInformation(Map<String, Object> map) {
+    public CSRegionInfo(Map<String, Object> map) {
         this.uuid = TagHelper.getValue(map, "uuid", MathHelper.nextUUID().toString());
         this.id = TagHelper.getValue(map, "id", "tmp" + uuid); // The fallback should be renamed later
 
@@ -58,7 +58,7 @@ public class CSRegionInformation implements ConfigurationSerializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        CSRegionInformation other = (CSRegionInformation) obj;
+        CSRegionInfo other = (CSRegionInfo) obj;
         if (combatType != other.combatType) {
             return false;
         }
@@ -93,8 +93,8 @@ public class CSRegionInformation implements ConfigurationSerializable {
         return true;
     }
 
-    public static CSRegionInformation deserialize(Map<String, Object> map) {
-        return new CSRegionInformation(map);
+    public static CSRegionInfo deserialize(Map<String, Object> map) {
+        return new CSRegionInfo(map);
     }
 
     @Override

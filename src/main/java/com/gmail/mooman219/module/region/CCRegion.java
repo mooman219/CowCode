@@ -8,17 +8,17 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
 import com.gmail.mooman219.module.region.command.ModifyID;
-import com.gmail.mooman219.module.region.command.ModifyInformation;
+import com.gmail.mooman219.module.region.command.ModifyInfo;
 import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
-import com.gmail.mooman219.module.region.store.CSRegionInformation;
-import com.gmail.mooman219.module.region.store.StoreRegionInformation;
+import com.gmail.mooman219.module.region.store.CSRegionInfo;
+import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class CCRegion implements CowComponent {
     public final Loader plugin;
-    public StoreRegionInformation storeRegionInformation;
+    public StoreRegionInfo storeRegionInformation;
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][Region] ";
@@ -40,7 +40,7 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeRegionInformation = new StoreRegionInformation();
+        storeRegionInformation = new StoreRegionInfo();
         Loader.info(cast + "Loaded " + storeRegionInformation.fileName);
 
         listenerPlayer = new ListenerPlayer();
@@ -56,14 +56,14 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void registerConfigurationSerialization() {
-        ConfigurationSerialization.registerClass(CSRegionInformation.class, "CSRegionInformation");
+        ConfigurationSerialization.registerClass(CSRegionInfo.class, "CSRegionInformation");
     }
 
     @Override
     public void loadCommands() {
         plugin.addCommand(new ModifyID());
         plugin.addCommand(new ModifyCombat());
-        plugin.addCommand(new ModifyInformation());
+        plugin.addCommand(new ModifyInfo());
         plugin.addCommand(new ModifyName());
         plugin.addCommand(new NewRegion());
         plugin.addCommand(new SetRegion());

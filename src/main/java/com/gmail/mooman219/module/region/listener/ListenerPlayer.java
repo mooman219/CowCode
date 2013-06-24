@@ -15,9 +15,9 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
             CDChunk chunkData = CDChunk.get(event.getTo());
-            playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getParentInformation().getName());
+            playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getParentInfo().getName());
             String type;
-            switch(chunkData.getParentInformation().getCombatType()) {
+            switch(chunkData.getParentInfo().getCombatType()) {
             case SAFE:
                 type = Chat.GREEN + "" + Chat.BOLD + "Lawful";
                 break;
@@ -39,7 +39,7 @@ public class ListenerPlayer implements Listener{
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
         CDChunk chunkData = CDChunk.get(event.getPlayer());
-        playerData.getSidebar().addKey("regionn", Chat.GREEN + chunkData.getParentInformation().getName(), 6);
-        playerData.getSidebar().addKey("regionc", "• " + Chat.GREEN + chunkData.getParentInformation().getCombatType().name(), 5);
+        playerData.getSidebar().addKey("regionn", Chat.GREEN + chunkData.getParentInfo().getName(), 6);
+        playerData.getSidebar().addKey("regionc", "• " + Chat.GREEN + chunkData.getParentInfo().getCombatType().name(), 5);
     }
 }

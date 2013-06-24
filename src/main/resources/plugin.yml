@@ -71,7 +71,7 @@ commands:
     modifycombat:
         aliases:
         - rmc
-    modifyinformation:
+    modifyinfo:
         aliases:
         - rmi
     modifyname:

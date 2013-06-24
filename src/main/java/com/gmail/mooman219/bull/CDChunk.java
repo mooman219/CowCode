@@ -1,5 +1,6 @@
 package com.gmail.mooman219.bull;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 import net.minecraft.server.NBTTagCompound;
@@ -13,10 +14,11 @@ import org.bukkit.entity.Entity;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.module.mineral.store.Mineral;
-import com.gmail.mooman219.module.region.store.CSRegionInformation;
-import com.gmail.mooman219.module.region.store.StoreRegionInformation;
+import com.gmail.mooman219.module.region.store.CSRegionInfo;
+import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class CDChunk extends BullData {
+    // [+] Data information
     public final Chunk chunk;
 
     public CDChunk(Chunk chunk) {
@@ -27,19 +29,31 @@ public class CDChunk extends BullData {
      * Live
      */
 
-    private CSRegionInformation parentInformation;
+    // Unsaved
+    private SoftReference<CSRegionInfo> softParentInfo;
+    private byte tick = 0;
+    // Saved
+    public String parentUUID = "";
+    public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
 
-    public CSRegionInformation getParentInformation() {
-        if(parentInformation == null) {
-            parentInformation = StoreRegionInformation.getInformation(parentUUID);
-            parentUUID = parentInformation.getUUID();
+    public void tick() {
+        long time = System.currentTimeMillis();
+        tick = 0;
+        for(Mineral mineral : minerals) {
+            mineral.tick(chunk, time);
         }
-        return parentInformation;
+    }
+    
+    public CSRegionInfo getParentInfo() {
+        if(softParentInfo == null || softParentInfo.get() == null) {
+            softParentInfo = new SoftReference<CSRegionInfo>(StoreRegionInfo.getInfo(parentUUID));
+        }
+        return softParentInfo.get();
     }
 
-    public void setParentInformation(CSRegionInformation information) {
-        parentInformation = information;
-        parentUUID = information.getUUID();
+    public void setParentInformation(CSRegionInfo info) {
+        softParentInfo = new SoftReference<CSRegionInfo>(info);
+        parentUUID = info.getUUID();
     }
 
     public Mineral getMineral(Block block) {
@@ -58,18 +72,6 @@ public class CDChunk extends BullData {
     /*
      * Event
      */
-
-    public String parentUUID = "";
-    public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
-    private byte tick = 0;
-
-    public void tick() {
-        long time = System.currentTimeMillis();
-        tick = 0;
-        for(Mineral mineral : minerals) {
-            mineral.tick(chunk, time);
-        }
-    }
 
     @Override
     public void onTick() {
