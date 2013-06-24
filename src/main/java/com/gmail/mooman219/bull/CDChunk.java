@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.minecraft.server.NBTTagCompound;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -13,7 +12,6 @@ import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
-import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.mineral.store.Mineral;
 import com.gmail.mooman219.module.region.store.CSRegionInformation;
 import com.gmail.mooman219.module.region.store.StoreRegionInformation;
@@ -65,15 +63,19 @@ public class CDChunk extends BullData {
     public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
     private byte tick = 0;
 
+    public void tick() {
+        long time = System.currentTimeMillis();
+        tick = 0;
+        for(Mineral mineral : minerals) {
+            mineral.tick(chunk, time);
+        }
+    }
+
     @Override
     public void onTick() {
         // Tick the minerals every 1.5 seconds because the system is based on REAL time.
         if(tick >= 30) {
-            long time = System.currentTimeMillis();
-            tick = 0;
-            for(Mineral mineral : minerals) {
-                mineral.tick(chunk, time);
-            }
+            tick();
         }
         tick++;
     }
@@ -88,6 +90,7 @@ public class CDChunk extends BullData {
     public void onTagSave(NBTTagCompound tag) {
         tag.setString("region.uuid", parentUUID);
         tag.setCompound("mineral.list", Mineral.toCompoundList(minerals));
+
     }
 
     /*
@@ -117,5 +120,17 @@ public class CDChunk extends BullData {
             handle.bull_live.onTagLoad(handle.bull_tag);
         }
         return (CDChunk) handle.bull_live;
+    }
+
+    /**
+     * This method will save any of the CDChunk's data then remove it from the chunk object.
+     * This should be called when the chunk unloads to prevent the data from presisting.
+     */
+    public static void unload(Chunk chunk) {
+        net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
+        if(handle.bull_live != null) {
+            ((CDChunk) handle.bull_live).onTagSave(handle.bull_tag);
+            handle.bull_live = null;
+        }
     }
 }

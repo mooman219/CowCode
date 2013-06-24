@@ -11,9 +11,11 @@ public class ListenerBlock implements Listener{
     @EventHandler(ignoreCancelled = false)
     public void onBreak(BlockBreakEvent event) {
         Mineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock());
-        if(mineral != null && event.getBlock().getType() == mineral.type) {
-            mineral.mine(event.getBlock().getChunk());
+        if(mineral != null) {
             event.setCancelled(true);
+            if(event.getBlock().getType() == mineral.type) {
+                mineral.mine(event.getBlock().getChunk());
+            }
         }
     }
 }

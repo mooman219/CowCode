@@ -107,6 +107,7 @@ public class MessingAround implements Listener {
             Inventory inv = Bukkit.createInventory(player.getPlayer(), 9, "TEST - " + (MathHelper.nextRandom().nextInt(100) + 1));
             inv.setItem(0, ItemHelper.setName(1, Chat.GOLD + inv.getTitle()));
             player.openInventory(inv);
+            //event.setCancelled(true);
         }
     }
 

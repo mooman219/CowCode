@@ -16,7 +16,22 @@ public class ListenerPlayer implements Listener{
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
             CDChunk chunkData = CDChunk.get(event.getTo());
             playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getParentInformation().getName());
-            playerData.getSidebar().modifyName("regionc", "• " + Chat.GREEN + chunkData.getParentInformation().getCombatType().name());
+            String type;
+            switch(chunkData.getParentInformation().getCombatType()) {
+            case SAFE:
+                type = Chat.GREEN + "" + Chat.BOLD + "Lawful";
+                break;
+            case CONTESTED:
+                type = Chat.YELLOW + "" + Chat.BOLD + "Contested";
+                break;
+            // Chaotic is default because if we can't get the region, make the player think it's dangerous
+            // just in case it reall is.
+            case CHAOTIC:
+            default:
+                type = Chat.RED + "" + Chat.BOLD + "Chaotic";
+                break;
+            }
+            playerData.getSidebar().modifyName("regionc", type);
         }
     }
 
