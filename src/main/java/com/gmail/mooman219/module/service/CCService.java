@@ -9,6 +9,7 @@ import com.gmail.mooman219.module.service.command.Test;
 import com.gmail.mooman219.module.service.command.Whois;
 import com.gmail.mooman219.module.service.listener.ListenerData;
 import com.gmail.mooman219.module.service.listener.ListenerChunk;
+import com.gmail.mooman219.module.service.listener.ListenerEntity;
 import com.gmail.mooman219.module.service.listener.MessingAround;
 
 public class CCService implements CowComponent {
@@ -21,6 +22,7 @@ public class CCService implements CowComponent {
 
     public ListenerData listenerData;
     public ListenerChunk listenerChunk;
+    public ListenerEntity listenerEntity;
     public MessingAround messingAround;
 
     public CCService(Loader head) {
@@ -38,10 +40,12 @@ public class CCService implements CowComponent {
     public void onEnable(){
         listenerData = new ListenerData();
         listenerChunk = new ListenerChunk();
+        listenerEntity = new ListenerEntity();
         messingAround = new MessingAround();
 
         plugin.addListener(listenerData);
         plugin.addListener(listenerChunk);
+        plugin.addListener(listenerEntity);
         plugin.addListener(messingAround);
     }
 

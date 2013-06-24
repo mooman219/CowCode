@@ -129,7 +129,9 @@ public class CDChunk extends BullData {
     public static void unload(Chunk chunk) {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
         if(handle.bull_live != null) {
-            ((CDChunk) handle.bull_live).onTagSave(handle.bull_tag);
+            if(handle.bull_live instanceof BullData) {                
+                ((BullData) handle.bull_live).onTagSave(handle.bull_tag);
+            }
             handle.bull_live = null;
         }
     }

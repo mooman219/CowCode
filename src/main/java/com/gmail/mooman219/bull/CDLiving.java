@@ -40,4 +40,16 @@ public class CDLiving extends BullData {
         }
         return (CDLiving) handle.bull_live;
     }
+    
+    public static void unload(LivingEntity livingEntity) {
+        net.minecraft.server.Entity handle = ((CraftLivingEntity)livingEntity).getHandle();
+        if(livingEntity instanceof Player) {
+            throw new IllegalArgumentException("Players are not considered LivingEntities.");
+        } else if(handle.bull_live != null) {
+            if(handle.bull_live instanceof BullData) {                
+                ((BullData) handle.bull_live).onTagSave(handle.bull_tag);
+            }
+            handle.bull_live = null;
+        }
+    }
 }
