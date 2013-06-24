@@ -23,6 +23,13 @@ public class ItemHelper {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(list);
         item.setItemMeta(meta);
-        return null;
+        return item;
+    }
+    
+    public static ItemStack setLore(ItemStack item, List<String> lore) {
+        ItemMeta meta = item.getItemMeta();
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return item;
     }
 }

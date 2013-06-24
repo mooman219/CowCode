@@ -76,7 +76,7 @@ public class CDChunk extends BullData {
     @Override
     public void onTick() {
         // Tick the minerals every 1.5 seconds because the system is based on REAL time.
-        if(tick >= 30) {
+        if(tick >= 40) {
             tick();
         }
         tick++;
