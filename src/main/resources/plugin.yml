@@ -45,6 +45,9 @@ commands:
         - records
         - me
     loadconfig:
+        aliases:
+        - config
+        - configreload
     test:
     addmineral:
         aliases:
@@ -67,6 +70,7 @@ commands:
     memory:
         aliases:
         - mem
+        - lag
     modifyid:
     modifycombat:
     modifyinfo:

@@ -8,8 +8,8 @@ import java.io.IOException;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.file.FileHelper;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public abstract class ConfigJson {
     private transient File file;
@@ -47,7 +47,7 @@ public abstract class ConfigJson {
     public abstract void onLoad(FileReader reader);
 
     public Gson getGson() {
-        return new GsonBuilder()
+        return JsonHelper.getGsonBuilder()
         .setPrettyPrinting()
         .create();
     }

@@ -5,8 +5,7 @@ import java.io.IOException;
 import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.frame.MathHelper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -29,17 +28,11 @@ public class BasicVectorInteger {
 
     @Override
     public String toString() {
-        return new Gson().toJson(this);
+        return  JsonHelper.getGson().toJson(this);
     }
 
     public static BasicVectorInteger fromString(String string) {
-        return BasicVectorInteger.getGson().fromJson(string, BasicVectorInteger.class);
-    }
-
-    public static Gson getGson() {
-        return new GsonBuilder()
-        .registerTypeAdapter(BasicVectorInteger.class, BasicVectorInteger.getAdapter())
-        .create();
+        return JsonHelper.getGson().fromJson(string, BasicVectorInteger.class);
     }
 
     public static VectorIntegerAdapter getAdapter() {

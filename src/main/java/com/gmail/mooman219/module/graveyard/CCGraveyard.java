@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.graveyard;
 
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
@@ -14,7 +12,6 @@ import com.gmail.mooman219.module.graveyard.command.TeleportClosestGraveyard;
 import com.gmail.mooman219.module.graveyard.command.TeleportGraveyard;
 import com.gmail.mooman219.module.graveyard.command.TotalGraveyards;
 import com.gmail.mooman219.module.graveyard.listener.ListenerPlayer;
-import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class CCGraveyard implements CowComponent {
@@ -41,8 +38,8 @@ public class CCGraveyard implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeGraveyard = new StoreGraveyard();
-        Loader.info(cast + "Loaded " + storeGraveyard.fileName);
+        storeGraveyard = new StoreGraveyard(directory);
+        Loader.info(cast + "Loaded " + storeGraveyard.getFile().getName());
 
         listenerPlayer = new ListenerPlayer();
 
@@ -51,14 +48,12 @@ public class CCGraveyard implements CowComponent {
 
     @Override
     public void onDisable(){
-        Loader.info(cast + "Saving " + storeGraveyard.fileName);
+        Loader.info(cast + "Saving " + storeGraveyard.getFile().getName());
         storeGraveyard.save();
     }
 
     @Override
-    public void registerConfigurationSerialization() {
-        ConfigurationSerialization.registerClass(CSGraveyard.class, "CSGraveyard");
-    }
+    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {

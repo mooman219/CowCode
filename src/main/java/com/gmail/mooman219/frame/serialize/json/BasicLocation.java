@@ -7,8 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.annotations.SerializedName;
 
 public class BasicLocation {
@@ -41,16 +40,10 @@ public class BasicLocation {
 
     @Override
     public String toString() {
-        return new Gson().toJson(this);
+        return JsonHelper.getGson().toJson(this);
     }
 
     public static BasicLocation fromString(String string) {
-        return BasicLocation.getGson().fromJson(string, BasicLocation.class);
-    }
-
-    public static Gson getGson() {
-        return new GsonBuilder()
-        .registerTypeAdapter(BasicVectorInteger.class, BasicVectorInteger.getAdapter())
-        .create();
+        return JsonHelper.getGson().fromJson(string, BasicLocation.class);
     }
 }

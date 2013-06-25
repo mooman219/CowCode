@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
-import com.gmail.mooman219.module.graveyard.store.CSGraveyard;
+import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
 
 public class TeleportGraveyard extends CCommand {
     public TeleportGraveyard() {
@@ -20,7 +20,7 @@ public class TeleportGraveyard extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CSGraveyard graveyardData = GraveyardManager.getGraveyard(Integer.parseInt(args[0]));
+        BasicGraveyard graveyardData = GraveyardManager.getGraveyard(Integer.parseInt(args[0]));
         if(graveyardData != null) {
             sender.teleport(graveyardData.getLocation());
             WorldHelper.playEffect(graveyardData.getLocation(), Effect.MOBSPAWNER_FLAMES);

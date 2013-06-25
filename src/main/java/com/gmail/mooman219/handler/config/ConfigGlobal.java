@@ -6,8 +6,8 @@ import java.lang.reflect.Modifier;
 
 import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.file.ConfigJson;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class ConfigGlobal extends ConfigJson {
     public static Bull bull = new Bull();
@@ -72,7 +72,7 @@ public class ConfigGlobal extends ConfigJson {
     }
 
     private void adjustedValues() {
-        if(!isAdjusted) {            
+        if(!isAdjusted) {
             ConfigGlobal.bull.player.nameUpdateRadius = MathHelper.toInt(Math.pow(ConfigGlobal.bull.player.nameUpdateRadius * 16, 2));
             ConfigGlobal.bull.chunk.chunkUnloadDelay = ConfigGlobal.bull.chunk.chunkUnloadDelay * 60 * 1000;
             ConfigGlobal.module.chat.radius = MathHelper.toInt(Math.pow(ConfigGlobal.module.chat.radius, 2));
@@ -83,7 +83,7 @@ public class ConfigGlobal extends ConfigJson {
     }
 
     private void normalValues() {
-        if(isAdjusted) {         
+        if(isAdjusted) {
             ConfigGlobal.bull.player.nameUpdateRadius = MathHelper.toInt(Math.sqrt(ConfigGlobal.bull.player.nameUpdateRadius) / 16);
             ConfigGlobal.bull.chunk.chunkUnloadDelay = ConfigGlobal.bull.chunk.chunkUnloadDelay / 1000 / 60;
             ConfigGlobal.module.chat.radius = MathHelper.toInt(Math.sqrt(ConfigGlobal.module.chat.radius));
@@ -109,7 +109,7 @@ public class ConfigGlobal extends ConfigJson {
 
     @Override
     public Gson getGson() {
-        return new GsonBuilder()
+        return JsonHelper.getGsonBuilder()
         .excludeFieldsWithModifiers(Modifier.TRANSIENT)
         .setPrettyPrinting()
         .create();

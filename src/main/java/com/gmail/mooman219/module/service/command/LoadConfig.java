@@ -18,12 +18,12 @@ public class LoadConfig extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         reload(sender);
     }
-    
+
     @Override
     public void processConsole(CommandSender sender, String[] args) {
         reload(sender);
     }
-    
+
     public void reload(CommandSender sender) {
         CHConfig.configGlobal.load();
         CCService.MSG.CONFIGRELOAD.send(sender);
