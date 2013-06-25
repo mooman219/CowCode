@@ -8,42 +8,44 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.mooman219.core.Loader;
 
 public abstract class ConfigBase {
+    public final String directory;
+    public final String fileName;
+
     public File hardFile;
     public YamlConfiguration file = new YamlConfiguration();
-    public String directory = "";
-    public String fileName = "";
 
     public ConfigBase(String directory, String fileName) {
         this.directory = directory;
         this.fileName = fileName;
-        if(fileName.length() < 4 || !fileName.substring(fileName.length()-4, fileName.length()).equalsIgnoreCase(".yml")) {
-            fileName = fileName+".yml";
+        // Parse the data
+        if(fileName.startsWith("/")) {
+            fileName = fileName.substring(1);
         }
-        if(directory.charAt(directory.length()-1) != '/') {
-            directory = directory+"/";
+        if(fileName.length() < 4 || !fileName.endsWith(".yml")) {
+            fileName = fileName + ".yml";
         }
+        if(!directory.endsWith("/")) {
+            directory = directory + "/";
+        }
+        // Create the file if needed
+        hardFile = FileHelper.getFile(directory, fileName);
+        load();
+        save();
         Loader.info("Loading file: " + directory + fileName);
     }
 
-    public void init() {
-        if(FileHelper.doesExist(directory+fileName)) {
-            hardFile = FileHelper.getFile(directory, fileName);
-            load();
-            save();
-        } else {
-            hardFile = FileHelper.getFile(directory, fileName);
-            save();
-        }
-    }
-
     public <T> T loadVar(String key, T value) {
-        if(file.contains(key)) {
-            return (T) file.get(key, value);
-        } else {
-            file.addDefault(key, value);
-            file.set(key, value);
-            return value;
+        try {
+            if(file.contains(key)) {
+                return (T) file.get(key, value);
+            } else {
+                file.addDefault(key, value);
+                file.set(key, value);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
+        return value;
     }
 
     public <T> void saveVar(String key, T value) {

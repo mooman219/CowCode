@@ -25,7 +25,7 @@ public class ItemHelper {
         item.setItemMeta(meta);
         return item;
     }
-    
+
     public static ItemStack setLore(ItemStack item, List<String> lore) {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(lore);

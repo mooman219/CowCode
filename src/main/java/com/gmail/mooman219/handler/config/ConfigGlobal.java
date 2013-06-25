@@ -1,27 +1,31 @@
 package com.gmail.mooman219.handler.config;
 
+import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.file.ConfigBase;
 
 public class ConfigGlobal extends ConfigBase {
+    // [+] Bull
+    // [ ]---[+] Player
+    public static int nameUpdateRadius = 10; // Chunks
+    // [ ]---[+] Chunk
+    public static int chunkTickPeriod = 30; // Ticks
     // [+] Handler
     // [ ]---[+] Task
     public static int threadCount = 5;
     // [ ]---[+] Database
     public static String server_id = "Alpha";
     public static String server_loc = "US";
-    public static int downloadTimeout = 5;
+    public static int downloadTimeout = 5; // Seconds
     public static String hostname = "localhost";
     public static int portnmbr = 27017;
     public static String username = "cow";
     public static String password = "c4qNflnf6zQWp9h2";
     // [+] Module
-    // [ ]---[+] Service
-    public static int nameUpdateRadius = 57600;
     // [ ]---[+] Chat
-    public static int chatRadius = 50;
-    public static int chatGlobalDelay = 15000;
+    public static int chatRadius = 50; // Blocks
+    public static int chatGlobalDelay = 15; // Seconds
     // [ ]---[+] Login
-    public static int loginDelay = 20000;
+    public static int loginDelay = 10; // Mills
     // [ ]---[+] World
     public static boolean disableBlockBurn = true;
     public static boolean disableBlockSpread = true;
@@ -36,74 +40,79 @@ public class ConfigGlobal extends ConfigBase {
 
     public ConfigGlobal() {
         super(CHConfig.directory, "config.yml");
-        super.init();
     }
 
     @Override
     public void onLoad() {
+        // [+] Bull
+        // [ ]---[+] Player
+        nameUpdateRadius = MathHelper.toInt(Math.pow((loadVar("Bull.Player.Name_Update_Radius", nameUpdateRadius) * 16), 2));
+        // [ ]---[+] Chunk
+        chunkTickPeriod = loadVar("Bull.Chunk.Tick_Period", chunkTickPeriod);
         // [+] Handler
         // [ ]---[+] Task
-        threadCount = loadVar("Task.Thread_Count", threadCount);
+        threadCount = loadVar("Handler.Task.Thread_Count", threadCount);
         // [ ]---[+] Database
-        server_id = loadVar("Server.ID", server_id);
-        server_loc = loadVar("Server.Location", server_loc);
-        downloadTimeout = loadVar("Server.Player.Download_Timeout", downloadTimeout);
-        hostname = loadVar("Mongo.Host", hostname);
-        portnmbr = loadVar("Mongo.Port", portnmbr);
-        username = loadVar("Mongo.User", username);
-        password = loadVar("Mongo.Pass", password);
+        server_id = loadVar("Handler.Database.Server.ID", server_id);
+        server_loc = loadVar("Handler.Database.Server.Location", server_loc);
+        downloadTimeout = loadVar("Handler.Database.Server.Player.Download_Timeout", downloadTimeout);
+        hostname = loadVar("Handler.Database.Mongo.Host", hostname);
+        portnmbr = loadVar("Handler.Database.Mongo.Port", portnmbr);
+        username = loadVar("Handler.Database.Mongo.User", username);
+        password = loadVar("Handler.Database.Mongo.Pass", password);
         // [+] Module
-        // [ ]---[+] Service
-        nameUpdateRadius = loadVar("Service.Player.Name_Update_Radius", nameUpdateRadius);
         // [ ]---[+] Chat
-        chatRadius = loadVar("Chat.Max_Distance", chatRadius);
-        chatGlobalDelay = loadVar("Chat.Global_Delay", chatGlobalDelay);
+        chatRadius = MathHelper.toInt(Math.pow(loadVar("Module.Chat.Max_Distance", chatRadius), 2));
+        chatGlobalDelay = loadVar("Module.Chat.Global_Delay", chatGlobalDelay) * 1000;
         // [ ]---[+] Login
-        loginDelay = loadVar("Login.Delay", loginDelay);
+        loginDelay = loadVar("Module.Login.Delay", loginDelay) * 1000;
         // [ ]---[+] World
-        disableBlockBurn = loadVar("World.Disable.Block_Burn", disableBlockBurn);
-        disableBlockSpread = loadVar("World.Disable.Block_Spread", disableBlockSpread);
-        disableBlockFade = loadVar("World.Disable.Block_Fade", disableBlockFade);
-        disableBlockForm = loadVar("World.Disable.Block_Form", disableBlockForm);
-        disableBlockGrow = loadVar("World.Disable.Block_Grow", disableBlockGrow);
-        disableBlockFromTo = loadVar("World.Disable.Block_From_To", disableBlockFromTo);
-        disableLeafDecay = loadVar("World.Disable.Leaf_Decay", disableLeafDecay);
-        disableLightningStrike = loadVar("World.Disable.Lightning_Strike", disableLightningStrike);
-        disableStructureGrow = loadVar("World.Disable.Structure_Grow", disableStructureGrow);
-        disableWorldSaving = loadVar("World.Disable.World_Saving", disableWorldSaving);
+        disableBlockBurn = loadVar("Module.World.Disable.Block_Burn", disableBlockBurn);
+        disableBlockSpread = loadVar("Module.World.Disable.Block_Spread", disableBlockSpread);
+        disableBlockFade = loadVar("Module.World.Disable.Block_Fade", disableBlockFade);
+        disableBlockForm = loadVar("Module.World.Disable.Block_Form", disableBlockForm);
+        disableBlockGrow = loadVar("Module.World.Disable.Block_Grow", disableBlockGrow);
+        disableBlockFromTo = loadVar("Module.World.Disable.Block_From_To", disableBlockFromTo);
+        disableLeafDecay = loadVar("Module.World.Disable.Leaf_Decay", disableLeafDecay);
+        disableLightningStrike = loadVar("Module.World.Disable.Lightning_Strike", disableLightningStrike);
+        disableStructureGrow = loadVar("Module.World.Disable.Structure_Grow", disableStructureGrow);
+        disableWorldSaving = loadVar("Module.World.Disable.World_Saving", disableWorldSaving);
     }
 
     @Override
     public void onSave() {
+        // [+] Bull
+        // [ ]---[+] Player
+        saveVar("Bull.Player.Name_Update_Radius", MathHelper.toInt(Math.sqrt(nameUpdateRadius) / 16));
+        // [ ]---[+] Chunk
+        saveVar("Bull.Chunk.Tick_Period",chunkTickPeriod);
         // [+] Handler
         // [ ]---[+] Task
-        saveVar("Task.Thread_Count", threadCount);
+        saveVar("Handler.Task.Thread_Count", threadCount);
         // [ ]---[+] Database
-        saveVar("Server.ID", server_id);
-        saveVar("Server.Location", server_loc);
-        saveVar("Server.Player.Download_Timeout", downloadTimeout);
-        saveVar("Mongo.Host", hostname);
-        saveVar("Mongo.Port", portnmbr);
-        saveVar("Mongo.User", username);
-        saveVar("Mongo.Pass", password);
+        saveVar("Handler.Database.Server.ID", server_id);
+        saveVar("Handler.Database.Server.Location", server_loc);
+        saveVar("Handler.Database.Server.Player.Download_Timeout", downloadTimeout);
+        saveVar("Handler.Database.Mongo.Host", hostname);
+        saveVar("Handler.Database.Mongo.Port", portnmbr);
+        saveVar("Handler.Database.Mongo.User", username);
+        saveVar("Handler.Database.Mongo.Pass", password);
         // [+] Module
-        // [ ]---[+] Service
-        saveVar("Service.Player.Name_Update_Radius", nameUpdateRadius);
         // [ ]---[+] Chat
-        saveVar("Chat.Max_Distance", chatRadius);
-        saveVar("Chat.Global_Delay", chatGlobalDelay);
+        saveVar("Module.Chat.Max_Distance", MathHelper.toInt(Math.sqrt(chatRadius)));
+        saveVar("Module.Chat.Global_Delay", chatGlobalDelay / 1000);
         // [ ]---[+] Login
-        saveVar("Login.Delay", loginDelay);
+        saveVar("Module.Login.Delay", loginDelay / 1000);
         // [ ]---[+] World
-        saveVar("World.Disable.Block_Burn", disableBlockBurn);
-        saveVar("World.Disable.Block_Spread", disableBlockSpread);
-        saveVar("World.Disable.Block_Fade", disableBlockFade);
-        saveVar("World.Disable.Block_Form", disableBlockForm);
-        saveVar("World.Disable.Block_Grow", disableBlockGrow);
-        saveVar("World.Disable.Block_From_To", disableBlockFromTo);
-        saveVar("World.Disable.Leaf_Decay", disableLeafDecay);
-        saveVar("World.Disable.Lightning_Strike", disableLightningStrike);
-        saveVar("World.Disable.Structure_Grow", disableStructureGrow);
-        saveVar("World.Disable.World_Saving", disableWorldSaving);
+        saveVar("Module.World.Disable.Block_Burn", disableBlockBurn);
+        saveVar("Module.World.Disable.Block_Spread", disableBlockSpread);
+        saveVar("Module.World.Disable.Block_Fade", disableBlockFade);
+        saveVar("Module.World.Disable.Block_Form", disableBlockForm);
+        saveVar("Module.World.Disable.Block_Grow", disableBlockGrow);
+        saveVar("Module.World.Disable.Block_From_To", disableBlockFromTo);
+        saveVar("Module.World.Disable.Leaf_Decay", disableLeafDecay);
+        saveVar("Module.World.Disable.Lightning_Strike", disableLightningStrike);
+        saveVar("Module.World.Disable.Structure_Grow", disableStructureGrow);
+        saveVar("Module.World.Disable.World_Saving", disableWorldSaving);
     }
 }

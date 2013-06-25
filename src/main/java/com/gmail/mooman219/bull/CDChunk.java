@@ -13,6 +13,7 @@ import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
+import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.mineral.store.Mineral;
 import com.gmail.mooman219.module.region.store.CSRegionInfo;
 import com.gmail.mooman219.module.region.store.StoreRegionInfo;
@@ -23,6 +24,7 @@ public class CDChunk extends BullData {
 
     public CDChunk(Chunk chunk) {
         this.chunk = chunk;
+        this.lastActive = System.currentTimeMillis();
     }
 
     /*
@@ -32,6 +34,7 @@ public class CDChunk extends BullData {
     // Unsaved
     private SoftReference<CSRegionInfo> softParentInfo;
     private byte tick = 0;
+    private long lastActive = 0L;
     // Saved
     public String parentUUID = "";
     public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
@@ -43,7 +46,7 @@ public class CDChunk extends BullData {
             mineral.tick(chunk, time);
         }
     }
-    
+
     public CSRegionInfo getParentInfo() {
         if(softParentInfo == null || softParentInfo.get() == null) {
             softParentInfo = new SoftReference<CSRegionInfo>(StoreRegionInfo.getInfo(parentUUID));
@@ -76,7 +79,7 @@ public class CDChunk extends BullData {
     @Override
     public void onTick() {
         // Tick the minerals every 1.5 seconds because the system is based on REAL time.
-        if(tick >= 40) {
+        if(tick >= ConfigGlobal.chunkTickPeriod) {
             tick();
         }
         tick++;
@@ -131,9 +134,7 @@ public class CDChunk extends BullData {
     public static void unload(Chunk chunk) {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
         if(handle.bull_live != null) {
-            if(handle.bull_live instanceof BullData) {                
-                ((BullData) handle.bull_live).onTagSave(handle.bull_tag);
-            }
+            handle.bull_live.onTagSave(handle.bull_tag);
             handle.bull_live = null;
         }
     }

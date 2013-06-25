@@ -45,7 +45,7 @@ public class SerializeHelper {
         String json = gson.toJson(new BasicItemStack(itemstack));
         return json;
     }
-    
+
     public static ItemStack toItemStackFromString(String string) {
         Gson gson = new Gson();
         BasicItemStack basicItemStack = gson.fromJson(string, BasicItemStack.class);

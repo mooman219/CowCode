@@ -1,5 +1,7 @@
 package com.gmail.mooman219.module.chat.listener;
 
+import java.util.Iterator;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,11 +66,13 @@ public class ListenerChat implements Listener{
 //    ~ Normal chat
         } else {
             event.setFormat(player.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
-            for(Player recipient : event.getRecipients()) {
+            Iterator<Player> iterator = event.getRecipients().iterator();
+            while(iterator.hasNext()) {
+                Player recipient = iterator.next();
                 if(!player.username.equals(recipient.getName())) {
                     double distance = LocationHelper.get2DistanceSquared(player.getPlayer().getLocation(), recipient.getLocation());
-                    if(distance > Math.pow(ConfigGlobal.chatRadius, 2)) {
-                        event.getRecipients().remove(recipient);
+                    if(distance > ConfigGlobal.chatRadius) {
+                        iterator.remove();
                     }
                 }
             }

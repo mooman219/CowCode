@@ -313,7 +313,7 @@ public class CDPlayer extends BullData {
             throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getName() + "'.");
         }
     }
-    
+
     /**
      * This method will save any of the CDPlayer data then remove it from the Player object.
      * This should be called when the Player leaves to prevent the data from presisting.
@@ -321,9 +321,7 @@ public class CDPlayer extends BullData {
     public static void unload(Player player) {
         net.minecraft.server.Entity handle = ((CraftPlayer)player).getHandle();
         if(handle.bull_live != null) {
-            if(handle.bull_live instanceof BullData) {                
-                ((BullData) handle.bull_live).onTagSave(handle.bull_tag);
-            }
+            handle.bull_live.onTagSave(handle.bull_tag);
             handle.bull_live = null;
         }
     }

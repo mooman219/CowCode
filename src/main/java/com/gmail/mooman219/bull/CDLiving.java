@@ -40,7 +40,7 @@ public class CDLiving extends BullData {
         }
         return (CDLiving) handle.bull_live;
     }
-    
+
     /**
      * This method will save any of the CDLiving data then remove it from the LivingEntity object.
      * This should be called when the LivingEntity dies to prevent the data from presisting.
@@ -50,9 +50,7 @@ public class CDLiving extends BullData {
         if(livingEntity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered LivingEntities.");
         } else if(handle.bull_live != null) {
-            if(handle.bull_live instanceof BullData) {                
-                ((BullData) handle.bull_live).onTagSave(handle.bull_tag);
-            }
+            handle.bull_live.onTagSave(handle.bull_tag);
             handle.bull_live = null;
         }
     }

@@ -11,7 +11,6 @@ public class StoreRegionInfo extends ConfigBase {
 
     public StoreRegionInfo() {
         super(CCRegion.directory, "regions.yml");
-        super.init();
         globalInfo.setDescription("No region exists here");
         globalInfo.setCombatType(RegionCombatType.SAFE);
     }
