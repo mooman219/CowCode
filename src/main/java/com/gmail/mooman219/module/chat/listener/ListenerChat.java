@@ -52,8 +52,8 @@ public class ListenerChat implements Listener{
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
                 CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
-            } else if(System.currentTimeMillis() - player.chat.lastGlobalChat <= ConfigGlobal.chatGlobalDelay) {
-                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.chatGlobalDelay - (System.currentTimeMillis() - player.chat.lastGlobalChat), TimeType.MILLISECOND));
+            } else if(System.currentTimeMillis() - player.chat.lastGlobalChat <= ConfigGlobal.module.chat.globalDelay) {
+                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (System.currentTimeMillis() - player.chat.lastGlobalChat), TimeType.MILLISECOND));
             } else {
                 event.setFormat(Chat.msgGlobal + player.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
@@ -71,7 +71,7 @@ public class ListenerChat implements Listener{
                 Player recipient = iterator.next();
                 if(!player.username.equals(recipient.getName())) {
                     double distance = LocationHelper.get2DistanceSquared(player.getPlayer().getLocation(), recipient.getLocation());
-                    if(distance > ConfigGlobal.chatRadius) {
+                    if(distance > ConfigGlobal.module.chat.radius) {
                         iterator.remove();
                     }
                 }

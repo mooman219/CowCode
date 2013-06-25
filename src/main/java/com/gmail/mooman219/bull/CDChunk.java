@@ -46,7 +46,7 @@ public class CDChunk extends BullData {
             mineral.tick(chunk, time);
         }
         // Chunk unloading stuff
-        if(time - lastActive > ConfigGlobal.chunkUnloadDelay) {
+        if(time - lastActive > ConfigGlobal.bull.chunk.chunkUnloadDelay) {
             CDChunk.unload(chunk);
         }
     }
@@ -86,7 +86,7 @@ public class CDChunk extends BullData {
 
     @Override
     public void onTick() {
-        if(tick >= ConfigGlobal.chunkTickPeriod) {
+        if(tick >= ConfigGlobal.bull.chunk.chunkTickPeriod) {
             tick();
         }
         tick++;
@@ -95,13 +95,13 @@ public class CDChunk extends BullData {
     @Override
     public void onTagLoad(NBTTagCompound tag) {
         parentUUID = TagHelper.getString(tag, "region.uuid", parentUUID);
-        minerals = Mineral.fromCompoundList(TagHelper.getCompound(tag, "mineral.list", new NBTTagCompound()));
+        minerals = Mineral.fromTagList(TagHelper.getCompound(tag, "mineral.list", new NBTTagCompound()));
     }
 
     @Override
     public void onTagSave(NBTTagCompound tag) {
         tag.setString("region.uuid", parentUUID);
-        tag.setCompound("mineral.list", Mineral.toCompoundList(minerals));
+        tag.setCompound("mineral.list", Mineral.toTagList(minerals));
 
     }
 

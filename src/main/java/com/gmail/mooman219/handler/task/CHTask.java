@@ -37,7 +37,7 @@ public class CHTask implements CowHandler {
     public void onEnable() {
         manager = new Manager();
         Loader.info(cast + "Starting plugin threads");
-        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.threadCount);
+        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.threadCount);
         orderedPool = Executors.newSingleThreadExecutor();
         Loader.info(cast + "Starting second clocks");
 

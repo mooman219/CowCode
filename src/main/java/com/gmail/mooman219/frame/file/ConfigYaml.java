@@ -7,14 +7,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.mooman219.core.Loader;
 
-public abstract class ConfigBase {
+public abstract class ConfigYaml {
     public final String directory;
     public final String fileName;
 
     public File hardFile;
     public YamlConfiguration file = new YamlConfiguration();
 
-    public ConfigBase(String directory, String fileName) {
+    public ConfigYaml(String directory, String fileName) {
         this.directory = directory;
         this.fileName = fileName;
         // Parse the data

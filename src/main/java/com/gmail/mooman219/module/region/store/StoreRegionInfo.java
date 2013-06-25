@@ -2,10 +2,10 @@ package com.gmail.mooman219.module.region.store;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gmail.mooman219.frame.file.ConfigBase;
+import com.gmail.mooman219.frame.file.ConfigYaml;
 import com.gmail.mooman219.module.region.CCRegion;
 
-public class StoreRegionInfo extends ConfigBase {
+public class StoreRegionInfo extends ConfigYaml {
     public static final CSRegionInfo globalInfo = new CSRegionInfo("global", "Global");
     public static HashMap<String, CSRegionInfo> regions = new HashMap<String, CSRegionInfo>();
 

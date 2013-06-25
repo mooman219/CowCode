@@ -18,8 +18,8 @@ public class CHConfig implements CowHandler {
 
     @Override
     public void onEnable() {
-        configGlobal = new ConfigGlobal();
-        Loader.info(cast + "Loaded " + configGlobal.fileName);
+        configGlobal = new ConfigGlobal(directory);
+        Loader.info(cast + "Loaded " + configGlobal.getFile().getName());
     }
 
     @Override

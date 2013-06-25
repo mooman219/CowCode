@@ -40,9 +40,11 @@ commands:
         - r
     whois:
         aliases:
+        - stats
         - who
         - records
         - me
+    loadconfig:
     test:
     addmineral:
         aliases:
@@ -66,26 +68,15 @@ commands:
         aliases:
         - mem
     modifyid:
-        aliases:
-        - rmid
     modifycombat:
-        aliases:
-        - rmc
     modifyinfo:
-        aliases:
-        - rmi
     modifyname:
-        aliases:
-        - rmn
     newregion:
-        aliases:
-        - rnr
     setregion:
-        aliases:
-        - rsr
     setchatrange:
         aliases:
         - csr
     setoverheadname:
         aliases:
         - cshn
+        - setheadname

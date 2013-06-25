@@ -2,10 +2,10 @@ package com.gmail.mooman219.module.graveyard.store;
 
 import java.util.ArrayList;
 
-import com.gmail.mooman219.frame.file.ConfigBase;
+import com.gmail.mooman219.frame.file.ConfigYaml;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 
-public class StoreGraveyard extends ConfigBase {
+public class StoreGraveyard extends ConfigYaml {
     public static ArrayList<CSGraveyard> graveyards = new ArrayList<CSGraveyard>();
 
     public StoreGraveyard() {

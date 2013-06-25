@@ -42,9 +42,9 @@ public class CHDatabase implements CowHandler {
     public void onEnable() {
         manager = new Manager();
         try {
-            client = new MongoClient(ConfigGlobal.hostname, ConfigGlobal.portnmbr);
+            client = new MongoClient(ConfigGlobal.handler.database.hostname, ConfigGlobal.handler.database.portnmbr);
             database = client.getDB("cowcode");
-            if(!database.authenticate(ConfigGlobal.username, ConfigGlobal.password.toCharArray())) {
+            if(!database.authenticate(ConfigGlobal.handler.database.username, ConfigGlobal.handler.database.password.toCharArray())) {
                 throw new IllegalArgumentException("Unable to authenticate to database.");
             }
             c_Users = database.getCollection("data_users");
@@ -104,7 +104,7 @@ public class CHDatabase implements CowHandler {
                 // Wait for the download, if it is taking too long, then just stop
                 //  and return null. Anything that uses downloadPlayer should be r-
                 // -eady to handle a null player
-                return future.get(ConfigGlobal.downloadTimeout, TimeUnit.SECONDS);
+                return future.get(ConfigGlobal.handler.database.downloadTimeout, TimeUnit.SECONDS);
             } catch(TimeoutException e) {
             } catch(Exception e) {
                 e.printStackTrace();

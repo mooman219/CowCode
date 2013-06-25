@@ -246,7 +246,7 @@ public class CDPlayer extends BullData {
         if(handle.playerConnection != null) {
             sidebar.modifyTitle(name);
             for(Player other : player.getWorld().getPlayers()) {
-                if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > ConfigGlobal.nameUpdateRadius) { // 240 Blocks // 15 Chunks
+                if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > ConfigGlobal.bull.player.nameUpdateRadius) { // 240 Blocks // 15 Chunks
                     continue;
                 }
                 CDPlayer otherPlayer = get(other);

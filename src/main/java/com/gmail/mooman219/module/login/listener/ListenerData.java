@@ -21,8 +21,8 @@ public class ListenerData implements Listener {
         CDPlayer player = event.getPlayer();
         if(player.serviceData.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
-            if(currentTime - player.loginData.lastlogin < ConfigGlobal.loginDelay) {
-                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.loginDelay - (currentTime - player.loginData.lastlogin), TimeType.MILLISECOND)));
+            if(currentTime - player.loginData.lastlogin < ConfigGlobal.module.login.loginDelay) {
+                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.loginData.lastlogin), TimeType.MILLISECOND)));
                 return;
             }
         }

@@ -11,14 +11,14 @@ import com.gmail.mooman219.handler.config.ConfigGlobal;
 public class ListenerWorld implements Listener {
     @EventHandler()
     public void onStructureGrow(StructureGrowEvent event) {
-        if(ConfigGlobal.disableStructureGrow) {
+        if(ConfigGlobal.module.world.disableStructureGrow) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler()
     public void onInit(WorldInitEvent event) {
-        if(ConfigGlobal.disableWorldSaving) {
+        if(ConfigGlobal.module.world.disableWorldSaving) {
             event.getWorld().setAutoSave(false);
         }
         event.getWorld().setDifficulty(Difficulty.HARD);
