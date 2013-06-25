@@ -37,7 +37,7 @@ public class SerializeHelper {
                 if(itemMeta.hasDisplayName()) {
                     displayName = itemMeta.getDisplayName();
                 }
-                if(itemMeta.hasLore()) {                    
+                if(itemMeta.hasLore()) {
                     lore = itemMeta.getLore();
                 }
                 if(itemMeta instanceof BookMeta) {
@@ -83,7 +83,7 @@ public class SerializeHelper {
                     }
                 } else if(itemMeta instanceof LeatherArmorMeta) {
                     LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
-                    if(color != null) {                        
+                    if(color != null) {
                         leatherArmorMeta.setColor(color);
                     }
                 }

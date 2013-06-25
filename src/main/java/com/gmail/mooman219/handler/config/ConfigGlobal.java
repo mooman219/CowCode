@@ -9,6 +9,7 @@ public class ConfigGlobal extends ConfigBase {
     public static int nameUpdateRadius = 10; // Chunks
     // [ ]---[+] Chunk
     public static int chunkTickPeriod = 30; // Ticks
+    public static int chunkUnloadDelay = 5; // Minutes
     // [+] Handler
     // [ ]---[+] Task
     public static int threadCount = 5;
@@ -49,6 +50,7 @@ public class ConfigGlobal extends ConfigBase {
         nameUpdateRadius = MathHelper.toInt(Math.pow((loadVar("Bull.Player.Name_Update_Radius", nameUpdateRadius) * 16), 2));
         // [ ]---[+] Chunk
         chunkTickPeriod = loadVar("Bull.Chunk.Tick_Period", chunkTickPeriod);
+        chunkUnloadDelay = loadVar("Bull.Chunk.Unload_Delay", chunkUnloadDelay) * 60 * 1000;
         // [+] Handler
         // [ ]---[+] Task
         threadCount = loadVar("Handler.Task.Thread_Count", threadCount);
@@ -85,7 +87,8 @@ public class ConfigGlobal extends ConfigBase {
         // [ ]---[+] Player
         saveVar("Bull.Player.Name_Update_Radius", MathHelper.toInt(Math.sqrt(nameUpdateRadius) / 16));
         // [ ]---[+] Chunk
-        saveVar("Bull.Chunk.Tick_Period",chunkTickPeriod);
+        saveVar("Bull.Chunk.Tick_Period", chunkTickPeriod);
+        saveVar("Bull.Chunk.Unload_Delay", chunkUnloadDelay / 1000 / 60);
         // [+] Handler
         // [ ]---[+] Task
         saveVar("Handler.Task.Thread_Count", threadCount);

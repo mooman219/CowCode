@@ -24,7 +24,6 @@ public class CDChunk extends BullData {
 
     public CDChunk(Chunk chunk) {
         this.chunk = chunk;
-        this.lastActive = System.currentTimeMillis();
     }
 
     /*
@@ -34,7 +33,7 @@ public class CDChunk extends BullData {
     // Unsaved
     private SoftReference<CSRegionInfo> softParentInfo;
     private byte tick = 0;
-    private long lastActive = 0L;
+    private long lastActive = Long.MAX_VALUE;
     // Saved
     public String parentUUID = "";
     public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
@@ -42,8 +41,13 @@ public class CDChunk extends BullData {
     public void tick() {
         long time = System.currentTimeMillis();
         tick = 0;
+        // Minerals!
         for(Mineral mineral : minerals) {
             mineral.tick(chunk, time);
+        }
+        // Chunk unloading stuff
+        if(time - lastActive > ConfigGlobal.chunkUnloadDelay) {
+            CDChunk.unload(chunk);
         }
     }
 
@@ -76,9 +80,12 @@ public class CDChunk extends BullData {
      * Event
      */
 
+    public void onGet() {
+        this.lastActive = System.currentTimeMillis();
+    }
+
     @Override
     public void onTick() {
-        // Tick the minerals every 1.5 seconds because the system is based on REAL time.
         if(tick >= ConfigGlobal.chunkTickPeriod) {
             tick();
         }
@@ -124,7 +131,9 @@ public class CDChunk extends BullData {
             handle.bull_live = new CDChunk(chunk);
             handle.bull_live.onTagLoad(handle.bull_tag);
         }
-        return (CDChunk) handle.bull_live;
+        CDChunk cdChunk = (CDChunk) handle.bull_live;
+        cdChunk.onGet();
+        return cdChunk;
     }
 
     /**
