@@ -6,7 +6,9 @@ import com.gmail.mooman219.frame.file.ConfigYaml;
 import com.gmail.mooman219.module.region.CCRegion;
 
 public class StoreRegionInfo extends ConfigYaml {
-    public static final CSRegionInfo globalInfo = new CSRegionInfo("global", "Global");
+    public static final CSRegionInfo globalInfo = new CSRegionInfo("GLOBALREGIONUUID-90f5e0f50661c3951a2", "global", "Global")
+                                                      .setDescription("No region exists here")
+                                                      .setCombatType(RegionCombatType.SAFE);
     public static HashMap<String, CSRegionInfo> regions = new HashMap<String, CSRegionInfo>();
 
     public StoreRegionInfo() {
@@ -52,9 +54,7 @@ public class StoreRegionInfo extends ConfigYaml {
     }
 
     public static CSRegionInfo getInfo(String uuid) {
-        if(regions.containsKey(uuid)) {
-            return regions.get(uuid);
-        }
-        return globalInfo;
+        CSRegionInfo info = regions.get(uuid);
+        return info != null ? info : globalInfo;
     }
 }

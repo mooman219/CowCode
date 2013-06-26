@@ -53,7 +53,7 @@ public class CDChunk extends BullData {
 
     public CSRegionInfo getParentInfo() {
         if(softParentInfo == null || softParentInfo.get() == null) {
-            softParentInfo = new SoftReference<CSRegionInfo>(StoreRegionInfo.getInfo(parentUUID));
+            setParentInformation(StoreRegionInfo.getInfo(parentUUID));
         }
         return softParentInfo.get();
     }

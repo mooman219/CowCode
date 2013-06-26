@@ -20,9 +20,13 @@ public class CSRegionInfo implements ConfigurationSerializable {
     private RegionCombatType combatType = RegionCombatType.SAFE;
 
     public CSRegionInfo(String id, String name) {
-        this.uuid = MathHelper.nextUUID().toString();
-        this.id = id.toLowerCase();
+        this(MathHelper.nextUUID().toString(), id, name);
+    }
 
+    public CSRegionInfo(String uuid, String id, String name) {
+        this.uuid = uuid;
+
+        this.id = id.toLowerCase();
         this.name = name;
     }
 
@@ -32,7 +36,7 @@ public class CSRegionInfo implements ConfigurationSerializable {
 
         this.name = TagHelper.getValue(map, "name", name);
         this.description = TagHelper.getValue(map, "description", description);
-        this.combatType = RegionCombatType.getID(TagHelper.getValue(map, "combattype", combatType.id));
+        this.combatType = RegionCombatType.fromID(TagHelper.getValue(map, "combattype", combatType.id));
     }
 
     @Override
@@ -129,19 +133,23 @@ public class CSRegionInfo implements ConfigurationSerializable {
         return uuid;
     }
 
-    public void setCombatType(RegionCombatType combatType) {
+    public CSRegionInfo setCombatType(RegionCombatType combatType) {
         this.combatType = combatType;
+        return this;
     }
 
-    public void setDescription(String description) {
+    public CSRegionInfo setDescription(String description) {
         this.description = description;
+        return this;
     }
 
-    public void setID(String id) {
+    public CSRegionInfo setID(String id) {
         this.id = id;
+        return this;
     }
 
-    public void setName(String name) {
+    public CSRegionInfo setName(String name) {
         this.name = name;
+        return this;
     }
 }

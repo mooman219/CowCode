@@ -20,7 +20,7 @@ public class ModifyCombat extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         CSRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
         if(region != null) {
-            region.setCombatType(RegionCombatType.getID(Integer.parseInt(args[1])));
+            region.setCombatType(RegionCombatType.fromID(Integer.parseInt(args[1])));
             CCRegion.MSG.MODIFIED.send(sender);
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
