@@ -2,12 +2,10 @@ package com.gmail.mooman219.module.rpg.stat.store;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 
 public class PDStat extends PlayerData {
     public int level = 1;
@@ -115,24 +113,23 @@ public class PDStat extends PlayerData {
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
         case SAVE:
-            return (DBObject) JSON.parse("{" +
-                    TextHelper.buildQuery(getTag(), "level", level) + "," +
-                    TextHelper.buildQuery(getTag(), "exp", exp) + "," +
-
-                    TextHelper.buildQuery(getTag(), "healthcurrent", healthCur) + "," +
-                    TextHelper.buildQuery(getTag(), "healthmax", healthMax) + "," +
-                    TextHelper.buildQuery(getTag(), "manacurrent", manaCur) + "," +
-                    TextHelper.buildQuery(getTag(), "manamax", manaMax) + "," +
-
-                    TextHelper.buildQuery(getTag(), "strength", strength) + "," +
-                    TextHelper.buildQuery(getTag(), "dexterity", dexterity) + "," +
-                    TextHelper.buildQuery(getTag(), "constitution", constitution) + "," +
-                    TextHelper.buildQuery(getTag(), "intelligence", intelligence) + "," +
-                    TextHelper.buildQuery(getTag(), "wisdom", wisdom) + "," +
-                    TextHelper.buildQuery(getTag(), "charisma", charisma) + "," +
-
-                    TextHelper.buildQuery(getTag(), "unspentpoints", unspentPoints) +
-                    "}");
+            return new BasicDBObject()
+            .append(getTag() + ".level", level)
+            .append(getTag() + ".exp", exp)
+            
+            .append(getTag() + ".healthcurrent", healthCur)
+            .append(getTag() + ".healthmax", healthMax)
+            .append(getTag() + ".manacurrent", manaCur)
+            .append(getTag() + ".manamax", manaMax)
+            
+            .append(getTag() + ".strength", strength)
+            .append(getTag() + ".dexterity", dexterity)
+            .append(getTag() + ".constitution", constitution)
+            .append(getTag() + ".intelligence", intelligence)
+            .append(getTag() + ".wisdom", wisdom)
+            .append(getTag() + ".charisma", charisma)
+            
+            .append(getTag() + ".unspentpoints", unspentPoints);
         case STATUS:
         default:
             return new BasicDBObject();

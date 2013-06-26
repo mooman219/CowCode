@@ -3,12 +3,10 @@ package com.gmail.mooman219.module.service.store;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 
 public class PDService extends PlayerData {
     public Rank rank = Rank.REGULAR;
@@ -35,10 +33,9 @@ public class PDService extends PlayerData {
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
         case SAVE:
-            return (DBObject) JSON.parse("{" +
-                    TextHelper.buildQuery(getTag(), "donorlevel", donorLevel) + "," +
-                    TextHelper.buildQuery(getTag(), "stafflevel", staffLevel) +
-                    "}");
+            return new BasicDBObject()
+            .append(getTag() + ".donorlevel", donorLevel)
+            .append(getTag() + ".stafflevel", staffLevel);
         case STATUS:
         default:
             return new BasicDBObject();

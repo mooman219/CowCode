@@ -2,12 +2,10 @@ package com.gmail.mooman219.module.login.store;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 
 public class PDLogin extends PlayerData {
     public long lastlogin = 0l;
@@ -38,18 +36,16 @@ public class PDLogin extends PlayerData {
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
         case SAVE:
-            return (DBObject) JSON.parse("{" +
-                    TextHelper.buildQuery(getTag(), "firstlogin", firstlogin) + "," +
-                    TextHelper.buildQuery(getTag(), "lastlogin", lastlogin) + "," +
-                    TextHelper.buildQuery(getTag(), "timeplayed", timeplayed) + "," +
-                    TextHelper.buildQuery(getTag(), "online", isOnline) + "," +
-                    TextHelper.buildQuery(getTag(), "lastknownip", lastKnownIP) +
-                    "}");
+            return new BasicDBObject()
+            .append(getTag() + ".firstlogin", firstlogin)
+            .append(getTag() + ".lastlogin", lastlogin)
+            .append(getTag() + ".timeplayed", timeplayed)
+            .append(getTag() + ".online", isOnline)
+            .append(getTag() + ".lastknownip", lastKnownIP);
         case STATUS:
-            return (DBObject) JSON.parse("{" +
-                    TextHelper.buildQuery(getTag(), "lastlogin", lastlogin) + "," +
-                    TextHelper.buildQuery(getTag(), "online", isOnline) +
-                    "}");
+            return new BasicDBObject()
+            .append(getTag() + ".lastlogin", lastlogin)
+            .append(getTag() + ".online", isOnline);
         default:
             return new BasicDBObject();
         }

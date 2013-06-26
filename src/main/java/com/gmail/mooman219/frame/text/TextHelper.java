@@ -50,16 +50,6 @@ public class TextHelper {
         return newstring;
     }
 
-    public static <T> String buildQuery(String tag, String name, T value) {
-        String ret = '"' + tag + "." + name + "\":";
-        if(value instanceof String) {
-            ret += '"' + (String)value + '"';
-        } else {
-            ret += value;
-        }
-        return ret;
-    }
-
     public static String shrink(String string) {
         if(string.length() > 16) {
             string = string.substring(0, 16);
