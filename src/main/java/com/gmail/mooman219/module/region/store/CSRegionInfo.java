@@ -11,6 +11,7 @@ import com.gmail.mooman219.module.region.store.RegionCombatType;
 
 @SerializableAs(value = "CSRegionInformation")
 public class CSRegionInfo implements ConfigurationSerializable {
+    // Troll commit
     // These identify the region, don't fuck with them
     private final String uuid;
 
