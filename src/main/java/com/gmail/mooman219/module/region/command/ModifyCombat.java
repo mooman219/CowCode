@@ -7,7 +7,7 @@ import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.store.CSRegionInfo;
+import com.gmail.mooman219.module.region.store.BasicRegionInfo;
 import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 import com.gmail.mooman219.module.region.store.RegionCombatType;
 
@@ -18,7 +18,7 @@ public class ModifyCombat extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CSRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
+        BasicRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
         if(region != null) {
             region.setCombatType(RegionCombatType.fromID(Integer.parseInt(args[1])));
             CCRegion.MSG.MODIFIED.send(sender);

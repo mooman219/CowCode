@@ -15,7 +15,7 @@ import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.mineral.store.Mineral;
-import com.gmail.mooman219.module.region.store.CSRegionInfo;
+import com.gmail.mooman219.module.region.store.BasicRegionInfo;
 import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class CDChunk extends BullData {
@@ -31,7 +31,7 @@ public class CDChunk extends BullData {
      */
 
     // Unsaved
-    private SoftReference<CSRegionInfo> softParentInfo;
+    private SoftReference<BasicRegionInfo> softParentInfo;
     private byte tick = 0;
     private long lastActive = Long.MAX_VALUE;
     // Saved
@@ -51,15 +51,15 @@ public class CDChunk extends BullData {
         }
     }
 
-    public CSRegionInfo getParentInfo() {
+    public BasicRegionInfo getParentInfo() {
         if(softParentInfo == null || softParentInfo.get() == null) {
             setParentInformation(StoreRegionInfo.getInfo(parentUUID));
         }
         return softParentInfo.get();
     }
 
-    public void setParentInformation(CSRegionInfo info) {
-        softParentInfo = new SoftReference<CSRegionInfo>(info);
+    public void setParentInformation(BasicRegionInfo info) {
+        softParentInfo = new SoftReference<BasicRegionInfo>(info);
         parentUUID = info.getUUID();
     }
 

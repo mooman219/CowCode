@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.region;
 
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
@@ -13,7 +11,6 @@ import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
-import com.gmail.mooman219.module.region.store.CSRegionInfo;
 import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class CCRegion implements CowComponent {
@@ -40,8 +37,8 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeRegionInformation = new StoreRegionInfo();
-        Loader.info(cast + "Loaded " + storeRegionInformation.fileName);
+        storeRegionInformation = new StoreRegionInfo(directory);
+        Loader.info(cast + "Loaded " + storeRegionInformation.getFile().getName());
 
         listenerPlayer = new ListenerPlayer();
 
@@ -50,14 +47,12 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onDisable(){
-        Loader.info(cast + "Saving " + storeRegionInformation.fileName);
+        Loader.info(cast + "Saving " + storeRegionInformation.getFile().getName());
         storeRegionInformation.save();
     }
 
     @Override
-    public void registerConfigurationSerialization() {
-        ConfigurationSerialization.registerClass(CSRegionInfo.class, "CSRegionInformation");
-    }
+    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {

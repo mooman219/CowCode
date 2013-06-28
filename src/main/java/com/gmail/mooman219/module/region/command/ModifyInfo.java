@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.store.CSRegionInfo;
+import com.gmail.mooman219.module.region.store.BasicRegionInfo;
 import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class ModifyInfo extends CCommand {
@@ -18,7 +18,7 @@ public class ModifyInfo extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CSRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
+        BasicRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
         if(region != null) {
             region.setDescription(TextHelper.merge(args, 1));
             CCRegion.MSG.MODIFIED.send(sender);

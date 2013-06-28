@@ -4,7 +4,7 @@ import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.module.region.store.RegionCombatType;
 
 public class BasicRegionInfo {
-    // This identifies the region, don't fuck with them
+    // This identifies the region, don't fuck with it
     private final String uuid;
 
     private String id;

@@ -1,51 +1,63 @@
 package com.gmail.mooman219.module.region.store;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gmail.mooman219.frame.file.ConfigYaml;
-import com.gmail.mooman219.module.region.CCRegion;
+import com.gmail.mooman219.frame.file.ConfigJson;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.google.gson.Gson;
 
-public class StoreRegionInfo extends ConfigYaml {
-    public static final CSRegionInfo globalInfo = new CSRegionInfo("GLOBALREGIONUUID-90f5e0f50661c3951a2", "global", "Global")
+public class StoreRegionInfo extends ConfigJson {
+    public static transient final BasicRegionInfo globalInfo = new BasicRegionInfo("GLOBALREGIONUUID-90f5e0f50661c3951a2", "global", "Global")
                                                       .setDescription("No region exists here")
                                                       .setCombatType(RegionCombatType.SAFE);
-    public static HashMap<String, CSRegionInfo> regions = new HashMap<String, CSRegionInfo>();
-
-    public StoreRegionInfo() {
-        super(CCRegion.directory, "regions.yml");
-        globalInfo.setDescription("No region exists here");
-        globalInfo.setCombatType(RegionCombatType.SAFE);
+    public static transient HashMap<String, BasicRegionInfo> regions = new HashMap<String, BasicRegionInfo>();
+    private static ArrayList<BasicRegionInfo> saveable_regions = new ArrayList<BasicRegionInfo>();
+    
+    public StoreRegionInfo(String directory) {
+        super(directory, "regions", "yml");
     }
 
     @Override
-    public void onLoad() {
-        regions = new HashMap<String, CSRegionInfo>();
-        for(CSRegionInfo regionInfo : loadVar("Regions", new ArrayList<CSRegionInfo>())) {
+    public void onSave(FileWriter writer) {
+        saveable_regions.clear();
+        saveable_regions.addAll(StoreRegionInfo.regions.values());
+        getGson().toJson(this, writer);
+    }
+
+    @Override
+    public void onLoad(FileReader reader) {
+        getGson().fromJson(reader, StoreRegionInfo.class);
+        regions = new HashMap<String, BasicRegionInfo>();
+        for(BasicRegionInfo regionInfo : saveable_regions) {
             regions.put(regionInfo.getUUID(), regionInfo);
         }
     }
 
     @Override
-    public void onSave() {
-        ArrayList<CSRegionInfo> regions = new ArrayList<CSRegionInfo>();
-        regions.addAll(StoreRegionInfo.regions.values());
-        saveVar("Regions", regions);
+    public Gson getGson() {
+        return JsonHelper.getGsonBuilder()
+        .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+        .setPrettyPrinting()
+        .create();
     }
 
-    public static CSRegionInfo addInfo(String id, String name) {
-        CSRegionInfo information = getInfoByID(id);
+    public static BasicRegionInfo addInfo(String id, String name) {
+        BasicRegionInfo information = getInfoByID(id);
         if(getInfoByID(id) == null) {
-            information = new CSRegionInfo(id, name);
+            information = new BasicRegionInfo(id, name);
             regions.put(information.getUUID(), information);
         }
         return information;
     }
 
-    public static CSRegionInfo getInfoByID(String id) {
+    public static BasicRegionInfo getInfoByID(String id) {
         if(id.equals("global")) {
             return globalInfo;
         }
-        for(CSRegionInfo info : regions.values()) {
+        for(BasicRegionInfo info : regions.values()) {
             if(info.getID().equals(id)) {
                 return info;
             }
@@ -53,8 +65,8 @@ public class StoreRegionInfo extends ConfigYaml {
         return null;
     }
 
-    public static CSRegionInfo getInfo(String uuid) {
-        CSRegionInfo info = regions.get(uuid);
+    public static BasicRegionInfo getInfo(String uuid) {
+        BasicRegionInfo info = regions.get(uuid);
         return info != null ? info : globalInfo;
     }
 }
