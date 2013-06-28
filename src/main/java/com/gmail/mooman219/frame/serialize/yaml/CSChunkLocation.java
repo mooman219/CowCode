@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.serialize;
+package com.gmail.mooman219.frame.serialize.yaml;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;

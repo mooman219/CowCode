@@ -11,9 +11,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.mooman219.frame.command.CCommand;
-import com.gmail.mooman219.frame.serialize.CSBasicLocation;
-import com.gmail.mooman219.frame.serialize.CSChunkLocation;
-import com.gmail.mooman219.frame.serialize.CSLocation;
+import com.gmail.mooman219.frame.serialize.yaml.CSBasicLocation;
+import com.gmail.mooman219.frame.serialize.yaml.CSChunkLocation;
+import com.gmail.mooman219.frame.serialize.yaml.CSLocation;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.packet.CHPacket;

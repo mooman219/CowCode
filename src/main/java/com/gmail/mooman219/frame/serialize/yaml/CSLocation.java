@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.serialize;
+package com.gmail.mooman219.frame.serialize.yaml;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -10,41 +10,53 @@ import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-@SerializableAs(value = "CSBasicLocation")
-public class CSBasicLocation implements ConfigurationSerializable{
+@SerializableAs(value = "CSLocation")
+public class CSLocation implements ConfigurationSerializable {
     private final String world;
     private final String uuid;
-    private final int x;
-    private final int y;
-    private final int z;
+    private final double x;
+    private final double y;
+    private final double z;
+    private final float yaw;
+    private final float pitch;
 
     private transient WeakReference<Location> weakLoc;
 
-    public CSBasicLocation(Location loc) {
+    public CSLocation(Location loc) {
         this.world = loc.getWorld().getName();
         this.uuid = loc.getWorld().getUID().toString();
-        this.x = loc.getBlockX();
-        this.y = loc.getBlockY();
-        this.z = loc.getBlockZ();
+        this.x = loc.getX();
+        this.y = loc.getY();
+        this.z = loc.getZ();
+        this.yaw = loc.getYaw();
+        this.pitch = loc.getPitch();
     }
 
-    public CSBasicLocation(Map<String, Object> map) {
+    public CSLocation(Map<String, Object> map) {
         this.world = (String) map.get("world");
         this.uuid = (String) map.get("uuid");
-        this.x = (Integer) map.get("x");
-        this.y = (Integer) map.get("y");
-        this.z = (Integer) map.get("z");
+        this.x = (Double) map.get("x");
+        this.y = (Double) map.get("y");
+        this.z = (Double) map.get("z");
+        this.yaw = ((Double) map.get("yaw")).floatValue();
+        this.pitch = ((Double) map.get("pitch")).floatValue();
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = CSBasicLocation.class.hashCode();
+        int result = CSLocation.class.hashCode();
+        result = prime * result + Float.floatToIntBits(pitch);
         result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
         result = prime * result + ((world == null) ? 0 : world.hashCode());
-        result = prime * result + x;
-        result = prime * result + y;
-        result = prime * result + z;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Float.floatToIntBits(yaw);
+        temp = Double.doubleToLongBits(z);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
@@ -59,7 +71,10 @@ public class CSBasicLocation implements ConfigurationSerializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        CSBasicLocation other = (CSBasicLocation) obj;
+        CSLocation other = (CSLocation) obj;
+        if (Float.floatToIntBits(pitch) != Float.floatToIntBits(other.pitch)) {
+            return false;
+        }
         if (uuid == null) {
             if (other.uuid != null) {
                 return false;
@@ -74,20 +89,23 @@ public class CSBasicLocation implements ConfigurationSerializable{
         } else if (!world.equals(other.world)) {
             return false;
         }
-        if (x != other.x) {
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
             return false;
         }
-        if (y != other.y) {
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
             return false;
         }
-        if (z != other.z) {
+        if (Float.floatToIntBits(yaw) != Float.floatToIntBits(other.yaw)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z)) {
             return false;
         }
         return true;
     }
 
-    public static CSBasicLocation deserialize(Map<String, Object> map) {
-        return new CSBasicLocation(map);
+    public static CSLocation deserialize(Map<String, Object> map) {
+        return new CSLocation(map);
     }
 
     @Override
@@ -98,6 +116,8 @@ public class CSBasicLocation implements ConfigurationSerializable{
         map.put("x", this.x);
         map.put("y", this.y);
         map.put("z", this.z);
+        map.put("yaw", this.yaw);
+        map.put("pitch", this.pitch);
         return map;
     }
 
@@ -110,7 +130,7 @@ public class CSBasicLocation implements ConfigurationSerializable{
                     throw new IllegalStateException("Cannot find world by UUID or name");
                 }
             }
-            weakLoc = new WeakReference<Location>(new Location(world, x, y, z));
+            weakLoc = new WeakReference<Location>(new Location(world, x, y, z, yaw, pitch));
         }
         return weakLoc.get();
     }

@@ -5,14 +5,13 @@ import java.util.Iterator;
 import org.bukkit.Location;
 
 import com.gmail.mooman219.frame.LocationHelper;
-import com.gmail.mooman219.frame.serialize.CSLocation;
 import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class GraveyardManager {
     // returns true if the graveyarg already existed
     public static boolean addGraveyard(Location location, int levelRequirement) {
-        CSLocation loc = new CSLocation(location);
+        BasicGraveyard loc = new BasicGraveyard(location, levelRequirement);
         for(BasicGraveyard graveyardData : StoreGraveyard.graveyards) {
             if(graveyardData.location.equals(loc)) {
                 graveyardData.levelRequirement = levelRequirement;
