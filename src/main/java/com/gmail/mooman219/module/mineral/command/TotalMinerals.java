@@ -15,6 +15,6 @@ public class TotalMinerals extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CCMineral.FRM.TOTAL.send(sender, CDChunk.get(sender).minerals.size());
+        CCMineral.FRM.TOTAL.send(sender, CDChunk.get(sender).getMinerals().size());
     }
 }

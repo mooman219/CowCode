@@ -15,7 +15,7 @@ public class StoreRegionInfo extends ConfigJson {
                                                       .setCombatType(RegionCombatType.SAFE);
     public static transient HashMap<String, BasicRegionInfo> regions = new HashMap<String, BasicRegionInfo>();
     private static ArrayList<BasicRegionInfo> saveable_regions = new ArrayList<BasicRegionInfo>();
-    
+
     public StoreRegionInfo(String directory) {
         super(directory, "regions", "yml");
     }

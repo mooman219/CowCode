@@ -28,7 +28,7 @@ public class BasicVectorInteger {
 
     @Override
     public String toString() {
-        return  JsonHelper.getGson().toJson(this);
+        return  JsonHelper.toJson(this);
     }
 
     public static BasicVectorInteger fromString(String string) {

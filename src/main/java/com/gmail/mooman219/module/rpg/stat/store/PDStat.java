@@ -116,19 +116,19 @@ public class PDStat extends PlayerData {
             return new BasicDBObject()
             .append(getTag() + ".level", level)
             .append(getTag() + ".exp", exp)
-            
+
             .append(getTag() + ".healthcurrent", healthCur)
             .append(getTag() + ".healthmax", healthMax)
             .append(getTag() + ".manacurrent", manaCur)
             .append(getTag() + ".manamax", manaMax)
-            
+
             .append(getTag() + ".strength", strength)
             .append(getTag() + ".dexterity", dexterity)
             .append(getTag() + ".constitution", constitution)
             .append(getTag() + ".intelligence", intelligence)
             .append(getTag() + ".wisdom", wisdom)
             .append(getTag() + ".charisma", charisma)
-            
+
             .append(getTag() + ".unspentpoints", unspentPoints);
         case STATUS:
         default:

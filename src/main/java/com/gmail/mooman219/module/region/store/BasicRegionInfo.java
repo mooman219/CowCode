@@ -65,7 +65,7 @@ public class BasicRegionInfo {
 
     @Override
     public String toString() {
-        return JsonHelper.getGson().toJson(this);
+        return JsonHelper.toJson(this);
     }
 
     public static BasicRegionInfo fromString(String string) {

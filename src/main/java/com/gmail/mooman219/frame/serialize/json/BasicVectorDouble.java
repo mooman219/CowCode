@@ -28,7 +28,7 @@ public class BasicVectorDouble {
 
     @Override
     public String toString() {
-        return  JsonHelper.getGson().toJson(this);
+        return  JsonHelper.toJson(this);
     }
 
     public static BasicVectorDouble fromString(String string) {

@@ -40,7 +40,7 @@ public class BasicLocation {
 
     @Override
     public String toString() {
-        return JsonHelper.getGson().toJson(this);
+        return JsonHelper.toJson(this);
     }
 
     public static BasicLocation fromString(String string) {

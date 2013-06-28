@@ -1,9 +1,5 @@
 package com.gmail.mooman219.module.mineral.store;
 
-import java.util.ArrayList;
-
-import net.minecraft.server.NBTTagCompound;
-
 import org.bukkit.Chunk;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -12,8 +8,8 @@ import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.bull.CDChunk;
-import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.frame.WorldHelper;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
 
 public class Mineral {
     public final int x;
@@ -94,52 +90,8 @@ public class Mineral {
         getBlock(chunk).setType(Material.COBBLESTONE);
     }
 
-    public NBTTagCompound toTag() {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setIntArray("loc", new int[] {x, y, z});
-        tag.setInt("resdelay", respawnDelay);
-        tag.setLong("restime", respawnTime);
-        TagHelper.setMaterial(tag, "material", type);
-        return tag;
-    }
-
-    public static Mineral fromTag(NBTTagCompound tag) {
-        int[] loc = TagHelper.getIntArray(tag, "loc", null);
-        int respawnDelay = TagHelper.getInt(tag, "resdelay", 0);
-        long respawnTime = TagHelper.getLong(tag, "restime", 0l);
-        Material type = TagHelper.getMaterial(tag, "material", null);
-        if(loc == null || type == null || respawnDelay == 0 || loc.length < 3) {
-            return null;
-        }
-        return new Mineral(loc[0], loc[1], loc[2], type, respawnDelay, respawnTime);
-    }
-
-    public static ArrayList<Mineral> fromTagList(NBTTagCompound tag) {
-        ArrayList<Mineral> ret = new ArrayList<Mineral>();
-        short total = TagHelper.getShort(tag, "size", (short)0);
-        if(total == 0) {
-            return ret;
-        }
-        for(int i = 0; i < total; i++) {
-            Mineral found = fromTag(tag.getCompound("m" + i));
-            if(found == null) {
-                continue;
-            }
-            ret.add(found);
-        }
-        return ret;
-    }
-
-    public static NBTTagCompound toTagList(ArrayList<Mineral> list) {
-        NBTTagCompound tag = new NBTTagCompound();
-        short total = (short) list.size();
-        if(total == 0) {
-            return tag;
-        }
-        tag.setShort("size", total);
-        for(int i = 0; i < total; i++) {
-            tag.setCompound("m" + i, list.get(i).toTag());
-        }
-        return tag;
+    @Override
+    public String toString() {
+        return JsonHelper.toJson(this);
     }
 }

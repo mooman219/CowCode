@@ -16,8 +16,8 @@ public class RevertMinerals extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CCMineral.FRM.REVERT.send(sender, CDChunk.get(sender).minerals.size());
-        for(Mineral mineral : CDChunk.get(sender).minerals) {
+        CCMineral.FRM.REVERT.send(sender, CDChunk.get(sender).getMinerals().size());
+        for(Mineral mineral : CDChunk.get(sender).getMinerals()) {
             mineral.revert(sender.getLocation().getChunk());
         }
     }

@@ -21,7 +21,7 @@ public class BasicGraveyard {
 
     @Override
     public String toString() {
-        return JsonHelper.getGson().toJson(this);
+        return JsonHelper.toJson(this);
     }
 
     public static BasicGraveyard fromString(String string) {

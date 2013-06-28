@@ -19,9 +19,9 @@ public class ListMinerals extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         CDChunk chunk = CDChunk.get(sender);
-        CCMineral.FRM.LIST_TITLE.send(sender, chunk.minerals.size());
+        CCMineral.FRM.LIST_TITLE.send(sender, chunk.getMinerals().size());
         int i = 0;
-        for(Mineral mineral : chunk.minerals) {
+        for(Mineral mineral : chunk.getMinerals()) {
             CCMineral.FRM.LIST.send(sender, i, mineral.x, mineral.y, mineral.z, mineral.respawnDelay);
             WorldHelper.playEffect(mineral.getLocation(chunk), Effect.MOBSPAWNER_FLAMES);
             i++;

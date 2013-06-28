@@ -25,7 +25,7 @@ public class AddMineral extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         Block block = BlockHelper.getLineOfSightSolid(sender, 6);
-        if(block.getType() != null) {
+        if(block != null) {
             CDChunk chunk = CDChunk.get(block);
             int delay = Integer.parseInt(args[0]);
             Mineral mineral = chunk.getMineral(block);
@@ -33,10 +33,10 @@ public class AddMineral extends CCommand {
                 mineral.type = block.getType();
                 mineral.respawnDelay = delay * 1000;
                 mineral.respawnTime = -1L;
-                CCMineral.FRM.EDIT.send(sender, chunk.minerals.size(), delay);
+                CCMineral.FRM.EDIT.send(sender, chunk.getMinerals().size(), delay);
             } else {
-                chunk.minerals.add(new Mineral(block, delay * 1000));
-                CCMineral.FRM.ADD.send(sender, chunk.minerals.size(), delay);
+                chunk.getMinerals().add(new Mineral(block, delay * 1000));
+                CCMineral.FRM.ADD.send(sender, chunk.getMinerals().size(), delay);
             }
             WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
             return;

@@ -19,7 +19,7 @@ public class ClearMinerals extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         CDChunk chunk = CDChunk.get(sender);
-        CCMineral.FRM.CLEAR.send(sender, chunk.minerals.size());
-        chunk.minerals.clear();
+        CCMineral.FRM.CLEAR.send(sender, chunk.getMinerals().size());
+        chunk.getMinerals().clear();
     }
 }
