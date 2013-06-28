@@ -34,6 +34,15 @@ public class CDChunk extends BullData {
     }
 
     /*
+     * Data
+     */
+
+    public static class CDChunkData {
+        public String parentUUID = "";
+        public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
+    }
+
+    /*
      * Live
      */
 
