@@ -35,7 +35,10 @@ public class CDEntity extends BullData {
             throw new IllegalArgumentException("LivingEntities are not considered Entities.");
         } else if(handle.bull_live == null) {
             handle.bull_live = new CDEntity(entity);
+            handle.bull_live.onTagLoad(handle.bull_tag);
         }
-        return (CDEntity) handle.bull_live;
+        CDEntity cdEntity = (CDEntity) handle.bull_live;
+        cdEntity.onGet();
+        return cdEntity;
     }
 }
