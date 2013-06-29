@@ -4,7 +4,6 @@ import net.minecraft.server.Packet201PlayerInfo;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
 import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
-
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
@@ -64,9 +63,9 @@ public class CHPacket implements CowHandler {
         // Old research
 
         /**
-        public static void test(Player bukkitPlayer, String name, int particles) {
+        public static void test(CDPlayer player, String name, int particles) {
             Packet63WorldParticles packet63 = new Packet63WorldParticles();
-            packet63.particlename = name;
+            packet63. = name;
             packet63.x = (float) bukkitPlayer.getLocation().getX();
             packet63.y = (float) bukkitPlayer.getLocation().getY() + 2;
             packet63.z = (float) bukkitPlayer.getLocation().getZ();
@@ -75,8 +74,10 @@ public class CHPacket implements CowHandler {
             packet63.offsetz = 0f;
             packet63.particlespeed = 0.2f;
             packet63.totalparticles = particles;
-            sendPacketAllPlayers(packet63);
+            player.sendPacket(packet63);
         }
+        /**/
+        /**
 
         public static void sendFootStep(Player bukkitPlayer) {
             Packet63WorldParticles packet63 = new Packet63WorldParticles();
