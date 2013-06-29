@@ -8,6 +8,7 @@ import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
+import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.layout.CowHandler;
 
 public class CHPacket implements CowHandler {
@@ -41,7 +42,7 @@ public class CHPacket implements CowHandler {
 
         public void sendSetScoreboardScore(CDPlayer player, String scoreboardTitle, String itemName, int itemValue, BoardModifyType scoreboardModifyType) {
             Packet207SetScoreboardScore packet207 = new Packet207SetScoreboardScore();
-            packet207.a = itemName;
+            packet207.a = TextHelper.shrink(itemName);
             packet207.b = scoreboardTitle;
             packet207.c = itemValue;
             packet207.d = scoreboardModifyType.id; // 0 Create - 1 Remove

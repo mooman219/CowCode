@@ -108,9 +108,8 @@ public class CDChunk extends BullData {
     @Override
     public void onTagLoad(NBTTagCompound tag) {
         String instance = TagHelper.getString(tag, "chunk.moo", "");
-        if(instance.length() > 0) {
-            data = JsonHelper.getGson().fromJson(instance, CDChunkData.class);
-        }
+        CDChunkData savedData = JsonHelper.getGson().fromJson(instance, CDChunkData.class);
+        data = instance.length() > 0 ? savedData == null ? new CDChunkData() : savedData : new CDChunkData();
     }
 
     @Override
