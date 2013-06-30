@@ -20,22 +20,26 @@ import com.gmail.mooman219.module.region.store.BasicRegionInfo;
 import com.gmail.mooman219.module.region.store.StoreRegionInfo;
 
 public class CDChunk extends BullData {
-    // [+] Data information
-    public final Chunk chunk;
-    // [+] Saved Data
+    private final Chunk chunk;
+
+    private CDChunk(Chunk chunk) {
+        this.chunk = chunk;
+    }
+
+    /**
+     * Variables
+     */
+
+    // Saved
     private CDChunkData data = new CDChunkData();
-    public static class CDChunkData {
+    private static class CDChunkData {
         public String parentUUID = "";
         public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
     }
-    // [+] Other Data
+    // Unsaved
     private SoftReference<BasicRegionInfo> softParentInfo;
     private byte tick = 0;
     private long lastActive = Long.MAX_VALUE;
-
-    public CDChunk(Chunk chunk) {
-        this.chunk = chunk;
-    }
 
     /*
      * Live
@@ -115,6 +119,10 @@ public class CDChunk extends BullData {
     /*
      * Default
      */
+
+    public Chunk getChunk() {
+        return chunk;
+    }
 
     public net.minecraft.server.Chunk getHandle() {
         return ((CraftChunk)chunk).getHandle();

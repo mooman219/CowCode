@@ -9,11 +9,15 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.craftbukkit.BullData;
 
 public class CDLiving extends BullData {
-    public final LivingEntity livingEntity;
+    private final LivingEntity livingEntity;
 
     private CDLiving(LivingEntity livingEntity) {
         this.livingEntity = livingEntity;
     }
+
+    /**
+     * Variables
+     */
 
     /*
      * Live
@@ -26,6 +30,10 @@ public class CDLiving extends BullData {
     /*
      * Default
      */
+
+    public LivingEntity getEntity() {
+        return livingEntity;
+    }
 
     public EntityLiving getHandle() {
         return ((CraftLivingEntity)livingEntity).getHandle();

@@ -15,7 +15,7 @@ public class Stockpile {
     public Stockpile(int rows) {
         this(rows, false, false);
     }
-    
+
     public Stockpile(int rows, boolean isOverwriting, boolean isClearing) {
         charMap = new Character[rows][9];
         charList = new HashMap<Character, ItemStack>();

@@ -57,7 +57,7 @@ public class Mineral {
     }
 
     public Block getBlock(CDChunk chunk) {
-        return chunk.chunk.getWorld().getBlockAt(x, y, z);
+        return chunk.getChunk().getWorld().getBlockAt(x, y, z);
     }
 
     public Block getBlock(Chunk chunk) {
@@ -65,7 +65,7 @@ public class Mineral {
     }
 
     public Location getLocation(CDChunk chunk) {
-        return new Location(chunk.chunk.getWorld(), x, y, z);
+        return new Location(chunk.getChunk().getWorld(), x, y, z);
     }
 
     public Location getLocation(Chunk chunk) {

@@ -13,6 +13,10 @@ public class CDEntity extends BullData {
         this.entity = entity;
     }
 
+    /**
+     * Variables
+     */
+
     /*
      * Live
      */
@@ -24,6 +28,10 @@ public class CDEntity extends BullData {
     /*
      * Default
      */
+
+    public Entity getEntity() {
+        return entity;
+    }
 
     public net.minecraft.server.Entity getHandle() {
         return ((CraftEntity)entity).getHandle();

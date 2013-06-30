@@ -3,16 +3,19 @@ package com.gmail.mooman219.frame.rank;
 import com.gmail.mooman219.frame.text.Chat;
 
 public enum Rank {
-    // Using 10's for donor/staff levels just in case
-    // more ranks need to be added and you cannot edit
-    // the database.
+    /**
+     * Using 10's for donor/staff levels just in case
+     * more ranks need to be added and you cannot edit
+     * the database.
+     */
+    //
     REGULAR       (0,  0, 0, Chat.GRAY, ""),
-    DONOR_BASIC   (1, 10, 0, Chat.GRAY, "" + Chat.GREEN + Chat.BOLD + "*" + Chat.RESET),
-    DONOR_ADVANCED(2, 20, 0, Chat.GRAY, "" + Chat.DARK_GREEN + Chat.BOLD + "*" + Chat.RESET),
+    DONOR_BASIC   (1, 10, 0, Chat.GRAY, "" + Chat.GREEN + Chat.BOLD + "S" + Chat.RESET),
+    DONOR_ADVANCED(2, 20, 0, Chat.GRAY, "" + Chat.DARK_GREEN + Chat.BOLD + "S+" + Chat.RESET),
     //
     BUILDER       (3, 0, 10, Chat.GRAY, "" + Chat.DARK_AQUA + Chat.BOLD + "BUILDER" + Chat.RESET + " "),
-    MODERATOR     (4, 0, 20, Chat.GRAY, "" + Chat.WHITE + Chat.BOLD + "MOD" + Chat.RESET + " "),
-    GAMEMASTER    (5, 0, 30, Chat.GOLD, "" + Chat.WHITE + Chat.BOLD + "GM" + Chat.RESET + " "),
+    MODERATOR     (4, 0, 20, Chat.GRAY, "" + Chat.DARK_AQUA + Chat.BOLD + "MOD" + Chat.RESET + " "),
+    GAMEMASTER    (5, 0, 30, Chat.GOLD, "" + Chat.AQUA + Chat.BOLD + "GM" + Chat.RESET + " "),
     DEVELOPER     (6, 0, 40, Chat.GOLD, "" + Chat.WHITE + Chat.BOLD + "DEV" + Chat.RESET + " "),
     //
     CONSOLE       (100, 0, 0, "" + Chat.BLUE + Chat.BOLD, "");

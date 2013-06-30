@@ -7,11 +7,15 @@ import org.bukkit.entity.Entity;
 import com.gmail.mooman219.craftbukkit.BullData;
 
 public class CDWorld extends BullData {
-    public final World world;
+    private final World world;
 
-    public CDWorld(org.bukkit.World world) {
+    private CDWorld(World world) {
         this.world = world;
     }
+
+    /**
+     * Variables
+     */
 
     /*
      * Live
@@ -25,6 +29,10 @@ public class CDWorld extends BullData {
      * Default
      */
 
+    public World getWorld() {
+        return world;
+    }
+
     public net.minecraft.server.World getHandle() {
         return ((CraftWorld)world).getHandle();
     }
@@ -33,7 +41,7 @@ public class CDWorld extends BullData {
         return get(entity.getLocation().getWorld());
     }
 
-    public static CDWorld get(org.bukkit.World world) {
+    public static CDWorld get(World world) {
         net.minecraft.server.World handle = ((CraftWorld)world).getHandle();
         if(handle.bull_live == null) {
             handle.bull_live = new CDWorld(world);
