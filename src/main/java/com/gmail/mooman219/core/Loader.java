@@ -158,6 +158,13 @@ public class Loader extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(listener, this);
     }
 
+    /**
+     * Fuck you, I'm lazy
+     */
+    public static void info(Number number) {
+        info(number + "");
+    }
+
     public static void info(String message) {
         Loader.log.info("[" + (Bukkit.isPrimaryThread() ? "-" : "+") + "] " + message);
     }

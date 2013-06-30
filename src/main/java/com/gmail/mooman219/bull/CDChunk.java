@@ -24,6 +24,10 @@ public class CDChunk extends BullData {
     public final Chunk chunk;
     // [+] Saved Data
     private CDChunkData data = new CDChunkData();
+    public static class CDChunkData {
+        public String parentUUID = "";
+        public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
+    }
     // [+] Other Data
     private SoftReference<BasicRegionInfo> softParentInfo;
     private byte tick = 0;
@@ -31,15 +35,6 @@ public class CDChunk extends BullData {
 
     public CDChunk(Chunk chunk) {
         this.chunk = chunk;
-    }
-
-    /*
-     * Data
-     */
-
-    public static class CDChunkData {
-        public String parentUUID = "";
-        public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
     }
 
     /*

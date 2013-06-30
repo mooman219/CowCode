@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.rpg.item;
+package com.gmail.mooman219.module.rpg.item.inventory;
 
 import java.util.HashMap;
 
@@ -8,6 +8,9 @@ import org.bukkit.inventory.ItemStack;
 public class Stockpile {
     private HashMap<Character, ItemStack> charList;
     private Character[][] charMap;
+
+    private boolean isOverwriting = true;
+    private boolean isClearing = true;
 
     public Stockpile(int rows) {
         charMap = new Character[rows][9];
@@ -37,16 +40,33 @@ public class Stockpile {
     public void apply(Inventory inventory) {
         for(int y = 0; y < charMap.length; y++) {
             for(int x = 0; x < charMap[y].length; x++) {
-                ItemStack item = charList.get(charMap[y][x]);
                 int slot = y * 9 + x;
+                ItemStack item = charList.get(charMap[y][x]);
+                ItemStack oldItem = inventory.getItem(slot);
                 if(slot >= inventory.getSize()) {
                     return;
-                } else if(item == null) {
+                } else if(item == null && isClearing) {
                     inventory.clear(slot);
-                } else {
+                } else if(oldItem == null || isOverwriting){
                     inventory.setItem(slot, item);
                 }
             }
         }
+    }
+
+    public boolean isOverwriting() {
+        return isOverwriting;
+    }
+
+    public void setOverwriting(boolean isOverwriting) {
+        this.isOverwriting = isOverwriting;
+    }
+
+    public boolean isClearing() {
+        return isClearing;
+    }
+
+    public void setClearing(boolean isClearing) {
+        this.isClearing = isClearing;
     }
 }
