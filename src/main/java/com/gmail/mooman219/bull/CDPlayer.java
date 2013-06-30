@@ -17,6 +17,7 @@ import net.minecraft.server.Packet8UpdateHealth;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 
+import org.apache.commons.lang.Validate;
 import org.bson.types.ObjectId;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftContainer;
@@ -156,6 +157,7 @@ public class CDPlayer extends BullData {
     /**
      * This returns true if the player has an inventory window open that's
      * different from the main player inventory.
+     * @return if current open inventory is not the default one.
      */
     public boolean isInventoryOpen() {
         EntityPlayer handle = getHandle();
@@ -199,9 +201,7 @@ public class CDPlayer extends BullData {
     }
 
     public Player getPlayer() {
-        if(player == null) {
-            throw new IllegalStateException("Null player");
-        }
+        Validate.notNull(player, "Null player");
         return player;
     }
 
@@ -258,8 +258,13 @@ public class CDPlayer extends BullData {
         return oldName;
     }
 
-    // Updates the current player's (health, foodlevel, foodsaturation)
-    // Health max = 20, FoodLevel max = 20, FoodSaturation max = 5f
+    /**
+     * Updates the current player's (health, foodlevel, foodsaturation).<br>
+     * Health max = 20, FoodLevel max = 20, FoodSaturation max = 5f
+     * @param health
+     * @param foodlevel
+     * @param foodsaturation
+     */
     public void updateStatus(int health, int foodlevel, float foodsaturation) {
         sendPacket(new Packet8UpdateHealth(health, foodlevel, foodsaturation));
     }

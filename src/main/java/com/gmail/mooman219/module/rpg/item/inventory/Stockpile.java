@@ -9,12 +9,18 @@ public class Stockpile {
     private HashMap<Character, ItemStack> charList;
     private Character[][] charMap;
 
-    private boolean isOverwriting = true;
-    private boolean isClearing = true;
+    private boolean isOverwriting = false;
+    private boolean isClearing = false;
 
     public Stockpile(int rows) {
+        this(rows, false, false);
+    }
+    
+    public Stockpile(int rows, boolean isOverwriting, boolean isClearing) {
         charMap = new Character[rows][9];
         charList = new HashMap<Character, ItemStack>();
+        this.isOverwriting = isOverwriting;
+        this.isClearing = isClearing;
     }
 
     public void set(String[] characters) {
