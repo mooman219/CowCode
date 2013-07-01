@@ -21,7 +21,7 @@ public class GraveyardManager {
             if(graveyardData.getBasicLocation().equals(loc.getBasicLocation())) {
                 iterator.remove();
                 ret = true;
-                break;
+                // I am not breaking because if BY CHANCE extra graveyards got into the mix that shouldn't have.
             }
         }
         StoreGraveyard.getGraveyards().add(new BasicGraveyard(location, levelRequirement));
