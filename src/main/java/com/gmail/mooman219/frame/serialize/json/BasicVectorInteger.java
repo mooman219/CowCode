@@ -17,9 +17,13 @@ public class BasicVectorInteger {
     private int z = 0;
 
     public BasicVectorInteger(Vector vec) {
-        this.x = vec.getBlockX();
-        this.y = vec.getBlockY();
-        this.z = vec.getBlockZ();
+        this(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());
+    }
+
+    public BasicVectorInteger(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public Vector toVector() {
