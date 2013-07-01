@@ -18,34 +18,33 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDChunk chunkData = CDChunk.get(event.getTo());
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            if(chunkData.getRegion().isLocked()) {
-                CCRegion.MSG.LOCKED.send(playerData);
-                event.setCancelled(true);
-                return;
-            } else if(!RegionManager.compare(playerData.region.currentRegion, chunkData.getRegion())) {
+            if(!RegionManager.compare(playerData.region.currentRegion, chunkData.getRegion())) {
+                if(chunkData.getRegion().isLocked()) {
+                    CCRegion.MSG.LOCKED.send(playerData);
+                    event.setCancelled(true);
+                    return;
+                }
                 if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, chunkData.getRegion()).isCancelled()) {
                     event.setCancelled(true);
                     return;
                 }
+                //
+                playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getRegion().getName());
+                String type;
+                switch(chunkData.getRegion().getCombatType()) {
+                case SAFE:
+                    type = Chat.GREEN + "" + Chat.BOLD + "Lawful";
+                    break;
+                case CONTESTED:
+                    type = Chat.YELLOW + "" + Chat.BOLD + "Contested";
+                    break;
+                case CHAOTIC: // Chaotic is default because if we can't get the region, make the player think it's dangerous just in case it really is.
+                default:
+                    type = Chat.RED + "" + Chat.BOLD + "Chaotic";
+                    break;
+                }
+                playerData.getSidebar().modifyName("regionc", type);
             }
-            //
-            playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getRegion().getName());
-            String type;
-            switch(chunkData.getRegion().getCombatType()) {
-            case SAFE:
-                type = Chat.GREEN + "" + Chat.BOLD + "Lawful";
-                break;
-            case CONTESTED:
-                type = Chat.YELLOW + "" + Chat.BOLD + "Contested";
-                break;
-            // Chaotic is default because if we can't get the region, make the player think it's dangerous
-            // just in case it reall is.
-            case CHAOTIC:
-            default:
-                type = Chat.RED + "" + Chat.BOLD + "Chaotic";
-                break;
-            }
-            playerData.getSidebar().modifyName("regionc", type);
         }
     }
 
