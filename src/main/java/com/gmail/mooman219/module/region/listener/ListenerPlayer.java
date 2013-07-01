@@ -1,6 +1,7 @@
 package com.gmail.mooman219.module.region.listener;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -13,7 +14,7 @@ import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
 
 public class ListenerPlayer implements Listener{
-    @EventHandler()
+    @EventHandler(priority = EventPriority.HIGH)
     public void onMove(PlayerMoveEvent event) {
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDChunk chunkData = CDChunk.get(event.getTo());
@@ -23,11 +24,11 @@ public class ListenerPlayer implements Listener{
                     CCRegion.MSG.LOCKED.send(playerData);
                     event.setCancelled(true);
                     return;
-                }
-                if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, chunkData.getRegion()).isCancelled()) {
+                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, chunkData.getRegion()).isCancelled()) {
                     event.setCancelled(true);
                     return;
                 }
+                playerData.region.currentRegion = chunkData.getRegion();
                 //
                 playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getRegion().getName());
                 String type;
@@ -52,6 +53,7 @@ public class ListenerPlayer implements Listener{
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
         CDChunk chunkData = CDChunk.get(event.getPlayer());
+        playerData.region.currentRegion = chunkData.getRegion();
         playerData.getSidebar().addKey("regionn", Chat.GREEN + chunkData.getRegion().getName(), 6);
         playerData.getSidebar().addKey("regionc", "• " + Chat.GREEN + chunkData.getRegion().getCombatType().name(), 5);
     }
