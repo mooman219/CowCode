@@ -6,9 +6,9 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
+import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.store.BasicRegionInfo;
-import com.gmail.mooman219.module.region.store.StoreRegionInfo;
+import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class ModifyID extends CCommand {
     public ModifyID() {
@@ -17,7 +17,7 @@ public class ModifyID extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegionInfo region = StoreRegionInfo.getInfoByID(args[0]);
+        BasicRegion region = RegionManager.getInfoByID(args[0]);
         if(region != null) {
             region.setID(args[1]);
             CCRegion.MSG.MODIFIED.send(sender);

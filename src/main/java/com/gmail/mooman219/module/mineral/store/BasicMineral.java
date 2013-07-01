@@ -11,7 +11,7 @@ import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 
-public class Mineral {
+public class BasicMineral {
     public final int x;
     public final int y;
     public final int z;
@@ -19,19 +19,19 @@ public class Mineral {
     public int respawnDelay;
     public long respawnTime;
 
-    public Mineral(Block block, int respawnDelay) {
+    public BasicMineral(Block block, int respawnDelay) {
         this(block.getLocation(), block.getType(), respawnDelay);
     }
 
-    public Mineral(Location location, Material type, int respawnDelay) {
+    public BasicMineral(Location location, Material type, int respawnDelay) {
         this(location.toVector(), type, respawnDelay);
     }
 
-    public Mineral(Vector vector, Material type, int respawnDelay) {
+    public BasicMineral(Vector vector, Material type, int respawnDelay) {
         this(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ(), type, respawnDelay, -1L);
     }
 
-    public Mineral(int x, int y, int z, Material type, int respawnDelay, long respawnTime) {
+    public BasicMineral(int x, int y, int z, Material type, int respawnDelay, long respawnTime) {
         this.x = x;
         this.y = y;
         this.z = z;

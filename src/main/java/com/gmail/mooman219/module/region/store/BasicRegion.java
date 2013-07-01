@@ -3,7 +3,7 @@ import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.module.region.store.RegionCombatType;
 
-public class BasicRegionInfo {
+public class BasicRegion {
     // This identifies the region, don't fuck with it
     private final String uuid;
 
@@ -12,11 +12,11 @@ public class BasicRegionInfo {
     private String description = "Default description.";
     private RegionCombatType combatType = RegionCombatType.SAFE;
 
-    public BasicRegionInfo(String id, String name) {
+    public BasicRegion(String id, String name) {
         this(MathHelper.nextUUID().toString(), id, name);
     }
 
-    public BasicRegionInfo(String uuid, String id, String name) {
+    public BasicRegion(String uuid, String id, String name) {
         this.uuid = uuid;
 
         this.id = id.toLowerCase();
@@ -43,22 +43,22 @@ public class BasicRegionInfo {
         return uuid;
     }
 
-    public BasicRegionInfo setCombatType(RegionCombatType combatType) {
+    public BasicRegion setCombatType(RegionCombatType combatType) {
         this.combatType = combatType;
         return this;
     }
 
-    public BasicRegionInfo setDescription(String description) {
+    public BasicRegion setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public BasicRegionInfo setID(String id) {
+    public BasicRegion setID(String id) {
         this.id = id;
         return this;
     }
 
-    public BasicRegionInfo setName(String name) {
+    public BasicRegion setName(String name) {
         this.name = name;
         return this;
     }
@@ -68,7 +68,7 @@ public class BasicRegionInfo {
         return JsonHelper.toJson(this);
     }
 
-    public static BasicRegionInfo fromString(String string) {
-        return JsonHelper.getGson().fromJson(string, BasicRegionInfo.class);
+    public static BasicRegion fromString(String string) {
+        return JsonHelper.getGson().fromJson(string, BasicRegion.class);
     }
 }

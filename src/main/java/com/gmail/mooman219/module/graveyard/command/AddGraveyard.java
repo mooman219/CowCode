@@ -29,7 +29,7 @@ public class AddGraveyard extends CCommand {
         WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
         WorldHelper.playEffect(location.add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
         WorldHelper.playSound(sender.getLocation(), Sound.ENDERMAN_TELEPORT);
-        CCGraveyard.FRM.ADD.send(sender, StoreGraveyard.graveyards.size());
+        CCGraveyard.FRM.ADD.send(sender, StoreGraveyard.getGraveyards().size());
         module.storeGraveyard.save();
     }
 }

@@ -24,8 +24,8 @@ public class ClearGraveyards extends CCommand {
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        CCGraveyard.FRM.CLEAR.send(sender, StoreGraveyard.graveyards.size());
-        StoreGraveyard.graveyards.clear();
+        CCGraveyard.FRM.CLEAR.send(sender, StoreGraveyard.getGraveyards().size());
+        StoreGraveyard.getGraveyards().clear();
         module.storeGraveyard.save();
     }
 }

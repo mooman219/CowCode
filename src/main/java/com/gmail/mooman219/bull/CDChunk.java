@@ -15,9 +15,9 @@ import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.TagHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.mineral.store.Mineral;
-import com.gmail.mooman219.module.region.store.BasicRegionInfo;
-import com.gmail.mooman219.module.region.store.StoreRegionInfo;
+import com.gmail.mooman219.module.mineral.store.BasicMineral;
+import com.gmail.mooman219.module.region.RegionManager;
+import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class CDChunk extends BullData {
     private final Chunk chunk;
@@ -34,10 +34,10 @@ public class CDChunk extends BullData {
     private CDChunkData data = new CDChunkData();
     private static class CDChunkData {
         public String parentUUID = "";
-        public ArrayList<Mineral> minerals = new ArrayList<Mineral>();
+        public ArrayList<BasicMineral> minerals = new ArrayList<BasicMineral>();
     }
     // Unsaved
-    private SoftReference<BasicRegionInfo> softParentInfo;
+    private SoftReference<BasicRegion> softParentInfo;
     private byte tick = 0;
     private long lastActive = Long.MAX_VALUE;
 
@@ -45,12 +45,12 @@ public class CDChunk extends BullData {
      * Live
      */
 
-    public Mineral getMineral(Block block) {
+    public BasicMineral getMineral(Block block) {
         return getMineral(block.getLocation());
     }
 
-    public Mineral getMineral(Location loc) {
-        for(Mineral mineral : data.minerals) {
+    public BasicMineral getMineral(Location loc) {
+        for(BasicMineral mineral : data.minerals) {
             if(mineral.match(loc)) {
                 return mineral;
             }
@@ -58,19 +58,19 @@ public class CDChunk extends BullData {
         return null;
     }
 
-    public ArrayList<Mineral> getMinerals() {
+    public ArrayList<BasicMineral> getMinerals() {
         return data.minerals;
     }
 
-    public BasicRegionInfo getParentInfo() {
+    public BasicRegion getParentInfo() {
         if(softParentInfo == null || softParentInfo.get() == null) {
-            setParentInformation(StoreRegionInfo.getInfo(data.parentUUID));
+            setParentInformation(RegionManager.getInfo(data.parentUUID));
         }
         return softParentInfo.get();
     }
 
-    public void setParentInformation(BasicRegionInfo info) {
-        softParentInfo = new SoftReference<BasicRegionInfo>(info);
+    public void setParentInformation(BasicRegion info) {
+        softParentInfo = new SoftReference<BasicRegion>(info);
         data.parentUUID = info.getUUID();
     }
 
@@ -78,7 +78,7 @@ public class CDChunk extends BullData {
         long time = System.currentTimeMillis();
         tick = 0;
         // Minerals!
-        for(Mineral mineral : data.minerals) {
+        for(BasicMineral mineral : data.minerals) {
             mineral.tick(chunk, time);
         }
         // Chunk unloading stuff

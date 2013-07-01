@@ -10,7 +10,7 @@ import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.Gson;
 
 public class StoreGraveyard extends ConfigJson {
-    public static ArrayList<BasicGraveyard> graveyards = new ArrayList<BasicGraveyard>();
+    private static ArrayList<BasicGraveyard> graveyards = new ArrayList<BasicGraveyard>();
 
     public StoreGraveyard(String directory) {
         super(directory, "graveyards", "yml");
@@ -32,5 +32,9 @@ public class StoreGraveyard extends ConfigJson {
         .excludeFieldsWithModifiers(Modifier.TRANSIENT)
         .setPrettyPrinting()
         .create();
+    }
+
+    public static ArrayList<BasicGraveyard> getGraveyards() {
+        return graveyards;
     }
 }

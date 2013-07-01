@@ -5,12 +5,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import com.gmail.mooman219.bull.CDChunk;
-import com.gmail.mooman219.module.mineral.store.Mineral;
+import com.gmail.mooman219.module.mineral.store.BasicMineral;
 
 public class ListenerBlock implements Listener{
     @EventHandler(ignoreCancelled = false)
     public void onBreak(BlockBreakEvent event) {
-        Mineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock());
+        BasicMineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock());
         if(mineral != null) {
             event.setCancelled(true);
             if(event.getBlock().getType() == mineral.type) {

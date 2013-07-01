@@ -20,10 +20,10 @@ public class ListGraveyards extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CCGraveyard.FRM.LIST_TITLE.send(sender, StoreGraveyard.graveyards.size());
-        for(int i = 0; i < StoreGraveyard.graveyards.size(); i++) {
-            Location location = StoreGraveyard.graveyards.get(i).getLocation().clone();
-            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), StoreGraveyard.graveyards.get(i).levelRequirement);
+        CCGraveyard.FRM.LIST_TITLE.send(sender, StoreGraveyard.getGraveyards().size());
+        for(int i = 0; i < StoreGraveyard.getGraveyards().size(); i++) {
+            Location location = StoreGraveyard.getGraveyards().get(i).getLocation().clone();
+            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), StoreGraveyard.getGraveyards().get(i).levelRequirement);
             WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playEffect(location.add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playSound(location, Sound.ENDERMAN_TELEPORT);
@@ -32,10 +32,10 @@ public class ListGraveyards extends CCommand {
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        CCGraveyard.FRM.LIST_TITLE.send(sender, StoreGraveyard.graveyards.size());
-        for(int i = 0; i < StoreGraveyard.graveyards.size(); i++) {
-            Location location = StoreGraveyard.graveyards.get(i).getLocation();
-            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), StoreGraveyard.graveyards.get(i).levelRequirement);
+        CCGraveyard.FRM.LIST_TITLE.send(sender, StoreGraveyard.getGraveyards().size());
+        for(int i = 0; i < StoreGraveyard.getGraveyards().size(); i++) {
+            Location location = StoreGraveyard.getGraveyards().get(i).getLocation();
+            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), StoreGraveyard.getGraveyards().get(i).levelRequirement);
         }
     }
 }

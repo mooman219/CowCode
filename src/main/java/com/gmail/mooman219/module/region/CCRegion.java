@@ -11,11 +11,11 @@ import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
-import com.gmail.mooman219.module.region.store.StoreRegionInfo;
+import com.gmail.mooman219.module.region.store.StoreRegion;
 
 public class CCRegion implements CowComponent {
     public final Loader plugin;
-    public StoreRegionInfo storeRegionInformation;
+    public StoreRegion storeRegionInformation;
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][Region] ";
@@ -37,7 +37,7 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeRegionInformation = new StoreRegionInfo(directory);
+        storeRegionInformation = new StoreRegion(directory);
         Loader.info(cast + "Loaded " + storeRegionInformation.getFile().getName());
 
         listenerPlayer = new ListenerPlayer();

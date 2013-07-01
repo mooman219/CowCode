@@ -21,6 +21,6 @@ public class TotalGraveyards extends CCommand {
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        CCGraveyard.FRM.TOTAL.send(sender, StoreGraveyard.graveyards.size());
+        CCGraveyard.FRM.TOTAL.send(sender, StoreGraveyard.getGraveyards().size());
     }
 }

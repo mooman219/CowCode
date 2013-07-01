@@ -12,7 +12,7 @@ import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.store.Mineral;
+import com.gmail.mooman219.module.mineral.store.BasicMineral;
 
 public class AddMineral extends CCommand {
     public CCMineral module;
@@ -28,14 +28,14 @@ public class AddMineral extends CCommand {
         if(block != null) {
             CDChunk chunk = CDChunk.get(block);
             int delay = Integer.parseInt(args[0]);
-            Mineral mineral = chunk.getMineral(block);
+            BasicMineral mineral = chunk.getMineral(block);
             if(mineral != null) {
                 mineral.type = block.getType();
                 mineral.respawnDelay = delay * 1000;
                 mineral.respawnTime = -1L;
                 CCMineral.FRM.EDIT.send(sender, chunk.getMinerals().size(), delay);
             } else {
-                chunk.getMinerals().add(new Mineral(block, delay * 1000));
+                chunk.getMinerals().add(new BasicMineral(block, delay * 1000));
                 CCMineral.FRM.ADD.send(sender, chunk.getMinerals().size(), delay);
             }
             WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
