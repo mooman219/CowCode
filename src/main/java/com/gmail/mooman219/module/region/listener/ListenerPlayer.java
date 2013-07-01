@@ -15,6 +15,10 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
             CDChunk chunkData = CDChunk.get(event.getTo());
+            if(chunkData.getParentInfo().isLocked()) {
+                event.setCancelled(true);
+                return;
+            }
             playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getParentInfo().getName());
             String type;
             switch(chunkData.getParentInfo().getCombatType()) {

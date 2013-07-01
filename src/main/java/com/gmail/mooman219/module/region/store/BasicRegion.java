@@ -10,6 +10,7 @@ public class BasicRegion {
     private String id;
     private String name = "DefaultName";
     private String description = "Default description.";
+    private boolean isLocked = false;
     private RegionCombatType combatType = RegionCombatType.SAFE;
 
     public BasicRegion(String id, String name) {
@@ -25,6 +26,10 @@ public class BasicRegion {
 
     public RegionCombatType getCombatType() {
         return combatType;
+    }
+    
+    public boolean isLocked() {
+        return isLocked;
     }
 
     public String getDescription() {
@@ -55,6 +60,11 @@ public class BasicRegion {
 
     public BasicRegion setID(String id) {
         this.id = id;
+        return this;
+    }
+    
+    public BasicRegion setLocked(boolean isLocked) {
+        this.isLocked = isLocked;
         return this;
     }
 

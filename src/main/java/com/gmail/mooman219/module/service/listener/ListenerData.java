@@ -15,7 +15,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.bull.PlayerShutdownType;
 import com.gmail.mooman219.bull.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.event.CEventFactory;
+import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
 import com.gmail.mooman219.handler.database.UploadReason;

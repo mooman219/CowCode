@@ -16,8 +16,8 @@ import org.bukkit.potion.PotionEffectType;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.ItemHelper;
 import com.gmail.mooman219.frame.MathHelper;
-import com.gmail.mooman219.frame.event.TickSecondSyncEvent;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
 
 public class MessingAround implements Listener {
     @EventHandler

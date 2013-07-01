@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.bull.PlayerShutdownType;
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.event.CEventFactory;
+import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.CowHandler;

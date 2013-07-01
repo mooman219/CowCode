@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.event.CEventFactory;
+import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.layout.CowHandler;
 

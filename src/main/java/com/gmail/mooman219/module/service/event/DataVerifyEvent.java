@@ -1,18 +1,21 @@
-package com.gmail.mooman219.frame.event;
+package com.gmail.mooman219.module.service.event;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 
-public class DataRemovalEvent extends Event {
+public class DataVerifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final CDPlayer player;
+    private final AsyncPlayerPreLoginEvent event;
 
-    public DataRemovalEvent(boolean async, CDPlayer player) {
-        super(async);
+    public DataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer player) {
+        super(true);
         this.player = player;
+        this.event = event;
     }
 
     @Override
@@ -26,5 +29,9 @@ public class DataRemovalEvent extends Event {
 
     public CDPlayer getPlayer() {
         return player;
+    }
+
+    public AsyncPlayerPreLoginEvent getEvent() {
+        return event;
     }
 }
