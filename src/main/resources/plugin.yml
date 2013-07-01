@@ -73,6 +73,7 @@ commands:
         - lag
     modifyid:
     modifycombat:
+    modifylock:
     modifyinfo:
     modifyname:
     newregion:

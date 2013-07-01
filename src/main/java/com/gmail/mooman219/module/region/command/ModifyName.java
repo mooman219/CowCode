@@ -22,7 +22,7 @@ public class ModifyName extends CCommand {
         String name = TextHelper.merge(args, 1);
         if(region != null) {
             region.setName(name);
-            CCRegion.MSG.MODIFIED.send(sender);
+            CCRegion.FRM.MODIFIED.send(sender, region.getID());
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
         }

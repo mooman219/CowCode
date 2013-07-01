@@ -85,7 +85,7 @@ public class ListenerChat implements Listener{
     public void message(CDPlayer sender, CDPlayer receiver, String message) {
         if(receiver == null || !receiver.getPlayer().isOnline()) {
             sender.chat.setLastMessaged(null);
-            CCChat.MSG.MESSAGE_LOST.send(sender.getPlayer());
+            CCChat.MSG.MESSAGE_LOST.send(sender);
         } else {
             sender.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "TO " + Chat.RESET + receiver.serviceData.rank.tag + receiver.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
             receiver.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "FROM " + Chat.RESET + sender.serviceData.rank.tag + sender.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);

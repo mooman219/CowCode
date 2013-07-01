@@ -5,6 +5,8 @@ import java.text.MessageFormat;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.gmail.mooman219.bull.CDPlayer;
+
 public class Bulletin {
     public final String message;
 
@@ -26,6 +28,10 @@ public class Bulletin {
 
     public String parse(Object... args) {
         return MessageFormat.format(message, args);
+    }
+
+    public void send(CDPlayer player) {
+        player.getPlayer().sendMessage(message);
     }
 
     public void send(CommandSender target) {

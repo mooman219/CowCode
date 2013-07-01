@@ -7,6 +7,7 @@ import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
 import com.gmail.mooman219.module.region.command.ModifyID;
 import com.gmail.mooman219.module.region.command.ModifyInfo;
+import com.gmail.mooman219.module.region.command.ModifyLock;
 import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.SetRegion;
@@ -59,17 +60,20 @@ public class CCRegion implements CowComponent {
         plugin.addCommand(new ModifyID());
         plugin.addCommand(new ModifyCombat());
         plugin.addCommand(new ModifyInfo());
+        plugin.addCommand(new ModifyLock());
         plugin.addCommand(new ModifyName());
         plugin.addCommand(new NewRegion());
         plugin.addCommand(new SetRegion());
     }
 
     public class Messages {
+        public final Bulletin LOCKED = new Bulletin(Chat.msgError, "That region is currently locked.", Chat.formatError);
         public final Bulletin EXISTS = new Bulletin(Chat.msgError, "Region already exists.", Chat.formatError);
         public final Bulletin NONEXISTS = new Bulletin(Chat.msgError, "The region does not exist.", Chat.formatError);
         public final Bulletin ADDED = new Bulletin(Chat.msgInfo, "Region added!", Chat.formatInfo);
-        public final Bulletin MODIFIED = new Bulletin(Chat.msgInfo, "Region modified!", Chat.formatInfo);
     }
 
-    public class Formats {}
+    public class Formats {
+        public final Bulletin MODIFIED = new Bulletin(Chat.msgInfo, "Modified region {0}!", Chat.formatInfo);
+    }
 }

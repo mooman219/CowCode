@@ -27,7 +27,7 @@ public class BasicRegion {
     public RegionCombatType getCombatType() {
         return combatType;
     }
-    
+
     public boolean isLocked() {
         return isLocked;
     }
@@ -62,7 +62,7 @@ public class BasicRegion {
         this.id = id;
         return this;
     }
-    
+
     public BasicRegion setLocked(boolean isLocked) {
         this.isLocked = isLocked;
         return this;

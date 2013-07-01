@@ -21,7 +21,7 @@ public class ModifyInfo extends CCommand {
         BasicRegion region = RegionManager.getInfoByID(args[0]);
         if(region != null) {
             region.setDescription(TextHelper.merge(args, 1));
-            CCRegion.MSG.MODIFIED.send(sender);
+            CCRegion.FRM.MODIFIED.send(sender, region.getID());
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
         }

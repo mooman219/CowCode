@@ -21,7 +21,7 @@ public class SetRegion extends CCommand {
         BasicRegion region = RegionManager.getInfoByID(args[0]);
         if(region != null) {
             CDChunk.get(sender).setParentInformation(region);
-            CCRegion.MSG.MODIFIED.send(sender);
+            CCRegion.FRM.MODIFIED.send(sender, region.getID());
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
         }

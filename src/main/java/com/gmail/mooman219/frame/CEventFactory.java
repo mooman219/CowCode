@@ -1,44 +1,47 @@
 package com.gmail.mooman219.frame;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.Event;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.handler.task.event.TickSecondAsyncEvent;
 import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
+import com.gmail.mooman219.module.region.event.RegionChangeEvent;
+import com.gmail.mooman219.module.region.store.BasicRegion;
 import com.gmail.mooman219.module.service.event.DataCreateEvent;
 import com.gmail.mooman219.module.service.event.DataRemovalEvent;
 import com.gmail.mooman219.module.service.event.DataVerifyEvent;
 
 public class CEventFactory {
     public static DataCreateEvent callDataCreateEvent(PlayerLoginEvent event, CDPlayer player) {
-        DataCreateEvent ccEvent = new DataCreateEvent(event, player);
-        Bukkit.getPluginManager().callEvent(ccEvent);
-        return ccEvent;
+        return callEvent(new DataCreateEvent(event, player));
     }
 
     public static DataRemovalEvent callDataRemovalEvent(boolean async, CDPlayer player) {
-        DataRemovalEvent ccEvent = new DataRemovalEvent(async, player);
-        Bukkit.getPluginManager().callEvent(ccEvent);
-        return ccEvent;
+        return callEvent(new DataRemovalEvent(async, player));
     }
 
     public static DataVerifyEvent callDataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer player) {
-        DataVerifyEvent ccEvent = new DataVerifyEvent(event, player);
-        Bukkit.getPluginManager().callEvent(ccEvent);
-        return ccEvent;
+        return callEvent(new DataVerifyEvent(event, player));
+    }
+
+    public static RegionChangeEvent callRegionChangeEvent(PlayerMoveEvent event, CDPlayer player, BasicRegion oldRegion, BasicRegion newRegion) {
+        return callEvent(new RegionChangeEvent(event, player, oldRegion, newRegion));
     }
 
     public static TickSecondAsyncEvent callTickSecondAsyncEvent() {
-        TickSecondAsyncEvent ccEvent = new TickSecondAsyncEvent();
-        Bukkit.getPluginManager().callEvent(ccEvent);
-        return ccEvent;
+        return callEvent(new TickSecondAsyncEvent());
     }
 
     public static TickSecondSyncEvent callTickSecondSyncEvent() {
-        TickSecondSyncEvent ccEvent = new TickSecondSyncEvent();
-        Bukkit.getPluginManager().callEvent(ccEvent);
-        return ccEvent;
+        return callEvent(new TickSecondSyncEvent());
+    }
+
+    private static <T extends Event> T callEvent(T event) {
+        Bukkit.getPluginManager().callEvent(event);
+        return event;
     }
 }

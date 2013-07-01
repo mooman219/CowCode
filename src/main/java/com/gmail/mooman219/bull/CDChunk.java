@@ -62,7 +62,7 @@ public class CDChunk extends BullData {
         return data.minerals;
     }
 
-    public BasicRegion getParentInfo() {
+    public BasicRegion getRegion() {
         if(softParentInfo == null || softParentInfo.get() == null) {
             setParentInformation(RegionManager.getInfo(data.parentUUID));
         }

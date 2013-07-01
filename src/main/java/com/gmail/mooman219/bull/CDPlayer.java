@@ -40,6 +40,7 @@ import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
+import com.gmail.mooman219.module.region.store.PLRegion;
 import com.gmail.mooman219.module.rpg.stat.store.PDStat;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.store.PDService;
@@ -48,7 +49,7 @@ import com.mongodb.DBObject;
 
 public class CDPlayer extends BullData {
     // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
-    public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP"); // The slow one makes the client run faster
+    public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
     // [+] Data information
     // [ ]---[+] Offline
     public final ObjectId id;
@@ -66,6 +67,7 @@ public class CDPlayer extends BullData {
     public PDStat statData = null;
     // [ ]---[+] Online
     public PLChat chat = null;
+    public PLRegion region = null;
 
     public CDPlayer(ObjectId id, String username) {
         this.id = id;
@@ -83,6 +85,7 @@ public class CDPlayer extends BullData {
             thread = Executors.newSingleThreadExecutor();
             /** Live module data to be added **/
             chat = new PLChat(this);
+            region = new PLRegion(this);
             /**/
             break;
         case PRE_CREATION:
@@ -109,6 +112,7 @@ public class CDPlayer extends BullData {
             player = null;
             /** Live module data to be removed **/
             chat = null;
+            region = null;
             /**/
             break;
         default:
@@ -305,10 +309,6 @@ public class CDPlayer extends BullData {
             Loader.warning("Invalid data on player '" + player.getName() + "'.");
         }
         return ret;
-    }
-
-    public static CDPlayer get(EntityPlayer player) {
-        return get(player.getBukkitEntity());
     }
 
     public static void set(AsyncPlayerPreLoginEvent event, CDPlayer player) {
