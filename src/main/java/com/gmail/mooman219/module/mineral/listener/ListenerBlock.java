@@ -10,7 +10,7 @@ import com.gmail.mooman219.module.mineral.store.BasicMineral;
 public class ListenerBlock implements Listener{
     @EventHandler(ignoreCancelled = false)
     public void onBreak(BlockBreakEvent event) {
-        BasicMineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock());
+        BasicMineral mineral = CDChunk.get(event.getBlock()).getMineral(event.getBlock().getLocation());
         if(mineral != null) {
             event.setCancelled(true);
             if(event.getBlock().getType() == mineral.type) {

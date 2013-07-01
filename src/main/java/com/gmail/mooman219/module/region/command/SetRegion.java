@@ -20,7 +20,7 @@ public class SetRegion extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         BasicRegion region = RegionManager.getInfoByID(args[0]);
         if(region != null) {
-            CDChunk.get(sender).setParentInformation(region);
+            CDChunk.get(sender).setRegion(region);
             CCRegion.FRM.MODIFIED.send(sender, region.getID());
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);

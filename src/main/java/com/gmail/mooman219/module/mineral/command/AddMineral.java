@@ -28,7 +28,7 @@ public class AddMineral extends CCommand {
         if(block != null) {
             CDChunk chunk = CDChunk.get(block);
             int delay = Integer.parseInt(args[0]);
-            BasicMineral mineral = chunk.getMineral(block);
+            BasicMineral mineral = chunk.getMineral(block.getLocation());
             if(mineral != null) {
                 mineral.type = block.getType();
                 mineral.respawnDelay = delay * 1000;

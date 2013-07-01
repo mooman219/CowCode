@@ -26,7 +26,7 @@ public class RemoveMineral extends CCommand {
         Block block = BlockHelper.getLineOfSightSolid(sender, 6);
         if(block.getType() != Material.AIR) {
             CDChunk chunk = CDChunk.get(block);
-            if(chunk.getMinerals().remove(chunk.getMineral(block))) {
+            if(chunk.getMinerals().remove(chunk.getMineral(block.getLocation()))) {
                 CCMineral.FRM.REMOVE.send(sender, chunk.getMinerals().size());
                 WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
                 return;

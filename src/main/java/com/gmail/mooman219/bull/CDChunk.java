@@ -45,10 +45,6 @@ public class CDChunk extends BullData {
      * Live
      */
 
-    public BasicMineral getMineral(Block block) {
-        return getMineral(block.getLocation());
-    }
-
     public BasicMineral getMineral(Location loc) {
         for(BasicMineral mineral : data.minerals) {
             if(mineral.match(loc)) {
@@ -64,12 +60,12 @@ public class CDChunk extends BullData {
 
     public BasicRegion getRegion() {
         if(softParentInfo == null || softParentInfo.get() == null) {
-            setParentInformation(RegionManager.getInfo(data.parentUUID));
+            setRegion(RegionManager.getInfo(data.parentUUID));
         }
         return softParentInfo.get();
     }
 
-    public void setParentInformation(BasicRegion info) {
+    public void setRegion(BasicRegion info) {
         softParentInfo = new SoftReference<BasicRegion>(info);
         data.parentUUID = info.getUUID();
     }
