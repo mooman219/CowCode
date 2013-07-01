@@ -6,12 +6,13 @@ import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
-public class BasicVectorDouble {
+public class BasicVectorDouble implements JsonData {
     private double x = 0D;
     private double y = 0D;
     private double z = 0D;

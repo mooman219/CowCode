@@ -8,9 +8,10 @@ import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.annotations.SerializedName;
 
-public class BasicRichLocation {
+public class BasicRichLocation implements JsonData {
     @SerializedName("World") private String world;
     @SerializedName("UUID") private String uuid;
     @SerializedName("Yaw") private float yaw;

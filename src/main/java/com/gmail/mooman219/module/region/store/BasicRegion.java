@@ -1,8 +1,9 @@
 package com.gmail.mooman219.module.region.store;
 import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.layout.JsonData;
 
-public class BasicRegion {
+public class BasicRegion implements JsonData {
     // This identifies the region, don't fuck with it
     private final String uuid;
 

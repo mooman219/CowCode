@@ -4,9 +4,10 @@ import org.bukkit.Location;
 
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicRichLocation;
+import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.annotations.SerializedName;
 
-public class BasicGraveyard {
+public class BasicGraveyard implements JsonData {
     @SerializedName("Location") private final BasicRichLocation location;
     @SerializedName("Level_Requirement") private int levelRequirement = 0;
 

@@ -9,9 +9,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.annotations.SerializedName;
 
-public class BasicItemStack {
+public class BasicItemStack implements JsonData {
     // Default
     @SerializedName("ID") public int id;
     @SerializedName("Amt") public int amount;

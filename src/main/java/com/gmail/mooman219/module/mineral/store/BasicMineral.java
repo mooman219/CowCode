@@ -10,8 +10,9 @@ import org.bukkit.util.Vector;
 import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.layout.JsonData;
 
-public class BasicMineral {
+public class BasicMineral implements JsonData {
     public final int x;
     public final int y;
     public final int z;
