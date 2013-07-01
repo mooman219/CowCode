@@ -9,20 +9,28 @@ import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class GraveyardManager {
-    // returns true if the graveyarg already existed
+    /**
+     * @return If the graveyard already existed.
+     */
     public static boolean addGraveyard(Location location, int levelRequirement) {
         BasicGraveyard loc = new BasicGraveyard(location, levelRequirement);
-        for(BasicGraveyard graveyardData : StoreGraveyard.getGraveyards()) {
-            if(graveyardData.location.equals(loc)) {
-                graveyardData.levelRequirement = levelRequirement;
-                return true;
+        boolean ret = false;
+        Iterator<BasicGraveyard> iterator = StoreGraveyard.getGraveyards().iterator();
+        while(iterator.hasNext()) {
+            BasicGraveyard graveyardData = iterator.next();
+            if(graveyardData.getBasicLocation().equals(loc.getBasicLocation())) {
+                iterator.remove();
+                ret = true;
+                break;
             }
         }
         StoreGraveyard.getGraveyards().add(new BasicGraveyard(location, levelRequirement));
-        return false;
+        return ret;
     }
 
-    // returns the graveyard matching the location
+    /**
+     * @return The graveyard with the matching id.
+     */
     public static BasicGraveyard getGraveyard(int id) {
         if(StoreGraveyard.getGraveyards().size() > id) {
             return StoreGraveyard.getGraveyards().get(id);
@@ -30,13 +38,15 @@ public class GraveyardManager {
         return null;
     }
 
-    // returns the removed graveyard
+    /**
+     * @return The removed graveyard
+     */
     public static BasicGraveyard removeGraveyard(Location location) {
         BasicGraveyard closestGraveyard = getClosestGraveyard(location);
         Iterator<BasicGraveyard> iterator = StoreGraveyard.getGraveyards().iterator();
         while(iterator.hasNext()) {
             BasicGraveyard graveyardData = iterator.next();
-            if(graveyardData.location.equals(closestGraveyard.location)) {
+            if(graveyardData.getBasicLocation().equals(closestGraveyard.getBasicLocation())) {
                 iterator.remove();
                 return closestGraveyard;
             }
@@ -44,7 +54,9 @@ public class GraveyardManager {
         return null;
     }
 
-    // returns the closest graveyard
+    /**
+     * @return The closest graveyard.
+     */
     public static BasicGraveyard getClosestGraveyard(Location location) {
         if(StoreGraveyard.getGraveyards().size() <= 0) {
             return null;

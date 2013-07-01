@@ -42,6 +42,10 @@ public class BasicRichLocation {
         return weakLoc.get();
     }
 
+    /**
+     * Json methods
+     */
+
     @Override
     public String toString() {
         return JsonHelper.toJson(this);
@@ -49,5 +53,63 @@ public class BasicRichLocation {
 
     public static BasicRichLocation fromString(String string) {
         return JsonHelper.getGson().fromJson(string, BasicRichLocation.class);
+    }
+
+    /**
+     * Needed methods
+     */
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Float.floatToIntBits(pitch);
+        result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+        result = prime * result + ((vector == null) ? 0 : vector.hashCode());
+        result = prime * result + ((world == null) ? 0 : world.hashCode());
+        result = prime * result + Float.floatToIntBits(yaw);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        BasicRichLocation other = (BasicRichLocation) obj;
+        if (Float.floatToIntBits(pitch) != Float.floatToIntBits(other.pitch)) {
+            return false;
+        }
+        if (uuid == null) {
+            if (other.uuid != null) {
+                return false;
+            }
+        } else if (!uuid.equals(other.uuid)) {
+            return false;
+        }
+        if (vector == null) {
+            if (other.vector != null) {
+                return false;
+            }
+        } else if (!vector.equals(other.vector)) {
+            return false;
+        }
+        if (world == null) {
+            if (other.world != null) {
+                return false;
+            }
+        } else if (!world.equals(other.world)) {
+            return false;
+        }
+        if (Float.floatToIntBits(yaw) != Float.floatToIntBits(other.yaw)) {
+            return false;
+        }
+        return true;
     }
 }

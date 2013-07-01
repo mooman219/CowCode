@@ -7,7 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import com.gmail.mooman219.craftbukkit.BullData;
 
 public class CDEntity extends BullData {
-    public final Entity entity;
+    private final Entity entity;
 
     private CDEntity(Entity entity) {
         this.entity = entity;

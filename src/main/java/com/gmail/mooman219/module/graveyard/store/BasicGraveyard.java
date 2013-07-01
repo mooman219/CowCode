@@ -7,17 +7,33 @@ import com.gmail.mooman219.frame.serialize.json.BasicRichLocation;
 import com.google.gson.annotations.SerializedName;
 
 public class BasicGraveyard {
-    @SerializedName("Location") public final BasicRichLocation location;
-    @SerializedName("Level_Requirement") public int levelRequirement = 0;
+    @SerializedName("Location") private final BasicRichLocation location;
+    @SerializedName("Level_Requirement") private int levelRequirement = 0;
 
     public BasicGraveyard(Location location, int levelRequirement) {
         this.location = new BasicRichLocation(location);
         this.levelRequirement = levelRequirement;
     }
 
-    public final Location getLocation() {
+    public Location getLocation() {
         return location.toLocation();
     }
+
+    public BasicRichLocation getBasicLocation() {
+        return location;
+    }
+
+    public int getLevelRequirement() {
+        return levelRequirement;
+    }
+
+    public void setLevelRequirement(int levelRequirement) {
+        this.levelRequirement = levelRequirement;
+    }
+
+    /**
+     * Json methods
+     */
 
     @Override
     public String toString() {
@@ -26,5 +42,43 @@ public class BasicGraveyard {
 
     public static BasicGraveyard fromString(String string) {
         return JsonHelper.getGson().fromJson(string, BasicGraveyard.class);
+    }
+
+    /**
+     * Needed methods
+     */
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + levelRequirement;
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        BasicGraveyard other = (BasicGraveyard) obj;
+        if (levelRequirement != other.levelRequirement) {
+            return false;
+        }
+        if (location == null) {
+            if (other.location != null) {
+                return false;
+            }
+        } else if (!location.equals(other.location)) {
+            return false;
+        }
+        return true;
     }
 }

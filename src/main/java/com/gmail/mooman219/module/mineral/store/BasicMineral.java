@@ -90,8 +90,66 @@ public class BasicMineral {
         getBlock(chunk).setType(Material.COBBLESTONE);
     }
 
+    /**
+     * Json methods
+     */
+
     @Override
     public String toString() {
         return JsonHelper.toJson(this);
+    }
+
+    public static BasicMineral fromString(String string) {
+        return JsonHelper.getGson().fromJson(string, BasicMineral.class);
+    }
+
+    /**
+     * Needed methods
+     */
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + respawnDelay;
+        result = prime * result + (int) (respawnTime ^ (respawnTime >>> 32));
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + x;
+        result = prime * result + y;
+        result = prime * result + z;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        BasicMineral other = (BasicMineral) obj;
+        if (respawnDelay != other.respawnDelay) {
+            return false;
+        }
+        if (respawnTime != other.respawnTime) {
+            return false;
+        }
+        if (type != other.type) {
+            return false;
+        }
+        if (x != other.x) {
+            return false;
+        }
+        if (y != other.y) {
+            return false;
+        }
+        if (z != other.z) {
+            return false;
+        }
+        return true;
     }
 }
