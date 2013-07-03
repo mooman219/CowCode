@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.region.store;
+package com.gmail.mooman219.module.region.type;
 
 import java.io.IOException;
 

@@ -1,9 +1,11 @@
 package com.gmail.mooman219.frame.serialize.json;
 
 import java.lang.ref.WeakReference;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
 
@@ -13,14 +15,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class BasicChunkLocation implements JsonData {
     @SerializedName("World") private String world;
-    @SerializedName("UUID") private String uuid;
+    @SerializedName("UUID") private UUID uuid;
     @SerializedName("Chunk_Pos") private BasicVectorInteger vector;
 
     private transient WeakReference<Chunk> weakChunk;
 
     public BasicChunkLocation(Chunk chunk) {
         this.world = chunk.getWorld().getName();
-        this.uuid = chunk.getWorld().getUID().toString();
+        this.uuid = chunk.getWorld().getUID();
         this.vector = new BasicVectorInteger(chunk.getX(), 0, chunk.getZ());
     }
 
@@ -37,6 +39,25 @@ public class BasicChunkLocation implements JsonData {
             weakChunk = new WeakReference<Chunk>(world.getChunkAt(vec.getBlockX(), vec.getBlockZ()));
         }
         return weakChunk.get();
+    }
+
+    /**
+     * @return True if there is a similar position.
+     */
+    public boolean match(Location location) {
+        return (vector.getX() == location.getChunk().getX() && vector.getZ() == location.getChunk().getZ()) && (location.getWorld().getName().equals(world) || location.getWorld().getUID().equals(uuid));
+    }
+
+    public BasicVectorInteger getVector() {
+        return vector;
+    }
+
+    public UUID getUUID() {
+        return uuid;
+    }
+
+    public String getWorld() {
+        return world;
     }
 
     /**

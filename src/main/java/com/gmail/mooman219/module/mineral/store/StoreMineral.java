@@ -3,19 +3,18 @@ package com.gmail.mooman219.module.mineral.store;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-
-import org.bukkit.Location;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.frame.serialize.json.BasicLocation;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.google.gson.Gson;
 
 public class StoreMineral extends ConfigJson {
-    private static ArrayList<BasicMineral> graveyards = new ArrayList<BasicMineral>();
+    private static HashMap<BasicLocation, BasicMineral> mineralMap = new HashMap<BasicLocation, BasicMineral>();
 
     public StoreMineral(String directory) {
         super(directory, "minerals", "data");
@@ -29,18 +28,15 @@ public class StoreMineral extends ConfigJson {
     @Override
     public void onLoad(FileReader reader) {
         getGson().fromJson(reader, StoreMineral.class);
-        // Remove invalid minerals when they are loaded.
         int removed = 0;
-        Iterator<BasicMineral> iterator = graveyards.iterator();
+        Iterator<BasicMineral> iterator = mineralMap.values().iterator();
         while(iterator.hasNext()) {
-            BasicMineral mineral = iterator.next();
-            Location location = mineral.getLocation();
-            if(location == null) {
+            if(iterator.next().getLocation() == null) {
                 iterator.remove();
                 removed++;
             }
         }
-        if(removed > 0) {            
+        if(removed > 0) {
             Loader.warning(CCMineral.cast + "Removed " + removed + " invalid minerals.");
         }
     }
@@ -52,7 +48,7 @@ public class StoreMineral extends ConfigJson {
         .create();
     }
 
-    public static ArrayList<BasicMineral> getMinerals() {
-        return graveyards;
+    public static HashMap<BasicLocation, BasicMineral> getMinerals() {
+        return mineralMap;
     }
 }

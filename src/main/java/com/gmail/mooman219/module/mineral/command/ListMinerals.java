@@ -22,7 +22,7 @@ public class ListMinerals extends CCommand {
         CCMineral.FRM.LIST_TITLE.send(sender, chunk.getMinerals().size());
         int i = 0;
         for(BasicMineral mineral : chunk.getMinerals()) {
-            CCMineral.FRM.LIST.send(sender, i, mineral.x, mineral.y, mineral.z, mineral.respawnDelay);
+            CCMineral.FRM.LIST.send(sender, i, mineral.getBasicLocation(), mineral.y, mineral.z, mineral.respawnDelay);
             WorldHelper.playEffect(mineral.getLocation(chunk), Effect.MOBSPAWNER_FLAMES);
             i++;
         }

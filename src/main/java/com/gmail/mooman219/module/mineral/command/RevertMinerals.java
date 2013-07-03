@@ -2,12 +2,12 @@ package com.gmail.mooman219.module.mineral.command;
 
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.store.BasicMineral;
+import com.gmail.mooman219.module.mineral.MineralManager;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class RevertMinerals extends CCommand {
     public RevertMinerals() {
@@ -16,9 +16,7 @@ public class RevertMinerals extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CCMineral.FRM.REVERT.send(sender, CDChunk.get(sender).getMinerals().size());
-        for(BasicMineral mineral : CDChunk.get(sender).getMinerals()) {
-            mineral.revert(sender.getLocation().getChunk());
-        }
+        CCMineral.FRM.REVERT.send(sender, StoreMineral.getMinerals().size());
+        MineralManager.revert();
     }
 }

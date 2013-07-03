@@ -71,14 +71,14 @@ public class ListenerBlock implements Listener {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onBreak(BlockBreakEvent event) {
         if(ConfigGlobal.module.world.disableBuilding) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler()
     public void onPlace(BlockPlaceEvent event) {
         if(ConfigGlobal.module.world.disableBuilding) {

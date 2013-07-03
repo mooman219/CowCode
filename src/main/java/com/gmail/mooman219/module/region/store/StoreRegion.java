@@ -2,11 +2,11 @@ package com.gmail.mooman219.module.region.store;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.module.region.type.RegionCombatType;
 import com.google.gson.Gson;
 
 public class StoreRegion extends ConfigJson {
@@ -14,8 +14,7 @@ public class StoreRegion extends ConfigJson {
             new BasicRegion("GLOBALREGIONUUID-90f5e0f50661c3951a2", "global", "Global")
             .setDescription("No region exists here")
             .setCombatType(RegionCombatType.SAFE);
-    private static transient HashMap<String, BasicRegion> regions = new HashMap<String, BasicRegion>();
-    private static ArrayList<BasicRegion> saveable_regions = new ArrayList<BasicRegion>();
+    private static HashMap<String, BasicRegion> regions = new HashMap<String, BasicRegion>();
 
     public StoreRegion(String directory) {
         super(directory, "regions", "yml");
@@ -33,15 +32,10 @@ public class StoreRegion extends ConfigJson {
     public void onLoad(FileReader reader) {
         getGson().fromJson(reader, StoreRegion.class);
         regions = new HashMap<String, BasicRegion>();
-        for(BasicRegion regionInfo : saveable_regions) {
-            regions.put(regionInfo.getUUID(), regionInfo);
-        }
     }
 
     @Override
     public void onSave(FileWriter writer) {
-        saveable_regions.clear();
-        saveable_regions.addAll(StoreRegion.regions.values());
         getGson().toJson(this, writer);
     }
 

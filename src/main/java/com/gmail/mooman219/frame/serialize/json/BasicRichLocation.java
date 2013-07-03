@@ -48,7 +48,19 @@ public class BasicRichLocation implements JsonData {
      * @return True if there is a exact position match.
      */
     public boolean match(Location location) {
-        return vector.match(location.toVector());
+        return vector.match(location.toVector()) && (location.getWorld().getName().equals(world) || location.getWorld().getUID().equals(uuid));
+    }
+
+    public BasicVectorDouble getVector() {
+        return vector;
+    }
+
+    public UUID getUUID() {
+        return uuid;
+    }
+
+    public String getWorld() {
+        return world;
     }
 
     /**

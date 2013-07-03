@@ -4,7 +4,6 @@ import org.bukkit.Effect;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.BlockHelper;
 import com.gmail.mooman219.frame.WorldHelper;
@@ -12,7 +11,9 @@ import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
+import com.gmail.mooman219.module.mineral.MineralManager;
 import com.gmail.mooman219.module.mineral.store.BasicMineral;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class AddMineral extends CCommand {
     public CCMineral module;
@@ -26,17 +27,12 @@ public class AddMineral extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         Block block = BlockHelper.getLineOfSightSolid(sender, 6);
         if(block != null) {
-            CDChunk chunk = CDChunk.get(block);
             int delay = Integer.parseInt(args[0]);
-            BasicMineral mineral = chunk.getMineral(block.getLocation());
-            if(mineral != null) {
-                mineral.type = block.getType();
-                mineral.respawnDelay = delay * 1000;
-                mineral.respawnTime = -1L;
-                CCMineral.FRM.EDIT.send(sender, chunk.getMinerals().size(), delay);
+            BasicMineral mineral = new BasicMineral(block, delay * 1000);
+            if(MineralManager.add(mineral)) {
+                CCMineral.FRM.EDIT.send(sender, StoreMineral.getMinerals().size(), delay);
             } else {
-                chunk.getMinerals().add(new BasicMineral(block, delay * 1000));
-                CCMineral.FRM.ADD.send(sender, chunk.getMinerals().size(), delay);
+                CCMineral.FRM.ADD.send(sender, StoreMineral.getMinerals().size(), delay);
             }
             WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
             return;

@@ -14,14 +14,14 @@ public class BasicMineral implements JsonData {
     private transient long respawnTime = 0;
 
     public BasicMineral(Block block, int respawnDelay) {
-        this(block.getLocation(), block.getType(), respawnDelay, -1L);
+        this(block.getLocation(), block.getType(), respawnDelay);
     }
 
-    public BasicMineral(Location location, Material type, int respawnDelay, long respawnTime) {
+    public BasicMineral(Location location, Material type, int respawnDelay) {
         this.location = new BasicLocation(location);
         this.type = type;
         this.respawnDelay = respawnDelay;
-        this.respawnTime = respawnTime;
+        this.respawnTime = 0;
     }
 
     public boolean match(Location location) {
@@ -40,6 +40,10 @@ public class BasicMineral implements JsonData {
         return location.toLocation();
     }
 
+    public BasicLocation getBasicLocation() {
+        return this.location;
+    }
+
     public int getRespawnDelay() {
         return respawnDelay;
     }
@@ -47,11 +51,11 @@ public class BasicMineral implements JsonData {
     public long getRespawnTime() {
         return respawnTime;
     }
-    
+
     public Material getType() {
         return this.type;
     }
-    
+
     public void setType(Material material) {
         this.type = material;
     }

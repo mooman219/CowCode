@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import com.gmail.mooman219.frame.serialize.json.BasicVectorDouble;
 import com.gmail.mooman219.frame.serialize.json.BasicVectorInteger;
 import com.gmail.mooman219.frame.serialize.json.BukkitAdapters;
-import com.gmail.mooman219.module.region.store.RegionCombatType;
+import com.gmail.mooman219.module.region.type.RegionCombatType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
