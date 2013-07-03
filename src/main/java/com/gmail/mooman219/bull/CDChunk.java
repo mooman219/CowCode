@@ -3,8 +3,6 @@ package com.gmail.mooman219.bull;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
-import net.minecraft.server.NBTTagCompound;
-
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -12,8 +10,6 @@ import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
-import com.gmail.mooman219.frame.TagHelper;
-import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
 import com.gmail.mooman219.module.mineral.store.BasicMineral;
 import com.gmail.mooman219.module.region.RegionManager;
@@ -44,19 +40,6 @@ public class CDChunk extends BullData {
     /*
      * Live
      */
-
-    public BasicMineral getMineral(Location loc) {
-        for(BasicMineral mineral : data.minerals) {
-            if(mineral.match(loc)) {
-                return mineral;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<BasicMineral> getMinerals() {
-        return data.minerals;
-    }
 
     public BasicRegion getRegion() {
         if(softParentInfo == null || softParentInfo.get() == null) {
@@ -100,18 +83,6 @@ public class CDChunk extends BullData {
         tick++;
     }
 
-    @Override
-    public void onTagLoad(NBTTagCompound tag) {
-        String instance = TagHelper.getString(tag, "chunk.moo", "");
-        CDChunkData savedData = JsonHelper.getGson().fromJson(instance, CDChunkData.class);
-        data = instance.length() > 0 ? savedData == null ? new CDChunkData() : savedData : new CDChunkData();
-    }
-
-    @Override
-    public void onTagSave(NBTTagCompound tag) {
-        tag.setString("chunk.moo", JsonHelper.toJson(data));
-    }
-
     /*
      * Default
      */
@@ -140,7 +111,6 @@ public class CDChunk extends BullData {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
         if(handle.bull_live == null) {
             handle.bull_live = new CDChunk(chunk);
-            handle.bull_live.onTagLoad(handle.bull_tag);
         }
         CDChunk cdChunk = (CDChunk) handle.bull_live;
         cdChunk.onGet();
@@ -154,7 +124,6 @@ public class CDChunk extends BullData {
     public static void unload(Chunk chunk) {
         net.minecraft.server.Chunk handle = ((CraftChunk)chunk).getHandle();
         if(handle.bull_live != null) {
-            handle.bull_live.onTagSave(handle.bull_tag);
             handle.bull_live = null;
         }
     }

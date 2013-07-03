@@ -13,9 +13,9 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public class BasicVectorInteger implements JsonData {
-    private int x = 0;
-    private int y = 0;
-    private int z = 0;
+    private final int x;
+    private final int y;
+    private final int z;
 
     public BasicVectorInteger(Vector vec) {
         this(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());
@@ -29,6 +29,22 @@ public class BasicVectorInteger implements JsonData {
 
     public Vector toVector() {
         return new Vector(x, y, z);
+    }
+
+    public boolean match(Vector vector) {
+        return vector.getBlockX() == x && vector.getBlockY() == y && vector.getBlockZ() == z;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getZ() {
+        return z;
     }
 
     /**

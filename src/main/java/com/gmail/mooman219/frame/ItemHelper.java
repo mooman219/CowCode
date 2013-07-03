@@ -33,7 +33,7 @@ public class ItemHelper {
         item.setItemMeta(meta);
         return item;
     }
-    
+
     public static ItemMeta getItemMeta(ItemStack item) {
         if(item.hasItemMeta()) {
             return item.getItemMeta();

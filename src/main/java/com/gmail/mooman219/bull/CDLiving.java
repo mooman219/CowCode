@@ -45,7 +45,6 @@ public class CDLiving extends BullData {
             throw new IllegalArgumentException("Players are not considered LivingEntities.");
         } else if(handle.bull_live == null) {
             handle.bull_live = new CDLiving(livingEntity);
-            handle.bull_live.onTagLoad(handle.bull_tag);
         }
         CDLiving cdLiving = (CDLiving) handle.bull_live;
         cdLiving.onGet();
@@ -61,7 +60,6 @@ public class CDLiving extends BullData {
         if(livingEntity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered LivingEntities.");
         } else if(handle.bull_live != null) {
-            handle.bull_live.onTagSave(handle.bull_tag);
             handle.bull_live = null;
         }
     }

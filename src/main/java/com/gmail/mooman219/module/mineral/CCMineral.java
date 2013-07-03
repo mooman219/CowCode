@@ -11,9 +11,11 @@ import com.gmail.mooman219.module.mineral.command.RemoveMineral;
 import com.gmail.mooman219.module.mineral.command.RevertMinerals;
 import com.gmail.mooman219.module.mineral.command.TotalMinerals;
 import com.gmail.mooman219.module.mineral.listener.ListenerBlock;
+import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class CCMineral implements CowComponent {
     public final Loader plugin;
+    public StoreMineral storeMineral;
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][Mineral] ";
@@ -35,13 +37,19 @@ public class CCMineral implements CowComponent {
 
     @Override
     public void onEnable(){
+        storeMineral = new StoreMineral(directory);
+        Loader.info(cast + "Loaded " + storeMineral.getFile().getName());
+
         listenerBlock = new ListenerBlock();
 
         plugin.addListener(listenerBlock);
     }
 
     @Override
-    public void onDisable(){}
+    public void onDisable(){
+        Loader.info(cast + "Reverting minerals");
+        MineralManager.revert();
+    }
 
     @Override
     public void registerConfigurationSerialization() {}

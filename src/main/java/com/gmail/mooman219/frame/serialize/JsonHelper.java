@@ -2,6 +2,7 @@ package com.gmail.mooman219.frame.serialize;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.UUID;
 
 import org.bukkit.Material;
 
@@ -19,7 +20,8 @@ public class JsonHelper {
         .registerTypeAdapter(BasicVectorDouble.class, BasicVectorDouble.getAdapter())
         .registerTypeAdapter(BasicVectorInteger.class, BasicVectorInteger.getAdapter())
         .registerTypeAdapter(RegionCombatType.class, RegionCombatType.getAdapter())
-        .registerTypeAdapter(Material.class, BukkitAdapters.getMaterialAdapter());
+        .registerTypeAdapter(Material.class, BukkitAdapters.getMaterialAdapter())
+        .registerTypeAdapter(UUID.class, BukkitAdapters.getUUIDAdapter());
     }
 
     public static Gson getGson() {

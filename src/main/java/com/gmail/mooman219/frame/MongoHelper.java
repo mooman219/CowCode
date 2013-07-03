@@ -21,7 +21,7 @@ public class MongoHelper {
     }
 
     public static <T> T getValue(DBObject document, String query, T defaultValue) {
-        try {            
+        try {
             T object = (T) document.get(query);
             return object == null ? defaultValue : object;
         } catch(Exception e) {}

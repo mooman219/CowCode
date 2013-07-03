@@ -278,11 +278,11 @@ public class CDPlayer extends BullData {
     }
 
     public int getArrowsStuck() {
-        return getHandle().bM();
+        return getHandle().datawatcher.getByte(9);
     }
 
     public void setArrowsStuck(int arrows) {
-        getHandle().r(arrows);
+        getHandle().datawatcher.watch(9, Byte.valueOf((byte) arrows));
     }
 
     /*
@@ -326,7 +326,6 @@ public class CDPlayer extends BullData {
     public static void unload(Player player) {
         net.minecraft.server.Entity handle = ((CraftPlayer)player).getHandle();
         if(handle.bull_live != null) {
-            handle.bull_live.onTagSave(handle.bull_tag);
             handle.bull_live = null;
         }
     }

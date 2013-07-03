@@ -45,7 +45,6 @@ public class CDWorld extends BullData {
         net.minecraft.server.World handle = ((CraftWorld)world).getHandle();
         if(handle.bull_live == null) {
             handle.bull_live = new CDWorld(world);
-            handle.bull_live.onTagLoad(handle.bull_tag);
         }
         return (CDWorld) handle.bull_live;
     }

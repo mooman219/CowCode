@@ -2,11 +2,13 @@ package com.gmail.mooman219.module.world.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockGrowEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
@@ -66,6 +68,20 @@ public class ListenerBlock implements Listener {
     @EventHandler()
     public void onLightningStrike(LightningStrikeEvent event) {
         if(ConfigGlobal.module.world.disableLightningStrike) {
+            event.setCancelled(true);
+        }
+    }
+    
+    @EventHandler()
+    public void onBreak(BlockBreakEvent event) {
+        if(ConfigGlobal.module.world.disableBuilding) {
+            event.setCancelled(true);
+        }
+    }
+    
+    @EventHandler()
+    public void onPlace(BlockPlaceEvent event) {
+        if(ConfigGlobal.module.world.disableBuilding) {
             event.setCancelled(true);
         }
     }

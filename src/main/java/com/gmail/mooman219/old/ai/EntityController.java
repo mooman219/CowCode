@@ -61,9 +61,9 @@ public class EntityController {
             yaw = ((yaw + 180F) % 360) - 180F;
             handle.aA = yaw;
             if (!(handle instanceof EntityHuman)) {
-                handle.ay = yaw;
+                handle.aN = yaw;
             }
-            handle.aB = yaw;
+            handle.aN = yaw;
         }
     }
 }

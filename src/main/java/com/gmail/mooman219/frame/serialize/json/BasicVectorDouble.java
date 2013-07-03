@@ -13,9 +13,9 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public class BasicVectorDouble implements JsonData {
-    private double x = 0D;
-    private double y = 0D;
-    private double z = 0D;
+    private final double x;
+    private final double y;
+    private final double z;
 
     public BasicVectorDouble(Vector vec) {
         this.x = vec.getX();
@@ -25,6 +25,22 @@ public class BasicVectorDouble implements JsonData {
 
     public Vector toVector() {
         return new Vector(x, y, z);
+    }
+
+    public boolean match(Vector vector) {
+        return vector.getX() == x && vector.getY() == y && vector.getZ() == z;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
     }
 
     /**

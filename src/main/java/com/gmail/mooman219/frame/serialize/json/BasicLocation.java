@@ -1,6 +1,7 @@
 package com.gmail.mooman219.frame.serialize.json;
 
 import java.lang.ref.WeakReference;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,14 +14,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class BasicLocation implements JsonData {
     @SerializedName("World") private String world;
-    @SerializedName("UUID") private String uuid;
+    @SerializedName("UUID") private UUID uuid;
     @SerializedName("Pos") private BasicVectorInteger vector;
 
     private transient WeakReference<Location> weakLoc;
 
     public BasicLocation(Location loc) {
         this.world = loc.getWorld().getName();
-        this.uuid = loc.getWorld().getUID().toString();
+        this.uuid = loc.getWorld().getUID();
         this.vector = new BasicVectorInteger(loc.toVector());
     }
 
@@ -37,6 +38,13 @@ public class BasicLocation implements JsonData {
             weakLoc = new WeakReference<Location>(new Location(world, vec.getX(), vec.getY(), vec.getZ()));
         }
         return weakLoc.get();
+    }
+
+    /**
+     * @return True if there is a similar position.
+     */
+    public boolean match(Location location) {
+        return vector.match(location.toVector());
     }
 
     /**

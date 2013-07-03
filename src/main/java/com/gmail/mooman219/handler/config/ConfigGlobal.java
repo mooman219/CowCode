@@ -19,7 +19,7 @@ public class ConfigGlobal extends ConfigJson {
         public Player player = new Player();
         public static class Chunk {
             public int chunkTickPeriod = 30; // Ticks
-            public int chunkUnloadDelay = 5; // Minutes
+            public int chunkUnloadDelay = 2; // Minutes
         }
     }
     public static Handler handler = new Handler();
@@ -62,6 +62,7 @@ public class ConfigGlobal extends ConfigJson {
             public boolean disableLightningStrike = true;
             public boolean disableStructureGrow = true;
             public boolean disableWorldSaving = false;
+            public boolean disableBuilding = false;
         }
     }
 

@@ -1,94 +1,67 @@
 package com.gmail.mooman219.module.mineral.store;
 
-import org.bukkit.Chunk;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.util.Vector;
-
-import com.gmail.mooman219.bull.CDChunk;
-import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.frame.serialize.json.BasicLocation;
 import com.gmail.mooman219.layout.JsonData;
 
 public class BasicMineral implements JsonData {
-    public final int x;
-    public final int y;
-    public final int z;
-    public Material type;
-    public int respawnDelay;
-    public long respawnTime;
+    private final BasicLocation location;
+    private Material type;
+    private int respawnDelay;
+    private transient long respawnTime = 0;
 
     public BasicMineral(Block block, int respawnDelay) {
-        this(block.getLocation(), block.getType(), respawnDelay);
+        this(block.getLocation(), block.getType(), respawnDelay, -1L);
     }
 
-    public BasicMineral(Location location, Material type, int respawnDelay) {
-        this(location.toVector(), type, respawnDelay);
-    }
-
-    public BasicMineral(Vector vector, Material type, int respawnDelay) {
-        this(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ(), type, respawnDelay, -1L);
-    }
-
-    public BasicMineral(int x, int y, int z, Material type, int respawnDelay, long respawnTime) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public BasicMineral(Location location, Material type, int respawnDelay, long respawnTime) {
+        this.location = new BasicLocation(location);
         this.type = type;
         this.respawnDelay = respawnDelay;
         this.respawnTime = respawnTime;
     }
 
-    public boolean match(Block block) {
-        return match(block.getLocation());
-    }
-
     public boolean match(Location location) {
-        return match(location.toVector());
+        return this.location.match(location);
     }
 
-    public boolean match(Vector vector) {
-        return match(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ());
+    public boolean hasTimeExpired(long currentTime) {
+        return currentTime - respawnTime > 0;
     }
 
-    public boolean match(int x, int y, int z) {
-        return this.x == x && this.y == y && this.z == z;
+    public void resetTime(long currentTime) {
+        respawnTime = currentTime + respawnDelay;
     }
 
-    public Block getBlock(CDChunk chunk) {
-        return chunk.getChunk().getWorld().getBlockAt(x, y, z);
+    public Location getLocation() {
+        return location.toLocation();
     }
 
-    public Block getBlock(Chunk chunk) {
-        return chunk.getWorld().getBlockAt(x, y, z);
+    public int getRespawnDelay() {
+        return respawnDelay;
     }
 
-    public Location getLocation(CDChunk chunk) {
-        return new Location(chunk.getChunk().getWorld(), x, y, z);
+    public long getRespawnTime() {
+        return respawnTime;
+    }
+    
+    public Material getType() {
+        return this.type;
+    }
+    
+    public void setType(Material material) {
+        this.type = material;
     }
 
-    public Location getLocation(Chunk chunk) {
-        return new Location(chunk.getWorld(), x, y, z);
+    public void setRespawnDelay(int delay) {
+        respawnDelay = delay;
     }
 
-    public void tick(Chunk chunk, long time) {
-        if(respawnTime > -1 && time - respawnTime > 0) {
-            revert(chunk);
-        }
-    }
-
-    public void revert(Chunk chunk) {
-        Block block = getBlock(chunk);
-        WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
-        block.setType(type);
-        respawnTime = -1;
-    }
-
-    public void mine(Chunk chunk) {
-        respawnTime = System.currentTimeMillis() + respawnDelay;
-        getBlock(chunk).setType(Material.COBBLESTONE);
+    public void setRespawnTime(long time) {
+        respawnTime = time;
     }
 
     /**
@@ -112,12 +85,11 @@ public class BasicMineral implements JsonData {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result
+                + ((location == null) ? 0 : location.hashCode());
         result = prime * result + respawnDelay;
         result = prime * result + (int) (respawnTime ^ (respawnTime >>> 32));
         result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + x;
-        result = prime * result + y;
-        result = prime * result + z;
         return result;
     }
 
@@ -133,6 +105,13 @@ public class BasicMineral implements JsonData {
             return false;
         }
         BasicMineral other = (BasicMineral) obj;
+        if (location == null) {
+            if (other.location != null) {
+                return false;
+            }
+        } else if (!location.equals(other.location)) {
+            return false;
+        }
         if (respawnDelay != other.respawnDelay) {
             return false;
         }
@@ -140,15 +119,6 @@ public class BasicMineral implements JsonData {
             return false;
         }
         if (type != other.type) {
-            return false;
-        }
-        if (x != other.x) {
-            return false;
-        }
-        if (y != other.y) {
-            return false;
-        }
-        if (z != other.z) {
             return false;
         }
         return true;
