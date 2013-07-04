@@ -6,33 +6,33 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
+import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class ListenerPlayer implements Listener{
     @EventHandler(priority = EventPriority.HIGH)
     public void onMove(PlayerMoveEvent event) {
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
-            CDChunk chunkData = CDChunk.get(event.getTo());
+            BasicRegion region = RegionManager.getRegion(event.getTo());
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            if(!RegionManager.compare(playerData.region.currentRegion, chunkData.getRegion())) {
-                if(chunkData.getRegion().isLocked()) {
+            if(!RegionManager.compare(playerData.region.currentRegion, region)) {
+                if(region.isLocked()) {
                     CCRegion.MSG.LOCKED.send(playerData);
                     event.setCancelled(true);
                     return;
-                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, chunkData.getRegion()).isCancelled()) {
+                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, region).isCancelled()) {
                     event.setCancelled(true);
                     return;
                 }
-                playerData.region.currentRegion = chunkData.getRegion();
+                playerData.region.currentRegion = region;
                 //
-                playerData.getSidebar().modifyName("regionn", Chat.GREEN + chunkData.getRegion().getName());
+                playerData.getSidebar().modifyName("regionn", Chat.GREEN + region.getName());
                 String type;
-                switch(chunkData.getRegion().getCombatType()) {
+                switch(region.getCombatType()) {
                 case SAFE:
                     type = Chat.GREEN + "" + Chat.BOLD + "Lawful";
                     break;
@@ -52,9 +52,9 @@ public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
-        CDChunk chunkData = CDChunk.get(event.getPlayer());
-        playerData.region.currentRegion = chunkData.getRegion();
-        playerData.getSidebar().addKey("regionn", Chat.GREEN + chunkData.getRegion().getName(), 6);
-        playerData.getSidebar().addKey("regionc", "• " + Chat.GREEN + chunkData.getRegion().getCombatType().name(), 5);
+        BasicRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
+        playerData.region.currentRegion = region;
+        playerData.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
+        playerData.getSidebar().addKey("regionc", "• " + Chat.GREEN + region.getCombatType().name(), 5);
     }
 }

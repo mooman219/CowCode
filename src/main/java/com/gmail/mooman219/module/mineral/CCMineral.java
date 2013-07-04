@@ -11,6 +11,7 @@ import com.gmail.mooman219.module.mineral.command.RemoveMineral;
 import com.gmail.mooman219.module.mineral.command.RevertMinerals;
 import com.gmail.mooman219.module.mineral.command.TotalMinerals;
 import com.gmail.mooman219.module.mineral.listener.ListenerBlock;
+import com.gmail.mooman219.module.mineral.listener.ListenerTime;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class CCMineral implements CowComponent {
@@ -23,6 +24,7 @@ public class CCMineral implements CowComponent {
     public static Formats FRM;
 
     public ListenerBlock listenerBlock;
+    public ListenerTime listenerTime;
 
     public CCMineral(Loader plugin){
         this.plugin = plugin;
@@ -40,9 +42,8 @@ public class CCMineral implements CowComponent {
         storeMineral = new StoreMineral(directory);
         Loader.info(cast + "Loaded " + storeMineral.getFile().getName());
 
-        listenerBlock = new ListenerBlock();
-
-        plugin.addListener(listenerBlock);
+        listenerBlock = plugin.addListener(new ListenerBlock());
+        listenerTime = plugin.addListener(new ListenerTime());
     }
 
     @Override

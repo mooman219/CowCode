@@ -12,11 +12,13 @@ import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
+import com.gmail.mooman219.module.region.store.StoreChunk;
 import com.gmail.mooman219.module.region.store.StoreRegion;
 
 public class CCRegion implements CowComponent {
     public final Loader plugin;
-    public StoreRegion storeRegionInformation;
+    public StoreRegion storeRegion;
+    public StoreChunk storeChunk;
 
     public final static String directory = "plugins/CowCraft/";
     public final static String cast = "[CC][Region] ";
@@ -38,18 +40,20 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeRegionInformation = new StoreRegion(directory);
-        Loader.info(cast + "Loaded " + storeRegionInformation.getFile().getName());
+        storeRegion = new StoreRegion(directory);
+        Loader.info(cast + "Loaded " + storeRegion.getFile().getName());
+        storeChunk = new StoreChunk(directory);
+        Loader.info(cast + "Loaded " + storeChunk.getFile().getName());
 
-        listenerPlayer = new ListenerPlayer();
-
-        plugin.addListener(listenerPlayer);
+        listenerPlayer = plugin.addListener(new ListenerPlayer());
     }
 
     @Override
     public void onDisable(){
-        Loader.info(cast + "Saving " + storeRegionInformation.getFile().getName());
-        storeRegionInformation.save();
+        Loader.info(cast + "Saving " + storeRegion.getFile().getName());
+        storeRegion.save();
+        Loader.info(cast + "Saving " + storeChunk.getFile().getName());
+        storeChunk.save();
     }
 
     @Override

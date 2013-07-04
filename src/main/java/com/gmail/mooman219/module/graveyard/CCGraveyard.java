@@ -41,9 +41,7 @@ public class CCGraveyard implements CowComponent {
         storeGraveyard = new StoreGraveyard(directory);
         Loader.info(cast + "Loaded " + storeGraveyard.getFile().getName());
 
-        listenerPlayer = new ListenerPlayer();
-
-        plugin.addListener(listenerPlayer);
+        listenerPlayer = plugin.addListener(new ListenerPlayer());
     }
 
     @Override

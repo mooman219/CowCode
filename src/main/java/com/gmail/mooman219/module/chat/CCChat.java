@@ -38,13 +38,9 @@ public class CCChat implements CowComponent {
 
     @Override
     public void onEnable(){
-        listenerChat = new ListenerChat();
-        listenerPlayer = new ListenerPlayer();
-        listenerData = new ListenerData();
-
-        plugin.addListener(listenerChat);
-        plugin.addListener(listenerPlayer);
-        plugin.addListener(listenerData);
+        listenerChat = plugin.addListener(new ListenerChat());
+        listenerPlayer = plugin.addListener(new ListenerPlayer());
+        listenerData = plugin.addListener(new ListenerData());
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ModifyCombat extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.getInfoByID(args[0]);
+        BasicRegion region = RegionManager.gerRegionByID(args[0]);
         if(region != null) {
             region.setCombatType(RegionCombatType.fromID(Integer.parseInt(args[1])));
             CCRegion.FRM.MODIFIED.send(sender, region.getID());

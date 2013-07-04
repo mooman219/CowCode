@@ -39,15 +39,10 @@ public class CCService implements CowComponent {
 
     @Override
     public void onEnable(){
-        listenerData = new ListenerData();
-        listenerChunk = new ListenerChunk();
-        listenerEntity = new ListenerEntity();
-        messingAround = new MessingAround();
-
-        plugin.addListener(listenerData);
-        plugin.addListener(listenerChunk);
-        plugin.addListener(listenerEntity);
-        plugin.addListener(messingAround);
+        listenerData = plugin.addListener(new ListenerData());
+        listenerChunk = plugin.addListener(new ListenerChunk());
+        listenerEntity = plugin.addListener(new ListenerEntity());
+        messingAround = plugin.addListener(new MessingAround());
     }
 
     @Override

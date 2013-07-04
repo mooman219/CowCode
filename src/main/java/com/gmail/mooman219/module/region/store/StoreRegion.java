@@ -31,7 +31,6 @@ public class StoreRegion extends ConfigJson {
     @Override
     public void onLoad(FileReader reader) {
         getGson().fromJson(reader, StoreRegion.class);
-        regions = new HashMap<String, BasicRegion>();
     }
 
     @Override

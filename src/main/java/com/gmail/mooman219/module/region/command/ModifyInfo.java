@@ -18,7 +18,7 @@ public class ModifyInfo extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.getInfoByID(args[0]);
+        BasicRegion region = RegionManager.gerRegionByID(args[0]);
         if(region != null) {
             region.setDescription(TextHelper.merge(args, 1));
             CCRegion.FRM.MODIFIED.send(sender, region.getID());

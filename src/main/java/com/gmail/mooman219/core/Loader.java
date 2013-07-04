@@ -154,8 +154,9 @@ public class Loader extends JavaPlugin {
         this.getCommand(command.command).setExecutor(command);
     }
 
-    public void addListener(Listener listener) {
+    public <T extends Listener> T addListener(T listener) {
         this.getServer().getPluginManager().registerEvents(listener, this);
+        return listener;
     }
 
     /**

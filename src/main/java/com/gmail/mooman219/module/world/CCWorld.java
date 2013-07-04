@@ -25,11 +25,8 @@ public class CCWorld implements CowComponent {
 
     @Override
     public void onEnable(){
-        listenerBlock = new ListenerBlock();
-        listenerWorld = new ListenerWorld();
-
-        plugin.addListener(listenerBlock);
-        plugin.addListener(listenerWorld);
+        listenerBlock = plugin.addListener(new ListenerBlock());
+        listenerWorld = plugin.addListener(new ListenerWorld());
     }
 
     @Override

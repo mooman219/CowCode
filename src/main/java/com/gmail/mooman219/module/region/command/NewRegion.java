@@ -17,11 +17,11 @@ public class NewRegion extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        if(RegionManager.getInfoByID(args[0]) != null) {
+        if(RegionManager.gerRegionByID(args[0]) != null) {
             CCRegion.MSG.EXISTS.send(sender);
         } else {
             String name = TextHelper.merge(args, 1);
-            RegionManager.addInfo(args[0], name);
+            RegionManager.addRegion(args[0], name);
             CCRegion.MSG.ADDED.send(sender);
         }
     }

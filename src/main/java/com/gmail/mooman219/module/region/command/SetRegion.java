@@ -2,7 +2,6 @@ package com.gmail.mooman219.module.region.command;
 
 import org.bukkit.entity.Player;
 
-import com.gmail.mooman219.bull.CDChunk;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
@@ -18,9 +17,9 @@ public class SetRegion extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.getInfoByID(args[0]);
+        BasicRegion region = RegionManager.gerRegionByID(args[0]);
         if(region != null) {
-            CDChunk.get(sender).setRegion(region);
+            RegionManager.setRegion(sender.getLocation(), region);
             CCRegion.FRM.MODIFIED.send(sender, region.getID());
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);

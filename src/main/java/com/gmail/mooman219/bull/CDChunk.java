@@ -1,8 +1,5 @@
 package com.gmail.mooman219.bull;
 
-import java.lang.ref.SoftReference;
-import java.util.ArrayList;
-
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -11,9 +8,6 @@ import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.handler.config.ConfigGlobal;
-import com.gmail.mooman219.module.mineral.store.BasicMineral;
-import com.gmail.mooman219.module.region.RegionManager;
-import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class CDChunk extends BullData {
     private final Chunk chunk;
@@ -26,14 +20,6 @@ public class CDChunk extends BullData {
      * Variables
      */
 
-    // Saved
-    private CDChunkData data = new CDChunkData();
-    private static class CDChunkData {
-        public String parentUUID = "";
-        public ArrayList<BasicMineral> minerals = new ArrayList<BasicMineral>();
-    }
-    // Unsaved
-    private SoftReference<BasicRegion> softParentInfo;
     private byte tick = 0;
     private long lastActive = Long.MAX_VALUE;
 
@@ -41,25 +27,9 @@ public class CDChunk extends BullData {
      * Live
      */
 
-    public BasicRegion getRegion() {
-        if(softParentInfo == null || softParentInfo.get() == null) {
-            setRegion(RegionManager.getInfo(data.parentUUID));
-        }
-        return softParentInfo.get();
-    }
-
-    public void setRegion(BasicRegion info) {
-        softParentInfo = new SoftReference<BasicRegion>(info);
-        data.parentUUID = info.getUUID();
-    }
-
     public void tick() {
         long time = System.currentTimeMillis();
         tick = 0;
-        // Minerals!
-        for(BasicMineral mineral : data.minerals) {
-            mineral.tick(chunk, time);
-        }
         // Chunk unloading stuff
         if(time - lastActive > ConfigGlobal.bull.chunk.chunkUnloadDelay) {
             CDChunk.unload(chunk);
@@ -79,6 +49,7 @@ public class CDChunk extends BullData {
     public void onTick() {
         if(tick >= ConfigGlobal.bull.chunk.chunkTickPeriod) {
             tick();
+            tick = -1;
         }
         tick++;
     }
