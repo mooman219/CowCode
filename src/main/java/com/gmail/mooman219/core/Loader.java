@@ -33,8 +33,8 @@ import com.gmail.mooman219.vanilla.CCVanilla;
 
 public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
-    private static ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
-    private static ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
+    private ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
+    private ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
 
     public void registerConfigurationSerialization() {
         Loader.info("Registering Configuration Serializables");

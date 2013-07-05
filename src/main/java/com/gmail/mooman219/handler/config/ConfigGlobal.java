@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Modifier;
 
-import com.gmail.mooman219.frame.MathHelper;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.Gson;
@@ -74,9 +74,9 @@ public class ConfigGlobal extends ConfigJson {
 
     private void adjustedValues() {
         if(!isAdjusted) {
-            ConfigGlobal.bull.player.nameUpdateRadius = MathHelper.toInt(Math.pow(ConfigGlobal.bull.player.nameUpdateRadius * 16, 2));
+            ConfigGlobal.bull.player.nameUpdateRadius = NumberHelper.toInt(Math.pow(ConfigGlobal.bull.player.nameUpdateRadius * 16, 2));
             ConfigGlobal.bull.chunk.chunkUnloadDelay = ConfigGlobal.bull.chunk.chunkUnloadDelay * 60 * 1000;
-            ConfigGlobal.module.chat.radius = MathHelper.toInt(Math.pow(ConfigGlobal.module.chat.radius, 2));
+            ConfigGlobal.module.chat.radius = NumberHelper.toInt(Math.pow(ConfigGlobal.module.chat.radius, 2));
             ConfigGlobal.module.chat.globalDelay = ConfigGlobal.module.chat.globalDelay * 1000;
             ConfigGlobal.module.login.loginDelay = ConfigGlobal.module.login.loginDelay * 1000;
             isAdjusted = true;
@@ -85,9 +85,9 @@ public class ConfigGlobal extends ConfigJson {
 
     private void normalValues() {
         if(isAdjusted) {
-            ConfigGlobal.bull.player.nameUpdateRadius = MathHelper.toInt(Math.sqrt(ConfigGlobal.bull.player.nameUpdateRadius) / 16);
+            ConfigGlobal.bull.player.nameUpdateRadius = NumberHelper.toInt(Math.sqrt(ConfigGlobal.bull.player.nameUpdateRadius) / 16);
             ConfigGlobal.bull.chunk.chunkUnloadDelay = ConfigGlobal.bull.chunk.chunkUnloadDelay / 1000 / 60;
-            ConfigGlobal.module.chat.radius = MathHelper.toInt(Math.sqrt(ConfigGlobal.module.chat.radius));
+            ConfigGlobal.module.chat.radius = NumberHelper.toInt(Math.sqrt(ConfigGlobal.module.chat.radius));
             ConfigGlobal.module.chat.globalDelay = ConfigGlobal.module.chat.globalDelay / 1000;
             ConfigGlobal.module.login.loginDelay = ConfigGlobal.module.login.loginDelay / 1000;
             isAdjusted = false;

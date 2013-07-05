@@ -2,7 +2,7 @@ package com.gmail.mooman219.module.region.type;
 
 import java.io.IOException;
 
-import com.gmail.mooman219.frame.MathHelper;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -39,7 +39,7 @@ public enum RegionCombatType {
                 reader.nextNull();
                 return null;
             }
-            int id = MathHelper.toInt(reader.nextString());
+            int id = NumberHelper.toInt(reader.nextString());
             return RegionCombatType.fromID(id);
         }
 

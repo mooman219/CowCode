@@ -5,6 +5,7 @@ import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.vanilla.command.Music;
+import com.gmail.mooman219.vanilla.command.Shriek;
 
 public class CCVanilla implements CowComponent {
     public final Loader plugin;
@@ -37,9 +38,12 @@ public class CCVanilla implements CowComponent {
     @Override
     public void loadCommands() {
         plugin.addCommand(new Music());
+        plugin.addCommand(new Shriek());
     }
 
-    public class Messages {}
+    public class Messages {
+        public final Bulletin SHRIEK = new Bulletin(Chat.msgInfo, "You scream at the top of your lungs!", Chat.formatInfo);
+    }
 
     public class Formats {
         public final Bulletin MUSIC = new Bulletin(Chat.msgInfo, "Playing ID {0}!", Chat.formatInfo);

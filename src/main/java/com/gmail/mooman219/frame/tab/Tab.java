@@ -1,7 +1,7 @@
 package com.gmail.mooman219.frame.tab;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.MathHelper;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.handler.packet.CHPacket;
 
 public class Tab {
@@ -25,7 +25,7 @@ public class Tab {
 
     public String nextUnique() {
         index = index > 25600 ? 0 : index + 1;
-        return bigList[MathHelper.floor((index / 160D) % bigList.length)] + bigList[index % bigList.length];
+        return bigList[NumberHelper.floor((index / 160D) % bigList.length)] + bigList[index % bigList.length];
     }
 
     public void set(int x, int y, String name) {

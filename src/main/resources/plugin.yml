@@ -85,3 +85,5 @@ commands:
         aliases:
         - cshn
         - setheadname
+    music:
+    shriek:

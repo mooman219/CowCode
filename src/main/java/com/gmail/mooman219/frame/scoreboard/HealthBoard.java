@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.MathHelper;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.handler.packet.CHPacket;
 
 /**
@@ -21,7 +21,7 @@ public class HealthBoard {
     }
 
     public void addPlayer(CDPlayer player) {
-        int health = MathHelper.toInt(player.getPlayer().getHealth());
+        int health = NumberHelper.toInt(player.getPlayer().getHealth());
         String name = player.getOverheadName();
         // Create the board on the client for the new player
         CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
@@ -33,13 +33,13 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            CHPacket.manager.sendSetScoreboardScore(player, title, other.getOverheadName(), MathHelper.toInt(bukkitOther.getHealth()), BoardModifyType.UPDATE);
+            CHPacket.manager.sendSetScoreboardScore(player, title, other.getOverheadName(), NumberHelper.toInt(bukkitOther.getHealth()), BoardModifyType.UPDATE);
             CHPacket.manager.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
         }
     }
 
     public void updatePlayer(CDPlayer player) {
-        int health = MathHelper.toInt(player.getPlayer().getHealth());
+        int health = NumberHelper.toInt(player.getPlayer().getHealth());
         String name = player.getOverheadName();
         // Tell all players on the server the given player's name and health
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {

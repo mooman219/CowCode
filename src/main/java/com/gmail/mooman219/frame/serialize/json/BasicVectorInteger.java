@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.bukkit.util.Vector;
 
-import com.gmail.mooman219.frame.MathHelper;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.TypeAdapter;
@@ -73,7 +73,7 @@ public class BasicVectorInteger implements JsonData {
             }
             String xyz = reader.nextString();
             String[] parts = xyz.split(",");
-            return new BasicVectorInteger(new Vector(MathHelper.toInt(parts[0]), MathHelper.toInt(parts[1]), MathHelper.toInt(parts[2])));
+            return new BasicVectorInteger(new Vector(NumberHelper.toInt(parts[0]), NumberHelper.toInt(parts[1]), NumberHelper.toInt(parts[2])));
         }
 
         @Override

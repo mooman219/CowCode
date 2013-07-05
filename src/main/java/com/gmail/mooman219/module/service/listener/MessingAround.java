@@ -15,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.ItemHelper;
-import com.gmail.mooman219.frame.MathHelper;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
 
@@ -104,7 +104,7 @@ public class MessingAround implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if(event.getInventory().getTitle().startsWith("TEST")) {
             CDPlayer player = CDPlayer.get((Player) event.getWhoClicked());
-            Inventory inv = Bukkit.createInventory(player.getPlayer(), 9, "TEST - " + (MathHelper.nextRandom().nextInt(100) + 1));
+            Inventory inv = Bukkit.createInventory(player.getPlayer(), 9, "TEST - " + (NumberHelper.nextRandom().nextInt(100) + 1));
             inv.setItem(0, ItemHelper.setName(1, Chat.GOLD + inv.getTitle()));
             player.openInventory(inv);
             //event.setCancelled(true);
