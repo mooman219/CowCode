@@ -27,13 +27,7 @@ public class CDChunk extends BullData {
      * Live
      */
 
-    public void tick() {
-        long time = System.currentTimeMillis();
-        tick = 0;
-        // Chunk unloading stuff
-        if(time - lastActive > ConfigGlobal.bull.chunk.chunkUnloadDelay) {
-            CDChunk.unload(chunk);
-        }
+    public void tick(long time) {
     }
 
     /*
@@ -48,8 +42,12 @@ public class CDChunk extends BullData {
     @Override
     public void onTick() {
         if(tick >= ConfigGlobal.bull.chunk.chunkTickPeriod) {
-            tick();
+            long time = System.currentTimeMillis();
+            tick(time);
             tick = -1;
+            if(time - lastActive > ConfigGlobal.bull.chunk.chunkUnloadDelay) {
+                CDChunk.unload(chunk);
+            }
         }
         tick++;
     }

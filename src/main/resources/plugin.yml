@@ -87,6 +87,8 @@ commands:
         - setheadname
     music:
     shriek:
+        aliases:
+        - scream
     gamemode:
         aliases:
         - gm
