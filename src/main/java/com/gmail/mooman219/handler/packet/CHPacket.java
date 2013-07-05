@@ -35,7 +35,7 @@ public class CHPacket implements CowHandler {
             Packet206SetScoreboardObjective packet206 = new Packet206SetScoreboardObjective();
             packet206.a = scoreboardTitle;
             packet206.b = scoreboardDisplayTitle;
-            packet206.c = scoreboardModifyType.id; // 0 Create - 1 Remove
+            packet206.c = scoreboardModifyType.getID(); // 0 Create - 1 Remove
             player.sendPacket(packet206);
         }
 
@@ -44,13 +44,13 @@ public class CHPacket implements CowHandler {
             packet207.a = TextHelper.shrink(itemName);
             packet207.b = scoreboardTitle;
             packet207.c = itemValue;
-            packet207.d = scoreboardModifyType.id; // 0 Create - 1 Remove
+            packet207.d = scoreboardModifyType.getID(); // 0 Create - 1 Remove
             player.sendPacket(packet207);
         }
 
         public void sendSetScoreboardDisplay(CDPlayer player, String scoreboardTitle, BoardDisplayType scoreboardDisplayType) {
             Packet208SetScoreboardDisplayObjective packet208 = new Packet208SetScoreboardDisplayObjective();
-            packet208.a = scoreboardDisplayType.id; // 0 List - 1 Sidebar - 2 belowName
+            packet208.a = scoreboardDisplayType.getID(); // 0 List - 1 Sidebar - 2 belowName
             packet208.b = scoreboardTitle;
             player.sendPacket(packet208);
         }
