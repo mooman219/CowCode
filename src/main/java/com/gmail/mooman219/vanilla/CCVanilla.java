@@ -4,6 +4,7 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.vanilla.command.Gamemode;
 import com.gmail.mooman219.vanilla.command.Music;
 import com.gmail.mooman219.vanilla.command.Shriek;
 
@@ -39,6 +40,7 @@ public class CCVanilla implements CowComponent {
     public void loadCommands() {
         plugin.addCommand(new Music());
         plugin.addCommand(new Shriek());
+        plugin.addCommand(new Gamemode());
     }
 
     public class Messages {
@@ -47,5 +49,6 @@ public class CCVanilla implements CowComponent {
 
     public class Formats {
         public final Bulletin MUSIC = new Bulletin(Chat.msgInfo, "Playing ID {0}!", Chat.formatInfo);
+        public final Bulletin GAMEMODE = new Bulletin(Chat.msgInfo, "Your gamemode is now {0}", Chat.formatInfo);
     }
 }
