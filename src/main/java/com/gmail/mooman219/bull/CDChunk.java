@@ -7,7 +7,7 @@ import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.entity.Entity;
 
 import com.gmail.mooman219.craftbukkit.BullData;
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 
 public class CDChunk extends BullData {
     private final Chunk chunk;

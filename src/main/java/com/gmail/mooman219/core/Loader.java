@@ -28,8 +28,8 @@ import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.rpg.item.CCItem;
 import com.gmail.mooman219.module.rpg.stat.CCStat;
 import com.gmail.mooman219.module.service.CCService;
+import com.gmail.mooman219.module.vanilla.CCVanilla;
 import com.gmail.mooman219.module.world.CCWorld;
-import com.gmail.mooman219.vanilla.CCVanilla;
 
 public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");

@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 
 public class ListenerBlock implements Listener {
     @EventHandler()

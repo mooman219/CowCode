@@ -22,7 +22,7 @@ public enum TimeType {
         this.modifier = modifier;
         this.basic = basic;
     }
-    
+
     public int getID() {
         return id;
     }
@@ -38,5 +38,5 @@ public enum TimeType {
     public boolean isBasic() {
         return basic;
     }
-    
+
 }

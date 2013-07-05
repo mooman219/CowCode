@@ -1,4 +1,4 @@
-package com.gmail.mooman219.handler.config;
+package com.gmail.mooman219.handler.config.store;
 
 import java.io.FileReader;
 import java.io.FileWriter;

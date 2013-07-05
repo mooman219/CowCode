@@ -1,12 +1,12 @@
-package com.gmail.mooman219.vanilla;
+package com.gmail.mooman219.module.vanilla;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
-import com.gmail.mooman219.vanilla.command.Gamemode;
-import com.gmail.mooman219.vanilla.command.Music;
-import com.gmail.mooman219.vanilla.command.Shriek;
+import com.gmail.mooman219.module.vanilla.command.Gamemode;
+import com.gmail.mooman219.module.vanilla.command.Music;
+import com.gmail.mooman219.module.vanilla.command.Shriek;
 
 public class CCVanilla implements CowComponent {
     public final Loader plugin;

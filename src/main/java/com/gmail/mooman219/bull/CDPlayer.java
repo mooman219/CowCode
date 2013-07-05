@@ -35,7 +35,7 @@ import com.gmail.mooman219.frame.scoreboard.HealthBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;

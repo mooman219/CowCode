@@ -5,10 +5,14 @@ public enum BoardDisplayType {
     SIDEBAR(1),
     BELOWNAME(2);
 
-    public final int id;
+    private final int id;
 
     BoardDisplayType(int id) {
         this.id = id;
+    }
+
+    public int getID() {
+        return id;
     }
 
     public static BoardDisplayType getID(int id) {

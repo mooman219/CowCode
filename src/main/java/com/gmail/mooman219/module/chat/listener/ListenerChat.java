@@ -15,7 +15,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.chat.CCChat;
 
 public class ListenerChat implements Listener{

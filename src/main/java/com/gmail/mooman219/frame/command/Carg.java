@@ -19,11 +19,11 @@ public enum Carg {
         this.id = id;
         this.name = name.toLowerCase();
     }
-    
+
     public int getID() {
         return id;
     }
-    
+
     public String getName() {
         return name;
     }

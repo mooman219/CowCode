@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.event.world.WorldInitEvent;
 
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 
 public class ListenerWorld implements Listener {
     @EventHandler()

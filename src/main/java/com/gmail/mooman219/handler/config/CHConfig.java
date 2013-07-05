@@ -1,5 +1,6 @@
 package com.gmail.mooman219.handler.config;
 
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.layout.CowHandler;
 
 public class CHConfig implements CowHandler {

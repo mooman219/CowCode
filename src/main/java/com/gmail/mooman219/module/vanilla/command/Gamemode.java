@@ -1,4 +1,4 @@
-package com.gmail.mooman219.vanilla.command;
+package com.gmail.mooman219.module.vanilla.command;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.vanilla.CCVanilla;
+import com.gmail.mooman219.module.vanilla.CCVanilla;
 
 public class Gamemode extends CCommand {
     public Gamemode() {
@@ -15,7 +15,7 @@ public class Gamemode extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        sender.setGameMode(sender.getGameMode() == GameMode.CREATIVE ? GameMode.SURVIVAL : GameMode.CREATIVE); 
+        sender.setGameMode(sender.getGameMode() == GameMode.CREATIVE ? GameMode.SURVIVAL : GameMode.CREATIVE);
         CCVanilla.FRM.GAMEMODE.send(sender, sender.getGameMode().toString());
     }
 }

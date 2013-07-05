@@ -5,10 +5,14 @@ public enum BoardModifyType {
     REMOVE(1),
     TITLE(2);
 
-    public final int id;
+    private final int id;
 
     BoardModifyType(int id) {
         this.id = id;
+    }
+
+    public int getID() {
+        return id;
     }
 
     public static BoardModifyType getID(int id) {

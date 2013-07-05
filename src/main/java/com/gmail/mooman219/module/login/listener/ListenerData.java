@@ -9,7 +9,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.service.event.DataCreateEvent;
 import com.gmail.mooman219.module.service.event.DataRemovalEvent;

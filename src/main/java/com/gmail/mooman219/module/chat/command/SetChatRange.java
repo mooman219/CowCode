@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.handler.config.CHConfig;
-import com.gmail.mooman219.handler.config.ConfigGlobal;
+import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.chat.CCChat;
 
 public class SetChatRange extends CCommand {
