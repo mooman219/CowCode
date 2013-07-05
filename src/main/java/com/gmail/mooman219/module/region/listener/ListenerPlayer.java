@@ -31,20 +31,7 @@ public class ListenerPlayer implements Listener{
                 playerData.region.currentRegion = region;
                 //
                 playerData.getSidebar().modifyName("regionn", Chat.GREEN + region.getName());
-                String type;
-                switch(region.getCombatType()) {
-                case SAFE:
-                    type = Chat.GREEN + "" + Chat.BOLD + "Lawful";
-                    break;
-                case CONTESTED:
-                    type = Chat.YELLOW + "" + Chat.BOLD + "Contested";
-                    break;
-                case CHAOTIC: // Chaotic is default because if we can't get the region, make the player think it's dangerous just in case it really is.
-                default:
-                    type = Chat.RED + "" + Chat.BOLD + "Chaotic";
-                    break;
-                }
-                playerData.getSidebar().modifyName("regionc", type);
+                playerData.getSidebar().modifyName("regionc", region.getCombatType().getColoredName());
             }
         }
     }
@@ -55,6 +42,6 @@ public class ListenerPlayer implements Listener{
         BasicRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
         playerData.region.currentRegion = region;
         playerData.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
-        playerData.getSidebar().addKey("regionc", "• " + Chat.GREEN + region.getCombatType().name(), 5);
+        playerData.getSidebar().addKey("regionc", region.getCombatType().getColoredName(), 5);
     }
 }

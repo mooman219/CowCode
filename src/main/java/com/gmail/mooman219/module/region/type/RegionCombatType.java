@@ -21,7 +21,7 @@ public enum RegionCombatType {
     RegionCombatType(int id, String name, String coloredName) {
         this.id = id;
         this.name = name;
-        this.coloredName = name;
+        this.coloredName = coloredName;
     }
 
     public static RegionCombatType fromID(int id) {
