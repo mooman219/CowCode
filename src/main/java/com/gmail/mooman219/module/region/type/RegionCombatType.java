@@ -3,20 +3,25 @@ package com.gmail.mooman219.module.region.type;
 import java.io.IOException;
 
 import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.text.Chat;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public enum RegionCombatType {
-    SAFE(0),
-    CONTESTED(1),
-    CHAOTIC(2);
+    SAFE(0, "Safe", Chat.GREEN + "" + Chat.BOLD + "Safe"),
+    CONTESTED(1, "Contested", Chat.YELLOW + "" + Chat.BOLD + "Contested"),
+    CHAOTIC(2, "Chaotic", Chat.RED + "" + Chat.BOLD + "Chaotic");
 
-    public final int id;
+    private final int id;
+    private final String name;
+    private final String coloredName;
 
-    RegionCombatType(int id) {
+    RegionCombatType(int id, String name, String coloredName) {
         this.id = id;
+        this.name = name;
+        this.coloredName = name;
     }
 
     public static RegionCombatType fromID(int id) {
@@ -26,6 +31,18 @@ public enum RegionCombatType {
             }
         }
         return SAFE;
+    }
+    
+    public int getID() {
+        return id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getColoredName() {
+        return coloredName;
     }
 
     public static RegionCombatTypeAdapter getAdapter() {

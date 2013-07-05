@@ -24,7 +24,7 @@ public class CCommand implements CommandExecutor {
         help = TextHelper.punctuationPattern.matcher(help).replaceAll(Chat.formatPassive);
         invalidArgumentMessage = Chat.msgError + "Invalid Usage" + Chat.DARK_RED + ".\n" + Chat.lineError + "Arguments" + Chat.DARK_GRAY + ": ";
         for(Carg argument : arguments) {
-            invalidArgumentMessage += Chat.DARK_GRAY + "(" + Chat.GRAY + argument.name + Chat.DARK_GRAY + ") ";
+            invalidArgumentMessage += Chat.DARK_GRAY + "(" + Chat.GRAY + argument.getName() + Chat.DARK_GRAY + ") ";
         }
         invalidArgumentMessage += "\n" + Chat.lineError + "Correct Usage" + Chat.DARK_GRAY + ": " + Chat.WHITE + help;
     }

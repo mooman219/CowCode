@@ -11,7 +11,7 @@ public class TimeString {
 
     @Override
     public String toString() {
-        String ret = time + " " + type.name;
+        String ret = time + " " + type.getName();
         if(time > 1) {
             ret += "s";
         } else if(time < 0) {

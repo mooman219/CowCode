@@ -2,10 +2,10 @@ package com.gmail.mooman219.frame.time;
 
 public class TimeHelper {
     public static long convert(long time, TimeType from, TimeType to) {
-        if(from.index == to.index) {
+        if(from.getID() == to.getID()) {
             return time;
         } else {
-            return ((time * from.modifier) / to.modifier);
+            return ((time * from.getModifier()) / to.getModifier());
         }
     }
 
@@ -68,10 +68,10 @@ public class TimeHelper {
     }
 
     public static TimeString getLargestType(float time, TimeType type) {
-        time = time * type.modifier;
+        time = time * type.getModifier();
         for(int i = TimeType.values().length - 1; i >= 0; i--) {
-            if(time >= TimeType.values()[i].modifier && TimeType.values()[i].basic) {
-                return new TimeString(TimeType.values()[i], (float) (Math.floor((time / TimeType.values()[i].modifier) * 10) / 10));
+            if(time >= TimeType.values()[i].getModifier() && TimeType.values()[i].isBasic()) {
+                return new TimeString(TimeType.values()[i], (float) (Math.floor((time / TimeType.values()[i].getModifier()) * 10) / 10));
             }
         }
         return new TimeString(TimeType.MILLISECOND, time);

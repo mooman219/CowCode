@@ -11,15 +11,32 @@ public enum TimeType {
     MONTH       (7, "month", 2629800000l, true),
     YEAR        (8, "year", 31557600000l, true);
 
-    public final int index;
-    public final String name;
-    public final long modifier;
-    public final boolean basic;
+    private final int id;
+    private final String name;
+    private final long modifier;
+    private final boolean basic;
 
     private TimeType(int index, String name, long modifier, boolean basic) {
-        this.index = index;
+        this.id = index;
         this.name = name;
         this.modifier = modifier;
         this.basic = basic;
     }
+    
+    public int getID() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getModifier() {
+        return modifier;
+    }
+
+    public boolean isBasic() {
+        return basic;
+    }
+    
 }

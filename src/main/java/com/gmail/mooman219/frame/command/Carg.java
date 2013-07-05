@@ -1,26 +1,36 @@
 package com.gmail.mooman219.frame.command;
 
 public enum Carg {
-    OPTIONAL("optional"),
-    MESSAGE("message"),
-    STRING("string"),
-    BYTE("byte"),
-    SHORT("short"),
-    INT("int"),
-    FLOAT("float"),
-    DOUBLE("double"),
-    LONG("long"),
-    BOOLEAN("boolean");
+    OPTIONAL(0, "Optional"),
+    MESSAGE(1, "Message"),
+    STRING(2, "String"),
+    BYTE(3, "Byte"),
+    SHORT(4, "Short"),
+    INT(5, "Int"),
+    FLOAT(6, "Float"),
+    DOUBLE(7, "Double"),
+    LONG(8, "Long"),
+    BOOLEAN(9, "Boolean");
 
-    public final String name;
+    private final int id;
+    private final String name;
 
-    Carg(String name) {
+    Carg(int id, String name) {
+        this.id = id;
         this.name = name.toLowerCase();
+    }
+    
+    public int getID() {
+        return id;
+    }
+    
+    public String getName() {
+        return name;
     }
 
     public static Carg get(String name) {
         for(Carg param : Carg.values()) {
-            if(name.toLowerCase().equals(param.name)) {
+            if(name.equalsIgnoreCase(param.name)) {
                 return param;
             }
         }
