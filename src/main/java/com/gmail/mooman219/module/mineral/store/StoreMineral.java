@@ -22,7 +22,7 @@ public class StoreMineral extends ConfigJson {
         super(cast, directory, "minerals", "data");
     }
     
-    WORK ON MINERALS
+    //WORK ON MINERALS
     
 
     @Override
