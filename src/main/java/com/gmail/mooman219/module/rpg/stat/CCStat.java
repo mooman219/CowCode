@@ -7,7 +7,7 @@ public class CCStat implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][RPG][Stat] ";
+    public final static String cast = "[RPG][Stat] ";
     public static Messages MSG;
     public static Formats FRM;
 

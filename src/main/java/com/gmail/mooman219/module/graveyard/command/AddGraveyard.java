@@ -15,11 +15,8 @@ import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class AddGraveyard extends CCommand {
-    public CCGraveyard module;
-
-    public AddGraveyard(CCGraveyard module) {
+    public AddGraveyard() {
         super("addgraveyard", Rank.GAMEMASTER, "/AddGraveyard (Level)", Carg.INT);
-        this.module = module;
     }
 
     @Override
@@ -30,6 +27,5 @@ public class AddGraveyard extends CCommand {
         WorldHelper.playEffect(location.add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
         WorldHelper.playSound(sender.getLocation(), Sound.ENDERMAN_TELEPORT);
         CCGraveyard.FRM.ADD.send(sender, StoreGraveyard.getGraveyards().size());
-        module.storeGraveyard.save();
     }
 }

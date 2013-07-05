@@ -17,7 +17,7 @@ public class CCChat implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][Chat] ";
+    public final static String cast = "[Chat] ";
     public static Messages MSG;
     public static Formats FRM;
 

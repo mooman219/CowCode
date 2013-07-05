@@ -19,7 +19,7 @@ public class CCMineral implements CowComponent {
     public StoreMineral storeMineral;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][Mineral] ";
+    public final static String cast = "[Mineral] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -39,8 +39,7 @@ public class CCMineral implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeMineral = new StoreMineral(directory);
-        Loader.info(cast + "Loaded " + storeMineral.getFile().getName());
+        storeMineral = new StoreMineral(cast, directory);
 
         listenerBlock = plugin.addListener(new ListenerBlock());
         listenerTime = plugin.addListener(new ListenerTime());
@@ -50,6 +49,8 @@ public class CCMineral implements CowComponent {
     public void onDisable(){
         Loader.info(cast + "Reverting minerals");
         MineralManager.revert();
+        Loader.info(cast + "Saving " + storeMineral.getFile().getName());
+        storeMineral.save();
     }
 
     @Override

@@ -68,8 +68,8 @@ public class ConfigGlobal extends ConfigJson {
 
     private transient boolean isAdjusted = false;
 
-    public ConfigGlobal(String directory) {
-        super(directory, "config", "yml");
+    public ConfigGlobal(String cast, String directory) {
+        super(cast, directory, "config", "yml");
     }
 
     private void adjustedValues() {

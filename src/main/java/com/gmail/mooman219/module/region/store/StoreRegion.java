@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.UUID;
 
 import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
@@ -11,13 +12,13 @@ import com.google.gson.Gson;
 
 public class StoreRegion extends ConfigJson {
     private static transient final BasicRegion globalInfo =
-            new BasicRegion("GLOBALREGIONUUID-90f5e0f50661c3951a2", "global", "Global")
+            new BasicRegion("283453ad-094b-92b7-b191-a07bff41d667", "global", "Global")
             .setDescription("No region exists here")
             .setCombatType(RegionCombatType.SAFE);
-    private static HashMap<String, BasicRegion> regions = new HashMap<String, BasicRegion>();
+    private static HashMap<UUID, BasicRegion> regions = new HashMap<UUID, BasicRegion>();
 
-    public StoreRegion(String directory) {
-        super(directory, "regions", "yml");
+    public StoreRegion(String cast, String directory) {
+        super(cast, directory, "regions", "yml");
     }
 
     @Override
@@ -42,7 +43,7 @@ public class StoreRegion extends ConfigJson {
         return globalInfo;
     }
 
-    public static HashMap<String, BasicRegion> getRegions() {
+    public static HashMap<UUID, BasicRegion> getRegions() {
         return regions;
     }
 }

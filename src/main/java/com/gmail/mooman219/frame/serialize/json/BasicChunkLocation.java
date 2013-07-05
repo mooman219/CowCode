@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 public class BasicChunkLocation implements JsonData {
     @SerializedName("World") private String world;
     @SerializedName("UUID") private UUID uuid;
-    @SerializedName("Chunk_Pos") private BasicVectorInteger vector;
+    @SerializedName("ChunkPos") private BasicVectorInteger vector;
 
     private transient WeakReference<Chunk> weakChunk;
 

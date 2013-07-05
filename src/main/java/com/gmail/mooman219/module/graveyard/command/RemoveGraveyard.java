@@ -13,11 +13,8 @@ import com.gmail.mooman219.module.graveyard.GraveyardManager;
 import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
 
 public class RemoveGraveyard extends CCommand {
-    public CCGraveyard module;
-
-    public RemoveGraveyard(CCGraveyard module) {
+    public RemoveGraveyard() {
         super("removegraveyard", Rank.GAMEMASTER, "/RemoveGraveyard");
-        this.module = module;
     }
 
     @Override
@@ -26,6 +23,5 @@ public class RemoveGraveyard extends CCommand {
         CCGraveyard.FRM.REMOVE.send(sender, graveyardData.getLocation().getBlockX(), graveyardData.getLocation().getBlockZ());
         WorldHelper.playEffect(graveyardData.getLocation(), Effect.MOBSPAWNER_FLAMES);
         WorldHelper.playSound(graveyardData.getLocation(), Sound.ENDERMAN_TELEPORT);
-        module.storeGraveyard.save();
     }
 }

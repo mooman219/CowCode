@@ -17,7 +17,7 @@ public class NewRegion extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        if(RegionManager.gerRegionByID(args[0]) != null) {
+        if(RegionManager.gerRegion(args[0]) != null) {
             CCRegion.MSG.EXISTS.send(sender);
         } else {
             String name = TextHelper.merge(args, 1);

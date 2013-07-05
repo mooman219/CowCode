@@ -21,7 +21,7 @@ public class CCRegion implements CowComponent {
     public StoreChunk storeChunk;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][Region] ";
+    public final static String cast = "[Region] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -40,10 +40,8 @@ public class CCRegion implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeRegion = new StoreRegion(directory);
-        Loader.info(cast + "Loaded " + storeRegion.getFile().getName());
-        storeChunk = new StoreChunk(directory);
-        Loader.info(cast + "Loaded " + storeChunk.getFile().getName());
+        storeRegion = new StoreRegion(cast, directory);
+        storeChunk = new StoreChunk(cast, directory);
 
         listenerPlayer = plugin.addListener(new ListenerPlayer());
     }

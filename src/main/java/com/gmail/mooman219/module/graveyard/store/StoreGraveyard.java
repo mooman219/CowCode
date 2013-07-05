@@ -12,8 +12,8 @@ import com.google.gson.Gson;
 public class StoreGraveyard extends ConfigJson {
     private static ArrayList<BasicGraveyard> graveyards = new ArrayList<BasicGraveyard>();
 
-    public StoreGraveyard(String directory) {
-        super(directory, "graveyards", "yml");
+    public StoreGraveyard(String cast, String directory) {
+        super(cast, directory, "graveyards", "yml");
     }
 
     @Override

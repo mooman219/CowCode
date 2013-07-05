@@ -24,7 +24,7 @@ import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
 
 public class CHDatabase implements CowHandler {
-    public final static String cast = "[CC][Database] ";
+    public final static String cast = "[Database] ";
 
     public static Manager manager;
     private DB database;

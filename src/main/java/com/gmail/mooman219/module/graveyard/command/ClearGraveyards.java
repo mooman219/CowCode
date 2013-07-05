@@ -10,11 +10,8 @@ import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class ClearGraveyards extends CCommand {
-    public CCGraveyard module;
-
-    public ClearGraveyards(CCGraveyard module) {
+    public ClearGraveyards() {
         super("cleargraveyards", Rank.GAMEMASTER, "/ClearGraveyards");
-        this.module = module;
     }
 
     @Override
@@ -26,6 +23,5 @@ public class ClearGraveyards extends CCommand {
     public void processConsole(CommandSender sender, String[] args) {
         CCGraveyard.FRM.CLEAR.send(sender, StoreGraveyard.getGraveyards().size());
         StoreGraveyard.getGraveyards().clear();
-        module.storeGraveyard.save();
     }
 }

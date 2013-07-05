@@ -1,5 +1,7 @@
 package com.gmail.mooman219.module.region;
 
+import java.util.UUID;
+
 import org.bukkit.Location;
 
 import com.gmail.mooman219.frame.serialize.json.BasicChunkLocation;
@@ -9,8 +11,8 @@ import com.gmail.mooman219.module.region.store.StoreRegion;
 
 public class RegionManager {
     public static BasicRegion addRegion(String id, String name) {
-        BasicRegion information = gerRegionByID(id);
-        if(gerRegionByID(id) == null) {
+        BasicRegion information = gerRegion(id);
+        if(gerRegion(id) == null) {
             information = new BasicRegion(id, name);
             StoreRegion.getRegions().put(information.getUUID(), information);
         }
@@ -28,7 +30,7 @@ public class RegionManager {
 
     public static BasicRegion getRegion(Location location) {
         BasicChunkLocation chunk = new BasicChunkLocation(location.getChunk());
-        String regionUID = StoreChunk.getChunks().get(chunk);
+        UUID regionUID = StoreChunk.getChunks().get(chunk);
         if(regionUID == null) {
             return StoreRegion.getGlobalInfo();
         } else {
@@ -40,12 +42,12 @@ public class RegionManager {
         }
     }
 
-    public static BasicRegion getRegion(String uuid) {
+    public static BasicRegion getRegion(UUID uuid) {
         BasicRegion info = StoreRegion.getRegions().get(uuid);
         return info != null ? info : StoreRegion.getGlobalInfo();
     }
 
-    public static BasicRegion gerRegionByID(String id) {
+    public static BasicRegion gerRegion(String id) {
         if(id.equalsIgnoreCase("global")) {
             return StoreRegion.getGlobalInfo();
         }

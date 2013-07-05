@@ -18,7 +18,7 @@ public class ModifyName extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.gerRegionByID(args[0]);
+        BasicRegion region = RegionManager.gerRegion(args[0]);
         String name = TextHelper.merge(args, 1);
         if(region != null) {
             region.setName(name);

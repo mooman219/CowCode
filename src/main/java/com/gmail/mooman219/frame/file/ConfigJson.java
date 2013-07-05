@@ -14,11 +14,11 @@ import com.google.gson.Gson;
 public abstract class ConfigJson {
     private transient File file;
 
-    public ConfigJson(String directory, String fileName, String type) {
+    public ConfigJson(String cast, String directory, String fileName, String type) {
         this.file = FileHelper.getFile(directory, fileName, type);
+        Loader.info(cast + "Loading " + file.getName());
         load();
         save();
-        Loader.info("Loading file: " + file.getName());
     }
 
     public File getFile() {

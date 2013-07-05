@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.layout.CowHandler;
 
 public class CHPacket implements CowHandler {
-    public static String cast = "[CC][Packet] ";
+    public static String cast = "[Packet] ";
 
     public static Manager manager;
 

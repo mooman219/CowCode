@@ -9,7 +9,7 @@ public class CCWorld implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][World] ";
+    public final static String cast = "[World] ";
 
     public ListenerBlock listenerBlock;
     public ListenerWorld listenerWorld;

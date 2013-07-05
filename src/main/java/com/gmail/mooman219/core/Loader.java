@@ -34,10 +34,9 @@ public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
     private static ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
     private static ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
-    public final static String cast = "[CC] ";
 
     public void registerConfigurationSerialization() {
-        Loader.info(cast + "Registering serializables");
+        Loader.info("Registering Configuration Serializables");
         ConfigurationSerialization.registerClass(CSBasicLocation.class, "CSBasicLocation");
         ConfigurationSerialization.registerClass(CSChunkLocation.class, "CSChunkLocation");
         ConfigurationSerialization.registerClass(CSLocation.class, "CSLocation");
@@ -51,7 +50,7 @@ public class Loader extends JavaPlugin {
     }
 
     public void processHandlers(boolean enable) {
-        Loader.info(cast + (enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
+        Loader.info((enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
         for(CowHandler p : handlerList) {
             Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
             try {
@@ -67,7 +66,7 @@ public class Loader extends JavaPlugin {
     }
 
     public void processComponents(boolean enable) {
-        Loader.info(cast + (enable ? "Loading" : "Unloading") + " " + componentList.size() + " components");
+        Loader.info((enable ? "Loading" : "Unloading") + " " + componentList.size() + " components");
         for(CowComponent p : componentList) {
             Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
             try {
@@ -132,8 +131,8 @@ public class Loader extends JavaPlugin {
         processComponents(true);
 
         PluginDescriptionFile pdfFile = getDescription();
-        Loader.info(cast + "Version: " + pdfFile.getVersion() + " Enabled.");
-        Loader.info(cast + "Created by: " + pdfFile.getAuthors());
+        Loader.info("Version: " + pdfFile.getVersion() + " Enabled.");
+        Loader.info("Created by: " + pdfFile.getAuthors());
     }
 
     @Override
@@ -146,8 +145,8 @@ public class Loader extends JavaPlugin {
         processHandlers(false);
 
         PluginDescriptionFile pdfFile = getDescription();
-        Loader.info(cast + "Version: " + pdfFile.getVersion() + " Disabled.");
-        Loader.info(cast + "Created by: " + pdfFile.getAuthors());
+        Loader.info("Version: " + pdfFile.getVersion() + " Disabled.");
+        Loader.info("Created by: " + pdfFile.getAuthors());
     }
 
     public void addCommand(CCommand command) {

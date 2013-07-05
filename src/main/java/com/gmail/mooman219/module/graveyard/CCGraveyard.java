@@ -19,7 +19,7 @@ public class CCGraveyard implements CowComponent {
     public StoreGraveyard storeGraveyard;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][Graveyard] ";
+    public final static String cast = "[Graveyard] ";
     public static Messages MSG;
     public static Formats FRM;
 
@@ -38,8 +38,7 @@ public class CCGraveyard implements CowComponent {
 
     @Override
     public void onEnable(){
-        storeGraveyard = new StoreGraveyard(directory);
-        Loader.info(cast + "Loaded " + storeGraveyard.getFile().getName());
+        storeGraveyard = new StoreGraveyard(cast, directory);
 
         listenerPlayer = plugin.addListener(new ListenerPlayer());
     }
@@ -55,10 +54,10 @@ public class CCGraveyard implements CowComponent {
 
     @Override
     public void loadCommands() {
-        plugin.addCommand(new AddGraveyard(this));
-        plugin.addCommand(new ClearGraveyards(this));
+        plugin.addCommand(new AddGraveyard());
+        plugin.addCommand(new ClearGraveyards());
         plugin.addCommand(new ListGraveyards());
-        plugin.addCommand(new RemoveGraveyard(this));
+        plugin.addCommand(new RemoveGraveyard());
         plugin.addCommand(new TeleportClosestGraveyard());
         plugin.addCommand(new TeleportGraveyard());
         plugin.addCommand(new TotalGraveyards());

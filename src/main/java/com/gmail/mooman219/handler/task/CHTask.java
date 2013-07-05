@@ -18,7 +18,7 @@ import com.gmail.mooman219.layout.CowHandler;
 public class CHTask implements CowHandler {
     private Loader plugin;
 
-    public final static String cast = "[CC][Task] ";
+    public final static String cast = "[Task] ";
 
     public static Manager manager;
     private ScheduledExecutorService asyncPool;

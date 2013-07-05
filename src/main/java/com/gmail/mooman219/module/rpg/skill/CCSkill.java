@@ -7,7 +7,7 @@ public class CCSkill implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][RPG][Skill] ";
+    public final static String cast = "[RPG][Skill] ";
     public static Messages MSG;
     public static Formats FRM;
 

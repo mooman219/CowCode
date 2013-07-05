@@ -8,7 +8,7 @@ import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.annotations.SerializedName;
 
 public class BasicGraveyard implements JsonData {
-    @SerializedName("Location") private final BasicRichLocation location;
+    @SerializedName("Location") private BasicRichLocation location;
     @SerializedName("Level_Requirement") private int levelRequirement = 0;
 
     public BasicGraveyard(Location location, int levelRequirement) {

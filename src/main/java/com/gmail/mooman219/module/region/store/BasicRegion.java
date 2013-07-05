@@ -1,4 +1,6 @@
 package com.gmail.mooman219.module.region.store;
+import java.util.UUID;
+
 import com.gmail.mooman219.frame.MathHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.layout.JsonData;
@@ -6,7 +8,7 @@ import com.gmail.mooman219.module.region.type.RegionCombatType;
 
 public class BasicRegion implements JsonData {
     // This identifies the region, don't fuck with it
-    private final String uuid;
+    private final UUID uuid;
 
     private String id;
     private String name = "DefaultName";
@@ -15,12 +17,15 @@ public class BasicRegion implements JsonData {
     private RegionCombatType combatType = RegionCombatType.SAFE;
 
     public BasicRegion(String id, String name) {
-        this(MathHelper.nextUUID().toString(), id, name);
+        this(MathHelper.nextUUID(), id, name);
     }
 
     public BasicRegion(String uuid, String id, String name) {
+        this(UUID.fromString(uuid), id, name);
+    }
+    
+    public BasicRegion(UUID uuid, String id, String name) {
         this.uuid = uuid;
-
         this.id = id.toLowerCase();
         this.name = name;
     }
@@ -45,7 +50,7 @@ public class BasicRegion implements JsonData {
         return name;
     }
 
-    public String getUUID() {
+    public UUID getUUID() {
         return uuid;
     }
 

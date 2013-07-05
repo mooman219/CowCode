@@ -8,7 +8,7 @@ public class CCItem implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][RPG][Item] ";
+    public final static String cast = "[RPG][Item] ";
     public static Messages MSG;
     public static Formats FRM;
 

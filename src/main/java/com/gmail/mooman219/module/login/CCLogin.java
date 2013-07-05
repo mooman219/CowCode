@@ -10,7 +10,7 @@ public class CCLogin implements CowComponent{
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][Login] ";
+    public final static String cast = "[Login] ";
     public static Messages MSG;
     public static Formats FRM;
 

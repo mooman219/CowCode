@@ -17,7 +17,7 @@ public class CCService implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[CC][Services] ";
+    public final static String cast = "[Services] ";
     public static Messages MSG;
     public static Formats FRM;
 
