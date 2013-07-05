@@ -23,7 +23,7 @@ public class BasicRegion implements JsonData {
     public BasicRegion(String uuid, String id, String name) {
         this(UUID.fromString(uuid), id, name);
     }
-    
+
     public BasicRegion(UUID uuid, String id, String name) {
         this.uuid = uuid;
         this.id = id.toLowerCase();

@@ -24,7 +24,7 @@ public class RegionManager {
         if(region.equals(StoreRegion.getGlobalInfo())) {
             StoreChunk.getChunks().remove(chunk);
         } else {
-            StoreChunk.getChunks().put(chunk, region.getUUID());            
+            StoreChunk.getChunks().put(chunk, region.getUUID());
         }
     }
 

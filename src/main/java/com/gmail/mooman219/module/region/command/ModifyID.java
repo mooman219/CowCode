@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class ModifyID extends CCommand {
     public ModifyID() {
-        super("modifyid", Rank.DEVELOPER, "/modifyid (id) (new id)", Carg.STRING, Carg.STRING);
+        super("modifyid", Rank.DEVELOPER, "/ModifyID (id) (new id)", Carg.STRING, Carg.STRING);
     }
 
     @Override

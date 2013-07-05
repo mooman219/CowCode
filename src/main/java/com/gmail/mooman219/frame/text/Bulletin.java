@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.bull.CDPlayer;
 
 public class Bulletin {
-    public final String message;
+    private final String message;
 
     public Bulletin(String message, String format) {
         this("", message, format);
@@ -24,6 +24,10 @@ public class Bulletin {
 
     public Bulletin(String message) {
         this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public String parse(Object... args) {

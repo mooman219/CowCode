@@ -29,6 +29,7 @@ import com.gmail.mooman219.module.rpg.item.CCItem;
 import com.gmail.mooman219.module.rpg.stat.CCStat;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.world.CCWorld;
+import com.gmail.mooman219.vanilla.CCVanilla;
 
 public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
@@ -116,6 +117,7 @@ public class Loader extends JavaPlugin {
         componentList.add(new CCChat(this));
         componentList.add(new CCRegion(this));
         componentList.add(new CCWorld(this));
+        componentList.add(new CCVanilla(this));
         // RPG
         componentList.add(new CCItem(this));
         componentList.add(new CCStat(this));

@@ -21,9 +21,9 @@ public class StoreMineral extends ConfigJson {
     public StoreMineral(String cast, String directory) {
         super(cast, directory, "minerals", "data");
     }
-    
+
     //WORK ON MINERALS
-    
+
 
     @Override
     public void onSave(FileWriter writer) {
