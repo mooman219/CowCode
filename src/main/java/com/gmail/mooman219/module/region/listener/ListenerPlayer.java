@@ -5,9 +5,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.CEventFactory;
+import com.gmail.mooman219.frame.VectorHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
@@ -23,6 +25,7 @@ public class ListenerPlayer implements Listener{
                 if(region.isLocked()) {
                     CCRegion.MSG.LOCKED.send(playerData);
                     event.setCancelled(true);
+                    VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 0.6, new Vector(0, 1, 0));
                     return;
                 } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, region).isCancelled()) {
                     event.setCancelled(true);
