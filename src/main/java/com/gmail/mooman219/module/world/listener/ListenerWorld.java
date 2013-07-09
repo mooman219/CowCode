@@ -24,6 +24,7 @@ public class ListenerWorld implements Listener {
         event.getWorld().setDifficulty(Difficulty.HARD);
         event.getWorld().setGameRuleValue("keepInventory", "true");
         event.getWorld().setGameRuleValue("doDaylightCycle", "true");
+        event.getWorld().setGameRuleValue("naturalRegeneration", "false");
         event.getWorld().setGameRuleValue("doFireTick", "false");
         event.getWorld().setGameRuleValue("doMobLoot", "false");
         event.getWorld().setGameRuleValue("doMobSpawning", "false");

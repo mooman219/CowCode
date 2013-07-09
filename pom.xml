@@ -52,7 +52,7 @@
             <version>LATEST</version>
         </dependency>
         <dependency>
-            <groupId>org.bukkit</groupId>
+            <groupId>com.gmail.mooman219</groupId>
             <artifactId>milkbukkit</artifactId>
             <version>${bukkit.version}</version>
             <type>jar</type>

@@ -5,6 +5,9 @@ import org.bukkit.event.HandlerList;
 
 import com.gmail.mooman219.bull.CDPlayer;
 
+/**
+ * Called in a lot of places :D
+ */
 public class DataRemovalEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 

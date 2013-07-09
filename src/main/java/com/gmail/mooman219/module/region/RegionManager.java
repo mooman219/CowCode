@@ -58,10 +58,4 @@ public class RegionManager {
         }
         return null;
     }
-
-    public static boolean compare(BasicRegion regionA, BasicRegion regionB) {
-        return regionA != null && regionB != null && regionA.equals(regionB);
-    }
-
-
 }

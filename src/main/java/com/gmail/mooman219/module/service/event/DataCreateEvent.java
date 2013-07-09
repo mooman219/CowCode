@@ -6,6 +6,9 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 
+/**
+ * Called in PlayerLoginEvent
+ */
 public class DataCreateEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 

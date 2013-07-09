@@ -4,15 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import net.minecraft.server.Container;
-import net.minecraft.server.ContainerChest;
 import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.IInventory;
 import net.minecraft.server.Packet;
-import net.minecraft.server.Packet100OpenWindow;
-import net.minecraft.server.Packet101CloseWindow;
-import net.minecraft.server.Packet20NamedEntitySpawn;
-import net.minecraft.server.Packet29DestroyEntity;
 import net.minecraft.server.Packet8UpdateHealth;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
@@ -20,12 +13,8 @@ import net.minecraft.server.PlayerConnection;
 import org.apache.commons.lang.Validate;
 import org.bson.types.ObjectId;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.craftbukkit.inventory.CraftContainer;
-import org.bukkit.craftbukkit.inventory.CraftInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.inventory.Inventory;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
@@ -35,7 +24,6 @@ import com.gmail.mooman219.frame.scoreboard.HealthBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
@@ -158,50 +146,12 @@ public class CDPlayer extends BullData {
         });
     }
 
-    /**
-     * This returns true if the player has an inventory window open that's
-     * different from the main player inventory.
-     * @return if current open inventory is not the default one.
-     */
-    public boolean isInventoryOpen() {
-        EntityPlayer handle = getHandle();
-        return handle.activeContainer != handle.defaultContainer;
-    }
-
-    public void openInventory(Inventory inventory) {
-        if(isInventoryOpen()) {
-            EntityPlayer handle = getHandle();
-            CraftPlayer craftPlayer = (CraftPlayer) player;
-            CraftInventory craftInventory = (CraftInventory) inventory;
-            IInventory iinventory = craftInventory.getInventory();
-            Container container = new ContainerChest(handle.inventory, iinventory);
-            container.checkReachable = false;
-
-            sendPacket(new Packet101CloseWindow(handle.activeContainer.windowId));
-
-            handle.activeContainer.transferTo(container, craftPlayer);
-
-            int counter = handle.nextContainerCounter();
-            int windowType = CraftContainer.getNotchInventoryType(inventory.getType());
-            String title = iinventory.getName();
-            int size = iinventory.getSize();
-            boolean useTitle = true;
-
-            handle.playerConnection.sendPacket(new Packet100OpenWindow(counter, windowType, title, size, useTitle));
-            handle.activeContainer = container;
-            handle.activeContainer.windowId = counter;
-            handle.activeContainer.addSlotListener(handle);
-        } else {
-            player.openInventory(inventory);
-        }
-    }
-
     public String getName() {
         return username;
     }
 
     public String getOverheadName() {
-        return getHandle().overheadName;
+        return player.getOverheadName();
     }
 
     public Player getPlayer() {
@@ -241,24 +191,12 @@ public class CDPlayer extends BullData {
     }
 
     public String setOverheadName(String name) {
-        EntityPlayer handle = getHandle();
-        String oldName = handle.overheadName;
-        if(name == null || name.equals(oldName)) {
-            return oldName;
-        }
-        handle.overheadName = name;
-        if(handle.playerConnection != null) {
+        String oldName = player.getOverheadName();
+        if(sidebar != null && getHandle().playerConnection != null) {            
             sidebar.modifyTitle(name);
-            for(Player other : player.getWorld().getPlayers()) {
-                if(other.getEntityId() == player.getEntityId() || other.getLocation().distanceSquared(player.getLocation()) > ConfigGlobal.bull.player.nameUpdateRadius) { // 240 Blocks // 15 Chunks
-                    continue;
-                }
-                CDPlayer otherPlayer = get(other);
-                otherPlayer.sendPacket(new Packet29DestroyEntity(handle.id));
-                otherPlayer.sendPacket(new Packet20NamedEntitySpawn(handle));
-            }
-            healthBoard.updatePlayer(this);
         }
+        name = TextHelper.shrink(name);
+        player.setOverheadName(name);
         return oldName;
     }
 
@@ -275,14 +213,6 @@ public class CDPlayer extends BullData {
 
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
-    }
-
-    public int getArrowsStuck() {
-        return getHandle().datawatcher.getByte(9);
-    }
-
-    public void setArrowsStuck(int arrows) {
-        getHandle().datawatcher.watch(9, Byte.valueOf((byte) arrows));
     }
 
     /*

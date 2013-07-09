@@ -6,6 +6,9 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 
+/*
+ * Called in AsyncPlayerPreLoginEvent
+ */
 public class DataVerifyEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 

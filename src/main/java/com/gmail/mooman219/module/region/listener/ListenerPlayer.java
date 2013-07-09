@@ -21,11 +21,12 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             BasicRegion region = RegionManager.getRegion(event.getTo());
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            if(!RegionManager.compare(playerData.region.currentRegion, region)) {
+            if(!region.equals(playerData.region.currentRegion)) {
+                // Check so player doesn't get in infini loop of fail
                 if(region.isLocked()) {
                     CCRegion.MSG.LOCKED.send(playerData);
                     event.setCancelled(true);
-                    VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 0.6, new Vector(0, 1, 0));
+                    VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
                     return;
                 } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, region).isCancelled()) {
                     event.setCancelled(true);

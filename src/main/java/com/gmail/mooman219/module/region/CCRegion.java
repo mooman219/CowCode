@@ -70,6 +70,7 @@ public class CCRegion implements CowComponent {
 
     public class Messages {
         public final Bulletin LOCKED = new Bulletin(Chat.msgError, "That region is currently locked.", Chat.formatError);
+        public final Bulletin LOCKEDFAIL = new Bulletin(Chat.msgError, "You have broken the region lock?", Chat.formatError);
         public final Bulletin EXISTS = new Bulletin(Chat.msgError, "Region already exists.", Chat.formatError);
         public final Bulletin NONEXISTS = new Bulletin(Chat.msgError, "The region does not exist.", Chat.formatError);
         public final Bulletin ADDED = new Bulletin(Chat.msgInfo, "Region added!", Chat.formatInfo);

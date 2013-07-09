@@ -1,7 +1,5 @@
 package com.gmail.mooman219.module.service.listener;
 
-import net.minecraft.server.MinecraftServer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -84,11 +82,11 @@ public class MessingAround implements Listener {
     @EventHandler
     public void onSecond(TickSecondSyncEvent event){
         double memUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
-        double tps = Math.min(20,  Math.round(MinecraftServer.currentTPS * 10D) / 10.0D);
+        //double tps = Math.min(20,  Math.round(MinecraftServer.currentTPS * 10D) / 10.0D);
         for(Player player : Bukkit.getOnlinePlayers()) {
             int mobs = player.getWorld().getEntities().size();
             CDPlayer.get(player).getSidebar().modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
-            CDPlayer.get(player).getSidebar().modifyName("tps", "TPS: " + Chat.GREEN + tps);
+            //CDPlayer.get(player).getSidebar().modifyName("tps", "TPS: " + Chat.GREEN + tps);
             CDPlayer.get(player).getSidebar().modifyName("mob", "Mobs: " + Chat.GREEN + mobs);
         }
     }
@@ -106,7 +104,7 @@ public class MessingAround implements Listener {
             CDPlayer player = CDPlayer.get((Player) event.getWhoClicked());
             Inventory inv = Bukkit.createInventory(player.getPlayer(), 9, "TEST - " + (NumberHelper.nextRandom().nextInt(100) + 1));
             inv.setItem(0, ItemHelper.setName(1, Chat.GOLD + inv.getTitle()));
-            player.openInventory(inv);
+            player.getPlayer().openInventory(inv);
             //event.setCancelled(true);
         }
     }
