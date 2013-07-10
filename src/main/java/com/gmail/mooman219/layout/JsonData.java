@@ -1,5 +1,8 @@
 package com.gmail.mooman219.layout;
 
+/*
+ * This class is really for organization reasons.
+ */
 public interface JsonData {
     @Override
     public String toString();
