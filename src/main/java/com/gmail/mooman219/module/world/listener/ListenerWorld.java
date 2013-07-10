@@ -3,12 +3,20 @@ package com.gmail.mooman219.module.world.listener;
 import org.bukkit.Difficulty;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.event.world.WorldInitEvent;
 
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 
 public class ListenerWorld implements Listener {
+    @EventHandler()
+    public void onLightningStrike(LightningStrikeEvent event) {
+        if(ConfigGlobal.module.world.disableLightningStrike) {
+            event.setCancelled(true);
+        }
+    }
+
     @EventHandler()
     public void onStructureGrow(StructureGrowEvent event) {
         if(ConfigGlobal.module.world.disableStructureGrow) {

@@ -179,6 +179,8 @@ public class CDPlayer extends BullData {
         EntityPlayer handle = getHandle();
         if(handle == null) {
             Loader.warning("Null handle for '" + username + "'");
+        } else if(packet == null) {
+            Loader.warning("Null packet for '" + username + "'");
         } else if(handle.playerConnection == null) {
             Loader.warning("Null connection for '" + username + "'");
         } else {
@@ -192,7 +194,7 @@ public class CDPlayer extends BullData {
 
     public String setOverheadName(String name) {
         String oldName = player.getOverheadName();
-        if(sidebar != null && getHandle().playerConnection != null) {            
+        if(sidebar != null && getHandle().playerConnection != null) {
             sidebar.modifyTitle(name);
         }
         name = TextHelper.shrink(name);
