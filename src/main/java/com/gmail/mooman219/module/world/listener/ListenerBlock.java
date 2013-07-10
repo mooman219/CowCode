@@ -11,7 +11,6 @@ import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
-import org.bukkit.event.weather.LightningStrikeEvent;
 
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 
@@ -61,13 +60,6 @@ public class ListenerBlock implements Listener {
     @EventHandler()
     public void onLeavesDecay(LeavesDecayEvent event) {
         if(ConfigGlobal.module.world.disableLeafDecay) {
-            event.setCancelled(true);
-        }
-    }
-
-    @EventHandler()
-    public void onLightningStrike(LightningStrikeEvent event) {
-        if(ConfigGlobal.module.world.disableLightningStrike) {
             event.setCancelled(true);
         }
     }

@@ -19,23 +19,27 @@ public class ListenerPlayer implements Listener{
     @EventHandler(priority = EventPriority.HIGH)
     public void onMove(PlayerMoveEvent event) {
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
-            BasicRegion region = RegionManager.getRegion(event.getTo());
+            BasicRegion toRegion = RegionManager.getRegion(event.getTo());
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            if(!region.equals(playerData.region.currentRegion)) {
-                // Check so player doesn't get in infini loop of fail
-                if(region.isLocked()) {
-                    CCRegion.MSG.LOCKED.send(playerData);
-                    event.setCancelled(true);
-                    VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
-                    return;
-                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, region).isCancelled()) {
+            if(!toRegion.equals(playerData.region.currentRegion)) {
+                if(toRegion.isLocked()) {
+                    BasicRegion fromRegion = RegionManager.getRegion(event.getFrom());
+                    if(fromRegion.isLocked()) {
+                        // They broke it, let them in :\
+                        CCRegion.MSG.LOCKEDFAIL.send(playerData);
+                    } else {                        
+                        CCRegion.MSG.LOCKED.send(playerData);
+                        event.setCancelled(true);
+                        VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
+                        return;
+                    }
+                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, toRegion).isCancelled()) {
                     event.setCancelled(true);
                     return;
                 }
-                playerData.region.currentRegion = region;
-                //
-                playerData.getSidebar().modifyName("regionn", Chat.GREEN + region.getName());
-                playerData.getSidebar().modifyName("regionc", region.getCombatType().getColoredName());
+                playerData.region.currentRegion = toRegion;
+                playerData.getSidebar().modifyName("regionn", Chat.GREEN + toRegion.getName());
+                playerData.getSidebar().modifyName("regionc", toRegion.getCombatType().getColoredName());
             }
         }
     }
