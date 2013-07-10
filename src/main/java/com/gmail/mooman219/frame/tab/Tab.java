@@ -3,6 +3,7 @@ package com.gmail.mooman219.frame.tab;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.handler.packet.CHPacket;
+import com.gmail.mooman219.handler.task.CHTask;
 
 public class Tab {
     public final static int maxTabWidth = 5;
@@ -40,7 +41,7 @@ public class Tab {
     }
 
     public void update() {
-        player.runTask(new Runnable() {
+        CHTask.manager.runPlugin(new Runnable() {
             @Override
             public void run() {
                 for(int y = 0; y < maxTabHeight; y++) {

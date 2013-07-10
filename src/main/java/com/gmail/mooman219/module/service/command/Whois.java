@@ -12,6 +12,7 @@ import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.DownloadReason;
+import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.service.CCService;
 
 public class Whois extends CCommand {
@@ -31,7 +32,7 @@ public class Whois extends CCommand {
                 displayWhois(sender, CDPlayer.get(other));
                 return;
             }
-            player.runTask(new Runnable() {
+            CHTask.manager.runPlugin(new Runnable() {
                 @Override
                 public void run() {
                     CDPlayer playerData = CHDatabase.manager.downloadPlayer(args[0], DownloadReason.QUERY);
@@ -55,7 +56,7 @@ public class Whois extends CCommand {
                 Chat.lineInfo + Chat.GRAY + "Last login" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.lastlogin, TimeType.MILLISECOND) + " ago" + Chat.DARK_GRAY + " (" + (target.loginData.isOnline ? Chat.DARK_GREEN + "Online" : Chat.DARK_RED + "Offline") + Chat.DARK_GRAY + ")");
         sender.sendMessage(target.loginData.isOnline ?
                 Chat.lineInfo + Chat.GRAY + "Time played" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.lastlogin + target.loginData.timeplayed, TimeType.MILLISECOND) :
-                    Chat.lineInfo + Chat.GRAY + "Time played" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(target.loginData.timeplayed, TimeType.MILLISECOND));
+                Chat.lineInfo + Chat.GRAY + "Time played" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(target.loginData.timeplayed, TimeType.MILLISECOND));
     }
     // ≣ ≡ ≛ ≜
 }

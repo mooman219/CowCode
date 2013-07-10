@@ -1,9 +1,5 @@
 package com.gmail.mooman219.bull;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet8UpdateHealth;
@@ -15,6 +11,7 @@ import org.bson.types.ObjectId;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
@@ -25,6 +22,7 @@ import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
@@ -44,7 +42,6 @@ public class CDPlayer extends BullData {
     public final String username;
     // [ ]---[+] Online
     private Player player = null;
-    private ExecutorService thread = null;
     private Board sidebar = null;
     private Tab tabList = null;
     // [+] Module information
@@ -69,17 +66,16 @@ public class CDPlayer extends BullData {
 
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
-        case POST_VERIFY: // This is done in another thread
-            thread = Executors.newSingleThreadExecutor();
+        case PRELOGIN: // This is done in another thread
             /** Live module data to be added **/
             chat = new PLChat(this);
             region = new PLRegion(this);
             /**/
             break;
-        case PRE_CREATION:
+        case LOGIN:
             this.player = player;
             break;
-        case PRE_JOIN:
+        case JOIN:
             healthBoard.addPlayer(this);
             sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
             tabList = new Tab(this);
@@ -92,7 +88,6 @@ public class CDPlayer extends BullData {
     public void shutdown(PlayerShutdownType shutdownType) {
         switch(shutdownType) {
         case POST_QUIT:
-            thread.shutdownNow().clear();
             sidebar = null;
             tabList = null;
             break;
@@ -133,10 +128,15 @@ public class CDPlayer extends BullData {
      */
 
     public void chat(final String message) {
-        runTask(new Runnable() {
+        CHTask.manager.runPlugin(new Runnable() {
             @Override
             public void run() {
-                PlayerConnection target = getHandle().playerConnection;
+                EntityPlayer handle = getHandle();
+                if(handle == null) {
+                    Loader.warning("Null handle for '" + username + "'");
+                    return;
+                }
+                PlayerConnection target = handle.playerConnection;
                 if(target == null) {
                     Loader.warning("Null connection for '" + username + "'");
                     return;
@@ -165,14 +165,6 @@ public class CDPlayer extends BullData {
 
     public Tab getTab() {
         return tabList;
-    }
-
-    public Future<?> runTask(Runnable task) {
-        if(thread.isTerminated()) {
-            return null;
-        } else {
-            return thread.submit(task);
-        }
     }
 
     public void sendPacket(final Packet packet) {
@@ -205,9 +197,6 @@ public class CDPlayer extends BullData {
     /**
      * Updates the current player's (health, foodlevel, foodsaturation).<br>
      * Health max = 20, FoodLevel max = 20, FoodSaturation max = 5f
-     * @param health
-     * @param foodlevel
-     * @param foodsaturation
      */
     public void updateStatus(int health, int foodlevel, float foodsaturation) {
         sendPacket(new Packet8UpdateHealth(health, foodlevel, foodsaturation));
@@ -248,17 +237,6 @@ public class CDPlayer extends BullData {
             ((PendingConnection) event.getPendingConnection()).bull_live = player;
         } else {
             throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getName() + "'.");
-        }
-    }
-
-    /**
-     * This method will save any of the CDPlayer data then remove it from the Player object.
-     * This should be called when the Player leaves to prevent the data from presisting.
-     */
-    public static void unload(Player player) {
-        net.minecraft.server.Entity handle = ((CraftPlayer)player).getHandle();
-        if(handle.bull_live != null) {
-            handle.bull_live = null;
         }
     }
 }

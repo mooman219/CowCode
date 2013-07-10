@@ -95,11 +95,6 @@ public class Loader extends JavaPlugin {
      *
      * PD   | Player Data
      * PL   | Player Live
-     * PT   | Player Tag
-     * CL   | Chunk Live
-     * CT   | Chunk Tag
-     * WL   | World Live
-     * WT   | World Tag
      */
 
     @Override

@@ -8,7 +8,7 @@ import com.gmail.mooman219.module.service.command.LoadConfig;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
 import com.gmail.mooman219.module.service.command.Whois;
-import com.gmail.mooman219.module.service.listener.ListenerData;
+import com.gmail.mooman219.module.service.listener.ListenerPlayer;
 import com.gmail.mooman219.module.service.listener.ListenerEntity;
 import com.gmail.mooman219.module.service.listener.MessingAround;
 
@@ -20,7 +20,7 @@ public class CCService implements CowComponent {
     public static Messages MSG;
     public static Formats FRM;
 
-    public ListenerData listenerData;
+    public ListenerPlayer listenerPlayer;
     public ListenerEntity listenerEntity;
     public MessingAround messingAround;
 
@@ -37,7 +37,7 @@ public class CCService implements CowComponent {
 
     @Override
     public void onEnable(){
-        listenerData = plugin.addListener(new ListenerData());
+        listenerPlayer = plugin.addListener(new ListenerPlayer());
         listenerEntity = plugin.addListener(new ListenerEntity());
         messingAround = plugin.addListener(new MessingAround());
     }

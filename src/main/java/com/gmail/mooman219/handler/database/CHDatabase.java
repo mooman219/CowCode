@@ -107,6 +107,7 @@ public class CHDatabase implements CowHandler {
                 return future.get(ConfigGlobal.handler.database.downloadTimeout, TimeUnit.SECONDS);
             } catch(TimeoutException e) {
             } catch(Exception e) {
+                Loader.warning(cast + "Currently" + (isConnected() ? " " : " not ") + "connected to database.");
                 e.printStackTrace();
             }
             return null;

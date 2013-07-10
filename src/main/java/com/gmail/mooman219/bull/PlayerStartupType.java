@@ -1,9 +1,9 @@
 package com.gmail.mooman219.bull;
 
 public enum PlayerStartupType {
-    POST_VERIFY(0),
-    PRE_CREATION(1),
-    PRE_JOIN(2);
+    PRELOGIN(0),
+    LOGIN(1),
+    JOIN(2);
 
     private final int id;
 

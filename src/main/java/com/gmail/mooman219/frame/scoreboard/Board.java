@@ -16,22 +16,12 @@ public class Board {
         this.rows = new HashMap<String, BoardValue>();
         this.title = title;
 
-        player.runTask(new Runnable() {
-            @Override
-            public void run() {
-                CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
-                CHPacket.manager.sendSetScoreboardDisplay(player, title, displayType);
-            }
-        });
+        CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
+        CHPacket.manager.sendSetScoreboardDisplay(player, title, displayType);
     }
 
     public void modifyTitle(final String displayTitle) {
-        player.runTask(new Runnable() {
-            @Override
-            public void run() {
-                CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.TITLE);
-            }
-        });
+        CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.TITLE);
     }
 
     public void addKey(final String key, final String name, final int value) {
@@ -39,71 +29,46 @@ public class Board {
     }
 
     public void addKey(final String key, final BoardValue boardValue) {
-        if(rows.containsKey(key)) {
-            final BoardValue currentValue = rows.get(key);
-            player.runTask(new Runnable() {
-                @Override
-                public void run() {
-                    CHPacket.manager.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE);
-                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
-                    currentValue.setName(boardValue.getName());
-                    currentValue.setValue(boardValue.getValue());
-                    currentValue.setClientName(currentValue.getName());
-                }
-            });
+        BoardValue currentValue = rows.get(key);
+        if(currentValue != null) {
+            CHPacket.manager.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE);
+            CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+            currentValue.setName(boardValue.getName());
+            currentValue.setValue(boardValue.getValue());
+            currentValue.setClientName(currentValue.getName());
         } else {
             rows.put(key, boardValue);
-            player.runTask(new Runnable() {
-                @Override
-                public void run() {
-                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
-                }
-            });
+            CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
         }
     }
 
     public void removeKey(final String key) {
-        if(rows.containsKey(key)) {
-            final BoardValue boardValue = rows.get(key);
+        BoardValue boardValue = rows.get(key);
+        if(boardValue != null) {
             rows.remove(key);
-            player.runTask(new Runnable() {
-                @Override
-                public void run() {
-                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
-                }
-            });
+            CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
         }
     }
 
     public void modifyValue(final String key, final int value) {
-        if(rows.containsKey(key)) {
-            final BoardValue boardValue = rows.get(key);
-            player.runTask(new Runnable() {
-                @Override
-                public void run() {
-                    boardValue.setValue(value);
-                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.UPDATE);
-                }
-            });
+        BoardValue boardValue = rows.get(key);
+        if(boardValue != null) {
+            boardValue.setValue(value);
+            CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.UPDATE);
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
         }
     }
 
     public void modifyName(final String key, final String name) {
-        if(rows.containsKey(key)) {
-            final BoardValue boardValue = rows.get(key);
-            player.runTask(new Runnable() {
-                @Override
-                public void run() {
-                    boardValue.setName(name);
-                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
-                    CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
-                    boardValue.setClientName(name);
-                }
-            });
+        BoardValue boardValue = rows.get(key);
+        if(boardValue != null) {
+            boardValue.setName(name);
+            CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
+            CHPacket.manager.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+            boardValue.setClientName(name);
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
         }

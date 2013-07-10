@@ -22,7 +22,7 @@ import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.service.CCService;
 
-public class ListenerData implements Listener {
+public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
         //Loader.info(CCService.cast + "[EVENT] PreLogin: " + event.getName());
@@ -42,7 +42,7 @@ public class ListenerData implements Listener {
         }
         CEventFactory.callDataVerifyEvent(event, player);
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.ALLOWED) {
-            player.startup(null, PlayerStartupType.POST_VERIFY);
+            player.startup(null, PlayerStartupType.PRELOGIN);
             CDPlayer.set(event, player);
         } else if(event.getKickMessage().length() <= 0) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CCService.MSG.LOGINERROR + "");
@@ -56,7 +56,7 @@ public class ListenerData implements Listener {
         //Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
 
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.startup(event.getPlayer(), PlayerStartupType.PRE_CREATION);
+        player.startup(event.getPlayer(), PlayerStartupType.LOGIN);
         CEventFactory.callDataCreateEvent(event, player);
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
         CHDatabase.manager.uploadPlayer(player, UploadReason.STATUS, false, true);
@@ -67,7 +67,7 @@ public class ListenerData implements Listener {
         //Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
 
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.startup(event.getPlayer(), PlayerStartupType.PRE_JOIN);
+        player.startup(event.getPlayer(), PlayerStartupType.JOIN);
         CCService.MSG.DATALOAD.send(event.getPlayer());
     }
 
