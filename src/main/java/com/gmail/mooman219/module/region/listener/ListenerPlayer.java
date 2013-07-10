@@ -27,7 +27,7 @@ public class ListenerPlayer implements Listener{
                     if(fromRegion.isLocked()) {
                         // They broke it, let them in :\
                         CCRegion.MSG.LOCKEDFAIL.send(playerData);
-                    } else {                        
+                    } else {
                         CCRegion.MSG.LOCKED.send(playerData);
                         event.setCancelled(true);
                         VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));

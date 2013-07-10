@@ -1,9 +1,12 @@
 package com.gmail.mooman219.handler.packet;
 
 import net.minecraft.server.Packet201PlayerInfo;
+import net.minecraft.server.Packet205ClientCommand;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
 import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
+import net.minecraft.server.Packet8UpdateHealth;
+
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
@@ -58,6 +61,17 @@ public class CHPacket implements CowHandler {
         public void sendPlayerInfo(CDPlayer player, String name, boolean online, boolean ping) {
             Packet201PlayerInfo packet201 = new Packet201PlayerInfo(name, online, ping ? 0 : 40000);
             player.sendPacket(packet201);
+        }
+
+        public void sendUpdateHealth(CDPlayer player, float health, int foodlevel, float foodsaturation) {
+            Packet8UpdateHealth packet8 = new Packet8UpdateHealth(health, foodlevel, foodsaturation);
+            player.sendPacket(packet8);
+        }
+
+        public void sendForceRespawn(CDPlayer player) {
+            Packet205ClientCommand packet205 = new Packet205ClientCommand();
+            packet205.a = 1;
+            player.sendPacket(packet205);
         }
 
         // Old research

@@ -9,9 +9,9 @@ import com.gmail.mooman219.handler.packet.CHPacket;
 public class Board {
     private final String title;
     private final CDPlayer player;
-    private HashMap<String, BoardValue> rows;
+    private final HashMap<String, BoardValue> rows;
 
-    public Board(final CDPlayer player, final String title, final String displayTitle, final BoardDisplayType displayType) {
+    public Board(CDPlayer player, String title, String displayTitle, BoardDisplayType displayType) {
         this.player = player;
         this.rows = new HashMap<String, BoardValue>();
         this.title = title;
@@ -20,15 +20,15 @@ public class Board {
         CHPacket.manager.sendSetScoreboardDisplay(player, title, displayType);
     }
 
-    public void modifyTitle(final String displayTitle) {
+    public void modifyTitle(String displayTitle) {
         CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.TITLE);
     }
 
-    public void addKey(final String key, final String name, final int value) {
+    public void addKey(String key, String name, int value) {
         addKey(key, new BoardValue(name, value));
     }
 
-    public void addKey(final String key, final BoardValue boardValue) {
+    public void addKey(String key, BoardValue boardValue) {
         BoardValue currentValue = rows.get(key);
         if(currentValue != null) {
             CHPacket.manager.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE);
@@ -42,7 +42,7 @@ public class Board {
         }
     }
 
-    public void removeKey(final String key) {
+    public void removeKey(String key) {
         BoardValue boardValue = rows.get(key);
         if(boardValue != null) {
             rows.remove(key);
@@ -52,7 +52,7 @@ public class Board {
         }
     }
 
-    public void modifyValue(final String key, final int value) {
+    public void modifyValue(String key, int value) {
         BoardValue boardValue = rows.get(key);
         if(boardValue != null) {
             boardValue.setValue(value);
@@ -62,7 +62,7 @@ public class Board {
         }
     }
 
-    public void modifyName(final String key, final String name) {
+    public void modifyName(String key, String name) {
         BoardValue boardValue = rows.get(key);
         if(boardValue != null) {
             boardValue.setName(name);

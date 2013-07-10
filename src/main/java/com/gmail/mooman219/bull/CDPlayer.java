@@ -194,14 +194,6 @@ public class CDPlayer extends BullData {
         return oldName;
     }
 
-    /**
-     * Updates the current player's (health, foodlevel, foodsaturation).<br>
-     * Health max = 20, FoodLevel max = 20, FoodSaturation max = 5f
-     */
-    public void updateStatus(int health, int foodlevel, float foodsaturation) {
-        sendPacket(new Packet8UpdateHealth(health, foodlevel, foodsaturation));
-    }
-
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
     }

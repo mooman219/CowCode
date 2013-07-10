@@ -118,7 +118,7 @@ public class CHDatabase implements CowHandler {
         public final String username;
         public final DownloadReason reason;
 
-        public PlayerDownloader(final String username, final DownloadReason reason) {
+        public PlayerDownloader(String username, DownloadReason reason) {
             this.username = username;
             this.reason = reason;
         }
