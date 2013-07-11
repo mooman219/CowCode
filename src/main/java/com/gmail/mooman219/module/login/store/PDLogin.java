@@ -1,5 +1,7 @@
 package com.gmail.mooman219.module.login.store;
 
+import java.util.ArrayList;
+
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.layout.MongoData;
@@ -11,6 +13,7 @@ public class PDLogin implements MongoData {
     public long firstlogin = 0l;
     public long timeplayed = 0l;
     public boolean isOnline = false;
+    public ArrayList<String> knownIPs = new ArrayList<String>();
     public String lastKnownIP = "0.0.0.0";
 
     @Override
@@ -24,7 +27,8 @@ public class PDLogin implements MongoData {
         this.lastlogin = MongoHelper.getValue(login, "lastlogin", lastlogin);
         this.timeplayed = MongoHelper.getValue(login, "timeplayed", timeplayed);
         this.isOnline = MongoHelper.getValue(login, "online", isOnline);
-        this.lastKnownIP = MongoHelper.getValue(login, "lastknownip", lastKnownIP);
+        this.knownIPs = MongoHelper.getValue(login, "iplist", knownIPs);
+        this.lastKnownIP = MongoHelper.getValue(login, "lastip", lastKnownIP);
     }
 
     @Override
@@ -36,7 +40,8 @@ public class PDLogin implements MongoData {
             .append(getTag() + ".lastlogin", lastlogin)
             .append(getTag() + ".timeplayed", timeplayed)
             .append(getTag() + ".online", isOnline)
-            .append(getTag() + ".lastknownip", lastKnownIP);
+            .append(getTag() + ".iplist", knownIPs)
+            .append(getTag() + ".lastip", knownIPs);
         case STATUS:
             return new BasicDBObject()
             .append(getTag() + ".lastlogin", lastlogin)

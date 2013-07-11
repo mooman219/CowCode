@@ -70,34 +70,6 @@ public class CHDatabase implements CowHandler {
             return true;
         }
 
-        private DBObject downloadPlayerObject(final String username, boolean caseSensitive) {
-            if(caseSensitive) {
-                return usersCollection.findOne(new BasicDBObject("username", username));
-            } else {
-                return usersCollection.findOne(new BasicDBObject("usernamelowercase", username.toLowerCase()));
-            }
-        }
-
-        private void createPlayerObject(final String username) {
-            usersCollection.insert(
-                    new BasicDBObject()
-                    .append("username", username)
-                    .append("usernamelowercase", username.toLowerCase())
-                    );
-        }
-
-        private CDPlayer createPlayer(final String username) {
-            CDPlayer player = new CDPlayer(username);
-            DBObject playerObject = downloadPlayerObject(username, true);
-            if(playerObject == null) {                
-                createPlayerObject(username);
-                CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
-            } else {
-                player.sync(playerObject);
-            }
-            return player;
-        }
-
         public void uploadPlayer(final CDPlayer player, final UploadReason reason, final boolean shouldRemove, final boolean runAsync) {
             final Runnable task = new Runnable() {
                 @Override
@@ -139,6 +111,22 @@ public class CHDatabase implements CowHandler {
             }
             return null;
         }
+
+        private DBObject downloadPlayerObject(final String username, boolean caseSensitive) {
+            if(caseSensitive) {
+                return usersCollection.findOne(new BasicDBObject("username", username));
+            } else {
+                return usersCollection.findOne(new BasicDBObject("usernamelowercase", username.toLowerCase()));
+            }
+        }
+
+        private void createPlayerObject(final String username) {
+            usersCollection.insert(
+                    new BasicDBObject()
+                    .append("username", username)
+                    .append("usernamelowercase", username.toLowerCase())
+                    );
+        }
     }
 
     private class PlayerDownloader implements Callable<CDPlayer> {
@@ -153,30 +141,27 @@ public class CHDatabase implements CowHandler {
         @Override
         public CDPlayer call() {
             try {
-                CDPlayer playerData;
+                CDPlayer player;
                 DBObject playerObject;
                 switch(reason) {
                 case LOGIN:
+                    player = new CDPlayer(username);
                     playerObject = CHDatabase.manager.downloadPlayerObject(username, true);
                     Loader.info(cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
-                    if(playerObject != null) {
-                        playerData = new CDPlayer(username);
-                        playerData.sync(playerObject);
-                        return playerData;
+                    if(playerObject == null) {
+                        CHDatabase.manager.createPlayerObject(username);
+                        CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
                     } else {
-                        usersCollection.insert(new BasicDBObject("username", username).append("usernamelowercase", username.toLowerCase()));
-                        playerObject = usersCollection.findOne(new BasicDBObject("username", username));
-                        playerData = new CDPlayer(username);
-                        CHDatabase.manager.uploadPlayer(playerData, UploadReason.SAVE, false, false);
-                        return playerData;
+                        player.sync(playerObject);
                     }
+                    return player;
                 case QUERY:
                     playerObject = CHDatabase.manager.downloadPlayerObject(username, false);
                     Loader.info(cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                     if(playerObject != null) {
-                        playerData = new CDPlayer(username);
-                        playerData.sync(playerObject);
-                        return playerData;
+                        player = new CDPlayer(username);
+                        player.sync(playerObject);
+                        return player;
                     } else {
                         return null;
                     }
