@@ -43,11 +43,6 @@ public class ListenerData implements Listener {
     public void onRemoval(DataRemovalEvent event) {
         CDPlayer player = event.getPlayer();
         long currentTime = System.currentTimeMillis();
-        String ip = player.getPlayer().getAddress().getAddress().getHostAddress();
-        player.loginData.lastKnownIP = ip;
-        if(!player.loginData.knownIPs.contains(ip)) {
-            player.loginData.knownIPs.add(ip);
-        }
         player.loginData.timeplayed += currentTime - player.loginData.lastlogin;
         player.loginData.lastlogin = currentTime;
         player.loginData.isOnline = false;

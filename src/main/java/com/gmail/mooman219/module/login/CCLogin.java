@@ -5,6 +5,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.login.listener.ListenerData;
+import com.gmail.mooman219.module.login.listener.ListenerPlayer;
 
 public class CCLogin implements CowComponent{
     public final Loader plugin;
@@ -15,6 +16,7 @@ public class CCLogin implements CowComponent{
     public static Formats FRM;
 
     public ListenerData listenerData;
+    public ListenerPlayer listenerPlayer;
 
     public CCLogin(Loader head){
         plugin = head;
@@ -30,6 +32,7 @@ public class CCLogin implements CowComponent{
     @Override
     public void onEnable(){
         listenerData = plugin.addListener(new ListenerData());
+        listenerPlayer = plugin.addListener(new ListenerPlayer());
     }
 
     @Override

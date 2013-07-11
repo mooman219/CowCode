@@ -41,7 +41,7 @@ public class PDLogin implements MongoData {
             .append(getTag() + ".timeplayed", timeplayed)
             .append(getTag() + ".online", isOnline)
             .append(getTag() + ".iplist", knownIPs)
-            .append(getTag() + ".lastip", knownIPs);
+            .append(getTag() + ".lastip", lastKnownIP);
         case STATUS:
             return new BasicDBObject()
             .append(getTag() + ".lastlogin", lastlogin)
