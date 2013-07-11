@@ -51,7 +51,7 @@ public class Whois extends CCommand {
     public void displayWhois(Player sender, CDPlayer target) {
         long currentTime = System.currentTimeMillis();
         sender.sendMessage(
-                Chat.msgInfo + "Displaying " + target.serviceData.rank.color + target.username + Chat.GREEN + "'s data:\n" +
+                Chat.msgInfo + "Displaying " + target.serviceData.rank.color + target.getUsername() + Chat.GREEN + "'s data:\n" +
                 Chat.lineInfo + Chat.GRAY + "Rank" + Chat.DARK_GRAY + ": " + target.serviceData.rank.color + target.serviceData.rank.name() + "\n" +
                 Chat.lineInfo + Chat.GRAY + "First joined" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.firstlogin, TimeType.MILLISECOND) + " ago\n" +
                 Chat.lineInfo + Chat.GRAY + "Last login" + Chat.DARK_GRAY + ": " + Chat.WHITE + TimeHelper.getLargestType(currentTime - target.loginData.lastlogin, TimeType.MILLISECOND) + " ago" + Chat.DARK_GRAY + " (" + (target.loginData.isOnline ? Chat.DARK_GREEN + "Online" : Chat.DARK_RED + "Offline") + Chat.DARK_GRAY + ")\n" +

@@ -40,7 +40,7 @@ public class ListenerChat implements Listener{
                     CCChat.FRM.MESSAGE_EXIST.send(event.getPlayer(), message[0].substring(1));
                 } else {
                     CDPlayer otherPlayer = CDPlayer.get(foundPlayer);
-                    if(otherPlayer.username.equals(player.username)) {
+                    if(otherPlayer.getUsername().equals(player.getUsername())) {
                         CCChat.MSG.MESSAGE_SELF.send(event.getPlayer());
                     } else {
                         message(player, otherPlayer, message[1]);
@@ -69,7 +69,7 @@ public class ListenerChat implements Listener{
             Iterator<Player> iterator = event.getRecipients().iterator();
             while(iterator.hasNext()) {
                 Player recipient = iterator.next();
-                if(!player.username.equals(recipient.getName())) {
+                if(!player.getUsername().equals(recipient.getName())) {
                     double distance = LocationHelper.get2DistanceSquared(player.getPlayer().getLocation(), recipient.getLocation());
                     if(distance > ConfigGlobal.module.chat.radius) {
                         iterator.remove();

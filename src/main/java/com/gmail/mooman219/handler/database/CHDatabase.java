@@ -5,7 +5,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 
 import com.gmail.mooman219.bull.CDPlayer;
@@ -28,7 +27,7 @@ public class CHDatabase implements CowHandler {
 
     public static Manager manager;
     private DB database;
-    private DBCollection c_Users;
+    private DBCollection usersCollection;
     private MongoClient client;
 
     public CHDatabase() {}
@@ -47,7 +46,7 @@ public class CHDatabase implements CowHandler {
             if(!database.authenticate(ConfigGlobal.handler.database.username, ConfigGlobal.handler.database.password.toCharArray())) {
                 throw new IllegalArgumentException("Unable to authenticate to database.");
             }
-            c_Users = database.getCollection("data_users");
+            usersCollection = database.getCollection("data_users");
         } catch(Exception e) {
             Loader.warning(cast + "Unable to connect to database");
             e.printStackTrace();
@@ -71,6 +70,34 @@ public class CHDatabase implements CowHandler {
             return true;
         }
 
+        private DBObject downloadPlayerObject(final String username, boolean caseSensitive) {
+            if(caseSensitive) {
+                return usersCollection.findOne(new BasicDBObject("username", username));
+            } else {
+                return usersCollection.findOne(new BasicDBObject("usernamelowercase", username.toLowerCase()));
+            }
+        }
+
+        private void createPlayerObject(final String username) {
+            usersCollection.insert(
+                    new BasicDBObject()
+                    .append("username", username)
+                    .append("usernamelowercase", username.toLowerCase())
+                    );
+        }
+
+        private CDPlayer createPlayer(final String username) {
+            CDPlayer player = new CDPlayer(username);
+            DBObject playerObject = downloadPlayerObject(username, true);
+            if(playerObject == null) {                
+                createPlayerObject(username);
+                CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
+            } else {
+                player.sync(playerObject);
+            }
+            return player;
+        }
+
         public void uploadPlayer(final CDPlayer player, final UploadReason reason, final boolean shouldRemove, final boolean runAsync) {
             final Runnable task = new Runnable() {
                 @Override
@@ -80,12 +107,12 @@ public class CHDatabase implements CowHandler {
                         player.shutdown(PlayerShutdownType.POST_REMOVAL);
                     }
                     DBObject playerObject = player.getTemplate(reason);
-                    WriteResult result = c_Users.update(new BasicDBObject("_id", player.id), new BasicDBObject("$set", playerObject));
+                    WriteResult result = usersCollection.update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
                     if(result.getError() != null) {
                         Loader.warning(cast + "Mongo Error");
                         Loader.warning(cast + result.getError());
                     }
-                    Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.username);
+                    Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.getUsername());
                 }
             };
             if(runAsync) {
@@ -130,24 +157,24 @@ public class CHDatabase implements CowHandler {
                 DBObject playerObject;
                 switch(reason) {
                 case LOGIN:
-                    playerObject = c_Users.findOne(new BasicDBObject("username", username));
+                    playerObject = CHDatabase.manager.downloadPlayerObject(username, true);
                     Loader.info(cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                     if(playerObject != null) {
-                        playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
+                        playerData = new CDPlayer(username);
                         playerData.sync(playerObject);
                         return playerData;
                     } else {
-                        c_Users.insert(new BasicDBObject("username", username).append("usernamelowercase", username.toLowerCase()));
-                        playerObject = c_Users.findOne(new BasicDBObject("username", username));
-                        playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
+                        usersCollection.insert(new BasicDBObject("username", username).append("usernamelowercase", username.toLowerCase()));
+                        playerObject = usersCollection.findOne(new BasicDBObject("username", username));
+                        playerData = new CDPlayer(username);
                         CHDatabase.manager.uploadPlayer(playerData, UploadReason.SAVE, false, false);
                         return playerData;
                     }
                 case QUERY:
-                    playerObject = c_Users.findOne(new BasicDBObject("usernamelowercase", username.toLowerCase()));
+                    playerObject = CHDatabase.manager.downloadPlayerObject(username, false);
                     Loader.info(cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                     if(playerObject != null) {
-                        playerData = new CDPlayer((ObjectId) playerObject.get("_id"), username);
+                        playerData = new CDPlayer(username);
                         playerData.sync(playerObject);
                         return playerData;
                     } else {

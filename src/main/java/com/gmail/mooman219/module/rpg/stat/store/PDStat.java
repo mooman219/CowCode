@@ -1,13 +1,12 @@
 package com.gmail.mooman219.module.rpg.stat.store;
 
-import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
-import com.gmail.mooman219.layout.PlayerData;
+import com.gmail.mooman219.layout.MongoData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class PDStat extends PlayerData {
+public class PDStat implements MongoData {
     public int level = 1;
     public int exp = 0;
 
@@ -79,10 +78,6 @@ public class PDStat extends PlayerData {
     public int charisma = 3;
 
     public int unspentPoints = 3;
-
-    public PDStat(CDPlayer player) {
-        super(player);
-    }
 
     @Override
     public String getTag() {

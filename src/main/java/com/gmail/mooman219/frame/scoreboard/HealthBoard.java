@@ -29,7 +29,7 @@ public class HealthBoard {
         // Tell all players on the server the given player's name and health,
         // Also tell the given player the health of all other players
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
-            if(bukkitOther.getName().equals(player.getName())) {
+            if(bukkitOther.getName().equals(player.getUsername())) {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
@@ -43,7 +43,7 @@ public class HealthBoard {
         String name = player.getOverheadName();
         // Tell all players on the server the given player's name and health
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
-            if(bukkitOther.getName().equals(player.getName())) {
+            if(bukkitOther.getName().equals(player.getUsername())) {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);

@@ -2,12 +2,10 @@ package com.gmail.mooman219.bull;
 
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
-import net.minecraft.server.Packet8UpdateHealth;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 
 import org.apache.commons.lang.Validate;
-import org.bson.types.ObjectId;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -38,8 +36,7 @@ public class CDPlayer extends BullData {
     public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
     // [+] Data information
     // [ ]---[+] Offline
-    public final ObjectId id;
-    public final String username;
+    private final String username;
     // [ ]---[+] Online
     private Player player = null;
     private Board sidebar = null;
@@ -54,14 +51,13 @@ public class CDPlayer extends BullData {
     public PLChat chat = null;
     public PLRegion region = null;
 
-    public CDPlayer(ObjectId id, String username) {
-        this.id = id;
+    public CDPlayer(String username) {
         this.username = username;
 
-        this.serviceData = new PDService(this);
-        this.loginData = new PDLogin(this);
-        this.chatData = new PDChat(this);
-        this.statData = new PDStat(this);
+        this.serviceData = new PDService();
+        this.loginData = new PDLogin();
+        this.chatData = new PDChat();
+        this.statData = new PDStat();
     }
 
     public void startup(Player player, PlayerStartupType startupType) {
@@ -146,7 +142,7 @@ public class CDPlayer extends BullData {
         });
     }
 
-    public String getName() {
+    public String getUsername() {
         return username;
     }
 
@@ -228,7 +224,7 @@ public class CDPlayer extends BullData {
         if(event.getPendingConnection() != null) {
             ((PendingConnection) event.getPendingConnection()).bull_live = player;
         } else {
-            throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getName() + "'.");
+            throw new IllegalArgumentException("Unable to bind CDPlayer to login for '" + player.getUsername() + "'.");
         }
     }
 }
