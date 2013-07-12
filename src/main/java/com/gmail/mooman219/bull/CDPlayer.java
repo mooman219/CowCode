@@ -6,6 +6,8 @@ import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 
 import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -48,6 +50,7 @@ public class CDPlayer extends BullData {
     // .shutdown(PlayerShutdownType shutdownType)
     // .sync(DBObject playerObject)
     // .getTemplate(UploadReason reason)
+    //
     public PDService service = null;
     public PDLogin login = null;
     public PDChat chat = null;
@@ -202,6 +205,10 @@ public class CDPlayer extends BullData {
 
     public void setTabListName(String name) {
         player.setPlayerListName(TextHelper.shrink(name));
+    }
+
+    public void sendBlockChange(Location location, Material material) {
+        player.sendBlockChange(location, material, (byte) 0);
     }
 
     /*
