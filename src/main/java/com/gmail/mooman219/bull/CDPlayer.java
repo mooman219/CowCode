@@ -22,9 +22,8 @@ import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.chat.store.PDChat;
-import com.gmail.mooman219.module.chat.store.PLChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
-import com.gmail.mooman219.module.region.store.PLRegion;
+import com.gmail.mooman219.module.region.store.PDRegion;
 import com.gmail.mooman219.module.rpg.stat.store.PDStat;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.store.PDService;
@@ -42,31 +41,38 @@ public class CDPlayer extends BullData {
     private Board sidebar = null;
     private Tab tabList = null;
     // [+] Module information
-    // [ ]---[+] Offline
-    public PDService serviceData = null;
-    public PDLogin loginData = null;
-    public PDChat chatData = null;
-    public PDStat statData = null;
-    // [ ]---[+] Online
-    public PLChat chat = null;
-    public PLRegion region = null;
+    // Make sure you add the reference in these places:
+    //
+    // CDPlayer(String username)
+    // .startup(Player player, PlayerStartupType startupType)
+    // .shutdown(PlayerShutdownType shutdownType)
+    // .sync(DBObject playerObject)
+    // .getTemplate(UploadReason reason)
+    public PDService service = null;
+    public PDLogin login = null;
+    public PDChat chat = null;
+    public PDStat stat = null;
+    public PDRegion region = null;
 
     public CDPlayer(String username) {
         this.username = username;
-
-        this.serviceData = new PDService();
-        this.loginData = new PDLogin();
-        this.chatData = new PDChat();
-        this.statData = new PDStat();
+        // Create data
+        this.service = new PDService(this);
+        this.login = new PDLogin(this);
+        this.chat = new PDChat(this);
+        this.stat = new PDStat(this);
+        this.region = new PDRegion(this);
     }
 
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
         case PRELOGIN: // This is done in another thread
-            /** Live module data to be added **/
-            chat = new PLChat(this);
-            region = new PLRegion(this);
-            /**/
+            // Create live module data
+            service.create();
+            login.create();
+            chat.create();
+            stat.create();
+            region.create();
             break;
         case LOGIN:
             this.player = player;
@@ -89,10 +95,12 @@ public class CDPlayer extends BullData {
             break;
         case POST_REMOVAL: // This is done in another thread
             player = null;
-            /** Live module data to be removed **/
-            chat = null;
-            region = null;
-            /**/
+            // Remove live module data
+            service.destroy();
+            login.destroy();
+            chat.destroy();
+            stat.destroy();
+            region.destroy();
             break;
         default:
             break;
@@ -104,18 +112,20 @@ public class CDPlayer extends BullData {
      */
 
     public void sync(DBObject playerObject) {
-        serviceData.sync(MongoHelper.getValue(playerObject, serviceData.getTag(), new BasicDBObject()));
-        loginData.sync(MongoHelper.getValue(playerObject, loginData.getTag(), new BasicDBObject()));
-        chatData.sync(MongoHelper.getValue(playerObject, chatData.getTag(), new BasicDBObject()));
-        statData.sync(MongoHelper.getValue(playerObject, statData.getTag(), new BasicDBObject()));
+        service.sync(MongoHelper.getValue(playerObject, service.getTag(), new BasicDBObject()));
+        login.sync(MongoHelper.getValue(playerObject, login.getTag(), new BasicDBObject()));
+        chat.sync(MongoHelper.getValue(playerObject, chat.getTag(), new BasicDBObject()));
+        stat.sync(MongoHelper.getValue(playerObject, stat.getTag(), new BasicDBObject()));
+        region.sync(MongoHelper.getValue(playerObject, region.getTag(), new BasicDBObject()));
     }
 
     public BasicDBObject getTemplate(UploadReason reason) {
         BasicDBObject template = new BasicDBObject();
-        template.putAll(serviceData.getTemplate(reason));
-        template.putAll(loginData.getTemplate(reason));
-        template.putAll(chatData.getTemplate(reason));
-        template.putAll(statData.getTemplate(reason));
+        template.putAll(service.getTemplate(reason));
+        template.putAll(login.getTemplate(reason));
+        template.putAll(chat.getTemplate(reason));
+        template.putAll(stat.getTemplate(reason));
+        template.putAll(region.getTemplate(reason));
         return template;
     }
 

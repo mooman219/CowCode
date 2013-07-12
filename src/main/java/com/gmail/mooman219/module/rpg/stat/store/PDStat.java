@@ -1,12 +1,21 @@
 package com.gmail.mooman219.module.rpg.stat.store;
 
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
-import com.gmail.mooman219.layout.MongoData;
+import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class PDStat implements MongoData {
+public class PDStat extends PlayerData {
+    public PDStat(CDPlayer player) {
+        super(player, "stat");
+    }
+
+    /**
+     * Offline
+     */
+
     public int level = 1;
     public int exp = 0;
 
@@ -80,11 +89,6 @@ public class PDStat implements MongoData {
     public int unspentPoints = 3;
 
     @Override
-    public String getTag() {
-        return "stat";
-    }
-
-    @Override
     public void sync(DBObject stat) {
         this.level = MongoHelper.getValue(stat, "level", level);
         this.exp = MongoHelper.getValue(stat, "exp", exp);
@@ -130,4 +134,11 @@ public class PDStat implements MongoData {
             return new BasicDBObject();
         }
     }
+
+    /**
+     * Live
+     */
+
+    // No live data
+
 }

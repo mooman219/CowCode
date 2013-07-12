@@ -19,10 +19,10 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onVerify(DataVerifyEvent event) {
         CDPlayer player = event.getPlayer();
-        if(player.serviceData.rank.index < Rank.MODERATOR.index) {
+        if(player.service.rank.index < Rank.MODERATOR.index) {
             long currentTime = System.currentTimeMillis();
-            if(currentTime - player.loginData.lastlogin < ConfigGlobal.module.login.loginDelay) {
-                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.loginData.lastlogin), TimeType.MILLISECOND)));
+            if(currentTime - player.login.lastlogin < ConfigGlobal.module.login.loginDelay) {
+                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.login.lastlogin), TimeType.MILLISECOND)));
                 return;
             }
         }
@@ -32,19 +32,19 @@ public class ListenerData implements Listener {
     public void onCreation(DataCreateEvent event) {
         CDPlayer player = event.getPlayer();
         long currentTime = System.currentTimeMillis();
-        if(player.loginData.firstlogin == 0) {
-            player.loginData.firstlogin = currentTime;
+        if(player.login.firstlogin == 0) {
+            player.login.firstlogin = currentTime;
         }
-        player.loginData.lastlogin = currentTime;
-        player.loginData.isOnline = true;
+        player.login.lastlogin = currentTime;
+        player.login.isOnline = true;
     }
 
     @EventHandler()
     public void onRemoval(DataRemovalEvent event) {
         CDPlayer player = event.getPlayer();
         long currentTime = System.currentTimeMillis();
-        player.loginData.timeplayed += currentTime - player.loginData.lastlogin;
-        player.loginData.lastlogin = currentTime;
-        player.loginData.isOnline = false;
+        player.login.timeplayed += currentTime - player.login.lastlogin;
+        player.login.lastlogin = currentTime;
+        player.login.isOnline = false;
     }
 }

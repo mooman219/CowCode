@@ -23,9 +23,9 @@ public class ListenerChat implements Listener{
     public void onChat(AsyncPlayerChatEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
 //    ~ Muted players
-        if(player.chatData.mutedUntil - System.currentTimeMillis() > 0) {
+        if(player.chat.mutedUntil - System.currentTimeMillis() > 0) {
             event.setCancelled(true);
-            CCChat.FRM.MUTED.send(event.getPlayer(), TimeHelper.getLargestType(player.chatData.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
+            CCChat.FRM.MUTED.send(event.getPlayer(), TimeHelper.getLargestType(player.chat.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND));
 //    ~ Private chat
         } else if(event.getMessage().charAt(0) == '@') {
             event.setCancelled(true);
@@ -55,17 +55,17 @@ public class ListenerChat implements Listener{
             } else if(System.currentTimeMillis() - player.chat.lastGlobalChat <= ConfigGlobal.module.chat.globalDelay) {
                 CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (System.currentTimeMillis() - player.chat.lastGlobalChat), TimeType.MILLISECOND));
             } else {
-                event.setFormat(Chat.msgGlobal + player.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
+                event.setFormat(Chat.msgGlobal + player.service.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
                 event.setCancelled(false);
                 // Moderators and above are not effected by the delay
-                if(player.serviceData.rank.index < Rank.MODERATOR.index) {
+                if(player.service.rank.index < Rank.MODERATOR.index) {
                     player.chat.lastGlobalChat = System.currentTimeMillis();
                 }
             }
 //    ~ Normal chat
         } else {
-            event.setFormat(player.serviceData.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
+            event.setFormat(player.service.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
             Iterator<Player> iterator = event.getRecipients().iterator();
             while(iterator.hasNext()) {
                 Player recipient = iterator.next();
@@ -87,8 +87,8 @@ public class ListenerChat implements Listener{
             sender.chat.setLastMessaged(null);
             CCChat.MSG.MESSAGE_LOST.send(sender);
         } else {
-            sender.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "TO " + Chat.RESET + receiver.serviceData.rank.tag + receiver.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
-            receiver.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "FROM " + Chat.RESET + sender.serviceData.rank.tag + sender.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
+            sender.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "TO " + Chat.RESET + receiver.service.rank.tag + receiver.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
+            receiver.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "FROM " + Chat.RESET + sender.service.rank.tag + sender.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
             sender.chat.setLastMessaged(receiver);
             receiver.chat.setLastMessaged(sender);
         }

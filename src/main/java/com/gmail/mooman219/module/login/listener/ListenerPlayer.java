@@ -11,9 +11,9 @@ public class ListenerPlayer implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
         String ip = player.getPlayer().getAddress().getAddress().getHostAddress();
-        player.loginData.lastKnownIP = ip;
-        if(!player.loginData.knownIPs.contains(ip)) {
-            player.loginData.knownIPs.add(ip);
+        player.login.lastKnownIP = ip;
+        if(!player.login.knownIPs.contains(ip)) {
+            player.login.knownIPs.add(ip);
         }
     }
 }

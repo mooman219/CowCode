@@ -1,21 +1,25 @@
 package com.gmail.mooman219.module.service.store;
 
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.handler.database.UploadReason;
-import com.gmail.mooman219.layout.MongoData;
+import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class PDService implements MongoData {
+public class PDService extends PlayerData {
+    public PDService(CDPlayer player) {
+        super(player, "service");
+    }
+
+    /**
+     * Offline
+     */
+
     public Rank rank = Rank.REGULAR;
     public int donorLevel = 0;
     public int staffLevel = 0;
-
-    @Override
-    public String getTag() {
-        return "service";
-    }
 
     @Override
     public void sync(DBObject rank) {
@@ -36,4 +40,10 @@ public class PDService implements MongoData {
             return new BasicDBObject();
         }
     }
+
+    /**
+     * Live
+     */
+
+    // No live data
 }

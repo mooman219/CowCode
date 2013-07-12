@@ -95,9 +95,7 @@ public class CHDatabase implements CowHandler {
         }
 
         public CDPlayer downloadPlayer(final String username, final DownloadReason reason) {
-            // Create a downloader
             PlayerDownloader downloader = new PlayerDownloader(username, reason);
-            // Run the downloader on the plugin's thread pool
             Future<CDPlayer> future = CHTask.manager.runPlugin(downloader);
             try {
                 // Wait for the download, if it is taking too long, then just stop
