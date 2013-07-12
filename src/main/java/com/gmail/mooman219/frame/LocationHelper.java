@@ -18,7 +18,7 @@ public class LocationHelper {
     public static double get3Distance(Location a, Location b) {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2) + Math.pow(a.getZ() - b.getZ(), 2));
     }
-    
+
     public static Location getBlockCenter(Location location) {
         location.setX(location.getBlockX() + 0.5D);
         location.setZ(location.getBlockZ() + 0.5D);

@@ -1,5 +1,7 @@
 package com.gmail.mooman219.bull;
 
+import java.util.ArrayList;
+
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
 import net.minecraft.server.PendingConnection;
@@ -23,6 +25,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.layout.PlayerData;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
 import com.gmail.mooman219.module.region.store.PDRegion;
@@ -43,14 +46,7 @@ public class CDPlayer extends BullData {
     private Board sidebar = null;
     private Tab tabList = null;
     // [+] Module information
-    // Make sure you add the reference in these places:
-    //
-    // CDPlayer(String username)
-    // .startup(Player player, PlayerStartupType startupType)
-    // .shutdown(PlayerShutdownType shutdownType)
-    // .sync(DBObject playerObject)
-    // .getTemplate(UploadReason reason)
-    //
+    private ArrayList<PlayerData> playerData = null;
     public PDService service = null;
     public PDLogin login = null;
     public PDChat chat = null;
@@ -60,22 +56,25 @@ public class CDPlayer extends BullData {
     public CDPlayer(String username) {
         this.username = username;
         // Create data
-        this.service = new PDService(this);
-        this.login = new PDLogin(this);
-        this.chat = new PDChat(this);
-        this.stat = new PDStat(this);
-        this.region = new PDRegion(this);
+        this.playerData = new ArrayList<PlayerData>();
+        this.service = addPlayerData(new PDService(this));
+        this.login = addPlayerData(new PDLogin(this));
+        this.chat = addPlayerData(new PDChat(this));
+        this.stat = addPlayerData(new PDStat(this));
+        this.region = addPlayerData(new PDRegion(this));
+    }
+
+    private <T extends PlayerData> T addPlayerData(T data) {
+        this.playerData.add(data);
+        return data;
     }
 
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
         case PRELOGIN: // This is done in another thread
-            // Create live module data
-            service.create();
-            login.create();
-            chat.create();
-            stat.create();
-            region.create();
+            for(PlayerData playerdata : playerData) {
+                playerdata.create();
+            }
             break;
         case LOGIN:
             this.player = player;
@@ -98,12 +97,10 @@ public class CDPlayer extends BullData {
             break;
         case POST_REMOVAL: // This is done in another thread
             player = null;
-            // Remove live module data
-            service.destroy();
-            login.destroy();
-            chat.destroy();
-            stat.destroy();
-            region.destroy();
+            for(PlayerData playerdata : playerData) {
+                playerdata.destroy();
+            }
+            playerData.clear();
             break;
         default:
             break;
@@ -114,21 +111,32 @@ public class CDPlayer extends BullData {
      * Database
      */
 
-    public void sync(DBObject playerObject) {
-        service.sync(MongoHelper.getValue(playerObject, service.getTag(), new BasicDBObject()));
-        login.sync(MongoHelper.getValue(playerObject, login.getTag(), new BasicDBObject()));
-        chat.sync(MongoHelper.getValue(playerObject, chat.getTag(), new BasicDBObject()));
-        stat.sync(MongoHelper.getValue(playerObject, stat.getTag(), new BasicDBObject()));
-        region.sync(MongoHelper.getValue(playerObject, region.getTag(), new BasicDBObject()));
+    /**
+     * Returns if it failed or not.
+     */
+    public boolean sync(DBObject playerObject) {
+        for(PlayerData playerdata : playerData) {
+            try {
+                playerdata.sync(MongoHelper.getValue(playerObject, playerdata.getTag(), new BasicDBObject()));
+            } catch(Exception e) {
+                Loader.warning("Error in sync() for " + username + ".");
+                e.printStackTrace();
+                return true;
+            }
+        }
+        return false;
     }
 
     public BasicDBObject getTemplate(UploadReason reason) {
         BasicDBObject template = new BasicDBObject();
-        template.putAll(service.getTemplate(reason));
-        template.putAll(login.getTemplate(reason));
-        template.putAll(chat.getTemplate(reason));
-        template.putAll(stat.getTemplate(reason));
-        template.putAll(region.getTemplate(reason));
+        for(PlayerData playerdata : playerData) {
+            try {
+                template.putAll(playerdata.getTemplate(reason));
+            } catch(Exception e) {
+                Loader.warning("Error in getTemplate() for " + username + ".");
+                e.printStackTrace();
+            }
+        }
         return template;
     }
 

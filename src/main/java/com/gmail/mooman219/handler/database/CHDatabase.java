@@ -150,7 +150,9 @@ public class CHDatabase implements CowHandler {
                         CHDatabase.manager.createPlayerObject(username);
                         CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
                     } else {
-                        player.sync(playerObject);
+                        if(player.sync(playerObject)) {
+                            return null;
+                        }
                     }
                     return player;
                 case QUERY:
