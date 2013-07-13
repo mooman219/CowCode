@@ -8,11 +8,11 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 public class ListenerEntity implements Listener {
     @EventHandler()
     public void onDamage (EntityDamageEvent e){
-        
+
     }
-    
+
     @EventHandler()
     public void onHeal (EntityRegainHealthEvent e){
-        
+
     }
 }

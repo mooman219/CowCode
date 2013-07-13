@@ -1,11 +1,12 @@
 package com.gmail.mooman219.frame;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public class ReflectHelper {
-    public static <T> Object getField(T object, String fieldName) {
+    public static <T> Object get(Class<?> clazz, T object, String fieldName) {
         try {
-            Field field = object.getClass().getDeclaredField(fieldName);
+            Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
             return field.get(object);
         } catch(Exception e) {
@@ -14,11 +15,34 @@ public class ReflectHelper {
         return null;
     }
 
-    public static <T> void setField(T object, Object value, String fieldName) {
+    public static <T> void set(Class<?> clazz, T object, Object value, String fieldName) {
         try {
-            Field field = object.getClass().getDeclaredField("s");
+            Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(object, value);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static <T> void setStatic(Class<T> object, Object value, String fieldName) {
+        try {
+            Field field = object.getField(fieldName);
+            field.setAccessible(true);
+            field.set(null, value);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static <T> void setFinalStatic(Class<T> object, Object value, String fieldName) {
+        try {
+            Field field = object.getField(fieldName);
+            field.setAccessible(true);
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            field.set(null, value);
         } catch(Exception e) {
             e.printStackTrace();
         }

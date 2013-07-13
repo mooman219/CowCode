@@ -103,7 +103,7 @@ public class MessingAround implements Listener {
         if(event.getInventory().getTitle().startsWith("TEST")) {
             CDPlayer player = CDPlayer.get((Player) event.getWhoClicked());
             Inventory inv = Bukkit.createInventory(player.getPlayer(), 9, "TEST - " + (NumberHelper.nextRandom().nextInt(100) + 1));
-            inv.setItem(0, ItemHelper.setName(1, Chat.GOLD + inv.getTitle()));
+            inv.setItem(0, ItemHelper.setName(276, Chat.GOLD + inv.getTitle()));
             player.getPlayer().openInventory(inv);
             //event.setCancelled(true);
         }
