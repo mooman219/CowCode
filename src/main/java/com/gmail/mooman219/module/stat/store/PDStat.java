@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.rpg.stat.store;
+package com.gmail.mooman219.module.stat.store;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
@@ -19,10 +19,10 @@ public class PDStat extends PlayerData {
     public int level = 1;
     public int exp = 0;
 
-    public int healthCur = 10;
-    public int healthMax = 10;
-    public int manaCur = 10;
-    public int manaMax = 10;
+    public double healthCur = 10;
+    public double healthMax = 10;
+    public double manaCur = 10;
+    public double manaMax = 10;
 
     // -+ Strength is a measure of muscle, endurance and stamina combined. Strength affects
     // the ability of characters to lift and carry weights, melee attack rolls, damage rolls

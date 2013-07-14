@@ -25,8 +25,8 @@ import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.rpg.item.CCItem;
-import com.gmail.mooman219.module.rpg.stat.CCStat;
 import com.gmail.mooman219.module.service.CCService;
+import com.gmail.mooman219.module.stat.CCStat;
 import com.gmail.mooman219.module.vanilla.CCVanilla;
 import com.gmail.mooman219.module.world.CCWorld;
 

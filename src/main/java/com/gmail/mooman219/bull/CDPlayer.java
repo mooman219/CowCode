@@ -25,17 +25,18 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.layout.Damageable;
 import com.gmail.mooman219.layout.PlayerData;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.login.store.PDLogin;
 import com.gmail.mooman219.module.region.store.PDRegion;
-import com.gmail.mooman219.module.rpg.stat.store.PDStat;
 import com.gmail.mooman219.module.service.CCService;
 import com.gmail.mooman219.module.service.store.PDService;
+import com.gmail.mooman219.module.stat.store.PDStat;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
-public class CDPlayer extends BullData {
+public class CDPlayer extends BullData implements Damageable {
     // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
     public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
     // [+] Data information
@@ -64,11 +65,18 @@ public class CDPlayer extends BullData {
         this.region = addPlayerData(new PDRegion(this));
     }
 
+    /**
+     * Management
+     */
+    
+    /**
+     * Marks the PlayerData as active so it can be called when needed
+     */
     private <T extends PlayerData> T addPlayerData(T data) {
         this.playerData.add(data);
         return data;
     }
-
+    
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
         case PRELOGIN: // This is done in another thread
@@ -112,7 +120,7 @@ public class CDPlayer extends BullData {
      */
 
     /**
-     * Returns if it failed or not.
+     * Returns true if it failed.
      */
     public boolean sync(DBObject playerObject) {
         for(PlayerData playerdata : playerData) {
@@ -138,6 +146,65 @@ public class CDPlayer extends BullData {
             }
         }
         return template;
+    }
+    
+    /**
+     * Damageable
+     */
+    
+    @Override
+    public void damage(double amount) {
+        stat.healthCur -= amount;
+        if(stat.healthCur > stat.healthMax) {
+            stat.healthCur = stat.healthMax;
+        } else if(stat.healthCur < 0) {
+            this.kill();
+        }
+    }
+
+    @Override
+    public double getHealth() {
+        return stat.healthCur;
+    }
+
+    @Override
+    public double getMaxHealth() {
+        // TODO Auto-generated method stub
+        return stat.healthMax;
+    }
+
+    @Override
+    public void heal(double amount) {
+        stat.healthCur += amount;
+        if(stat.healthCur > stat.healthMax) {
+            stat.healthCur = stat.healthMax;
+        } else if(stat.healthCur < 0) {
+            this.kill();
+        }
+    }
+
+    @Override
+    public void kill() {
+        stat.healthCur = 0;
+        player.damage(100);
+    }
+
+    @Override
+    public void resetHealth() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setHealth() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setMaxHealth() {
+        // TODO Auto-generated method stub
+        
     }
 
     /*

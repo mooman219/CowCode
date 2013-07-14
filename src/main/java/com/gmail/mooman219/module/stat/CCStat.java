@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.rpg.stat;
+package com.gmail.mooman219.module.stat;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.layout.CowComponent;
@@ -7,7 +7,7 @@ public class CCStat implements CowComponent {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[RPG][Stat] ";
+    public final static String cast = "[Stat] ";
     public static Messages MSG;
     public static Formats FRM;
 

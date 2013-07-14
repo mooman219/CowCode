@@ -58,6 +58,13 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        	<groupId>com.gmail.mooman219</groupId>
+        	<artifactId>milkbukkit-api</artifactId>
+        	<version>${bukkit.version}</version>
+        	<type>jar</type>
+        	<scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>
