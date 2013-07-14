@@ -21,7 +21,7 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             BasicRegion toRegion = RegionManager.getRegion(event.getTo());
             CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            if(!toRegion.equals(playerData.region.currentRegion)) {
+            if(!toRegion.equals(playerData.region.getRegion())) {
                 if(toRegion.isLocked()) {
                     BasicRegion fromRegion = RegionManager.getRegion(event.getFrom());
                     if(fromRegion.isLocked()) {
@@ -38,11 +38,11 @@ public class ListenerPlayer implements Listener{
                         playerData.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
                         return;
                     }
-                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.currentRegion, toRegion).isCancelled()) {
+                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.getRegion(), toRegion).isCancelled()) {
                     event.setCancelled(true);
                     return;
                 }
-                playerData.region.currentRegion = toRegion;
+                playerData.region.setRegion(toRegion);
                 playerData.getSidebar().modifyName("regionn", Chat.GREEN + toRegion.getName());
                 playerData.getSidebar().modifyName("regionc", toRegion.getCombatType().getColoredName());
             }
@@ -53,7 +53,7 @@ public class ListenerPlayer implements Listener{
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
         BasicRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
-        playerData.region.currentRegion = region;
+        playerData.region.setRegion(region);
         playerData.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
         playerData.getSidebar().addKey("regionc", region.getCombatType().getColoredName(), 5);
     }

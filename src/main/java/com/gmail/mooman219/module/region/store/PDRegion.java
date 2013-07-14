@@ -18,7 +18,15 @@ public class PDRegion extends PlayerData {
      * Live
      */
 
-    public BasicRegion currentRegion;
+    private BasicRegion currentRegion;
+
+    public BasicRegion getRegion() {
+        return currentRegion;
+    }
+
+    public void setRegion(BasicRegion region) {
+        currentRegion = region;
+    }
 
     @Override
     public void create() {

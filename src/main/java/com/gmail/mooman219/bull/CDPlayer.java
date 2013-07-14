@@ -157,8 +157,11 @@ public class CDPlayer extends BullData implements Damageable {
      * Matches the players hearts to the current health state.
      * Also updates the HealthBoard
      */
-    public void updateHealth() {
+    public void updateHealth(boolean isDamage) {
         double health = NumberHelper.ceil((stat.healthCur / stat.healthMax) * 20D);
+        if(isDamage) {
+            player.damage(0);
+        }
         player.setHealth(health <= 0 ? 1 : health);
         healthBoard.updatePlayer(this);
 
@@ -166,20 +169,17 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public void damage(double amount) {
-        stat.healthCur -= amount;
-        if(stat.healthCur > stat.healthMax) {
-            resetHealth();
-            return;
-        } else if(isDead()) {
-            kill();
-            return;
-        }
-        updateHealth();
+        setHealth(stat.healthCur - amount);
     }
 
     @Override
     public double getHealth() {
         return stat.healthCur;
+    }
+
+    @Override
+    public long getLastDamaged() {
+        return stat.getLastDamaged();
     }
 
     @Override
@@ -189,15 +189,7 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public void heal(double amount) {
-        stat.healthCur += amount;
-        if(stat.healthCur > stat.healthMax) {
-            resetHealth();
-            return;
-        } else if(isDead()) {
-            kill();
-            return;
-        }
-        updateHealth();
+        setHealth(stat.healthCur + amount);
     }
 
     @Override
@@ -215,11 +207,15 @@ public class CDPlayer extends BullData implements Damageable {
     @Override
     public void resetHealth() {
         stat.healthCur = stat.healthMax;
-        updateHealth();
+        updateHealth(false);
     }
 
     @Override
     public void setHealth(double amount) {
+        boolean isDamage = false;
+        if(stat.healthCur > amount) {
+            isDamage = true;
+        }
         stat.healthCur = amount;
         if(stat.healthCur > stat.healthMax) {
             resetHealth();
@@ -228,7 +224,12 @@ public class CDPlayer extends BullData implements Damageable {
             kill();
             return;
         }
-        updateHealth();
+        updateHealth(isDamage);
+    }
+
+    @Override
+    public void setLastDamaged(long time) {
+        stat.setLastDamaged(time);
     }
 
     @Override
@@ -241,7 +242,7 @@ public class CDPlayer extends BullData implements Damageable {
             resetHealth();
             return;
         }
-        updateHealth();
+        updateHealth(false);
     }
 
     /*

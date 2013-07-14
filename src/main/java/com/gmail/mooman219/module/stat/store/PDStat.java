@@ -139,6 +139,23 @@ public class PDStat extends PlayerData {
      * Live
      */
 
-    // No live data
+    private long lastDamaged = 0l;
 
+    public void setLastDamaged(long time) {
+        lastDamaged = time;
+    }
+
+    public long getLastDamaged() {
+        return lastDamaged;
+    }
+
+    @Override
+    public void create() {
+        lastDamaged = 0l;
+    }
+
+    @Override
+    public void destroy() {
+        lastDamaged = 0l;
+    }
 }
