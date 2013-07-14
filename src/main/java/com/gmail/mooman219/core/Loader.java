@@ -16,7 +16,6 @@ import com.gmail.mooman219.frame.serialize.yaml.CSChunkLocation;
 import com.gmail.mooman219.frame.serialize.yaml.CSLocation;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.database.CHDatabase;
-import com.gmail.mooman219.handler.packet.CHPacket;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.layout.CowHandler;
@@ -103,7 +102,6 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHConfig());
         handlerList.add(new CHDatabase());
         handlerList.add(new CHTask(this));
-        handlerList.add(new CHPacket());
         // ~
         componentList.add(new CCService(this));
         componentList.add(new CCLogin(this));

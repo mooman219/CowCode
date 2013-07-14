@@ -4,14 +4,14 @@ import java.util.Random;
 import java.util.UUID;
 
 public class NumberHelper {
-    public static final Random random = nextRandom();
+    private static final Random random = nextRandom();
 
     public static int ceil(final double num) {
         final int floor = (int) num;
         return floor == num ? floor : floor + (int) (~Double.doubleToRawLongBits(num) >>> 63);
     }
 
-    public static int floor(double num) {
+    public static int floor(final double num) {
         final int floor = (int) num;
         return floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
     }
@@ -30,11 +30,6 @@ public class NumberHelper {
 
     public static int round(double num) {
         return floor(num + 0.5d);
-    }
-
-    public static double sqrt(double number) {
-        double approx = Double.longBitsToDouble(((Double.doubleToRawLongBits(number) >> 32) + 1072632448) << 31);
-        return (approx + number / approx) / 2D;
     }
 
     public static boolean toBoolean(Object object) {

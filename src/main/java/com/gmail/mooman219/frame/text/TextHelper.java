@@ -2,6 +2,8 @@ package com.gmail.mooman219.frame.text;
 
 import java.util.regex.Pattern;
 
+import com.gmail.mooman219.frame.NumberHelper;
+
 public class TextHelper {
     public static final Pattern chatPattern = Pattern.compile("&([A-FK-OR0-9])", Pattern.CASE_INSENSITIVE);
     public static final Pattern chatPlanetMinecraft = Pattern.compile("pl.n.t.?m.n.cr.ft", Pattern.CASE_INSENSITIVE);
@@ -35,7 +37,7 @@ public class TextHelper {
         "the restaurant at the end of the universe", "the hack forums"};
 
     public static String editPlanetMinecraft(String string) {
-        return chatPlanetMinecraft.matcher(string).replaceAll(planetMinecraftBank[(int)(Math.random()*planetMinecraftBank.length)]);
+        return chatPlanetMinecraft.matcher(string).replaceAll(planetMinecraftBank[(int)(NumberHelper.random() * planetMinecraftBank.length)]);
     }
 
     public static String editColor(String string) {

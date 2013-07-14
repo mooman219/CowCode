@@ -20,11 +20,7 @@ public class ItemHelper {
     }
 
     public static ItemStack setLore(ItemStack item, String... lore) {
-        List<String> list = Arrays.asList(lore);
-        ItemMeta meta = getItemMeta(item);
-        meta.setLore(list);
-        item.setItemMeta(meta);
-        return item;
+        return setLore(item, Arrays.asList(lore));
     }
 
     public static ItemStack setLore(ItemStack item, List<String> lore) {

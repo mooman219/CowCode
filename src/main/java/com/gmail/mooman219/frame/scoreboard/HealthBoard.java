@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.NumberHelper;
-import com.gmail.mooman219.handler.packet.CHPacket;
+import com.gmail.mooman219.frame.PacketHelper;
 
 /**
  * The faster version (this one), basically just doesn't save any information and
@@ -24,8 +24,8 @@ public class HealthBoard {
         int health = NumberHelper.toInt(player.getPlayer().getHealth());
         String name = player.getOverheadName();
         // Create the board on the client for the new player
-        CHPacket.manager.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
-        CHPacket.manager.sendSetScoreboardDisplay(player, title, BoardDisplayType.BELOWNAME);
+        PacketHelper.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
+        PacketHelper.sendSetScoreboardDisplay(player, title, BoardDisplayType.BELOWNAME);
         // Tell all players on the server the given player's name and health,
         // Also tell the given player the health of all other players
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
@@ -33,8 +33,8 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            CHPacket.manager.sendSetScoreboardScore(player, title, other.getOverheadName(), NumberHelper.toInt(bukkitOther.getHealth()), BoardModifyType.UPDATE);
-            CHPacket.manager.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
+            PacketHelper.sendSetScoreboardScore(player, title, other.getOverheadName(), NumberHelper.toInt(bukkitOther.getHealth()), BoardModifyType.UPDATE);
+            PacketHelper.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
         }
     }
 
@@ -47,7 +47,7 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            CHPacket.manager.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
+            PacketHelper.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
         }
     }
 }
