@@ -74,17 +74,21 @@ public class CHDatabase implements CowHandler {
             final Runnable task = new Runnable() {
                 @Override
                 public void run() {
-                    if(shouldRemove) {
-                        CEventFactory.callDataRemovalEvent(runAsync || !Bukkit.isPrimaryThread(), player);
-                        player.shutdown(PlayerShutdownType.POST_REMOVAL);
+                    try {
+                        if(shouldRemove) {
+                            CEventFactory.callDataRemovalEvent(runAsync || !Bukkit.isPrimaryThread(), player);
+                            player.shutdown(PlayerShutdownType.POST_REMOVAL);
+                        }
+                        DBObject playerObject = player.getTemplate(reason);
+                        WriteResult result = usersCollection.update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
+                        if(result.getError() != null) {
+                            Loader.warning(cast + "Mongo Error");
+                            Loader.warning(cast + result.getError());
+                        }
+                        Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.getUsername());
+                    } catch(Exception e) {
+                        e.printStackTrace();
                     }
-                    DBObject playerObject = player.getTemplate(reason);
-                    WriteResult result = usersCollection.update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
-                    if(result.getError() != null) {
-                        Loader.warning(cast + "Mongo Error");
-                        Loader.warning(cast + result.getError());
-                    }
-                    Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.getUsername());
                 }
             };
             if(runAsync) {

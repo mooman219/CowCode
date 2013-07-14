@@ -43,6 +43,7 @@ public class ListenerWorld implements Listener {
         world.setDifficulty(Difficulty.HARD);
         world.setGameRuleValue("keepInventory", "true");
         world.setGameRuleValue("doDaylightCycle", "true");
+
         world.setGameRuleValue("naturalRegeneration", "false");
         world.setGameRuleValue("doFireTick", "false");
         world.setGameRuleValue("doMobLoot", "false");

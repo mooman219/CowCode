@@ -28,7 +28,7 @@ public class CDLiving extends BullData {
      */
 
     /*
-     * Default
+     * BullData
      */
 
     public LivingEntity getEntity() {

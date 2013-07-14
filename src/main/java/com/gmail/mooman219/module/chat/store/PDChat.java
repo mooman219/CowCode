@@ -66,8 +66,10 @@ public class PDChat extends PlayerData {
 
     @Override
     public void destroy() {
-        softLastMessaged.clear();
-        softLastMessaged = null;
+        if(softLastMessaged != null) {
+            softLastMessaged.clear();
+            softLastMessaged = null;
+        }
         lastGlobalChat = 0l;
     }
 }

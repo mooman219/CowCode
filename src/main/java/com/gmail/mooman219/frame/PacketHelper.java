@@ -66,7 +66,7 @@ public class PacketHelper {
     public static void sendPacketNearby(Location location, Packet packet) {
         sendPacketsNearby(location, Arrays.asList(packet), 64);
     }
-    
+
     public static void sendPacketNearby(Location location, Packet packet, double radius) {
         sendPacketsNearby(location, Arrays.asList(packet), radius);
     }

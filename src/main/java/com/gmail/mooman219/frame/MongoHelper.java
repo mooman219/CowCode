@@ -33,6 +33,11 @@ public class MongoHelper {
         return object == null ? defaultValue : NumberHelper.toLong(object);
     }
 
+    public static double getValue(DBObject document, String query, double defaultValue) {
+        Object object = document.get(query);
+        return object == null ? defaultValue : NumberHelper.toDouble(object);
+    }
+
     public static int getValue(DBObject document, String query, int defaultValue) {
         Object object = document.get(query);
         return object == null ? defaultValue : NumberHelper.toInt(object);

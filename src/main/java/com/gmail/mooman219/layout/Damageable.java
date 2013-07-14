@@ -9,11 +9,13 @@ public interface Damageable {
 
     public void heal(double amount);
 
+    public boolean isDead();
+
     public void kill();
 
     public void resetHealth();
 
-    public void setHealth();
+    public void setHealth(double amount);
 
-    public void setMaxHealth();
+    public void setMaxHealth(double amount);
 }

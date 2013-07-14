@@ -26,7 +26,7 @@ public class CDEntity extends BullData {
      */
 
     /*
-     * Default
+     * BullData
      */
 
     public Entity getEntity() {

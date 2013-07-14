@@ -77,6 +77,7 @@ public class ListenerPlayer implements Listener {
 
         CDPlayer player = CDPlayer.getSafe(event.getPlayer());
         if(player == null) {
+            Loader.warning(CCService.cast + "Null quitting player '" + event.getPlayer().getName() + "'");
             return;
         }
         player.shutdown(PlayerShutdownType.POST_QUIT);

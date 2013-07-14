@@ -33,13 +33,13 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            PacketHelper.sendSetScoreboardScore(player, title, other.getOverheadName(), NumberHelper.toInt(bukkitOther.getHealth()), BoardModifyType.UPDATE);
+            PacketHelper.sendSetScoreboardScore(player, title, other.getOverheadName(), NumberHelper.ceil(player.stat.healthCur), BoardModifyType.UPDATE);
             PacketHelper.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
         }
     }
 
     public void updatePlayer(CDPlayer player) {
-        int health = NumberHelper.toInt(player.getPlayer().getHealth());
+        int health = NumberHelper.ceil(player.stat.healthCur);
         String name = player.getOverheadName();
         // Tell all players on the server the given player's name and health
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
