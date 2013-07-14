@@ -19,7 +19,7 @@ public class CCStat implements CowComponent {
 
     @Override
     public String getName() {
-        return "RPG Stat";
+        return "Stat";
     }
 
     @Override

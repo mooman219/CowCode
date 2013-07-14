@@ -3,6 +3,7 @@ package com.gmail.mooman219.module.damage;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.damage.listener.ListenerEntity;
+import com.gmail.mooman219.module.damage.listener.ListenerPlayer;
 
 public class CCDamage implements CowComponent {
     public final Loader plugin;
@@ -13,6 +14,7 @@ public class CCDamage implements CowComponent {
     public static Formats FRM;
 
     public ListenerEntity listenerEntity;
+    public ListenerPlayer listenerPlayer;
 
     public CCDamage(Loader plugin){
         this.plugin = plugin;
@@ -28,6 +30,7 @@ public class CCDamage implements CowComponent {
     @Override
     public void onEnable(){
         listenerEntity = plugin.addListener(new ListenerEntity());
+        listenerPlayer = plugin.addListener(new ListenerPlayer());
     }
 
     @Override

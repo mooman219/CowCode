@@ -78,6 +78,10 @@ public class CDPlayer extends BullData implements Damageable {
         return data;
     }
 
+    public void clearPlayerData() {
+        playerData.clear();
+    }
+
     public void startup(Player player, PlayerStartupType startupType) {
         switch(startupType) {
         case PRELOGIN: // This is done in another thread
@@ -91,6 +95,7 @@ public class CDPlayer extends BullData implements Damageable {
         case JOIN:
             healthBoard.addPlayer(this);
             sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
+            sidebar.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " " + stat.healthCur, 9);
             tabList = new Tab(this);
             break;
         default:
@@ -109,7 +114,6 @@ public class CDPlayer extends BullData implements Damageable {
             for(PlayerData data : playerData) {
                 data.destroy();
             }
-            playerData.clear();
             break;
         default:
             break;
@@ -124,9 +128,9 @@ public class CDPlayer extends BullData implements Damageable {
      * Returns true if it failed.
      */
     public boolean sync(DBObject playerObject) {
-        for(PlayerData playerdata : playerData) {
+        for(PlayerData data : playerData) {
             try {
-                playerdata.sync(MongoHelper.getValue(playerObject, playerdata.getTag(), new BasicDBObject()));
+                data.sync(MongoHelper.getValue(playerObject, data.getTag(), new BasicDBObject()));
             } catch(Exception e) {
                 Loader.warning("Error in sync() for " + username + ".");
                 e.printStackTrace();
@@ -138,9 +142,9 @@ public class CDPlayer extends BullData implements Damageable {
 
     public BasicDBObject getTemplate(UploadReason reason) {
         BasicDBObject template = new BasicDBObject();
-        for(PlayerData playerdata : playerData) {
+        for(PlayerData data : playerData) {
             try {
-                template.putAll(playerdata.getTemplate(reason));
+                template.putAll(data.getTemplate(reason));
             } catch(Exception e) {
                 Loader.warning("Error in getTemplate() for " + username + ".");
                 e.printStackTrace();
@@ -155,14 +159,18 @@ public class CDPlayer extends BullData implements Damageable {
 
     /**
      * Matches the players hearts to the current health state.
-     * Also updates the HealthBoard
+     * Also updates the HealthBoard. This will NEVER kill a player.
      */
     public void updateHealth(boolean isDamage) {
-        double health = NumberHelper.ceil((stat.healthCur / stat.healthMax) * 20D);
-        if(isDamage) {
-            player.damage(0);
+        int health = NumberHelper.ceil((stat.healthCur / stat.healthMax) * 20D);
+        health = health <= 0 ? 1 : health;
+        if(!player.isDead()) {            
+            if(isDamage) {
+                player.damage(0);
+            }
+            player.setHealth(health);
         }
-        player.setHealth(health <= 0 ? 1 : health);
+        sidebar.modifyName("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " " + stat.healthCur);
         healthBoard.updatePlayer(this);
 
     }

@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -27,7 +26,6 @@ public class MessingAround implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer playerData = CDPlayer.get(event.getPlayer());
         playerData.getSidebar().addKey("po3", Chat.YELLOW +"»" + Chat.GOLD + " Stats", 10);
-        playerData.getSidebar().addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " 1234567", 9);
         playerData.getSidebar().addKey("mp", Chat.DARK_AQUA + "" + Chat.BOLD + "MP" + Chat.DARK_AQUA + " 1234567", 8);
         playerData.getSidebar().addKey("po2", Chat.YELLOW +"»" + Chat.GOLD + " Region", 7);
         playerData.getSidebar().addKey("po1", Chat.YELLOW +"»" + Chat.GOLD + " Other", 4);
@@ -88,13 +86,6 @@ public class MessingAround implements Listener {
             CDPlayer.get(player).getSidebar().modifyName("memory", "Memory: " + Chat.GREEN + (int)memUsed);
             //CDPlayer.get(player).getSidebar().modifyName("tps", "TPS: " + Chat.GREEN + tps);
             CDPlayer.get(player).getSidebar().modifyName("mob", "Mobs: " + Chat.GREEN + mobs);
-        }
-    }
-
-    @EventHandler()
-    public void onDamage(EntityDamageEvent event) {
-        if(event.getEntity() instanceof Player) {
-            CDPlayer.healthBoard.updatePlayer(CDPlayer.get((Player) event.getEntity()));
         }
     }
 

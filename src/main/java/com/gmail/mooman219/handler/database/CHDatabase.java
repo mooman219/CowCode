@@ -85,6 +85,9 @@ public class CHDatabase implements CowHandler {
                             Loader.warning(cast + "Mongo Error");
                             Loader.warning(cast + result.getError());
                         }
+                        if(shouldRemove) {
+                            player.clearPlayerData();
+                        }
                         Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.getUsername());
                     } catch(Exception e) {
                         e.printStackTrace();

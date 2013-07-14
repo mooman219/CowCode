@@ -20,6 +20,7 @@ import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.module.chat.CCChat;
+import com.gmail.mooman219.module.damage.CCDamage;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.mineral.CCMineral;
@@ -111,6 +112,7 @@ public class Loader extends JavaPlugin {
         componentList.add(new CCRegion(this));
         componentList.add(new CCWorld(this));
         componentList.add(new CCVanilla(this));
+        componentList.add(new CCDamage(this));
         // RPG
         componentList.add(new CCItem(this));
         componentList.add(new CCStat(this));
