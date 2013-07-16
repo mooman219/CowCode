@@ -10,14 +10,14 @@ import com.gmail.mooman219.module.damage.CCDamage;
 
 public class ListenerPlayer implements Listener {
     @EventHandler()
-    public void onRespawn(PlayerRespawnEvent e){
-        final CDPlayer player = CDPlayer.get(e.getPlayer());
+    public void onRespawn(PlayerRespawnEvent event){
+        final CDPlayer player = CDPlayer.get(event.getPlayer());
         player.resetHealth();
     }
 
     @EventHandler()
-    public void onJoin(PlayerJoinEvent e) {
-        CDPlayer player = CDPlayer.get(e.getPlayer());
+    public void onJoin(PlayerJoinEvent event) {
+        CDPlayer player = CDPlayer.get(event.getPlayer());
         CCDamage.healthBoard.addPlayer(player);
         player.getSidebar().addKey("hp", CCDamage.FRM.BARHEALTH.parse(player.stat.healthCur), 9);
     }

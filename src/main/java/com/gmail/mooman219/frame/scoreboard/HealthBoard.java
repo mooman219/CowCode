@@ -21,7 +21,7 @@ public class HealthBoard {
     }
 
     public void addPlayer(CDPlayer player) {
-        int health = NumberHelper.floor(player.stat.healthCur);
+        int health = NumberHelper.round(player.stat.healthCur);
         String name = player.getOverheadName();
         // Create the board on the client for the new player
         player.sendPacket(PacketHelper.getSetScoreboardObjective(title, displayTitle, BoardModifyType.UPDATE));
@@ -39,7 +39,7 @@ public class HealthBoard {
     }
 
     public void updatePlayer(CDPlayer player) {
-        int health = NumberHelper.floor(player.stat.healthCur);
+        int health = NumberHelper.round(player.stat.healthCur);
         String name = player.getOverheadName();
         // Tell all players on the server the given player's name and health
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {

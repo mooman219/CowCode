@@ -11,24 +11,24 @@ import com.gmail.mooman219.bull.CDPlayer;
 
 public class ListenerEntity implements Listener {
     @EventHandler()
-    public void onDamage(EntityDamageEvent e){
-        if(e.getEntityType() == EntityType.PLAYER) {
-            CDPlayer player = CDPlayer.get((Player) e.getEntity());
+    public void onDamage(EntityDamageEvent event){
+        if(event.getEntityType() == EntityType.PLAYER) {
+            CDPlayer player = CDPlayer.get((Player) event.getEntity());
             long time = System.currentTimeMillis();
             if(time - player.getLastDamaged() > 100) {
-                player.damage(e.getDamage());
+                player.damage(event.getDamage());
                 player.setLastDamaged(time);
             }
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 
     @EventHandler()
-    public void onHeal(EntityRegainHealthEvent e) {
-        if(e.getEntityType() == EntityType.PLAYER) {
-            CDPlayer player = CDPlayer.get((Player) e.getEntity());
-            player.heal(e.getAmount());
-            e.setAmount(0);
+    public void onHeal(EntityRegainHealthEvent event) {
+        if(event.getEntityType() == EntityType.PLAYER) {
+            CDPlayer player = CDPlayer.get((Player) event.getEntity());
+            player.heal(event.getAmount());
+            event.setAmount(0);
         }
     }
 }
