@@ -18,6 +18,7 @@ public class ListenerPlayer implements Listener {
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
+        player.updateHealth(false);
         CCDamage.healthBoard.addPlayer(player);
         player.getSidebar().addKey("hp", CCDamage.FRM.BARHEALTH.parse(player.stat.healthCur), 9);
     }
