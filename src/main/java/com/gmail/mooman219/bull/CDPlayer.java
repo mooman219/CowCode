@@ -19,7 +19,6 @@ import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
-import com.gmail.mooman219.frame.scoreboard.HealthBoard;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
@@ -38,8 +37,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class CDPlayer extends BullData implements Damageable {
-    // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
-    public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
     // [+] Data information
     // [ ]---[+] Offline
     private final String username;
@@ -98,7 +95,6 @@ public class CDPlayer extends BullData implements Damageable {
             this.player = player;
             break;
         case JOIN:
-            healthBoard.addPlayer(this);
             sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
             tabList = new Tab(this);
             break;
@@ -175,7 +171,7 @@ public class CDPlayer extends BullData implements Damageable {
             player.setHealth(health);
         }
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
-        healthBoard.updatePlayer(this);
+        CCDamage.healthBoard.updatePlayer(this);
     }
 
     @Override
@@ -212,7 +208,7 @@ public class CDPlayer extends BullData implements Damageable {
     public void kill() {
         stat.healthCur = 0;
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
-        healthBoard.updatePlayer(this);
+        CCDamage.healthBoard.updatePlayer(this);
         player.damage(100);
     }
 

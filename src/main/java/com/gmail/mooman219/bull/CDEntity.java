@@ -13,10 +13,6 @@ public class CDEntity extends BullData {
         this.entity = entity;
     }
 
-    /**
-     * Variables
-     */
-
     /*
      * Live
      */

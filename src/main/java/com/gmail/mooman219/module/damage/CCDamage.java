@@ -1,6 +1,7 @@
 package com.gmail.mooman219.module.damage;
 
 import com.gmail.mooman219.core.Loader;
+import com.gmail.mooman219.frame.scoreboard.HealthBoard;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
@@ -15,6 +16,7 @@ public class CCDamage implements CowComponent {
     public static Messages MSG;
     public static Formats FRM;
 
+    public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
     public ListenerEntity listenerEntity;
     public ListenerPlayer listenerPlayer;
 

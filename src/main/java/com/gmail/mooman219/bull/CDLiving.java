@@ -9,15 +9,12 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.craftbukkit.BullData;
 
 public class CDLiving extends BullData {
+    // ▀▀▀▀▀▀▀▀▀▀ Idea for mob health bar
     private final LivingEntity livingEntity;
 
     private CDLiving(LivingEntity livingEntity) {
         this.livingEntity = livingEntity;
     }
-
-    /**
-     * Variables
-     */
 
     /*
      * Live
