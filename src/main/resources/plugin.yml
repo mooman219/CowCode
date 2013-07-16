@@ -38,6 +38,7 @@ commands:
     reply:
         aliases:
         - r
+    mute:
     whois:
         aliases:
         - stats

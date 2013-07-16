@@ -33,7 +33,7 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            player.sendPacket(PacketHelper.getSetScoreboardScore(title, other.getOverheadName(), health, BoardModifyType.UPDATE));
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, other.getOverheadName(), NumberHelper.round(other.stat.healthCur), BoardModifyType.UPDATE));
             other.sendPacket(PacketHelper.getSetScoreboardScore(title, name, health, BoardModifyType.UPDATE));
         }
     }

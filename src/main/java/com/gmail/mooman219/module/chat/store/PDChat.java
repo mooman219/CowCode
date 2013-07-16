@@ -30,7 +30,7 @@ public class PDChat extends PlayerData {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()
-            .append(getTag() + ".mutedUntil", mutedUntil);
+            .append(getTag() + ".muteduntil", mutedUntil);
         case STATUS:
         default:
             return new BasicDBObject();
@@ -42,7 +42,7 @@ public class PDChat extends PlayerData {
      */
 
     private SoftReference<CDPlayer> softLastMessaged;
-    public long lastGlobalChat;
+    private long lastGlobalChat;
 
     public CDPlayer getLastMessaged() {
         if (softLastMessaged == null || softLastMessaged.get() == null) {
@@ -51,11 +51,19 @@ public class PDChat extends PlayerData {
         return softLastMessaged.get();
     }
 
+    public long getLastGlobalChat() {
+        return lastGlobalChat;
+    }
+
     public void setLastMessaged(CDPlayer lastMessaged) {
         if(softLastMessaged != null) {
             softLastMessaged.clear();
         }
         softLastMessaged = new SoftReference<CDPlayer>(lastMessaged);
+    }
+
+    public void setLastGlobalChat(long time) {
+        lastGlobalChat = time;
     }
 
     @Override

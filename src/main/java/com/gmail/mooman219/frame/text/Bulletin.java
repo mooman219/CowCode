@@ -38,6 +38,10 @@ public class Bulletin {
         player.getPlayer().sendMessage(message);
     }
 
+    public void send(CDPlayer player, Object... args) {
+        player.getPlayer().sendMessage(parse(args));
+    }
+
     public void send(CommandSender target) {
         target.sendMessage(message);
     }
