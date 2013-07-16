@@ -26,7 +26,7 @@ public class Mute extends CCommand {
             int amount = NumberHelper.toInt(args[1]);
             TimeType type = TimeHelper.getType(args[2]);
             TimeString mutedUntilString = new TimeString(type, amount);
-            long mutedUntil = System.currentTimeMillis() + TimeHelper.convert(amount, type, TimeType.MILLISECOND);
+            long mutedUntil = TimeHelper.time() + TimeHelper.convert(amount, type, TimeType.MILLISECOND);
 
             targetData.chat.mutedUntil = mutedUntil;
             CCChat.FRM.MUTED_TARGET.send(targetData, mutedUntilString.toString());

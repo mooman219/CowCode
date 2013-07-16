@@ -76,4 +76,8 @@ public class TimeHelper {
         }
         return new TimeString(TimeType.MILLISECOND, time);
     }
+
+    public static long time() {
+        return System.currentTimeMillis();
+    }
 }

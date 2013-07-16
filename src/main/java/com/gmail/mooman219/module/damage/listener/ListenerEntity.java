@@ -8,13 +8,14 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.frame.time.TimeHelper;
 
 public class ListenerEntity implements Listener {
     @EventHandler()
     public void onDamage(EntityDamageEvent event){
         if(event.getEntityType() == EntityType.PLAYER) {
             CDPlayer player = CDPlayer.get((Player) event.getEntity());
-            long time = System.currentTimeMillis();
+            long time = TimeHelper.time();
             if(time - player.getLastDamaged() > 100) {
                 player.damage(event.getDamage());
                 player.setLastDamaged(time);

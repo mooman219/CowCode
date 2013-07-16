@@ -9,6 +9,7 @@ import org.bukkit.Material;
 
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicLocation;
+import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.module.mineral.store.BasicMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
@@ -50,12 +51,12 @@ public class MineralManager {
         Location location = mineral.getLocation();
         location.getBlock().setType(Material.COBBLESTONE);
         WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
-        mineral.resetTime(System.currentTimeMillis());
+        mineral.resetTime(TimeHelper.time());
         active.add(mineral);
     }
 
     public static void tick() { // TODO - Call this
-        long time = System.currentTimeMillis();
+        long time = TimeHelper.time();
         Iterator<BasicMineral> iterator = active.iterator();
         while(iterator.hasNext()) {
             BasicMineral mineral = iterator.next();

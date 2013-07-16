@@ -23,9 +23,9 @@ public class ListenerChat implements Listener{
     public void onChat(AsyncPlayerChatEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
 //    ~ Muted players
-        if(player.chat.mutedUntil - System.currentTimeMillis() > 0) {
+        if(player.chat.mutedUntil - TimeHelper.time() > 0) {
             event.setCancelled(true);
-            CCChat.FRM.MUTED_TARGET.send(player, TimeHelper.getLargestType(player.chat.mutedUntil - System.currentTimeMillis(), TimeType.MILLISECOND).toString());
+            CCChat.FRM.MUTED_TARGET.send(player, TimeHelper.getLargestType(player.chat.mutedUntil - TimeHelper.time(), TimeType.MILLISECOND).toString());
 //    ~ Private chat
         } else if(event.getMessage().charAt(0) == '@') {
             event.setCancelled(true);
@@ -52,15 +52,15 @@ public class ListenerChat implements Listener{
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
                 CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
-            } else if(System.currentTimeMillis() - player.chat.getLastGlobalChat() <= ConfigGlobal.module.chat.globalDelay) {
-                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (System.currentTimeMillis() - player.chat.getLastGlobalChat()), TimeType.MILLISECOND));
+            } else if(TimeHelper.time() - player.chat.getLastGlobalChat() <= ConfigGlobal.module.chat.globalDelay) {
+                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (TimeHelper.time() - player.chat.getLastGlobalChat()), TimeType.MILLISECOND));
             } else {
                 event.setFormat(Chat.msgGlobal + player.service.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
                 event.setCancelled(false);
                 // Moderators and above are not effected by the delay
                 if(player.service.rank.index < Rank.MODERATOR.index) {
-                    player.chat.setLastGlobalChat(System.currentTimeMillis());
+                    player.chat.setLastGlobalChat(TimeHelper.time());
                 }
             }
 //    ~ Normal chat

@@ -20,7 +20,7 @@ public class ListenerData implements Listener {
     public void onVerify(DataVerifyEvent event) {
         CDPlayer player = event.getPlayer();
         if(player.service.rank.index < Rank.MODERATOR.index) {
-            long currentTime = System.currentTimeMillis();
+            long currentTime = TimeHelper.time();
             if(currentTime - player.login.lastlogin < ConfigGlobal.module.login.loginDelay) {
                 event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.login.lastlogin), TimeType.MILLISECOND)));
                 return;
@@ -31,7 +31,7 @@ public class ListenerData implements Listener {
     @EventHandler()
     public void onCreation(DataCreateEvent event) {
         CDPlayer player = event.getPlayer();
-        long currentTime = System.currentTimeMillis();
+        long currentTime = TimeHelper.time();
         if(player.login.firstlogin == 0) {
             player.login.firstlogin = currentTime;
         }
@@ -42,7 +42,7 @@ public class ListenerData implements Listener {
     @EventHandler()
     public void onRemoval(DataRemovalEvent event) {
         CDPlayer player = event.getPlayer();
-        long currentTime = System.currentTimeMillis();
+        long currentTime = TimeHelper.time();
         player.login.timeplayed += currentTime - player.login.lastlogin;
         player.login.lastlogin = currentTime;
         player.login.isOnline = false;
