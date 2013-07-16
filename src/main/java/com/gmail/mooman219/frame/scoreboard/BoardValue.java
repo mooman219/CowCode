@@ -18,7 +18,7 @@ public class BoardValue {
     }
 
     protected void setClientName(String clientName) {
-        this.clientName = TextHelper.shrink(clientName);
+        this.clientName = TextHelper.shrink(clientName, false);
     }
 
     public String getName() {
@@ -26,7 +26,7 @@ public class BoardValue {
     }
 
     public void setName(String name) {
-        this.name = TextHelper.shrink(name);
+        this.name = TextHelper.shrink(name, false);
     }
 
     public int getValue() {

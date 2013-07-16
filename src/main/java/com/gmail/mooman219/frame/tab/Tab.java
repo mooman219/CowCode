@@ -46,12 +46,12 @@ public class Tab {
             public void run() {
                 for(int y = 0; y < maxTabHeight; y++) {
                     for(int x = 0; x < maxTabWidth; x++) {
-                        PacketHelper.sendPlayerInfo(player, tab[x][y].getClientName(), false, true);
+                        player.sendPacket(PacketHelper.getPlayerInfo(tab[x][y].getClientName(), false, true));
                     }
                 }
                 for(int y = 0; y < maxTabHeight; y++) {
                     for(int x = 0; x < maxTabWidth; x++) {
-                        PacketHelper.sendPlayerInfo(player, tab[x][y].getName(), true, false);
+                        player.sendPacket(PacketHelper.getPlayerInfo(tab[x][y].getName(), true, false));
                         tab[x][y].setClientName(tab[x][y].getName());
                     }
                 }

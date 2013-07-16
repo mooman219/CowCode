@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.bull.CDPlayer;
@@ -74,7 +75,8 @@ public class MessingAround implements Listener {
         playerData.getTab().update();
 
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
-        event.getPlayer().addPotionEffect(PotionEffectType.JUMP.createEffect(200000000, 1));
+        PotionEffect jump = new PotionEffect(PotionEffectType.JUMP, 200000000, 1, true);
+        event.getPlayer().addPotionEffect(jump);
     }
 
     @EventHandler

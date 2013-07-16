@@ -17,7 +17,6 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.HealthBoard;
@@ -29,6 +28,7 @@ import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.Damageable;
 import com.gmail.mooman219.layout.PlayerData;
 import com.gmail.mooman219.module.chat.store.PDChat;
+import com.gmail.mooman219.module.damage.CCDamage;
 import com.gmail.mooman219.module.login.store.PDLogin;
 import com.gmail.mooman219.module.region.store.PDRegion;
 import com.gmail.mooman219.module.service.CCService;
@@ -78,6 +78,11 @@ public class CDPlayer extends BullData implements Damageable {
         return data;
     }
 
+    /**
+     * DO THIS AFTER YOUR DONE WITH ALL DATA.
+     * Otherwise, you cannot save/load/doanything with the playerdata after this is called.
+     * As of right now, only the player upload code calls this AFTER it's completely down uploading it.
+     */
     public void clearPlayerData() {
         playerData.clear();
     }
@@ -95,7 +100,6 @@ public class CDPlayer extends BullData implements Damageable {
         case JOIN:
             healthBoard.addPlayer(this);
             sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
-            sidebar.addKey("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " " + stat.healthCur, 9);
             tabList = new Tab(this);
             break;
         default:
@@ -162,17 +166,16 @@ public class CDPlayer extends BullData implements Damageable {
      * Also updates the HealthBoard. This will NEVER kill a player.
      */
     public void updateHealth(boolean isDamage) {
-        int health = NumberHelper.ceil((stat.healthCur / stat.healthMax) * 20D);
+        double health = (stat.healthCur / stat.healthMax) * 20D;
         health = health <= 0 ? 1 : health;
-        if(!player.isDead()) {            
+        if(!player.isDead()) {
             if(isDamage) {
                 player.damage(0);
             }
             player.setHealth(health);
         }
-        sidebar.modifyName("hp", Chat.RED + "" + Chat.BOLD + "HP" + Chat.RED + " " + stat.healthCur);
+        sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         healthBoard.updatePlayer(this);
-
     }
 
     @Override
@@ -208,6 +211,7 @@ public class CDPlayer extends BullData implements Damageable {
     @Override
     public void kill() {
         stat.healthCur = 0;
+        sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         healthBoard.updatePlayer(this);
         player.damage(100);
     }
@@ -299,9 +303,7 @@ public class CDPlayer extends BullData implements Damageable {
 
     public void sendPacket(final Packet packet) {
         EntityPlayer handle = getHandle();
-        if(handle == null) {
-            Loader.warning("Null handle for '" + username + "'");
-        } else if(packet == null) {
+        if(packet == null) {
             Loader.warning("Null packet for '" + username + "'");
         } else if(handle.playerConnection == null) {
             Loader.warning("Null connection for '" + username + "'");
@@ -319,13 +321,12 @@ public class CDPlayer extends BullData implements Damageable {
         if(sidebar != null && getHandle().playerConnection != null) {
             sidebar.modifyTitle(name);
         }
-        name = TextHelper.shrink(name);
-        player.setOverheadName(name);
+        player.setOverheadName(TextHelper.shrink(name, false));
         return oldName;
     }
 
     public void setTabListName(String name) {
-        player.setPlayerListName(TextHelper.shrink(name));
+        player.setPlayerListName(TextHelper.shrink(name, true));
     }
 
     public void sendBlockChange(Location location, Material material) {

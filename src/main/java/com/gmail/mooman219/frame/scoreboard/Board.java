@@ -16,12 +16,12 @@ public class Board {
         this.rows = new HashMap<String, BoardValue>();
         this.title = title;
 
-        PacketHelper.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
-        PacketHelper.sendSetScoreboardDisplay(player, title, displayType);
+        player.sendPacket(PacketHelper.getSetScoreboardObjective(title, displayTitle, BoardModifyType.UPDATE));
+        player.sendPacket(PacketHelper.getSetScoreboardDisplay(title, displayType));
     }
 
     public void modifyTitle(String displayTitle) {
-        PacketHelper.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.TITLE);
+        player.sendPacket(PacketHelper.getSetScoreboardObjective(title, displayTitle, BoardModifyType.TITLE));
     }
 
     public void addKey(String key, String name, int value) {
@@ -31,14 +31,14 @@ public class Board {
     public void addKey(String key, BoardValue boardValue) {
         BoardValue currentValue = rows.get(key);
         if(currentValue != null) {
-            PacketHelper.sendSetScoreboardScore(player, title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE);
-            PacketHelper.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, currentValue.getClientName(), currentValue.getValue(), BoardModifyType.REMOVE));
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE));
             currentValue.setName(boardValue.getName());
             currentValue.setValue(boardValue.getValue());
             currentValue.setClientName(currentValue.getName());
         } else {
             rows.put(key, boardValue);
-            PacketHelper.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE));
         }
     }
 
@@ -46,7 +46,7 @@ public class Board {
         BoardValue boardValue = rows.get(key);
         if(boardValue != null) {
             rows.remove(key);
-            PacketHelper.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE));
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
         }
@@ -56,7 +56,7 @@ public class Board {
         BoardValue boardValue = rows.get(key);
         if(boardValue != null) {
             boardValue.setValue(value);
-            PacketHelper.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.UPDATE);
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.UPDATE));
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");
         }
@@ -66,8 +66,8 @@ public class Board {
         BoardValue boardValue = rows.get(key);
         if(boardValue != null) {
             boardValue.setName(name);
-            PacketHelper.sendSetScoreboardScore(player, title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE);
-            PacketHelper.sendSetScoreboardScore(player, title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE);
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, boardValue.getClientName(), boardValue.getValue(), BoardModifyType.REMOVE));
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, boardValue.getName(), boardValue.getValue(), BoardModifyType.UPDATE));
             boardValue.setClientName(name);
         } else {
             Loader.warning("Scoreboard key doesn't exist '" + key + "'");

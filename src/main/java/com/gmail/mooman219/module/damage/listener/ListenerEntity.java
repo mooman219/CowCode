@@ -14,9 +14,14 @@ public class ListenerEntity implements Listener {
     public void onDamage(EntityDamageEvent e){
         if(e.getEntityType() == EntityType.PLAYER) {
             CDPlayer player = CDPlayer.get((Player) e.getEntity());
-            player.damage(e.getDamage());
-            player.setLastDamaged(System.currentTimeMillis());
-            e.setCancelled(true);
+            long time = System.currentTimeMillis();
+            if(time - player.getLastDamaged() > 100) {
+                player.damage(e.getDamage());
+                player.setLastDamaged(time);
+                e.setDamage(0);
+            } else {
+                e.setCancelled(true);
+            }
         }
     }
 
@@ -25,7 +30,7 @@ public class ListenerEntity implements Listener {
         if(e.getEntityType() == EntityType.PLAYER) {
             CDPlayer player = CDPlayer.get((Player) e.getEntity());
             player.heal(e.getAmount());
-            e.setCancelled(true);
+            e.setAmount(0);
         }
     }
 }

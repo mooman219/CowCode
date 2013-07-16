@@ -52,10 +52,13 @@ public class TextHelper {
         return newstring;
     }
 
-    public static String shrink(String string) {
+    /**
+     * If reset is true, shrink will at the color reset code if there is room.
+     */
+    public static String shrink(String string, boolean reset) {
         if(string.length() > 16) {
             string = string.substring(0, 16);
-        } else {
+        } else if(reset) {
             if(string.length() < 15){
                 string = string + Chat.RESET;
             }

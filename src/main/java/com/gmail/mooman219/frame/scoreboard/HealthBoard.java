@@ -21,11 +21,11 @@ public class HealthBoard {
     }
 
     public void addPlayer(CDPlayer player) {
-        int health = NumberHelper.toInt(player.getPlayer().getHealth());
+        int health = NumberHelper.floor(player.stat.healthCur);
         String name = player.getOverheadName();
         // Create the board on the client for the new player
-        PacketHelper.sendSetScoreboardObjective(player, title, displayTitle, BoardModifyType.UPDATE);
-        PacketHelper.sendSetScoreboardDisplay(player, title, BoardDisplayType.BELOWNAME);
+        player.sendPacket(PacketHelper.getSetScoreboardObjective(title, displayTitle, BoardModifyType.UPDATE));
+        player.sendPacket(PacketHelper.getSetScoreboardDisplay(title, BoardDisplayType.BELOWNAME));
         // Tell all players on the server the given player's name and health,
         // Also tell the given player the health of all other players
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
@@ -33,13 +33,13 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            PacketHelper.sendSetScoreboardScore(player, title, other.getOverheadName(), NumberHelper.ceil(player.stat.healthCur), BoardModifyType.UPDATE);
-            PacketHelper.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
+            player.sendPacket(PacketHelper.getSetScoreboardScore(title, other.getOverheadName(), 2, BoardModifyType.UPDATE));
+            other.sendPacket(PacketHelper.getSetScoreboardScore(title, name, health, BoardModifyType.UPDATE));
         }
     }
 
     public void updatePlayer(CDPlayer player) {
-        int health = NumberHelper.ceil(player.stat.healthCur);
+        int health = NumberHelper.floor(player.stat.healthCur);
         String name = player.getOverheadName();
         // Tell all players on the server the given player's name and health
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
@@ -47,7 +47,7 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            PacketHelper.sendSetScoreboardScore(other, title, name, health, BoardModifyType.UPDATE);
+            other.sendPacket(PacketHelper.getSetScoreboardScore(title, name, health, BoardModifyType.UPDATE));
         }
     }
 }
