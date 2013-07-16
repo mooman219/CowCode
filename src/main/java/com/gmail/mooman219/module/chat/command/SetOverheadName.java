@@ -10,7 +10,7 @@ import com.gmail.mooman219.module.chat.CCChat;
 
 public class SetOverheadName extends CCommand {
     public SetOverheadName() {
-        super("setoverheadname", Rank.DEVELOPER, "/SetOverheadName (Desired Name)", Carg.STRING);
+        super("setoverheadname", Rank.GAMEMASTER, "/SetOverheadName (Desired Name)", Carg.STRING);
     }
 
     @Override

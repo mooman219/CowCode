@@ -49,7 +49,7 @@ public class Whois extends CCommand {
     }
 
     public void displayWhois(Player sender, CDPlayer target) {
-        long currentTime = System.currentTimeMillis();
+        long currentTime = TimeHelper.time();
         sender.sendMessage(
                 Chat.msgInfo + "Displaying " + target.service.rank.color + target.getUsername() + Chat.GREEN + "'s data:\n" +
                 Chat.lineInfo + Chat.GRAY + "Rank" + Chat.DARK_GRAY + ": " + target.service.rank.color + target.service.rank.name() + "\n" +

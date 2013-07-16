@@ -15,7 +15,7 @@ import com.gmail.mooman219.module.chat.CCChat;
 
 public class Mute extends CCommand {
     public Mute() {
-        super("mute", Rank.REGULAR, "/mute (Player) (Amount) (TimeType)", Carg.STRING, Carg.INT, Carg.STRING);
+        super("mute", Rank.MODERATOR, "/mute (Player) (Amount) (TimeType)", Carg.STRING, Carg.INT, Carg.STRING);
     }
 
     @Override

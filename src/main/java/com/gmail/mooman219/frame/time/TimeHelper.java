@@ -1,5 +1,7 @@
 package com.gmail.mooman219.frame.time;
 
+import com.gmail.mooman219.frame.text.TextHelper;
+
 public class TimeHelper {
     public static long convert(long time, TimeType from, TimeType to) {
         if(from.getID() == to.getID()) {
@@ -10,7 +12,7 @@ public class TimeHelper {
     }
 
     public static TimeType getType(String message) {
-        String lMessage = message.toLowerCase();
+        String lMessage = TextHelper.spacePattern.split(message.toLowerCase(), 2)[0];
         switch (lMessage) {
         case "milliseconds":
         case "millisecond":

@@ -13,7 +13,7 @@ import com.gmail.mooman219.module.chat.CCChat;
 
 public class SetChatRange extends CCommand {
     public SetChatRange() {
-        super("setchatrange", Rank.REGULAR, "/SetChatRange (Range)", Carg.INT);
+        super("setchatrange", Rank.GAMEMASTER, "/SetChatRange (Range)", Carg.INT);
     }
 
     @Override
