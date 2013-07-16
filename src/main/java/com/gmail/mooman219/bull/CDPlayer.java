@@ -297,6 +297,14 @@ public class CDPlayer extends BullData implements Damageable {
         return tabList;
     }
 
+    public void playAnimation(PlayerAnimation animation) {
+        animation.play(player);
+    }
+
+    public void playAnimation(PlayerAnimation animation, int radius) {
+        animation.play(player, radius);
+    }
+
     public void sendPacket(final Packet packet) {
         EntityPlayer handle = getHandle();
         if(packet == null) {

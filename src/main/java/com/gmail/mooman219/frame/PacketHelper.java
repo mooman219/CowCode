@@ -5,7 +5,9 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
+import net.minecraft.server.Packet18ArmAnimation;
 import net.minecraft.server.Packet201PlayerInfo;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
@@ -42,6 +44,11 @@ public class PacketHelper {
         packet208.a = scoreboardDisplayType.getID(); // 0 List - 1 Sidebar - 2 belowName
         packet208.b = scoreboardTitle;
         return packet208;
+    }
+
+    public static Packet18ArmAnimation getArmAnimation(EntityPlayer player, int id) {
+        Packet18ArmAnimation packet18 = new Packet18ArmAnimation(player, id);
+        return packet18;
     }
 
     public static Packet201PlayerInfo getPlayerInfo(String name, boolean online, boolean ping) {

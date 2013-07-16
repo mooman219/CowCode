@@ -18,10 +18,8 @@ public class ListenerEntity implements Listener {
             if(time - player.getLastDamaged() > 100) {
                 player.damage(e.getDamage());
                 player.setLastDamaged(time);
-                e.setDamage(0);
-            } else {
-                e.setCancelled(true);
             }
+            e.setCancelled(true);
         }
     }
 
