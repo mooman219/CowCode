@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet201PlayerInfo;
-import net.minecraft.server.Packet205ClientCommand;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
 import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
@@ -53,12 +52,6 @@ public class PacketHelper {
     public static Packet8UpdateHealth getUpdateHealth(float health, int foodlevel, float foodsaturation) {
         Packet8UpdateHealth packet8 = new Packet8UpdateHealth(health, foodlevel, foodsaturation);
         return packet8;
-    }
-
-    public static Packet205ClientCommand getForceRespawn() {
-        Packet205ClientCommand packet205 = new Packet205ClientCommand();
-        packet205.a = 1;
-        return packet205;
     }
 
     public static void sendWorld(World world, Packet... packets) {
