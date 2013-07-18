@@ -7,7 +7,6 @@ import net.minecraft.server.Packet;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -285,7 +284,6 @@ public class CDPlayer extends BullData implements Damageable {
     }
 
     public Player getPlayer() {
-        Validate.notNull(player, "Null player");
         return player;
     }
 
@@ -335,6 +333,17 @@ public class CDPlayer extends BullData implements Damageable {
 
     public void sendBlockChange(Location location, Material material) {
         player.sendBlockChange(location, material, (byte) 0);
+    }
+    
+    /**
+     * Recommended value is between -1 and 1
+     */
+    public void setMoveSpeed(float value) {
+        player.setWalkSpeed(value);
+    }
+    
+    public float getMoveSpeed() {
+        return player.getWalkSpeed();
     }
 
     /*
