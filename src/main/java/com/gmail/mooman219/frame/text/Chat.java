@@ -73,12 +73,16 @@ public enum Chat {
         this.string = COLOR_CHAR + "" + color;
     }
 
+    public int getID() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return string;
     }
 
-    public static Chat getID(int id) {
+    public static Chat fromID(int id) {
         for(Chat chat : Chat.values()) {
             if(chat.id == id) {
                 return chat;

@@ -8,6 +8,7 @@ public abstract class AspectKey<T> {
     public AspectKey(String name, T defaultValue) {
         this.name = name;
         this.defaultValue = defaultValue;
+        this.value = defaultValue;
     }
 
     public String getName() {
