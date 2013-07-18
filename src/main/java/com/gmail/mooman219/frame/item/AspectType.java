@@ -1,22 +1,24 @@
 package com.gmail.mooman219.frame.item;
 
+import com.gmail.mooman219.frame.text.Chat;
+
 public enum AspectType {
-    SWORD(0),
-    SHIELD(1),
-    BOW(2),
-    STAFF(3),
-    DAGGER(4),
-    HAMMER(5),
-    AXE(6),
-    SPELLBOOK(7);
+    WEAPON(0, Chat.GRAY + "Weapon"),
+    TOOL(7, Chat.GRAY + "Tool");
 
     private final int id;
+    private final String name;
 
-    AspectType(int id) {
+    AspectType(int id, String name) {
         this.id = id;
+        this.name = name;
     }
 
     public int getID() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

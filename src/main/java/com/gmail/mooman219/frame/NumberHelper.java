@@ -66,63 +66,87 @@ public class NumberHelper {
         }
     }
 
-    public static byte toByte(Object object) {
+    public static double toByte(Object object) {
+        return toByte(object, (byte) 0);
+    }
+
+    public static byte toByte(Object object, byte defaultValue) {
         if (object instanceof Number) {
             return ((Number) object).byteValue();
         }
         try {
             return Byte.valueOf(object.toString());
         } catch (Exception e) {}
-        return 0;
+        return defaultValue;
     }
 
     public static double toDouble(Object object) {
+        return toDouble(object, 0d);
+    }
+
+    public static double toDouble(Object object, double defaultValue) {
         if (object instanceof Number) {
             return ((Number) object).doubleValue();
         }
         try {
             return Double.valueOf(object.toString());
         } catch (Exception e) {}
-        return 0;
+        return defaultValue;
     }
 
     public static float toFloat(Object object) {
+        return toFloat(object, 0f);
+    }
+
+    public static float toFloat(Object object, float defaultValue) {
         if (object instanceof Number) {
             return ((Number) object).floatValue();
         }
         try {
             return Float.valueOf(object.toString());
         } catch (Exception e) {}
-        return 0;
+        return defaultValue;
     }
 
     public static int toInt(Object object) {
+        return toInt(object, 0);
+    }
+
+    public static int toInt(Object object, int defaultValue) {
         if (object instanceof Number) {
             return ((Number) object).intValue();
         }
         try {
             return Integer.valueOf(object.toString());
         } catch (Exception e) {}
-        return 0;
+        return defaultValue;
     }
 
     public static long toLong(Object object) {
+        return toLong(object, 0l);
+    }
+
+    public static long toLong(Object object, long defaultValue) {
         if (object instanceof Number) {
             return ((Number) object).longValue();
         }
         try {
             return Long.valueOf(object.toString());
         } catch (Exception e) {}
-        return 0;
+        return defaultValue;
     }
 
     public static short toShort(Object object) {
+        return toShort(object, (short) 0);
+    }
+
+    public static short toShort(Object object, short defaultValue) {
         if (object instanceof Number) {
             return ((Number) object).shortValue();
         }
         try {
             return Short.valueOf(object.toString());
         } catch (Exception e) {}
-        return 0;
+        return defaultValue;
     }
 }

@@ -75,7 +75,7 @@ public class MessingAround implements Listener {
         playerData.getTab().update();
 
         event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
-        PotionEffect jump = new PotionEffect(PotionEffectType.JUMP, 200000000, 1, false);
+        PotionEffect jump = new PotionEffect(PotionEffectType.JUMP, 200000000, 1, true);
         event.getPlayer().addPotionEffect(jump);
     }
 

@@ -25,7 +25,7 @@ public enum Rarity {
     public Chat getColor() {
         return color;
     }
-    
+
     public static Rarity nextRarity() {
         double chance = NumberHelper.random();
         if(chance <= 0.65D) {
