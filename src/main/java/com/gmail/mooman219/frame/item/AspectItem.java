@@ -81,6 +81,7 @@ public class AspectItem {
             while(iterator.hasNext()) {
                 if(iterator.next().read(line)) {
                     iterator.remove();
+                    break;
                 }
             }
         }
