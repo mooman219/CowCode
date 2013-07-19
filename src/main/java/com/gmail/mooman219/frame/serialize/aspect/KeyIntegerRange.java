@@ -21,7 +21,7 @@ public class KeyIntegerRange extends AspectKey<String> {
     public String getSeperator() {
         return seperator;
     }
-    
+
     public int getDefaultMin() {
         return defaultMin;
     }
@@ -54,22 +54,24 @@ public class KeyIntegerRange extends AspectKey<String> {
     }
 
     @Override
-    public void read(String line) {
+    public boolean read(String line) {
         if(match(line)) {
             setMin(defaultMin);
             setMax(defaultMax);
             try {
                 String value = line.substring(getName().length());
-                if(value.length() > 0) {                    
+                if(value.length() > 0) {
                     String[] values = value.split(seperator, 2);
-                    if(values.length > 0) {                        
+                    if(values.length > 0) {
                         setMin(NumberHelper.toInt(values[0], 1));
                     }
-                    if(values.length > 1) {                        
+                    if(values.length > 1) {
                         setMax(NumberHelper.toInt(values[1], 2));
                     }
                 }
             } catch(Exception e) {}
+            return true;
         }
+        return false;
     }
 }

@@ -4,18 +4,20 @@ import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.text.Chat;
 
 public enum Rarity {
-    COMMON(0, Chat.GRAY),
-    UNCOMMON(1, Chat.GREEN),
-    RARE(2, Chat.BLUE),
-    EPIC(3, Chat.RED),
-    LEGENDARY(4, Chat.GOLD);
+    COMMON(0, Chat.GRAY, "Common"),
+    UNCOMMON(1, Chat.GREEN, "Uncommon"),
+    RARE(2, Chat.BLUE, "Rare"),
+    EPIC(3, Chat.RED, "Epic"),
+    LEGENDARY(4, Chat.GOLD, "Legendary");
 
     private final int id;
     private final Chat color;
+    private final String name;
 
-    Rarity(int id, Chat color) {
+    Rarity(int id, Chat color, String name) {
         this.id = id;
         this.color = color;
+        this.name = name;
     }
 
     public int getID() {
@@ -24,6 +26,14 @@ public enum Rarity {
 
     public Chat getColor() {
         return color;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColoredName() {
+        return color + name;
     }
 
     public static Rarity nextRarity() {
@@ -40,5 +50,14 @@ public enum Rarity {
             return Rarity.LEGENDARY;
         }
         return Rarity.COMMON;
+    }
+
+    public static Rarity fromString(String string) {
+        for(Rarity rarity : Rarity.values()) {
+            if(string.toLowerCase().contains(rarity.getName().toLowerCase())) {
+                return rarity;
+            }
+        }
+        throw new IllegalArgumentException("Invalid name of " + string);
     }
 }

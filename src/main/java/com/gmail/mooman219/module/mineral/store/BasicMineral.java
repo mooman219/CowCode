@@ -89,8 +89,7 @@ public class BasicMineral implements JsonData {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-                + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
         result = prime * result + respawnDelay;
         result = prime * result + (int) (respawnTime ^ (respawnTime >>> 32));
         result = prime * result + ((type == null) ? 0 : type.hashCode());

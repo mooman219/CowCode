@@ -176,7 +176,7 @@ public class CDPlayer extends BullData implements Damageable {
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         CCDamage.healthBoard.updatePlayer(this);
     }
-    
+
     /**
      * Used the percent to update the jump modifier applied on players.
      * The lower your health, the lower you can jump.

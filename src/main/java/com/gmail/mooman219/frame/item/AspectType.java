@@ -34,7 +34,7 @@ public enum AspectType {
 
     public static AspectType fromString(String string) {
         for(AspectType aspect : AspectType.values()) {
-            if(string.contains(aspect.getName())) {
+            if(string.toLowerCase().contains(aspect.getName().toLowerCase())) {
                 return aspect;
             }
         }

@@ -13,12 +13,14 @@ public class KeyDouble extends AspectKey<Double> {
     }
 
     @Override
-    public void read(String line) {
+    public boolean read(String line) {
         if(match(line)) {
             setValue(getDefaultValue());
             try {
                 setValue(NumberHelper.toDouble(line.substring(getName().length()), getDefaultValue()));
             } catch(Exception e) {}
+            return true;
         }
+        return false;
     }
 }

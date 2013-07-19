@@ -13,7 +13,7 @@ public class KeyAspectType extends AspectKey<AspectType> {
     }
 
     @Override
-    public void read(String line) {
+    public boolean read(String line) {
         if(match(line)) {
             try {
                 String value = line.substring(getName().length());
@@ -21,6 +21,8 @@ public class KeyAspectType extends AspectKey<AspectType> {
             } catch(Exception e) {
                 setValue(getDefaultValue());
             }
+            return true;
         }
+        return false;
     }
 }
