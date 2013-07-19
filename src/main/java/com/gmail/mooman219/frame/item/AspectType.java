@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.mooman219.frame.text.Chat;
 
 public enum AspectType {
+    UNKNOWN(-1, Chat.GRAY, "Unknown"),
     // Weapon
     SWORD(0, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Sword"),
     SHIELD(1, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Shield"),
@@ -28,6 +29,10 @@ public enum AspectType {
     private final int id;
     private final String prefix;
     private final String name;
+
+    AspectType(int id, Chat prefix, String name) {
+        this(id, prefix + "", name);
+    }
 
     AspectType(int id, String prefix, String name) {
         this.id = id;
@@ -91,8 +96,10 @@ public enum AspectType {
         case IRON_SWORD:
         case STONE_SWORD:
         case WOOD_SWORD:
-        default:
             return SHIELD;
+        // Other
+        default:
+            return UNKNOWN;
         }
     }
 }
