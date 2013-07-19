@@ -12,6 +12,8 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
@@ -161,16 +163,37 @@ public class CDPlayer extends BullData implements Damageable {
      * Also updates the HealthBoard. This will NEVER kill a player.
      */
     public void updateHealth(boolean isDamage) {
-        double health = (stat.healthCur / stat.healthMax) * 20D;
+        double percent = stat.healthCur / stat.healthMax;
+        double health = percent * 20D;
         health = health <= 0 ? 1 : health;
         if(!player.isDead()) {
             if(isDamage) {
                 player.damage(0);
             }
             player.setHealth(health);
+            updateJump(percent);
         }
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         CCDamage.healthBoard.updatePlayer(this);
+    }
+    
+    /**
+     * Used the percent to update the jump modifier applied on players.
+     * The lower your health, the lower you can jump.
+     */
+    public void updateJump(double percent) {
+        int modifier;
+        if(percent > 0.5D) {
+            modifier = 1;
+        } else if(percent > 0.3D) {
+            modifier = 0;
+        } else if(percent > 0.05D) {
+            modifier = -1;
+        } else {
+            modifier = -2;
+        }
+        player.removePotionEffect(PotionEffectType.JUMP);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
     }
 
     @Override

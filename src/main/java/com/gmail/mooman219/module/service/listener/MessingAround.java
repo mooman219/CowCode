@@ -8,9 +8,6 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.item.ItemHelper;
@@ -36,8 +33,8 @@ public class MessingAround implements Listener {
 
         playerData.getTab().set(0, 0, Chat.DARK_AQUA + "" + Chat.BOLD + "Welcome:");
         playerData.getTab().set(1, 0, Chat.GOLD + "" + Chat.BOLD + "Gold:");
-        playerData.getTab().set(3, 0, "Online:");
-        playerData.getTab().set(4, 0, Chat.DARK_GREEN + "" + Chat.BOLD + "C" + Chat.GOLD + "" + Chat.BOLD + "RPG");
+        playerData.getTab().set(2, 0, "Online:");
+        playerData.getTab().set(3, 0, Chat.DARK_GREEN + "" + Chat.BOLD + "C" + Chat.GOLD + "" + Chat.BOLD + "RPG");
 
         playerData.getTab().set(0, 1, "mooman219");
         playerData.getTab().set(1, 1, "3000");
@@ -47,7 +44,6 @@ public class MessingAround implements Listener {
         playerData.getTab().set(1, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(2, 2, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(3, 2, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(4, 2, Chat.GRAY + "" + Chat.BOLD + "========");
 
         playerData.getTab().set(0, 3, Chat.RED + "" + Chat.BOLD + "STR:" + Chat.RED + " 1");
         playerData.getTab().set(0, 4, Chat.GREEN + "" + Chat.BOLD + "DEX:" + Chat.GREEN + " 8");
@@ -60,23 +56,18 @@ public class MessingAround implements Listener {
         playerData.getTab().set(1, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(2, 17, Chat.GRAY + "" + Chat.BOLD + "========");
         playerData.getTab().set(3, 17, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(4, 17, Chat.GRAY + "" + Chat.BOLD + "========");
 
         playerData.getTab().set(0, 18, Chat.RED + "" + Chat.BOLD + "Health:");
         playerData.getTab().set(1, 18, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");
-        playerData.getTab().set(3, 18, Chat.GRAY + "" + Chat.BOLD + "Level:");
-        playerData.getTab().set(4, 18, Chat.GRAY + "" + Chat.BOLD + "EXP:");
+        playerData.getTab().set(2, 18, Chat.GRAY + "" + Chat.BOLD + "Level:");
+        playerData.getTab().set(3, 18, Chat.GRAY + "" + Chat.BOLD + "EXP:");
 
         playerData.getTab().set(0, 19, "100/100");
         playerData.getTab().set(1, 19, "120/200");
-        playerData.getTab().set(3, 19, "3");
-        playerData.getTab().set(4, 19, "3/10");
+        playerData.getTab().set(2, 19, "3");
+        playerData.getTab().set(3, 19, "3/10");
 
         playerData.getTab().update();
-
-        event.getPlayer().removePotionEffect(PotionEffectType.JUMP);
-        PotionEffect jump = new PotionEffect(PotionEffectType.JUMP, 200000000, 1, true);
-        event.getPlayer().addPotionEffect(jump);
     }
 
     @EventHandler
