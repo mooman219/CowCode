@@ -16,8 +16,8 @@ import com.gmail.mooman219.frame.serialize.aspect.KeyRarity;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class AspectItem {
-    private KeyAspectType aspectType = new KeyAspectType(Chat.DARK_GRAY + "* ", AspectType.UNKNOWN);
-    private KeyRarity rarity = new KeyRarity(Chat.DARK_GRAY + " ", Rarity.COMMON);
+    private KeyAspectType aspectType = new KeyAspectType(Chat.GRAY + "", AspectType.UNKNOWN);
+    private KeyRarity rarity = new KeyRarity(Chat.DARK_GRAY + "* ", Rarity.COMMON);
     private KeyBoolean soulbound = new KeyBoolean(Chat.GRAY + "Soulbound", false);
     private KeyInteger price = new KeyInteger(Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.WHITE, -1);
 

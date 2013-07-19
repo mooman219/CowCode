@@ -15,7 +15,7 @@ public class Gamemode extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        sender.setGameMode(sender.getGameMode() == GameMode.CREATIVE ? GameMode.SURVIVAL : GameMode.CREATIVE);
+        sender.setGameMode(sender.getGameMode() == GameMode.CREATIVE ? GameMode.ADVENTURE : GameMode.CREATIVE);
         CCVanilla.FRM.GAMEMODE.send(sender, sender.getGameMode().toString());
     }
 }

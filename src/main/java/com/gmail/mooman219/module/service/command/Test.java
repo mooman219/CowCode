@@ -32,10 +32,13 @@ public class Test extends CCommand {
             sender.sendMessage(
                     Chat.GREEN + "Listing Aspect Elements" + Chat.DARK_GREEN + ": \n" +
                     Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getAspectType().getName() + "\n" +
+                    Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getRarity().getName() + "\n" +
                     Chat.GRAY + "Is Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isSoulbound() + "\n" +
                     Chat.RED + "Min Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMinDamage() + "\n" +
                     Chat.RED + "Max Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMaxDamage() + "\n" +
-                    Chat.RED + "AttackSpeed" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getAttackSpeed());
+                    Chat.RED + "AttackSpeed" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getAttackSpeed() + "\n" +
+                    Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.GREEN + weaponAspect.getPrice()
+                    );
         }
     }
 }

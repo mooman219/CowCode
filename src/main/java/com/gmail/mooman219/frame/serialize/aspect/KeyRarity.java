@@ -9,7 +9,7 @@ public class KeyRarity extends AspectKey<Rarity> {
 
     @Override
     public String write() {
-        return getName() + getValue().getName();
+        return getName() + getValue().getFullName();
     }
 
     @Override
