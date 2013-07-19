@@ -2,13 +2,16 @@ package com.gmail.mooman219.frame.item;
 
 import java.util.ArrayList;
 
+import org.bukkit.inventory.ItemStack;
+
 import com.gmail.mooman219.frame.serialize.aspect.AspectKey;
 import com.gmail.mooman219.frame.serialize.aspect.KeyFloat;
 import com.gmail.mooman219.frame.serialize.aspect.KeyIntegerRange;
+import com.gmail.mooman219.frame.text.Chat;
 
 public class AspectWeapon extends AspectItem {
-    private KeyIntegerRange damage = new KeyIntegerRange("Damage: ", " - ", 1, 1);
-    private KeyFloat attackSpeed = new KeyFloat("Attack Speed: ", 1f);
+    private KeyIntegerRange damage = new KeyIntegerRange(Chat.RED + "Damage" + Chat.DARK_RED + ": " + Chat.RED, Chat.DARK_RED + " - " + Chat.RED, 1, 1);
+    private KeyFloat attackSpeed = new KeyFloat(Chat.RED + "Attack Speed" + Chat.DARK_RED + ": " + Chat.RED, 1f);
 
     public int getMinDamage() {
         return damage.getMin();
@@ -41,5 +44,11 @@ public class AspectWeapon extends AspectItem {
         keyList.add(1, attackSpeed);
         keyList.add(1, damage);
         return keyList;
+    }
+
+    public static AspectWeapon getAspectWeapon(ItemStack item) {
+        AspectWeapon aspect = new AspectWeapon();
+        aspect.read(item);
+        return aspect;
     }
 }

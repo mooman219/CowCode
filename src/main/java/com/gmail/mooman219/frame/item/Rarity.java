@@ -11,12 +11,16 @@ public enum Rarity {
     LEGENDARY(4, Chat.GOLD, "Legendary");
 
     private final int id;
-    private final Chat color;
+    private final String prefix;
     private final String name;
 
-    Rarity(int id, Chat color, String name) {
+    Rarity(int id, Chat prefix, String name) {
+        this(id, prefix + "", name);
+    }
+
+    Rarity(int id, String prefix, String name) {
         this.id = id;
-        this.color = color;
+        this.prefix = prefix;
         this.name = name;
     }
 
@@ -24,29 +28,29 @@ public enum Rarity {
         return id;
     }
 
-    public Chat getColor() {
-        return color;
+    public String getPrefix() {
+        return prefix;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getColoredName() {
-        return color + name;
+    public String getFullName() {
+        return prefix + name;
     }
 
     public static Rarity nextRarity() {
         double chance = NumberHelper.random();
-        if(chance <= 0.65D) {
+        if(chance <= 0.65D) { // 65%
             return Rarity.COMMON;
-        } else if(chance <= 0.85D) {
+        } else if(chance <= 0.85D) { // 20%
             return Rarity.UNCOMMON;
-        } else if(chance <= 0.95D) {
+        } else if(chance <= 0.95D) { // 10%
             return Rarity.RARE;
-        } else if(chance <= 0.99D) {
+        } else if(chance <= 0.99D) { // 4%
             return Rarity.EPIC;
-        } else if(chance <= 1.0D) {
+        } else if(chance <= 1.0D) { // 1%
             return Rarity.LEGENDARY;
         }
         return Rarity.COMMON;

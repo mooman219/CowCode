@@ -15,7 +15,7 @@ import com.gmail.mooman219.frame.serialize.aspect.KeyInteger;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class AspectItem {
-    private KeyAspectType aspectType = new KeyAspectType(Chat.GRAY + "Item " + Chat.DARK_GRAY + "-> ", AspectType.SWORD);
+    private KeyAspectType aspectType = new KeyAspectType(Chat.DARK_GRAY + "* ", AspectType.AXE);
     private KeyBoolean soulbound = new KeyBoolean(Chat.GRAY + "Soulbound", false);
     private KeyInteger price = new KeyInteger(Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.WHITE, -1);
 
@@ -74,7 +74,7 @@ public class AspectItem {
     @SuppressWarnings("rawtypes")
     public void read(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
-        List<String> lore = meta.getLore();
+        List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
         ArrayList<AspectKey> keyList = getKeys();
         for(String line : lore) {
             Iterator<AspectKey> iterator = keyList.iterator();
@@ -84,6 +84,12 @@ public class AspectItem {
                 }
             }
         }
+    }
+
+    public static AspectItem getAspectItem(ItemStack item) {
+        AspectItem aspect = new AspectItem();
+        aspect.read(item);
+        return aspect;
     }
 
     private class PriceWriteCheck implements Callable<Boolean> {

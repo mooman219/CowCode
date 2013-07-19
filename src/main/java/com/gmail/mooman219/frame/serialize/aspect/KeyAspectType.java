@@ -9,7 +9,7 @@ public class KeyAspectType extends AspectKey<AspectType> {
 
     @Override
     public String write() {
-        return getName() + getValue().getName();
+        return getName() + getValue().getFullName();
     }
 
     @Override
