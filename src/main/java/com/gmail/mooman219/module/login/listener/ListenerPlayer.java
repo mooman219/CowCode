@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.login.listener;
 
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -14,6 +15,9 @@ public class ListenerPlayer implements Listener {
         player.login.lastKnownIP = ip;
         if(!player.login.knownIPs.contains(ip)) {
             player.login.knownIPs.add(ip);
+        }
+        if(player.getPlayer().getGameMode() == GameMode.SURVIVAL) {
+            player.getPlayer().setGameMode(GameMode.ADVENTURE);
         }
     }
 }

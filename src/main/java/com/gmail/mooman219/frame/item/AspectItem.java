@@ -12,10 +12,12 @@ import com.gmail.mooman219.frame.serialize.aspect.AspectKey;
 import com.gmail.mooman219.frame.serialize.aspect.KeyAspectType;
 import com.gmail.mooman219.frame.serialize.aspect.KeyBoolean;
 import com.gmail.mooman219.frame.serialize.aspect.KeyInteger;
+import com.gmail.mooman219.frame.serialize.aspect.KeyRarity;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class AspectItem {
-    private KeyAspectType aspectType = new KeyAspectType(Chat.DARK_GRAY + "* ", AspectType.AXE);
+    private KeyAspectType aspectType = new KeyAspectType(Chat.DARK_GRAY + "* ", AspectType.UNKNOWN);
+    private KeyRarity rarity = new KeyRarity(Chat.DARK_GRAY + " ", Rarity.COMMON);
     private KeyBoolean soulbound = new KeyBoolean(Chat.GRAY + "Soulbound", false);
     private KeyInteger price = new KeyInteger(Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.WHITE, -1);
 
@@ -35,6 +37,10 @@ public class AspectItem {
         return aspectType.getValue();
     }
 
+    public Rarity getRarity() {
+        return rarity.getValue();
+    }
+
     public void setPrice(int price) {
         this.price.setValue(price);
     }
@@ -47,10 +53,15 @@ public class AspectItem {
         this.aspectType.setValue(aspectType);
     }
 
+    public void setRarity(Rarity rarity) {
+        this.rarity.setValue(rarity);
+    }
+
     @SuppressWarnings("rawtypes")
     public ArrayList<AspectKey> getKeys() {
         ArrayList<AspectKey> keyList = new ArrayList<AspectKey>();
         keyList.add(aspectType);
+        keyList.add(rarity);
         keyList.add(soulbound);
         keyList.add(price);
         return keyList;
@@ -60,6 +71,7 @@ public class AspectItem {
     public void write(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         ArrayList<String> lore = new ArrayList<String>();
+        aspectType.setValue(AspectType.fromItem(item));
 
         for(AspectKey aspect : getKeys()) {
             if(aspect.canWrite()) {
@@ -76,6 +88,8 @@ public class AspectItem {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
         ArrayList<AspectKey> keyList = getKeys();
+        keyList.remove(aspectType); // ASPECT TYPE IS SHPECIAL :o)
+        aspectType.setValue(AspectType.fromItem(item));
         for(String line : lore) {
             Iterator<AspectKey> iterator = keyList.iterator();
             while(iterator.hasNext()) {

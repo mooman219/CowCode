@@ -41,8 +41,8 @@ public class AspectWeapon extends AspectItem {
     @SuppressWarnings("rawtypes")
     public ArrayList<AspectKey> getKeys() {
         ArrayList<AspectKey> keyList = super.getKeys();
-        keyList.add(1, attackSpeed);
-        keyList.add(1, damage);
+        keyList.add(2, attackSpeed);
+        keyList.add(2, damage);
         return keyList;
     }
 

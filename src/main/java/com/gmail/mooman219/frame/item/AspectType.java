@@ -23,7 +23,7 @@ public enum AspectType {
     RING(12, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Ring"),
     AMULET(13, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Amulet"),
     // Tool
-    PICK_AXE(14, Chat.GRAY + "Tool " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Pick Axe"),
+    PICKAXE(14, Chat.GRAY + "Tool " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Pick Axe"),
     FISHING_ROD(15, Chat.GRAY + "Tool " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Fishing Rod");
 
     private final int id;
@@ -68,8 +68,39 @@ public enum AspectType {
     public static AspectType fromItem(ItemStack item) {
         switch(item.getType()) {
         // Tool
+        case GOLD_PICKAXE:
+        case DIAMOND_PICKAXE:
+        case IRON_PICKAXE:
+        case STONE_PICKAXE:
+        case WOOD_PICKAXE:
+            return PICKAXE;
+        case FISHING_ROD:
+            return FISHING_ROD;
         // Armor
-        TO FUCKING DO
+        case GOLD_HELMET:
+        case DIAMOND_HELMET:
+        case IRON_HELMET:
+        case CHAINMAIL_HELMET:
+        case LEATHER_HELMET:
+            return HELMET;
+        case GOLD_CHESTPLATE:
+        case DIAMOND_CHESTPLATE:
+        case IRON_CHESTPLATE:
+        case CHAINMAIL_CHESTPLATE:
+        case LEATHER_CHESTPLATE:
+            return CHESTPLATE;
+        case GOLD_LEGGINGS:
+        case DIAMOND_LEGGINGS:
+        case IRON_LEGGINGS:
+        case CHAINMAIL_LEGGINGS:
+        case LEATHER_LEGGINGS:
+            return LEGGINGS;
+        case GOLD_BOOTS:
+        case DIAMOND_BOOTS:
+        case IRON_BOOTS:
+        case CHAINMAIL_BOOTS:
+        case LEATHER_BOOTS:
+            return FOOTWEAR;
         // Weapon
         case GOLD_SPADE:
         case DIAMOND_SPADE:
