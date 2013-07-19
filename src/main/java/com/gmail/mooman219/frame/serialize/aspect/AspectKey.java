@@ -28,7 +28,7 @@ public abstract class AspectKey<T> {
     }
 
     public boolean match(String line) {
-        return line.startsWith(name);
+        return line.toLowerCase().contains(name.toLowerCase());
     }
 
     public abstract String write();

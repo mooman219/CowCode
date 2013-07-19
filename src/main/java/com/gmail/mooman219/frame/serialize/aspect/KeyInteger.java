@@ -15,11 +15,10 @@ public class KeyInteger extends AspectKey<Integer> {
     @Override
     public void read(String line) {
         if(match(line)) {
+            setValue(getDefaultValue());
             try {
                 setValue(NumberHelper.toInt(line.substring(getName().length()), getDefaultValue()));
-            } catch(Exception e) {
-                setValue(getDefaultValue());
-            }
+            } catch(Exception e) {}
         }
     }
 }

@@ -15,11 +15,10 @@ public class KeyFloat extends AspectKey<Float> {
     @Override
     public void read(String line) {
         if(match(line)) {
+            setValue(getDefaultValue());
             try {
                 setValue(NumberHelper.toFloat(line.substring(getName().length()), getDefaultValue()));
-            } catch(Exception e) {
-                setValue(getDefaultValue());
-            }
+            } catch(Exception e) {}
         }
     }
 }

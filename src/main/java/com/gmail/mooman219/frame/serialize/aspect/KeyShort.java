@@ -15,11 +15,10 @@ public class KeyShort extends AspectKey<Short> {
     @Override
     public void read(String line) {
         if(match(line)) {
+            setValue(getDefaultValue());
             try {
                 setValue(NumberHelper.toShort(line.substring(getName().length()), getDefaultValue()));
-            } catch(Exception e) {
-                setValue(getDefaultValue());
-            }
+            } catch(Exception e) {}
         }
     }
 }

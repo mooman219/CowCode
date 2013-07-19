@@ -13,12 +13,11 @@ public class KeyString extends AspectKey<String> {
     @Override
     public void read(String line) {
         if(match(line)) {
+            setValue(getDefaultValue());
             try {
                 String value = line.substring(getName().length());
                 setValue(value.length() > 0 ? value : getDefaultValue());
-            } catch(Exception e) {
-                setValue(getDefaultValue());
-            }
+            } catch(Exception e) {}
         }
     }
 }

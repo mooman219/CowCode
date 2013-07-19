@@ -15,11 +15,10 @@ public class KeyByte extends AspectKey<Byte> {
     @Override
     public void read(String line) {
         if(match(line)) {
+            setValue(getDefaultValue());
             try {
                 setValue(NumberHelper.toByte(line.substring(getName().length()), getDefaultValue()));
-            } catch(Exception e) {
-                setValue(getDefaultValue());
-            }
+            } catch(Exception e) {}
         }
     }
 }
