@@ -16,12 +16,12 @@ public class ItemStats extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        if(sender.getItemInHand() != null) {            
+        if(sender.getItemInHand() != null) {
             AspectWeapon weaponAspect = AspectWeapon.getAspectWeapon(sender.getItemInHand());
             sender.sendMessage(
                     Chat.GREEN + "Listing Aspect Elements" + Chat.DARK_GREEN + ": \n" +
-                            Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getAspectType().getName() + "\n" +
-                            Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getRarity().getName() + "\n" +
+                            Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getAspectType().getFullName() + "\n" +
+                            Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getRarity().getFullName() + "\n" +
                             Chat.GRAY + "Is Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isSoulbound() + "\n" +
                             Chat.RED + "Min Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMinDamage() + "\n" +
                             Chat.RED + "Max Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMaxDamage() + "\n" +

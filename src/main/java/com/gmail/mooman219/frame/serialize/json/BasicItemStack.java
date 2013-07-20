@@ -106,6 +106,26 @@ public class BasicItemStack implements JsonData {
         return itemstack;
     }
 
+    public static BasicItemStack[] toBasicItemStacks(ItemStack... itemStacks) {
+        BasicItemStack[] basicItemStacks = new BasicItemStack[itemStacks.length];
+        for(int i = 0; i < itemStacks.length ; i++) {
+            if(itemStacks[i] != null) {
+                basicItemStacks[i] = new BasicItemStack(itemStacks[i]);
+            }
+        }
+        return basicItemStacks;
+    }
+
+    public static ItemStack[] toItemStacks(BasicItemStack... basicItemStacks) {
+        ItemStack[] itemStacks = new ItemStack[basicItemStacks.length];
+        for(int i = 0; i < basicItemStacks.length ; i++) {
+            if(basicItemStacks[i] != null) {
+                itemStacks[i] = basicItemStacks[i].toItemStack();
+            }
+        }
+        return itemStacks;
+    }
+
     /**
      * Json methods
      */
