@@ -93,3 +93,8 @@ commands:
     gamemode:
         aliases:
         - gm
+    itemstats:
+        aliases:
+        - itemlookup
+        - whatitem
+        - whatisthis

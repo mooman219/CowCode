@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.rpg.item.inventory;
+package com.gmail.mooman219.module.item.inventory;
 
 import java.util.HashMap;
 

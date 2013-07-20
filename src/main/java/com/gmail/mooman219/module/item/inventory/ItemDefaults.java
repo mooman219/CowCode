@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.rpg.item.inventory;
+package com.gmail.mooman219.module.item.inventory;
 
 import com.gmail.mooman219.frame.item.ItemHelper;
 import com.gmail.mooman219.frame.text.Chat;

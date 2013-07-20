@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.rpg.item.listener;
+package com.gmail.mooman219.module.item.listener;
 
 import java.util.Iterator;
 
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.gmail.mooman219.module.rpg.item.inventory.ItemDefaults;
+import com.gmail.mooman219.module.item.inventory.ItemDefaults;
 
 public class ListenerPlayer implements Listener {
     @SuppressWarnings("deprecation")
