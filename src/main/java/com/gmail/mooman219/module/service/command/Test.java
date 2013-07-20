@@ -9,6 +9,7 @@ import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.item.AspectWeapon;
+import com.gmail.mooman219.frame.item.Rarity;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 
@@ -23,6 +24,7 @@ public class Test extends CCommand {
         if(flag) {
             ItemStack testStack = new ItemStack(Material.GOLD_AXE);
             AspectWeapon weaponAspect = new AspectWeapon();
+            weaponAspect.setRarity(Rarity.RARE);
             weaponAspect.setMinDamage(2);
             weaponAspect.setMaxDamage(10);
             weaponAspect.write(testStack);

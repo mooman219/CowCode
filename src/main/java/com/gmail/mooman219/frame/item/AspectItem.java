@@ -9,15 +9,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.mooman219.frame.serialize.aspect.AspectKey;
-import com.gmail.mooman219.frame.serialize.aspect.KeyAspectType;
 import com.gmail.mooman219.frame.serialize.aspect.KeyBoolean;
 import com.gmail.mooman219.frame.serialize.aspect.KeyInteger;
-import com.gmail.mooman219.frame.serialize.aspect.KeyRarity;
+import com.gmail.mooman219.frame.serialize.aspect.KeyRarityAspectType;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class AspectItem {
-    private KeyAspectType aspectType = new KeyAspectType(Chat.GRAY + "", AspectType.UNKNOWN);
-    private KeyRarity rarity = new KeyRarity(Chat.DARK_GRAY + "* ", Rarity.COMMON);
+    private KeyRarityAspectType rarityAspectPair = new KeyRarityAspectType(Chat.DARK_GRAY + "* ", " ", Rarity.COMMON, AspectType.UNKNOWN);
     private KeyBoolean soulbound = new KeyBoolean(Chat.GRAY + "Soulbound", false);
     private KeyInteger price = new KeyInteger(Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.WHITE, -1);
 
@@ -34,11 +32,11 @@ public class AspectItem {
     }
 
     public AspectType getAspectType() {
-        return aspectType.getValue();
+        return rarityAspectPair.getAspectType();
     }
 
     public Rarity getRarity() {
-        return rarity.getValue();
+        return rarityAspectPair.getRarity();
     }
 
     public void setPrice(int price) {
@@ -50,18 +48,17 @@ public class AspectItem {
     }
 
     public void setAspectType(AspectType aspectType) {
-        this.aspectType.setValue(aspectType);
+        this.rarityAspectPair.setAspectType(aspectType);
     }
 
     public void setRarity(Rarity rarity) {
-        this.rarity.setValue(rarity);
+        this.rarityAspectPair.setRarity(rarity);
     }
 
     @SuppressWarnings("rawtypes")
     public ArrayList<AspectKey> getKeys() {
         ArrayList<AspectKey> keyList = new ArrayList<AspectKey>();
-        keyList.add(aspectType);
-        keyList.add(rarity);
+        keyList.add(rarityAspectPair);
         keyList.add(soulbound);
         keyList.add(price);
         return keyList;
@@ -71,7 +68,7 @@ public class AspectItem {
     public void write(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         ArrayList<String> lore = new ArrayList<String>();
-        aspectType.setValue(AspectType.fromItem(item));
+        setAspectType(AspectType.fromItem(item));
 
         for(AspectKey aspect : getKeys()) {
             if(aspect.canWrite()) {
@@ -88,8 +85,6 @@ public class AspectItem {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
         ArrayList<AspectKey> keyList = getKeys();
-        keyList.remove(aspectType); // ASPECT TYPE IS SHPECIAL :o)
-        aspectType.setValue(AspectType.fromItem(item));
         for(String line : lore) {
             Iterator<AspectKey> iterator = keyList.iterator();
             while(iterator.hasNext()) {
@@ -99,6 +94,7 @@ public class AspectItem {
                 }
             }
         }
+        setAspectType(AspectType.fromItem(item));
     }
 
     public static AspectItem getAspectItem(ItemStack item) {

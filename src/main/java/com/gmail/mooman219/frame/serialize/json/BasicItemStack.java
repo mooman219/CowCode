@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.layout.JsonData;
@@ -27,6 +28,8 @@ public class BasicItemStack implements JsonData {
     @SerializedName("Pages") public List<String> pages;
     // LeatherArmorMeta
     @SerializedName("Color") public Color armorColor;
+    // SkullMeta
+    @SerializedName("Owner") public String owner;
 
     public BasicItemStack(ItemStack itemstack) {
         id = itemstack.getTypeId();
@@ -56,6 +59,11 @@ public class BasicItemStack implements JsonData {
                 LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
                 // getColor is never null
                 armorColor = leatherArmorMeta.getColor();
+            } else if(itemMeta instanceof SkullMeta) {
+                SkullMeta skullMeta = (SkullMeta) itemMeta;
+                if(skullMeta.hasOwner()) {
+                    this.owner = skullMeta.getOwner();
+                }
             }
         }
     }
@@ -86,6 +94,11 @@ public class BasicItemStack implements JsonData {
                 LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
                 if(armorColor != null) {
                     leatherArmorMeta.setColor(armorColor);
+                }
+            } else if(itemMeta instanceof SkullMeta) {
+                SkullMeta skullMeta = (SkullMeta) itemMeta;
+                if(owner != null) {
+                    skullMeta.setOwner(owner);
                 }
             }
             itemstack.setItemMeta(itemMeta);
@@ -122,6 +135,7 @@ public class BasicItemStack implements JsonData {
         result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
         result = prime * result + id;
         result = prime * result + ((lore == null) ? 0 : lore.hashCode());
+        result = prime * result + ((owner == null) ? 0 : owner.hashCode());
         result = prime * result + ((pages == null) ? 0 : pages.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         return result;
@@ -177,6 +191,13 @@ public class BasicItemStack implements JsonData {
                 return false;
             }
         } else if (!lore.equals(other.lore)) {
+            return false;
+        }
+        if (owner == null) {
+            if (other.owner != null) {
+                return false;
+            }
+        } else if (!owner.equals(other.owner)) {
             return false;
         }
         if (pages == null) {

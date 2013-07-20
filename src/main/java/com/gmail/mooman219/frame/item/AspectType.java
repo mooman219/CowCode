@@ -7,24 +7,26 @@ import com.gmail.mooman219.frame.text.Chat;
 public enum AspectType {
     UNKNOWN(-1, Chat.GRAY, "Unknown"),
     // Weapon
-    SWORD(0, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Sword"),
-    SHIELD(1, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Shield"),
-    BOW(2, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Bow"),
-    STAFF(3, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Staff"),
-    DAGGER(4, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Dagger"),
-    HAMMER(5, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Hammer"),
-    AXE(6, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Axe"),
-    SPELLBOOK(7, Chat.GRAY + "Weapon " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Spellbook"),
+    SWORD(0, Chat.GRAY, "Sword"),
+    SHIELD(1, Chat.GRAY, "Shield"),
+    BOW(2, Chat.GRAY, "Bow"),
+    STAFF(3, Chat.GRAY, "Staff"),
+    DAGGER(4, Chat.GRAY, "Dagger"),
+    HAMMER(5, Chat.GRAY, "Hammer"),
+    AXE(6, Chat.GRAY, "Axe"),
+    SPELLBOOK(7, Chat.GRAY, "Spellbook"),
     // Armor
-    CHESTPLATE(8, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Chestplate"),
-    HELMET(9, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Helmet"),
-    LEGGINGS(10, Chat.GRAY + "Armor" + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Leggings"),
-    FOOTWEAR(11, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Foorwear"),
-    RING(12, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Ring"),
-    AMULET(13, Chat.GRAY + "Armor " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Amulet"),
+    CHESTPLATE(8, Chat.GRAY, "Chestplate"),
+    HELMET(9, Chat.GRAY, "Helmet"),
+    LEGGINGS(10, Chat.GRAY, "Leggings"),
+    FOOTWEAR(11, Chat.GRAY, "Foorwear"),
+    RING(12, Chat.GRAY, "Ring"),
+    AMULET(13, Chat.GRAY, "Amulet"),
     // Tool
-    PICKAXE(14, Chat.GRAY + "Tool " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Pick Axe"),
-    FISHING_ROD(15, Chat.GRAY + "Tool " + Chat.DARK_GRAY + "-> " + Chat.GRAY, "Fishing Rod");
+    PICKAXE(14, Chat.GRAY, "Pick Axe"),
+    FISHING_ROD(15, Chat.GRAY, "Fishing Rod"),
+    // Food
+    FOOD(15, Chat.GRAY, "Food");
 
     private final int id;
     private final String prefix;
@@ -57,16 +59,42 @@ public enum AspectType {
     }
 
     public static AspectType fromString(String string) {
-        for(AspectType aspect : AspectType.values()) {
-            if(string.toLowerCase().contains(aspect.getName().toLowerCase())) {
-                return aspect;
+        if(string != null && string.length() > 0) {
+            for(AspectType aspect : AspectType.values()) {
+                if(string.toLowerCase().contains(aspect.getName().toLowerCase())) {
+                    return aspect;
+                }
             }
         }
-        throw new IllegalArgumentException("Invalid name of " + string);
+        return UNKNOWN;
     }
 
     public static AspectType fromItem(ItemStack item) {
         switch(item.getType()) {
+        // Food
+        case BREAD:
+        case CARROT_ITEM:
+        case BAKED_POTATO:
+        case POTATO_ITEM:
+        case POISONOUS_POTATO:
+        case GOLDEN_CARROT:
+        case PUMPKIN_PIE:
+        case COOKIE:
+        case MELON:
+        case MUSHROOM_SOUP:
+        case RAW_CHICKEN:
+        case COOKED_CHICKEN:
+        case RAW_BEEF:
+        case COOKED_BEEF:
+        case RAW_FISH:
+        case COOKED_FISH:
+        case PORK:
+        case GRILLED_PORK:
+        case APPLE:
+        case GOLDEN_APPLE:
+        case ROTTEN_FLESH:
+        case SPIDER_EYE:
+            return FOOD;
         // Tool
         case GOLD_PICKAXE:
         case DIAMOND_PICKAXE:

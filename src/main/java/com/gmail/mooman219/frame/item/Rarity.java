@@ -57,11 +57,13 @@ public enum Rarity {
     }
 
     public static Rarity fromString(String string) {
-        for(Rarity rarity : Rarity.values()) {
-            if(string.toLowerCase().contains(rarity.getName().toLowerCase())) {
-                return rarity;
+        if(string != null && string.length() > 0) {
+            for(Rarity rarity : Rarity.values()) {
+                if(string.toLowerCase().contains(rarity.getName().toLowerCase())) {
+                    return rarity;
+                }
             }
         }
-        throw new IllegalArgumentException("Invalid name of " + string);
+        return COMMON;
     }
 }
