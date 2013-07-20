@@ -4,7 +4,7 @@ import com.gmail.mooman219.frame.item.ItemHelper;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class ItemDefaults {
-    public final static Stockpile playerInv = new Stockpile(4);
+    public final static Stockpiler playerInv = new Stockpiler(4);
 
     static {
         playerInv.set(new String[]{"MH  12345",

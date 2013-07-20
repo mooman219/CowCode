@@ -172,6 +172,7 @@ public class CDPlayer extends BullData implements Damageable {
             }
             player.setHealth(health);
             updateJump(percent);
+            updateMoveSpeed(percent);
         }
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         CCDamage.healthBoard.updatePlayer(this);
@@ -183,17 +184,38 @@ public class CDPlayer extends BullData implements Damageable {
      */
     public void updateJump(double percent) {
         int modifier;
-        if(percent > 0.5D) {
+        if(percent > 0.5D) { // 100% - 50%
             modifier = 1;
-        } else if(percent > 0.3D) {
+        } else if(percent > 0.3D) { // 50% - 30%
             modifier = 0;
-        } else if(percent > 0.05D) {
+        } else if(percent > 0.05D) { // 30% - 05%
             modifier = -1;
-        } else {
+        } else { // 05% - 00%
             modifier = -2;
         }
         player.removePotionEffect(PotionEffectType.JUMP);
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
+    }
+
+    /**
+     * Used the percent to update the movespeed of players.
+     * The lower your health, the slower you move
+     *
+     *  public float flySpeed = 0.05F;
+     *  public float walkSpeed = 0.1F;
+     */
+    public void updateMoveSpeed(double percent) {
+        float defaultMoveSpeed = 0.2f;
+        if(percent > 0.5D) { // 100% - 50%
+            defaultMoveSpeed *= 1.1f;
+        } else if(percent > 0.3D) { // 50% - 30%
+            defaultMoveSpeed *= 0.9f;
+        } else if(percent > 0.05D) { // 30% - 05%
+            defaultMoveSpeed *= 0.7f;
+        } else { // 05% - 00%
+            defaultMoveSpeed *= 0.6f;
+        }
+        player.setWalkSpeed(defaultMoveSpeed);
     }
 
     @Override

@@ -1,78 +1,32 @@
 package com.gmail.mooman219.module.item.inventory;
 
-import java.util.HashMap;
-
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.InventoryHolder;
 
-public class Stockpile {
-    private HashMap<Character, ItemStack> charList;
-    private Character[][] charMap;
+import com.gmail.mooman219.frame.text.Chat;
 
-    private boolean isOverwriting = false;
-    private boolean isClearing = false;
+public abstract class Stockpile implements InventoryHolder {
+    private Inventory inventory;
 
-    public Stockpile(int rows) {
-        this(rows, false, false);
+    public Stockpile(int size, String name) {
+        inventory = Bukkit.createInventory(this, size, Chat.BOLD + "* " + Chat.RESET + name);
     }
 
-    public Stockpile(int rows, boolean isOverwriting, boolean isClearing) {
-        charMap = new Character[rows][9];
-        charList = new HashMap<Character, ItemStack>();
-        this.isOverwriting = isOverwriting;
-        this.isClearing = isClearing;
+    public InventoryClickEvent onClick(InventoryClickEvent event) {
+        return event;
     }
 
-    public void set(String[] characters) {
-        for(int y = 0; y < charMap.length; y++) {
-            for(int x = 0; x < charMap[y].length; x++) {
-                if(characters.length <= y || characters[y].length() <= x) {
-                    charMap[y][x] = null;
-                } else {
-                    charMap[y][x] = characters[y].charAt(x);
-                }
-            }
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public static Stockpile getStockpile(Inventory inventory) {
+        if(inventory != null && inventory.getName().toLowerCase().startsWith(Chat.BOLD + "* " + Chat.RESET) && inventory.getHolder() != null) {
+            return (Stockpile) inventory.getHolder();
         }
-    }
-
-    public void map(Character character, ItemStack item) {
-        if(item == null) {
-            charList.remove(character);
-        } else {
-            charList.put(character, item.clone());
-        }
-    }
-
-    public void apply(Inventory inventory) {
-        for(int y = 0; y < charMap.length; y++) {
-            for(int x = 0; x < charMap[y].length; x++) {
-                int slot = y * 9 + x;
-                ItemStack item = charList.get(charMap[y][x]);
-                ItemStack oldItem = inventory.getItem(slot);
-                if(slot >= inventory.getSize()) {
-                    return;
-                } else if(item == null && isClearing) {
-                    inventory.clear(slot);
-                } else if(oldItem == null || isOverwriting){
-                    inventory.setItem(slot, item);
-                }
-            }
-        }
-    }
-
-    public boolean isOverwriting() {
-        return isOverwriting;
-    }
-
-    public void setOverwriting(boolean isOverwriting) {
-        this.isOverwriting = isOverwriting;
-    }
-
-    public boolean isClearing() {
-        return isClearing;
-    }
-
-    public void setClearing(boolean isClearing) {
-        this.isClearing = isClearing;
+        return null;
     }
 }
