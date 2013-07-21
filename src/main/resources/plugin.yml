@@ -87,6 +87,9 @@ commands:
         - cshn
         - setheadname
     music:
+        aliases:
+        - tunes
+        - jam
     shriek:
         aliases:
         - scream
@@ -98,3 +101,7 @@ commands:
         - itemlookup
         - whatitem
         - whatisthis
+    toggleworldsaving:
+        aliases:
+        - togglesworldsave
+        - worldsave
