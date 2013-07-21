@@ -4,19 +4,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Modifier;
 
-import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.google.gson.Gson;
 
 public class ConfigGlobal extends ConfigJson {
     public static Bull bull = new Bull();
-    public static class Bull {
-        public Player player = new Player();
-        public static class Player {
-            public int nameUpdateRadius = 10; // Chunks
-        }
-    }
+    public static class Bull {}
     public static Handler handler = new Handler();
     public static class Handler {
         public Database database = new Database();
@@ -38,12 +32,12 @@ public class ConfigGlobal extends ConfigJson {
     public static class Module {
         public Chat chat = new Chat();
         public static class Chat {
-            public int radius = 50; // Blocks
-            public int globalDelay = 10; // Seconds
+            public int radius = 2500; // Blocks^2 (50 blocks = 2500 blocks^2)
+            public int globalDelay = 10000; // Milliseconds
         }
         public Login login = new Login();
         public static class Login {
-            public int loginDelay = 10; // Seconds
+            public int loginDelay = 10000; // Milliseconds
         }
         public World world = new World();
         public static class World {
@@ -61,44 +55,17 @@ public class ConfigGlobal extends ConfigJson {
         }
     }
 
-    private transient boolean isAdjusted = false;
-
     public ConfigGlobal(String cast, String directory) {
         super(cast, directory, "config", "yml");
     }
 
-    private void adjustedValues() {
-        if(!isAdjusted) {
-            ConfigGlobal.bull.player.nameUpdateRadius = NumberHelper.toInt(Math.pow(ConfigGlobal.bull.player.nameUpdateRadius * 16, 2));
-            ConfigGlobal.module.chat.radius = NumberHelper.toInt(Math.pow(ConfigGlobal.module.chat.radius, 2));
-            ConfigGlobal.module.chat.globalDelay = ConfigGlobal.module.chat.globalDelay * 1000;
-            ConfigGlobal.module.login.loginDelay = ConfigGlobal.module.login.loginDelay * 1000;
-            isAdjusted = true;
-        }
-    }
-
-    private void normalValues() {
-        if(isAdjusted) {
-            ConfigGlobal.bull.player.nameUpdateRadius = NumberHelper.toInt(Math.sqrt(ConfigGlobal.bull.player.nameUpdateRadius) / 16);
-            ConfigGlobal.module.chat.radius = NumberHelper.toInt(Math.sqrt(ConfigGlobal.module.chat.radius));
-            ConfigGlobal.module.chat.globalDelay = ConfigGlobal.module.chat.globalDelay / 1000;
-            ConfigGlobal.module.login.loginDelay = ConfigGlobal.module.login.loginDelay / 1000;
-            isAdjusted = false;
-        }
-    }
-
     @Override
     public void onSave(FileWriter writer) {
-        normalValues();
         getGson().toJson(this, writer);
-        adjustedValues();
     }
-
     @Override
     public void onLoad(FileReader reader) {
-        normalValues();
         getGson().fromJson(reader, ConfigGlobal.class);
-        adjustedValues();
     }
 
     @Override
