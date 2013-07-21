@@ -48,7 +48,7 @@ public class CCItem implements CowComponent {
     }
 
     public class Messages {
-        public final Bulletin STATFAIL = new Bulletin(Chat.msgError, "You don't have an item in your hand!.", Chat.formatError);
+        public final Bulletin STATFAIL = new Bulletin(Chat.msgError, "You don't have an item in your hand!", Chat.formatError);
     }
 
     public class Formats {}

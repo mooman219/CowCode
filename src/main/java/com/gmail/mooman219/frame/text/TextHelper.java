@@ -7,7 +7,7 @@ import com.gmail.mooman219.frame.NumberHelper;
 public class TextHelper {
     public static final Pattern chatPattern = Pattern.compile("&([A-FK-OR0-9])", Pattern.CASE_INSENSITIVE);
     public static final Pattern chatPlanetMinecraft = Pattern.compile("pl.n.t.?m.n.cr.ft", Pattern.CASE_INSENSITIVE);
-    public static final Pattern punctuationPattern = Pattern.compile("[\\])\"'(\\:\\.\\[|,></_+=-]");
+    public static final Pattern punctuationPattern = Pattern.compile("[\\])\"'(\\:\\.\\[|,></_+!=-]");
     public static final Pattern splitPattern = Pattern.compile("\\:");
     public static final Pattern spacePattern = Pattern.compile(" ");
 
