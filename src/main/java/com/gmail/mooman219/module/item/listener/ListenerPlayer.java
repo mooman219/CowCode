@@ -7,15 +7,23 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.module.item.inventory.ItemDefaults;
 
 public class ListenerPlayer implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        CDPlayer player = CDPlayer.get(event.getPlayer());
+        player.item.setInventory(player.getPlayer().getInventory().getContents());
     }
 
     @EventHandler

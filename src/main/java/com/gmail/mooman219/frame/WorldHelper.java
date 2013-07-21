@@ -1,5 +1,7 @@
 package com.gmail.mooman219.frame;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -28,6 +30,10 @@ public class WorldHelper {
         }
         World ret = Bukkit.getServer().createWorld(new WorldCreator(worldName));
         return ret;
+    }
+
+    public static List<World> getWorlds() {
+        return Bukkit.getWorlds();
     }
 
     public static void teleportToWorld(String worldName) {

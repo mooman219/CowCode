@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.bukkit.Bukkit;
-
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.bull.PlayerShutdownType;
 import com.gmail.mooman219.core.Loader;
@@ -77,7 +76,6 @@ public class CHDatabase implements CowHandler {
                     try {
                         if(shouldRemove) {
                             CEventFactory.callDataRemovalEvent(runAsync || !Bukkit.isPrimaryThread(), player);
-                            player.shutdown(PlayerShutdownType.POST_REMOVAL);
                         }
                         DBObject playerObject = player.getTemplate(reason);
                         WriteResult result = usersCollection.update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
@@ -86,6 +84,7 @@ public class CHDatabase implements CowHandler {
                             Loader.warning(cast + result.getError());
                         }
                         if(shouldRemove) {
+                            player.shutdown(PlayerShutdownType.POST_REMOVAL);
                             player.clearPlayerData();
                         }
                         Loader.info(cast + "[UP] ["+reason.name()+"] : " + player.getUsername());

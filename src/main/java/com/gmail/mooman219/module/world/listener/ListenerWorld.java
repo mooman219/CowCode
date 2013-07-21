@@ -9,9 +9,16 @@ import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
+import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 
 public class ListenerWorld implements Listener {
+    public ListenerWorld() {
+        for(World world : WorldHelper.getWorlds()) {
+            prepWorld(world);
+        }
+    }
+
     @EventHandler()
     public void onLightningStrike(LightningStrikeEvent event) {
         if(ConfigGlobal.module.world.disableLightningStrike) {

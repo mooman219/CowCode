@@ -29,6 +29,7 @@ import com.gmail.mooman219.layout.Damageable;
 import com.gmail.mooman219.layout.PlayerData;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.damage.CCDamage;
+import com.gmail.mooman219.module.item.store.PDItem;
 import com.gmail.mooman219.module.login.store.PDLogin;
 import com.gmail.mooman219.module.region.store.PDRegion;
 import com.gmail.mooman219.module.service.CCService;
@@ -52,6 +53,7 @@ public class CDPlayer extends BullData implements Damageable {
     public PDChat chat = null;
     public PDStat stat = null;
     public PDRegion region = null;
+    public PDItem item = null;
 
     public CDPlayer(String username) {
         this.username = username;
@@ -62,6 +64,7 @@ public class CDPlayer extends BullData implements Damageable {
         this.chat = addPlayerData(new PDChat(this));
         this.stat = addPlayerData(new PDStat(this));
         this.region = addPlayerData(new PDRegion(this));
+        this.item = addPlayerData(new PDItem(this));
     }
 
     /**
@@ -109,9 +112,9 @@ public class CDPlayer extends BullData implements Damageable {
         case POST_QUIT:
             sidebar = null;
             tabList = null;
+            player = null;
             break;
         case POST_REMOVAL: // This is done in another thread
-            player = null;
             for(PlayerData data : playerData) {
                 data.destroy();
             }
@@ -211,9 +214,9 @@ public class CDPlayer extends BullData implements Damageable {
         } else if(percent > 0.3D) { // 50% - 30%
             defaultMoveSpeed *= 0.9f;
         } else if(percent > 0.05D) { // 30% - 05%
-            defaultMoveSpeed *= 0.7f;
+            defaultMoveSpeed *= 0.8f;
         } else { // 05% - 00%
-            defaultMoveSpeed *= 0.6f;
+            defaultMoveSpeed *= 0.7f;
         }
         player.setWalkSpeed(defaultMoveSpeed);
     }
@@ -329,6 +332,9 @@ public class CDPlayer extends BullData implements Damageable {
     }
 
     public Player getPlayer() {
+        if(player == null) {
+            throw new IllegalStateException("You cannot get a null player for " + getUsername() + ". CDPlayer might be shutdown or not started yet.");
+        }
         return player;
     }
 
