@@ -105,3 +105,6 @@ commands:
         aliases:
         - togglesworldsave
         - worldsave
+    suicide:
+        aliases:
+        - mylittleponyisgood

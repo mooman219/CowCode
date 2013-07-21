@@ -7,6 +7,7 @@ import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.vanilla.command.Gamemode;
 import com.gmail.mooman219.module.vanilla.command.Music;
 import com.gmail.mooman219.module.vanilla.command.Shriek;
+import com.gmail.mooman219.module.vanilla.command.Suicide;
 
 public class CCVanilla implements CowComponent {
     public final Loader plugin;
@@ -41,10 +42,12 @@ public class CCVanilla implements CowComponent {
         plugin.addCommand(new Music());
         plugin.addCommand(new Shriek());
         plugin.addCommand(new Gamemode());
+        plugin.addCommand(new Suicide());
     }
 
     public class Messages {
         public final Bulletin SHRIEK = new Bulletin(Chat.msgInfo, "You scream at the top of your lungs!", Chat.formatInfo);
+        public final Bulletin SUICIDE = new Bulletin(Chat.msgError, "You commit suicide.", Chat.formatError);
     }
 
     public class Formats {

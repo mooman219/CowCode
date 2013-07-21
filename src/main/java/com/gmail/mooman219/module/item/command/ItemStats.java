@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
+import com.gmail.mooman219.frame.item.AspectItem;
 import com.gmail.mooman219.frame.item.AspectWeapon;
 import com.gmail.mooman219.frame.item.ItemHelper;
 import com.gmail.mooman219.frame.rank.Rank;
@@ -18,16 +19,20 @@ public class ItemStats extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         if(!ItemHelper.isNull(sender.getItemInHand())) {
+            AspectItem itemAspect = AspectItem.getAspectItem(sender.getItemInHand());
+            sender.sendMessage(
+                    Chat.msgInfo + Chat.GREEN + "Listing " + Chat.GRAY + "AspectItem" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
+                    Chat.linePassive + Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.getAspectType().getFullName() + "\n" +
+                    Chat.linePassive + Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.getRarity().getFullName() + "\n" +
+                    Chat.linePassive + Chat.GRAY + "Is Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.isSoulbound() + "\n" +
+                    Chat.linePassive + Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.GREEN + itemAspect.getPrice()
+                    );
             AspectWeapon weaponAspect = AspectWeapon.getAspectWeapon(sender.getItemInHand());
             sender.sendMessage(
-                    Chat.GREEN + "Listing Aspect Elements" + Chat.DARK_GREEN + ": \n" +
-                            Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getAspectType().getFullName() + "\n" +
-                            Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.getRarity().getFullName() + "\n" +
-                            Chat.GRAY + "Is Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isSoulbound() + "\n" +
-                            Chat.RED + "Min Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMinDamage() + "\n" +
-                            Chat.RED + "Max Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMaxDamage() + "\n" +
-                            Chat.RED + "AttackSpeed" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getAttackSpeed() + "\n" +
-                            Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.GREEN + weaponAspect.getPrice()
+                    Chat.msgInfo + Chat.GREEN + "Listing " + Chat.RED + "AspectWeapon" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
+                    Chat.linePassive + Chat.RED + "Min Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMinDamage() + "\n" +
+                    Chat.linePassive + Chat.RED + "Max Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMaxDamage() + "\n" +
+                    Chat.linePassive + Chat.RED + "AttackSpeed" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getAttackSpeed()
                     );
         } else {
             CCItem.MSG.STATFAIL.send(sender);
