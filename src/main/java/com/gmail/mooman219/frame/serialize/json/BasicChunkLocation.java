@@ -35,6 +35,8 @@ public class BasicChunkLocation implements JsonData {
                     throw new IllegalStateException("Cannot find world by UUID or name");
                 }
             }
+            this.uuid = world.getUID();
+            this.world = world.getName();
             Vector vec = vector.toVector();
             weakChunk = new WeakReference<Chunk>(world.getChunkAt(vec.getBlockX(), vec.getBlockZ()));
         }

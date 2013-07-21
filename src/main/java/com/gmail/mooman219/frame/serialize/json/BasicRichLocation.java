@@ -38,6 +38,8 @@ public class BasicRichLocation implements JsonData {
                     throw new IllegalStateException("Cannot find world by UUID or name");
                 }
             }
+            this.uuid = world.getUID();
+            this.world = world.getName();
             Vector vec = vector.toVector();
             weakLoc = new WeakReference<Location>(new Location(world, vec.getX(), vec.getY(), vec.getZ(), yaw, pitch));
         }

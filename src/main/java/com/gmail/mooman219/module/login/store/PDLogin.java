@@ -2,8 +2,11 @@ package com.gmail.mooman219.module.login.store;
 
 import java.util.ArrayList;
 
+import org.bukkit.Location;
+
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
+import com.gmail.mooman219.frame.serialize.json.BasicRichLocation;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
@@ -59,5 +62,13 @@ public class PDLogin extends PlayerData {
      * Live
      */
 
-    // No live data
+    private BasicRichLocation position;
+
+    public Location getPosition() {
+        return position != null ? position.toLocation() : null;
+    }
+
+    public void setPosition(Location position) {
+        this.position = new BasicRichLocation(position);
+    }
 }
