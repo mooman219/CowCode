@@ -36,6 +36,7 @@ public class PDLogin extends PlayerData {
         this.isOnline = MongoHelper.getValue(login, "online", isOnline);
         this.knownIPs = MongoHelper.getValue(login, "iplist", knownIPs);
         this.lastKnownIP = MongoHelper.getValue(login, "lastip", lastKnownIP);
+        setPosition(BasicRichLocation.fromString(MongoHelper.getValue(login, "position", "")));
     }
 
     @Override
@@ -48,7 +49,8 @@ public class PDLogin extends PlayerData {
             .append(getTag() + ".timeplayed", timeplayed)
             .append(getTag() + ".online", isOnline)
             .append(getTag() + ".iplist", knownIPs)
-            .append(getTag() + ".lastip", lastKnownIP);
+            .append(getTag() + ".lastip", lastKnownIP)
+            .append(getTag() + ".position", position != null ? position.toString() : "");
         case STATUS:
             return new BasicDBObject()
             .append(getTag() + ".lastlogin", lastlogin)
@@ -68,7 +70,23 @@ public class PDLogin extends PlayerData {
         return position != null ? position.toLocation() : null;
     }
 
+    private void setPosition(BasicRichLocation position) {
+        this.position = position;
+    }
+
     public void setPosition(Location position) {
         this.position = new BasicRichLocation(position);
+    }
+
+    /**
+     * No create this time around because of the special sync.
+     * This in turn means we can process all the shit on a different thread.
+     */
+    @Override
+    public void create() {}
+
+    @Override
+    public void destroy() {
+        position = null;
     }
 }

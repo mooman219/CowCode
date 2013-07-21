@@ -21,12 +21,12 @@ public class BasicRichLocation implements JsonData {
 
     private transient WeakReference<Location> weakLoc;
 
-    public BasicRichLocation(Location loc) {
-        this.world = loc.getWorld().getName();
-        this.uuid = loc.getWorld().getUID();
-        this.yaw = loc.getYaw();
-        this.pitch = loc.getPitch();
-        this.vector = new BasicVectorDouble(loc.toVector());
+    public BasicRichLocation(Location location) {
+        this.world = location.getWorld().getName();
+        this.uuid = location.getWorld().getUID();
+        this.yaw = location.getYaw();
+        this.pitch = location.getPitch();
+        this.vector = new BasicVectorDouble(location.toVector());
     }
 
     public Location toLocation() {
@@ -75,6 +75,9 @@ public class BasicRichLocation implements JsonData {
     }
 
     public static BasicRichLocation fromString(String string) {
+        if(string == null || string.length() == 0) {
+            return null;
+        }
         return JsonHelper.getGson().fromJson(string, BasicRichLocation.class);
     }
 

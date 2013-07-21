@@ -19,10 +19,10 @@ public class BasicLocation implements JsonData {
 
     private transient WeakReference<Location> weakLoc;
 
-    public BasicLocation(Location loc) {
-        this.world = loc.getWorld().getName();
-        this.uuid = loc.getWorld().getUID();
-        this.vector = new BasicVectorInteger(loc.toVector());
+    public BasicLocation(Location location) {
+        this.world = location.getWorld().getName();
+        this.uuid = location.getWorld().getUID();
+        this.vector = new BasicVectorInteger(location.toVector());
     }
 
     public Location toLocation() {
@@ -71,6 +71,9 @@ public class BasicLocation implements JsonData {
     }
 
     public static BasicLocation fromString(String string) {
+        if(string == null || string.length() == 0) {
+            return null;
+        }
         return JsonHelper.getGson().fromJson(string, BasicLocation.class);
     }
 

@@ -72,6 +72,9 @@ public class BasicChunkLocation implements JsonData {
     }
 
     public static BasicChunkLocation fromString(String string) {
+        if(string == null || string.length() == 0) {
+            return null;
+        }
         return JsonHelper.getGson().fromJson(string, BasicChunkLocation.class);
     }
 

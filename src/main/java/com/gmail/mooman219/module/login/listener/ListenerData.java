@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.login.listener;
 
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -37,6 +38,10 @@ public class ListenerData implements Listener {
         }
         player.login.lastlogin = currentTime;
         player.login.isOnline = true;
+        Location position = player.login.getPosition();
+        if(position != null) {
+            player.getPlayer().teleport(position);
+        }
     }
 
     @EventHandler()
