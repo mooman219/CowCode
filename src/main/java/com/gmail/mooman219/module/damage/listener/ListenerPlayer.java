@@ -6,6 +6,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.damage.CCDamage;
 
 public class ListenerPlayer implements Listener {
@@ -13,6 +14,12 @@ public class ListenerPlayer implements Listener {
     public void onRespawn(PlayerRespawnEvent event){
         final CDPlayer player = CDPlayer.get(event.getPlayer());
         player.resetHealth();
+        CHTask.manager.runBukkit(new Runnable() {
+            @Override
+            public void run() {
+                player.updateHealth(false);
+            }
+        }, 2);
     }
 
     @EventHandler()

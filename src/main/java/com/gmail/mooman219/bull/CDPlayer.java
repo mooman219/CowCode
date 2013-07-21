@@ -163,13 +163,19 @@ public class CDPlayer extends BullData implements Damageable {
 
     /**
      * Matches the players hearts to the current health state.
-     * Also updates the HealthBoard. This will NEVER kill a player.
+     * Also updates the HealthBoard. This MAY kill a player.
      */
     public void updateHealth(boolean isDamage) {
-        double percent = stat.healthCur / stat.healthMax;
-        double health = percent * 20D;
-        health = health <= 0 ? 1 : health;
-        if(!player.isDead()) {
+        if(isDead()) {
+            stat.healthCur = 0;
+            player.setHealth(0);
+        } else {
+            if(stat.healthCur > stat.healthMax) {
+                stat.healthCur = stat.healthMax;
+                isDamage = false;
+            }
+            double percent = stat.healthCur / stat.healthMax;
+            double health = percent * 20D;
             if(isDamage) {
                 player.damage(0);
             }
@@ -189,12 +195,10 @@ public class CDPlayer extends BullData implements Damageable {
         int modifier;
         if(percent > 0.5D) { // 100% - 50%
             modifier = 1;
-        } else if(percent > 0.3D) { // 50% - 30%
+        } else if(percent > 0.25D) { // 50% - 25%
             modifier = 0;
-        } else if(percent > 0.05D) { // 30% - 05%
+        } else { // 25% - 00%
             modifier = -1;
-        } else { // 05% - 00%
-            modifier = -2;
         }
         player.removePotionEffect(PotionEffectType.JUMP);
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
@@ -210,13 +214,11 @@ public class CDPlayer extends BullData implements Damageable {
     public void updateMoveSpeed(double percent) {
         float defaultMoveSpeed = 0.2f;
         if(percent > 0.5D) { // 100% - 50%
-            defaultMoveSpeed *= 1.1f;
-        } else if(percent > 0.3D) { // 50% - 30%
-            defaultMoveSpeed *= 0.9f;
-        } else if(percent > 0.05D) { // 30% - 05%
+            defaultMoveSpeed *= 1.2f;
+        } else if(percent > 0.25D) { // 50% - 25%
+            defaultMoveSpeed *= 1.0f;
+        } else { // 25% - 00%
             defaultMoveSpeed *= 0.8f;
-        } else { // 05% - 00%
-            defaultMoveSpeed *= 0.7f;
         }
         player.setWalkSpeed(defaultMoveSpeed);
     }
@@ -254,9 +256,7 @@ public class CDPlayer extends BullData implements Damageable {
     @Override
     public void kill() {
         stat.healthCur = 0;
-        sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
-        CCDamage.healthBoard.updatePlayer(this);
-        player.damage(100);
+        updateHealth(true);
     }
 
     @Override
@@ -272,13 +272,6 @@ public class CDPlayer extends BullData implements Damageable {
             isDamage = true;
         }
         stat.healthCur = amount;
-        if(stat.healthCur > stat.healthMax) {
-            resetHealth();
-            return;
-        } else if(isDead()) {
-            kill();
-            return;
-        }
         updateHealth(isDamage);
     }
 
@@ -292,10 +285,6 @@ public class CDPlayer extends BullData implements Damageable {
         stat.healthMax = amount;
         if(stat.healthMax <= 0) {
             stat.healthMax = 1;
-        }
-        if(stat.healthCur > stat.healthMax) {
-            resetHealth();
-            return;
         }
         updateHealth(false);
     }
