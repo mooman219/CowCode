@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -38,5 +39,9 @@ public class ItemHelper {
             item.setItemMeta(itemMeta);
             return itemMeta;
         }
+    }
+
+    public static boolean isNull(ItemStack itemStack) {
+        return itemStack == null || itemStack.getType() == Material.AIR || itemStack.getAmount() == 0;
     }
 }

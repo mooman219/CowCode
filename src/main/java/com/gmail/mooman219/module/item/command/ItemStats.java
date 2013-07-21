@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.item.AspectWeapon;
+import com.gmail.mooman219.frame.item.ItemHelper;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.item.CCItem;
@@ -16,7 +17,7 @@ public class ItemStats extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        if(sender.getItemInHand() != null) {
+        if(!ItemHelper.isNull(sender.getItemInHand())) {
             AspectWeapon weaponAspect = AspectWeapon.getAspectWeapon(sender.getItemInHand());
             sender.sendMessage(
                     Chat.GREEN + "Listing Aspect Elements" + Chat.DARK_GREEN + ": \n" +
