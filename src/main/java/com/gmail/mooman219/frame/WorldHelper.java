@@ -11,6 +11,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.file.FileHelper;
 
 public class WorldHelper {
@@ -71,27 +72,31 @@ public class WorldHelper {
         }
     }
 
-    public static void playParticle(Location location, Effect effect, int id, int data, Vector offset, float speed, int particleCount) {
-        location.getWorld().playEffect(location, effect, id, data, (float) offset.getX(), (float) offset.getY(), (float) offset.getZ(), speed, particleCount, 48);
-    }
-
-    public static void playParticle(Location location, Effect effect, Vector offset, float speed, int particleCount) {
-        location.getWorld().playEffect(location, effect, 0, 0, (float) offset.getX(), (float) offset.getY(), (float) offset.getZ(), speed, particleCount, 48);
-    }
-
-    public static void playParticle(Location location, Effect effect, float speed, int particleCount) {
-        location.getWorld().playEffect(location, effect, 0, 0, 0f, 0f, 0f, speed, particleCount, 48);
+    public static void playParticle(Location location, Particle particle, Vector offset, float speed, int count) {
+        PacketHelper.sendNearby(location, 48, PacketHelper.getWorldParticles(particle, location.toVector(), offset, speed, count));
     }
 
     public static void playEffect(Location location, Effect effect, int data, int radius) {
+        if(effect.getType() == Effect.Type.PARTICLE) {
+            Loader.warning("SHIT'S NOT SUPPORTED BRO");
+            return;
+        }
         location.getWorld().playEffect(location, effect, data, radius);
     }
 
     public static void playEffect(Location location, Effect effect, int data) {
+        if(effect.getType() == Effect.Type.PARTICLE) {
+            Loader.warning("SHIT'S NOT SUPPORTED BRO");
+            return;
+        }
         location.getWorld().playEffect(location, effect, data, 48);
     }
 
     public static void playEffect(Location location, Effect effect) {
+        if(effect.getType() == Effect.Type.PARTICLE) {
+            Loader.warning("SHIT'S NOT SUPPORTED BRO");
+            return;
+        }
         location.getWorld().playEffect(location, effect, 0, 48);
     }
 

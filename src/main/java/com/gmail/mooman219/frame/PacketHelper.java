@@ -1,9 +1,12 @@
 package com.gmail.mooman219.frame;
 
+import java.lang.reflect.Field;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
@@ -12,6 +15,7 @@ import net.minecraft.server.Packet201PlayerInfo;
 import net.minecraft.server.Packet206SetScoreboardObjective;
 import net.minecraft.server.Packet207SetScoreboardScore;
 import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
+import net.minecraft.server.Packet63WorldParticles;
 import net.minecraft.server.Packet8UpdateHealth;
 
 import com.gmail.mooman219.bull.CDPlayer;
@@ -21,6 +25,25 @@ import com.gmail.mooman219.frame.text.TextHelper;
 
 public class PacketHelper {
     private static final Location PACKET_CACHE_LOCATION = new Location(null, 0, 0, 0);
+
+    public static Packet63WorldParticles getWorldParticles(Particle particle, Vector location, Vector offset, float speed, int count) {
+        Packet63WorldParticles packet63 = new Packet63WorldParticles();
+        Object[] values = {particle.getName(),
+                (float) location.getX(), (float) location.getY(), (float) location.getZ(),
+                (float) offset.getX(), (float) offset.getY(), (float) offset.getZ(),
+                speed, count};
+        Field[] fields = packet63.getClass().getDeclaredFields();
+        try {
+            for(int i = 0; i < values.length && i < fields.length; i++) {
+                fields[i].setAccessible(true);
+                fields[i].set(packet63, values[i]);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return packet63;
+    }
 
     public static Packet206SetScoreboardObjective getSetScoreboardObjective(String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {
         Packet206SetScoreboardObjective packet206 = new Packet206SetScoreboardObjective();
@@ -80,13 +103,16 @@ public class PacketHelper {
             }
             CDPlayer cdplayer = CDPlayer.get(player);
             for (Packet packet : packets) {
+                if(packet == null) {
+                    continue;
+                }
                 cdplayer.sendPacket(packet);
             }
         }
     }
 
     public static void sendNearby(Location location, Packet... packets) {
-        sendNearby(location, 64, packets);
+        sendNearby(location, 48, packets);
     }
 
     public static void sendNearby(Location location, double radius, Packet... packets) {
@@ -101,6 +127,9 @@ public class PacketHelper {
             }
             CDPlayer cdplayer = CDPlayer.get(player);
             for (Packet packet : packets) {
+                if(packet == null) {
+                    continue;
+                }
                 cdplayer.sendPacket(packet);
             }
         }
