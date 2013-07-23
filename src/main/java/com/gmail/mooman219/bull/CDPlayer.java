@@ -7,6 +7,7 @@ import net.minecraft.server.Packet;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -14,15 +15,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
+import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
+import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.handler.database.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.Damageable;
@@ -163,9 +167,11 @@ public class CDPlayer extends BullData implements Damageable {
 
     /**
      * Matches the players hearts to the current health state.
-     * Also updates the HealthBoard. This MAY kill a player.
+     * Also updates health visuals that players see.
+     * This MAY kill a player.
      */
     public void updateHealth(boolean isDamage) {
+        /*
         if(isDead()) {
             stat.healthCur = 0;
             player.setHealth(0);
@@ -185,6 +191,24 @@ public class CDPlayer extends BullData implements Damageable {
         }
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         CCDamage.healthBoard.updatePlayer(this);
+        */
+        double percent = stat.healthCur / stat.healthMax;
+        double health = percent * 20D;
+        if(!isDead()) {
+            if(isDamage) {
+                player.damage(0);
+                WorldHelper.playEffect(player.getLocation(), Effect.LAVADRIP);
+                //WorldHelper.playParticle(player.getLocation(), Effect.LAVADRIP, new Vector(0, .5, 0), 1, 1);
+            } else {
+                WorldHelper.playEffect(player.getLocation(), Effect.SLIME);
+                //WorldHelper.playParticle(player.getLocation(), Effect.SLIME, new Vector(0, .5, 0), 1, 1);
+            }
+            updateJump(percent);
+            updateMoveSpeed(percent);
+        }
+        player.setHealth(health);
+        sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
+        CCDamage.healthBoard.updatePlayer(this);
     }
 
     /**
@@ -200,7 +224,9 @@ public class CDPlayer extends BullData implements Damageable {
         } else { // 25% - 00%
             modifier = -1;
         }
-        player.removePotionEffect(PotionEffectType.JUMP);
+        if(player.hasPotionEffect(PotionEffectType.JUMP)) {
+            player.removePotionEffect(PotionEffectType.JUMP);
+        }
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
     }
 
@@ -226,6 +252,7 @@ public class CDPlayer extends BullData implements Damageable {
     @Override
     public void damage(double amount) {
         setHealth(stat.healthCur - amount);
+        setLastDamaged(TimeHelper.time());
     }
 
     @Override
@@ -250,7 +277,12 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public boolean isDead() {
-        return stat.healthCur <= 0;
+        return stat.healthCur <= 0 || player.isDead();
+    }
+
+    @Override
+    public boolean isOverflowing() {
+        return stat.healthCur > stat.healthMax;
     }
 
     @Override
@@ -272,7 +304,14 @@ public class CDPlayer extends BullData implements Damageable {
             isDamage = true;
         }
         stat.healthCur = amount;
-        updateHealth(isDamage);
+        // Normal health overflow check
+        if(isOverflowing()) {
+            resetHealth();
+        } else if(isDead()) {
+            kill();
+        } else {
+            updateHealth(isDamage);
+        }
     }
 
     @Override
@@ -282,11 +321,18 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public void setMaxHealth(double amount) {
+        boolean isDamage = false;
         stat.healthMax = amount;
+        // Max health shouldn't be 0 EVER
         if(stat.healthMax <= 0) {
             stat.healthMax = 1;
         }
-        updateHealth(false);
+        // Normal health overflow check
+        if(isOverflowing()) {
+            stat.healthCur = stat.healthMax;
+            isDamage = true;
+        }
+        updateHealth(isDamage);
     }
 
     /*

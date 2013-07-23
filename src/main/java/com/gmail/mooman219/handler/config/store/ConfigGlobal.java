@@ -35,6 +35,10 @@ public class ConfigGlobal extends ConfigJson {
             public int radius = 2500; // Blocks^2 (50 blocks = 2500 blocks^2)
             public int globalDelay = 10000; // Milliseconds
         }
+        public Damage damage = new Damage();
+        public static class Damage {
+            public int damageDelay = 100; // Milliseconds
+        }
         public Login login = new Login();
         public static class Login {
             public int loginDelay = 10000; // Milliseconds

@@ -13,6 +13,8 @@ public interface Damageable {
 
     public boolean isDead();
 
+    public boolean isOverflowing();
+
     public void kill();
 
     public void resetHealth();

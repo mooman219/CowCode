@@ -11,7 +11,7 @@ import com.gmail.mooman219.module.region.store.BasicRegion;
 public class RegionChangeEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
-    private boolean cancel = false;
+    private boolean cancelled = false;
     private final CDPlayer player;
     private final PlayerMoveEvent event;
     private final BasicRegion oldRegion;
@@ -51,11 +51,11 @@ public class RegionChangeEvent extends Event implements Cancellable {
 
     @Override
     public boolean isCancelled() {
-        return cancel;
+        return cancelled;
     }
 
     @Override
     public void setCancelled(boolean cancel) {
-        this.cancel = cancel;
+        this.cancelled = cancel;
     }
 }
