@@ -1,4 +1,4 @@
-package com.gmail.mooman219.layout;
+package com.gmail.mooman219.module.damage.type;
 
 import com.gmail.mooman219.frame.text.Chat;
 

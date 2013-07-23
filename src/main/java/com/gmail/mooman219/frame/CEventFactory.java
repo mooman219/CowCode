@@ -2,8 +2,6 @@ package com.gmail.mooman219.frame;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -15,6 +13,7 @@ import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByLivingEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByPlayerEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageEvent;
+import com.gmail.mooman219.module.damage.type.DamageType;
 import com.gmail.mooman219.module.region.event.RegionChangeEvent;
 import com.gmail.mooman219.module.region.store.BasicRegion;
 import com.gmail.mooman219.module.service.event.DataCreateEvent;
@@ -38,16 +37,16 @@ public class CEventFactory {
         return callEvent(new RegionChangeEvent(event, player, oldRegion, newRegion));
     }
 
-    public static PlayerDamageEvent callPlayerDamageEvent(CDPlayer target, EntityDamageEvent event, double damage) {
-        return callEvent(new PlayerDamageEvent(target, event, damage));
+    public static PlayerDamageEvent callPlayerDamageEvent(CDPlayer target, DamageType damageType, double damage) {
+        return callEvent(new PlayerDamageEvent(target, damageType, damage));
     }
 
-    public static PlayerDamageByPlayerEvent callPlayerDamageByPlayerEvent(CDPlayer target, CDPlayer damager, EntityDamageByEntityEvent event, double damage) {
-        return callEvent(new PlayerDamageByPlayerEvent(target, damager, event, damage));
+    public static PlayerDamageByPlayerEvent callPlayerDamageByPlayerEvent(CDPlayer target, CDPlayer damager, DamageType damageType, double damage) {
+        return callEvent(new PlayerDamageByPlayerEvent(target, damager, damageType, damage));
     }
 
-    public static PlayerDamageByLivingEvent callPlayerDamageByLivingEvent(CDPlayer target, CDLiving damager, EntityDamageByEntityEvent event, double damage) {
-        return callEvent(new PlayerDamageByLivingEvent(target, damager, event, damage));
+    public static PlayerDamageByLivingEvent callPlayerDamageByLivingEvent(CDPlayer target, CDLiving damager, DamageType damageType, double damage) {
+        return callEvent(new PlayerDamageByLivingEvent(target, damager, damageType, damage));
     }
 
     public static TickSecondAsyncEvent callTickSecondAsyncEvent() {

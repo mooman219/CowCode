@@ -3,10 +3,10 @@ package com.gmail.mooman219.module.damage.event;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import com.gmail.mooman219.bull.CDLiving;
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.module.damage.type.DamageType;
 
 public class PlayerDamageByLivingEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
@@ -14,13 +14,13 @@ public class PlayerDamageByLivingEvent extends Event implements Cancellable {
     private boolean cancelled = false;
     private final CDPlayer target;
     private final CDLiving damager;
-    private final EntityDamageByEntityEvent event;
+    private final DamageType damageType;
     private double damage;
 
-    public PlayerDamageByLivingEvent(CDPlayer target, CDLiving damager, EntityDamageByEntityEvent event, double damage) {
+    public PlayerDamageByLivingEvent(CDPlayer target, CDLiving damager, DamageType damageType, double damage) {
         this.target = target;
         this.damager = damager;
-        this.event = event;
+        this.damageType = damageType;
         this.damage = damage;
     }
 
@@ -41,8 +41,8 @@ public class PlayerDamageByLivingEvent extends Event implements Cancellable {
         return damager;
     }
 
-    public EntityDamageByEntityEvent getEvent() {
-        return event;
+    public DamageType getDamageType() {
+        return damageType;
     }
 
     public double getDamage() {

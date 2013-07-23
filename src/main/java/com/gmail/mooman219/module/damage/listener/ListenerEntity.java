@@ -19,6 +19,7 @@ import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByLivingEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByPlayerEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageEvent;
+import com.gmail.mooman219.module.damage.type.DamageType;
 
 public class ListenerEntity implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
@@ -31,26 +32,26 @@ public class ListenerEntity implements Listener {
                 if(event instanceof EntityDamageByEntityEvent) {
                     EntityDamageByEntityEvent originalEvent = (EntityDamageByEntityEvent) event;
                     if(originalEvent.getDamager() instanceof Player) {
-                        handlePlayerDamageByPlayer(player, CDPlayer.get((Player) originalEvent.getDamager()), originalEvent, event.getDamage());
+                        handlePlayerDamageByPlayer(player, CDPlayer.get((Player) originalEvent.getDamager()), DamageType.PHYSICAL, event.getDamage());
                         return;
                     } else if(originalEvent.getDamager() instanceof LivingEntity) {
-                        handlePlayerDamageByLiving(player, CDLiving.get((LivingEntity) originalEvent.getDamager()), originalEvent, event.getDamage());
+                        handlePlayerDamageByLiving(player, CDLiving.get((LivingEntity) originalEvent.getDamager()), DamageType.PHYSICAL, event.getDamage());
                         return;
                     } else if(originalEvent.getDamager() instanceof Arrow) {
                         LivingEntity shooter = ((Arrow) originalEvent.getDamager()).getShooter();
                         if(shooter != null) {
                             if(shooter instanceof Player) {
-                                handlePlayerDamageByPlayer(player, CDPlayer.get((Player) shooter), originalEvent, event.getDamage());
+                                handlePlayerDamageByPlayer(player, CDPlayer.get((Player) shooter), DamageType.PHYSICAL, event.getDamage());
                                 return;
                             } else if(shooter instanceof LivingEntity) {
-                                handlePlayerDamageByLiving(player, CDLiving.get(shooter), originalEvent, event.getDamage());
+                                handlePlayerDamageByLiving(player, CDLiving.get(shooter), DamageType.PHYSICAL, event.getDamage());
                                 return;
                             }
                         }
                     }
                 }
                 // If this method hasn't returned yet, call the default damage shit.
-                handlePlayerDamage(player, event, event.getDamage());
+                handlePlayerDamage(player, DamageType.PHYSICAL, event.getDamage());
             }
         }
     }
@@ -64,22 +65,22 @@ public class ListenerEntity implements Listener {
         }
     }
 
-    public void handlePlayerDamage(CDPlayer player, EntityDamageEvent event, double damage) {
-        PlayerDamageEvent customEvent = CEventFactory.callPlayerDamageEvent(player, event, event.getDamage());
+    public void handlePlayerDamage(CDPlayer player, DamageType damageType, double damage) {
+        PlayerDamageEvent customEvent = CEventFactory.callPlayerDamageEvent(player, damageType, damage);
         if(!customEvent.isCancelled()) {
             player.damage(customEvent.getDamage());
         }
     }
 
-    public void handlePlayerDamageByPlayer(CDPlayer player, CDPlayer damager, EntityDamageByEntityEvent event, double damage) {
-        PlayerDamageByPlayerEvent customEvent = CEventFactory.callPlayerDamageByPlayerEvent(player, damager, event, event.getDamage());
+    public void handlePlayerDamageByPlayer(CDPlayer player, CDPlayer damager, DamageType damageType, double damage) {
+        PlayerDamageByPlayerEvent customEvent = CEventFactory.callPlayerDamageByPlayerEvent(player, damager, damageType, damage);
         if(!customEvent.isCancelled()) {
             player.damage(customEvent.getDamage());
         }
     }
 
-    public void handlePlayerDamageByLiving(CDPlayer player, CDLiving damager, EntityDamageByEntityEvent event, double damage) {
-        PlayerDamageByLivingEvent customEvent = CEventFactory.callPlayerDamageByLivingEvent(player, damager, event, event.getDamage());
+    public void handlePlayerDamageByLiving(CDPlayer player, CDLiving damager, DamageType damageType, double damage) {
+        PlayerDamageByLivingEvent customEvent = CEventFactory.callPlayerDamageByLivingEvent(player, damager, damageType, damage);
         if(!customEvent.isCancelled()) {
             player.damage(customEvent.getDamage());
         }
