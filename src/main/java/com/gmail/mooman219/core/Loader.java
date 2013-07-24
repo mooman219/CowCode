@@ -101,8 +101,8 @@ public class Loader extends JavaPlugin {
     public void onLoad() {
         // Order IS important
         handlerList.add(new CHConfig());
-        handlerList.add(new CHDatabase());
         handlerList.add(new CHTask(this));
+        handlerList.add(new CHDatabase());
         // ~
         componentList.add(new CCService(this));
         componentList.add(new CCLogin(this));
@@ -138,7 +138,6 @@ public class Loader extends JavaPlugin {
         Collections.reverse(componentList);
         processComponents(false);
         // Shutdown handlers
-        Collections.reverse(handlerList);
         processHandlers(false);
 
         PluginDescriptionFile pdfFile = getDescription();

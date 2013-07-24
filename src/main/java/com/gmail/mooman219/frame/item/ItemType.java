@@ -4,7 +4,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.gmail.mooman219.frame.text.Chat;
 
-public enum AspectType {
+public enum ItemType {
     UNKNOWN(-1, Chat.GRAY, "Unknown"),
     // Weapon
     SWORD(0, Chat.GRAY, "Sword"),
@@ -32,11 +32,11 @@ public enum AspectType {
     private final String prefix;
     private final String name;
 
-    AspectType(int id, Chat prefix, String name) {
+    ItemType(int id, Chat prefix, String name) {
         this(id, prefix + "", name);
     }
 
-    AspectType(int id, String prefix, String name) {
+    ItemType(int id, String prefix, String name) {
         this.id = id;
         this.prefix = prefix;
         this.name = name;
@@ -58,9 +58,9 @@ public enum AspectType {
         return prefix + name;
     }
 
-    public static AspectType fromString(String string) {
+    public static ItemType fromString(String string) {
         if(string != null && string.length() > 0) {
-            for(AspectType aspect : AspectType.values()) {
+            for(ItemType aspect : ItemType.values()) {
                 if(string.toLowerCase().contains(aspect.getName().toLowerCase())) {
                     return aspect;
                 }
@@ -69,7 +69,7 @@ public enum AspectType {
         return UNKNOWN;
     }
 
-    public static AspectType fromItem(ItemStack item) {
+    public static ItemType fromItem(ItemStack item) {
         switch(item.getType()) {
         // Food
         case BREAD:

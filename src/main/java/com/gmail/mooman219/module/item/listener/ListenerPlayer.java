@@ -1,10 +1,7 @@
 package com.gmail.mooman219.module.item.listener;
 
-import java.util.Iterator;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -12,6 +9,8 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.frame.item.AspectItem;
+import com.gmail.mooman219.frame.item.ItemHelper;
 import com.gmail.mooman219.module.item.inventory.ItemDefaults;
 
 public class ListenerPlayer implements Listener {
@@ -28,8 +27,11 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event) {
-        if(isLocked(event.getItemDrop().getItemStack())) {
+        AspectItem item = AspectItem.get(event.getItemDrop().getItemStack());
+        if(item.isUnmoveable()) {
             event.setCancelled(true);
+        } else if(item.isSoulbound()) {
+            event.getItemDrop().remove();
         }
     }
 
@@ -38,23 +40,12 @@ public class ListenerPlayer implements Listener {
         ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
     }
 
-    @EventHandler
-    public void onDeath(PlayerDeathEvent event) {
-        Iterator<ItemStack> iterator = event.getDrops().iterator();
-        while(iterator.hasNext()) {
-            ItemStack itemStack = iterator.next();
-            if(isLocked(itemStack)) {
-                iterator.remove();
-            }
-        }
-    }
-
     public static boolean isLocked(ItemStack item) {
         if(item == null) {
             return false;
         }
-        switch(item.getTypeId()) {
-        case 371:
+        switch(ItemHelper.getItemMeta(item).getDisplayName()) {
+        case "":
             return true;
         }
         return false;

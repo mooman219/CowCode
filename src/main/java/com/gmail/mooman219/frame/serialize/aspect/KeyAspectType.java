@@ -1,9 +1,9 @@
 package com.gmail.mooman219.frame.serialize.aspect;
 
-import com.gmail.mooman219.frame.item.AspectType;
+import com.gmail.mooman219.frame.item.ItemType;
 
-public class KeyAspectType extends AspectKey<AspectType> {
-    public KeyAspectType(String name, AspectType defaultValue) {
+public class KeyAspectType extends AspectKey<ItemType> {
+    public KeyAspectType(String name, ItemType defaultValue) {
         super(name, defaultValue);
     }
 
@@ -17,7 +17,7 @@ public class KeyAspectType extends AspectKey<AspectType> {
         if(match(line)) {
             try {
                 String value = line.substring(getName().length());
-                setValue(AspectType.fromString(value));
+                setValue(ItemType.fromString(value));
             } catch(Exception e) {
                 setValue(getDefaultValue());
             }

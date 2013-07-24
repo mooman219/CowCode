@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
+import com.gmail.mooman219.frame.item.Aspect;
 import com.gmail.mooman219.frame.item.AspectItem;
 import com.gmail.mooman219.frame.item.AspectWeapon;
 import com.gmail.mooman219.frame.item.ItemHelper;
@@ -19,15 +20,19 @@ public class ItemStats extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         if(!ItemHelper.isNull(sender.getItemInHand())) {
-            AspectItem itemAspect = AspectItem.getAspectItem(sender.getItemInHand());
+            Aspect aspect = Aspect.get(sender.getItemInHand());
             sender.sendMessage(
-                    Chat.msgInfo + Chat.GREEN + "Listing " + Chat.GRAY + "AspectItem" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
-                    Chat.linePassive + Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.getAspectType().getFullName() + "\n" +
-                    Chat.linePassive + Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.getRarity().getFullName() + "\n" +
-                    Chat.linePassive + Chat.GRAY + "Is Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.isSoulbound() + "\n" +
-                    Chat.linePassive + Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.GREEN + itemAspect.getPrice()
+                    Chat.msgInfo + Chat.GREEN + "Listing " + Chat.GRAY + "Aspect" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
+                    Chat.linePassive + Chat.GRAY + "Is Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + aspect.isSoulbound() + "\n" +
+                    Chat.linePassive + Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.GREEN + aspect.getPrice()
                     );
-            AspectWeapon weaponAspect = AspectWeapon.getAspectWeapon(sender.getItemInHand());
+            AspectItem itemAspect = AspectItem.get(sender.getItemInHand());
+            sender.sendMessage(
+                    Chat.msgInfo + Chat.GREEN + "Listing " + Chat.GOLD + "AspectItem" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
+                    Chat.linePassive + Chat.GRAY + "Rarity" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.getRarity().getFullName() + "\n" +
+                    Chat.linePassive + Chat.GRAY + "AspectType" + Chat.DARK_GRAY + ": " + Chat.GRAY + itemAspect.getAspectType().getFullName()
+                    );
+            AspectWeapon weaponAspect = AspectWeapon.get(sender.getItemInHand());
             sender.sendMessage(
                     Chat.msgInfo + Chat.GREEN + "Listing " + Chat.RED + "AspectWeapon" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
                     Chat.linePassive + Chat.RED + "Min Damage" + Chat.DARK_RED + ": " + Chat.RED + weaponAspect.getMinDamage() + "\n" +

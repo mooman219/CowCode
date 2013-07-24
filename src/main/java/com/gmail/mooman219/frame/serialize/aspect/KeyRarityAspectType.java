@@ -1,16 +1,16 @@
 package com.gmail.mooman219.frame.serialize.aspect;
 
-import com.gmail.mooman219.frame.item.AspectType;
+import com.gmail.mooman219.frame.item.ItemType;
 import com.gmail.mooman219.frame.item.Rarity;
 
 public class KeyRarityAspectType extends AspectKey<String> {
     private final String seperator;
     private final Rarity defaultRarity;
-    private final AspectType defaultAspectType;
+    private final ItemType defaultAspectType;
     private Rarity rarity;
-    private AspectType aspectType;
+    private ItemType aspectType;
 
-    public KeyRarityAspectType(String name, String seperator, Rarity rarity, AspectType aspectType) {
+    public KeyRarityAspectType(String name, String seperator, Rarity rarity, ItemType aspectType) {
         super(name, rarity.getFullName() + seperator + aspectType.getFullName());
         this.seperator = seperator;
         this.defaultRarity = rarity;
@@ -27,7 +27,7 @@ public class KeyRarityAspectType extends AspectKey<String> {
         return defaultRarity;
     }
 
-    public AspectType getDefaultAspectType() {
+    public ItemType getDefaultAspectType() {
         return defaultAspectType;
     }
 
@@ -35,7 +35,7 @@ public class KeyRarityAspectType extends AspectKey<String> {
         return rarity;
     }
 
-    public AspectType getAspectType() {
+    public ItemType getAspectType() {
         return aspectType;
     }
 
@@ -44,7 +44,7 @@ public class KeyRarityAspectType extends AspectKey<String> {
         setValue(rarity.getFullName() + seperator + aspectType.getFullName());
     }
 
-    public void setAspectType(AspectType aspectType) {
+    public void setAspectType(ItemType aspectType) {
         this.aspectType = aspectType;
         setValue(rarity.getFullName() + seperator + aspectType.getFullName());
     }
@@ -67,7 +67,7 @@ public class KeyRarityAspectType extends AspectKey<String> {
                         setRarity(Rarity.fromString(values[0]));
                     }
                     if(values.length > 1) {
-                        setAspectType(AspectType.fromString(values[1]));
+                        setAspectType(ItemType.fromString(values[1]));
                     }
                 }
             } catch(Exception e) {}

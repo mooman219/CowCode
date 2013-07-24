@@ -25,16 +25,25 @@ public class AspectWeapon extends AspectItem {
         return attackSpeed.getValue();
     }
 
-    public void setMinDamage(int min) {
+    public AspectWeapon setMinDamage(int min) {
         damage.setMin(min);
+        return this;
     }
 
-    public void setMaxDamage(int max) {
+    public AspectWeapon setMaxDamage(int max) {
         damage.setMax(max);
+        return this;
     }
 
-    public void setAttackSpeed(float attackSpeed) {
+    public AspectWeapon setAttackSpeed(float attackSpeed) {
         this.attackSpeed.setValue(attackSpeed);
+        return this;
+    }
+
+    @Override
+    public AspectWeapon read(ItemStack item) {
+        super.read(item);
+        return this;
     }
 
     @Override
@@ -46,7 +55,7 @@ public class AspectWeapon extends AspectItem {
         return keyList;
     }
 
-    public static AspectWeapon getAspectWeapon(ItemStack item) {
+    public static AspectWeapon get(ItemStack item) {
         AspectWeapon aspect = new AspectWeapon();
         aspect.read(item);
         return aspect;
