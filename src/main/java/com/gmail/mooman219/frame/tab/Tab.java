@@ -41,7 +41,7 @@ public class Tab {
     }
 
     public void update() {
-        CHTask.manager.runPlugin(new Runnable() {
+        CHTask.manager.runOrdered(new Runnable() {
             @Override
             public void run() {
                 for(int y = 0; y < maxTabHeight; y++) {
@@ -51,7 +51,7 @@ public class Tab {
                 }
                 for(int y = 0; y < maxTabHeight; y++) {
                     for(int x = 0; x < maxTabWidth; x++) {
-                        player.sendPacket(PacketHelper.getPlayerInfo(tab[x][y].getName(), true, false));
+                        player.sendPacket(PacketHelper.getPlayerInfo(tab[x][y].getName(), true, true));
                         tab[x][y].setClientName(tab[x][y].getName());
                     }
                 }

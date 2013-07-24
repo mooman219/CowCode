@@ -1,7 +1,11 @@
 package com.gmail.mooman219.frame.serialize.json;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.inventory.ItemStack;
+
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.annotations.SerializedName;
@@ -26,6 +30,33 @@ public class BasicInventory implements JsonData {
             }
         }
         return itemStacks;
+    }
+
+    /**
+     * Mongo methods
+     */
+
+    public ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<String>();
+        for(int i = 0; i < items.length; i++) {
+            if(items[i] != null) {
+                list.add(items[i].toString());
+            } else {
+                list.add(null);
+            }
+        }
+        return list;
+    }
+
+    public static BasicInventory fromList(List<String> list) {
+        BasicInventory inventory = new BasicInventory();
+        inventory.items = new BasicItemStack[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i) != null) {
+                inventory.items[i] = BasicItemStack.fromString(list.get(i));
+            }
+        }
+        return inventory;
     }
 
     /**

@@ -16,7 +16,7 @@ public class TabValue {
     }
 
     protected void setClientName(String clientName) {
-        this.clientName = TextHelper.shrink(clientName, true);
+        this.clientName = TextHelper.shrink(clientName, false);
     }
 
     public String getName() {
@@ -24,6 +24,6 @@ public class TabValue {
     }
 
     public void setName(String name) {
-        this.name = TextHelper.shrink(name, true);
+        this.name = TextHelper.shrink(name, false);
     }
 }

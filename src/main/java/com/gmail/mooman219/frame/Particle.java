@@ -138,6 +138,10 @@ public enum Particle {
      */
     HAPPY_VILLAGER("happyVillager"),
     /**
+     * The particle that appears when using bonemeal
+     */
+    GROW("happyVillager"),
+    /**
      * The item's icon breaking. This needs a material
      */
     ICON_CRACK("iconcrack_*", true),

@@ -40,11 +40,12 @@ public class MessingAround implements Listener {
         playerData.getTab().set(1, 1, "3000");
         playerData.getTab().set(3, 1, "132/200");
 
-        playerData.getTab().set(0, 2, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(1, 2, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(2, 2, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(3, 2, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().set(0, 2, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
+        playerData.getTab().set(1, 2, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
+        playerData.getTab().set(2, 2, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
+        playerData.getTab().set(3, 2, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
 
+        //playerData.getTab().set(0, 3, Chat.DARK_AQUA + "" + Chat.BOLD + "BASE STATS");
         playerData.getTab().set(0, 3, Chat.RED + "" + Chat.BOLD + "STR:" + Chat.RED + " 1");
         playerData.getTab().set(0, 4, Chat.GREEN + "" + Chat.BOLD + "DEX:" + Chat.GREEN + " 8");
         playerData.getTab().set(0, 5, Chat.PURPLE + "" + Chat.BOLD + "CHA:" + Chat.PURPLE + " 2");
@@ -52,10 +53,10 @@ public class MessingAround implements Listener {
         playerData.getTab().set(1, 4, Chat.BLUE + "" + Chat.BOLD + "WIS:" + Chat.BLUE + " 3");
         playerData.getTab().set(1, 5, Chat.DARK_AQUA + "" + Chat.BOLD + "INT:" + Chat.DARK_AQUA + " 1");
 
-        playerData.getTab().set(0, 17, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(1, 17, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(2, 17, Chat.GRAY + "" + Chat.BOLD + "========");
-        playerData.getTab().set(3, 17, Chat.GRAY + "" + Chat.BOLD + "========");
+        playerData.getTab().set(0, 17, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
+        playerData.getTab().set(1, 17, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
+        playerData.getTab().set(2, 17, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
+        playerData.getTab().set(3, 17, Chat.WHITE + "" + Chat.BOLD + "▇▇▇▇▇▇▇");
 
         playerData.getTab().set(0, 18, Chat.RED + "" + Chat.BOLD + "Health:");
         playerData.getTab().set(1, 18, Chat.DARK_AQUA + "" + Chat.BOLD + "Mana:");

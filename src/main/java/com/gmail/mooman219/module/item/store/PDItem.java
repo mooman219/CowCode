@@ -21,7 +21,7 @@ public class PDItem extends PlayerData {
 
     @Override
     public void sync(DBObject chat) {
-        setInventory(BasicInventory.fromString(MongoHelper.getValue(chat, "inventory", new BasicInventory().toString())).toInventory());
+        setInventory(BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory());
     }
 
     @Override
@@ -29,7 +29,7 @@ public class PDItem extends PlayerData {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()
-            .append(getTag() + ".inventory", new BasicInventory(playerInventory).toString());
+            .append(getTag() + ".inventory", new BasicInventory(playerInventory).toList());
         case STATUS:
         default:
             return new BasicDBObject();

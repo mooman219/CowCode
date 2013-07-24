@@ -7,6 +7,7 @@ import net.minecraft.server.Packet;
 import net.minecraft.server.PendingConnection;
 import net.minecraft.server.PlayerConnection;
 
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -14,12 +15,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
-
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.frame.Particle;
+import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
@@ -171,42 +170,20 @@ public class CDPlayer extends BullData implements Damageable {
      * This MAY kill a player.
      */
     public void updateHealth(boolean isDamage) {
-        /*
-        if(isDead()) {
-            stat.healthCur = 0;
-            player.setHealth(0);
-        } else {
-            if(stat.healthCur > stat.healthMax) {
-                stat.healthCur = stat.healthMax;
-                isDamage = false;
-            }
-            double percent = stat.healthCur / stat.healthMax;
-            double health = percent * 20D;
-            if(isDamage) {
-                player.damage(0);
-            }
-            player.setHealth(health);
-            updateJump(percent);
-            updateMoveSpeed(percent);
-        }
-        sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
-        CCDamage.healthBoard.updatePlayer(this);
-        */
         double percent = stat.healthCur / stat.healthMax;
         double health = percent * 20D;
         if(!isDead()) {
             if(isDamage) {
                 player.damage(0);
-                WorldHelper.playParticle(player.getLocation(), Particle.DRIP_LAVA, new Vector(0, .5, 0), 1, 15);
-                //WorldHelper.playParticle(player.getLocation(), Effect.LAVADRIP, new Vector(0, .5, 0), 1, 1);
+                WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
             } else {
-                WorldHelper.playParticle(player.getLocation(), Particle.SLIME, new Vector(0, .5, 0), 1, 15);
-                //WorldHelper.playEffect(player.getLocation(), Effect.SLIME);
-                //WorldHelper.playParticle(player.getLocation(), Effect.SLIME, new Vector(0, .5, 0), 1, 1);
+                WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK.getId());
             }
             updateJump(percent);
             updateMoveSpeed(percent);
         }
+        tabList.set(0, 19, NumberHelper.toInt(stat.healthCur) + "/" + NumberHelper.toInt(stat.healthMax));
+        tabList.update();
         player.setHealth(health);
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         CCDamage.healthBoard.updatePlayer(this);
