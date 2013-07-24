@@ -6,11 +6,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.bukkit.Bukkit;
+
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.bull.PlayerShutdownType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.CowHandler;
 import com.mongodb.BasicDBObject;
@@ -156,7 +159,7 @@ public class CHDatabase implements CowHandler {
                         CHDatabase.manager.createPlayerObject(username);
                         CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
                     } else {
-                        if(player.sync(playerObject)) {
+                        if(player.sync(reason, playerObject)) {
                             return null;
                         }
                     }
@@ -166,7 +169,7 @@ public class CHDatabase implements CowHandler {
                     Loader.info(cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                     if(playerObject != null) {
                         player = new CDPlayer(username);
-                        player.sync(playerObject);
+                        player.sync(reason, playerObject);
                         return player;
                     } else {
                         return null;

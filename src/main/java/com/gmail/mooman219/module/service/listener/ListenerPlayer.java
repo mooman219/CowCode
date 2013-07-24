@@ -17,8 +17,8 @@ import com.gmail.mooman219.bull.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.database.CHDatabase;
-import com.gmail.mooman219.handler.database.DownloadReason;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.service.CCService;
 

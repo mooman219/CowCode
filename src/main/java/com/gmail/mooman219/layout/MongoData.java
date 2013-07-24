@@ -1,6 +1,7 @@
 package com.gmail.mooman219.layout;
 
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.mongodb.DBObject;
 
 /*
@@ -10,7 +11,7 @@ import com.mongodb.DBObject;
 public interface MongoData {
     public String getTag();
 
-    public void sync(DBObject rank);
+    public void sync(DownloadReason reason, DBObject object);
 
     public DBObject getTemplate(UploadReason reason);
 }

@@ -3,7 +3,8 @@ package com.gmail.mooman219.module.service.store;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -22,10 +23,16 @@ public class PDService extends PlayerData {
     public int staffLevel = 0;
 
     @Override
-    public void sync(DBObject rank) {
-        this.donorLevel = MongoHelper.getValue(rank, "donorlevel", donorLevel);
-        this.staffLevel = MongoHelper.getValue(rank, "stafflevel", staffLevel);
-        this.rank = Rank.getRank(this.donorLevel, this.staffLevel);
+    public void sync(DownloadReason reason, DBObject rank) {
+        switch(reason) {
+        case LOGIN:
+        case QUERY:
+        default:
+            this.donorLevel = MongoHelper.getValue(rank, "donorlevel", donorLevel);
+            this.staffLevel = MongoHelper.getValue(rank, "stafflevel", staffLevel);
+            this.rank = Rank.getRank(this.donorLevel, this.staffLevel);
+            break;
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.gmail.mooman219.handler.database;
+package com.gmail.mooman219.handler.database.type;
 
 public enum DownloadReason {
     QUERY(0),

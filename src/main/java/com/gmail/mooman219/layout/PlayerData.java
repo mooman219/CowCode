@@ -1,7 +1,8 @@
 package com.gmail.mooman219.layout;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -22,7 +23,7 @@ public abstract class PlayerData implements MongoData {
     }
 
     @Override
-    public void sync(DBObject rank) {}
+    public void sync(DownloadReason reason, DBObject rank) {}
 
     @Override
     public DBObject getTemplate(UploadReason reason) {

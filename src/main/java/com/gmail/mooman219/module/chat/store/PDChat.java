@@ -4,7 +4,8 @@ import java.lang.ref.SoftReference;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -21,8 +22,14 @@ public class PDChat extends PlayerData {
     public long mutedUntil = 0l;
 
     @Override
-    public void sync(DBObject chat) {
-        this.mutedUntil = MongoHelper.getValue(chat, "muteduntil", mutedUntil);
+    public void sync(DownloadReason reason, DBObject chat) {
+        switch(reason) {
+        case LOGIN:
+        case QUERY:
+        default:
+            this.mutedUntil = MongoHelper.getValue(chat, "muteduntil", mutedUntil);
+            break;
+        }
     }
 
     @Override

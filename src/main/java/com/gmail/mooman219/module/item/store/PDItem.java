@@ -5,7 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicInventory;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -20,8 +21,15 @@ public class PDItem extends PlayerData {
      */
 
     @Override
-    public void sync(DBObject chat) {
-        setInventory(BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory());
+    public void sync(DownloadReason reason, DBObject chat) {
+        switch(reason) {
+        case LOGIN:
+            setInventory(BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory());
+        case QUERY:
+        default:
+            break;
+
+        }
     }
 
     @Override

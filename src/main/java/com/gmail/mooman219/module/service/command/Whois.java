@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.database.CHDatabase;
-import com.gmail.mooman219.handler.database.DownloadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.module.service.CCService;
 

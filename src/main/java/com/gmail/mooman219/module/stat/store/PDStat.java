@@ -2,7 +2,8 @@ package com.gmail.mooman219.module.stat.store;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -89,23 +90,29 @@ public class PDStat extends PlayerData {
     public int unspentPoints = 3;
 
     @Override
-    public void sync(DBObject stat) {
-        this.level = MongoHelper.getValue(stat, "level", level);
-        this.exp = MongoHelper.getValue(stat, "exp", exp);
+    public void sync(DownloadReason reason, DBObject stat) {
+        switch(reason) {
+        case LOGIN:
+        case QUERY:
+        default:
+            this.level = MongoHelper.getValue(stat, "level", level);
+            this.exp = MongoHelper.getValue(stat, "exp", exp);
 
-        this.healthCur = MongoHelper.getValue(stat, "healthcurrent", healthCur);
-        this.healthMax = MongoHelper.getValue(stat, "healthmax", healthMax);
-        this.manaCur = MongoHelper.getValue(stat, "manacurrent", manaCur);
-        this.manaMax = MongoHelper.getValue(stat, "manamax", manaMax);
+            this.healthCur = MongoHelper.getValue(stat, "healthcurrent", healthCur);
+            this.healthMax = MongoHelper.getValue(stat, "healthmax", healthMax);
+            this.manaCur = MongoHelper.getValue(stat, "manacurrent", manaCur);
+            this.manaMax = MongoHelper.getValue(stat, "manamax", manaMax);
 
-        this.strength = MongoHelper.getValue(stat, "strength", strength);
-        this.dexterity = MongoHelper.getValue(stat, "dexterity", dexterity);
-        this.constitution = MongoHelper.getValue(stat, "constitution", constitution);
-        this.intelligence = MongoHelper.getValue(stat, "intelligence", intelligence);
-        this.wisdom = MongoHelper.getValue(stat, "wisdom", wisdom);
-        this.charisma = MongoHelper.getValue(stat, "charisma", charisma);
+            this.strength = MongoHelper.getValue(stat, "strength", strength);
+            this.dexterity = MongoHelper.getValue(stat, "dexterity", dexterity);
+            this.constitution = MongoHelper.getValue(stat, "constitution", constitution);
+            this.intelligence = MongoHelper.getValue(stat, "intelligence", intelligence);
+            this.wisdom = MongoHelper.getValue(stat, "wisdom", wisdom);
+            this.charisma = MongoHelper.getValue(stat, "charisma", charisma);
 
-        this.unspentPoints = MongoHelper.getValue(stat, "unspentpoints", unspentPoints);
+            this.unspentPoints = MongoHelper.getValue(stat, "unspentpoints", unspentPoints);
+            break;
+        }
     }
 
     @Override

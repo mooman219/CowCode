@@ -7,7 +7,8 @@ import org.bukkit.Location;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.MongoHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicRichLocation;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -29,14 +30,20 @@ public class PDLogin extends PlayerData {
     public String lastKnownIP = "0.0.0.0";
 
     @Override
-    public void sync(DBObject login) {
-        this.firstlogin = MongoHelper.getValue(login, "firstlogin", firstlogin);
-        this.lastlogin = MongoHelper.getValue(login, "lastlogin", lastlogin);
-        this.timeplayed = MongoHelper.getValue(login, "timeplayed", timeplayed);
-        this.isOnline = MongoHelper.getValue(login, "online", isOnline);
-        this.knownIPs = MongoHelper.getValue(login, "iplist", knownIPs);
-        this.lastKnownIP = MongoHelper.getValue(login, "lastip", lastKnownIP);
-        setPosition(BasicRichLocation.fromString(MongoHelper.getValue(login, "position", "")));
+    public void sync(DownloadReason reason, DBObject login) {
+        switch(reason) {
+        case LOGIN:
+            setPosition(BasicRichLocation.fromString(MongoHelper.getValue(login, "position", "")));
+        case QUERY:
+            this.firstlogin = MongoHelper.getValue(login, "firstlogin", firstlogin);
+            this.lastlogin = MongoHelper.getValue(login, "lastlogin", lastlogin);
+            this.timeplayed = MongoHelper.getValue(login, "timeplayed", timeplayed);
+            this.isOnline = MongoHelper.getValue(login, "online", isOnline);
+            this.knownIPs = MongoHelper.getValue(login, "iplist", knownIPs);
+            this.lastKnownIP = MongoHelper.getValue(login, "lastip", lastKnownIP);
+        default:
+            break;
+        }
     }
 
     @Override

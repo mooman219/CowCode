@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
@@ -26,7 +27,8 @@ import com.gmail.mooman219.frame.tab.Tab;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
-import com.gmail.mooman219.handler.database.UploadReason;
+import com.gmail.mooman219.handler.database.type.DownloadReason;
+import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.Damageable;
 import com.gmail.mooman219.layout.PlayerData;
@@ -134,10 +136,10 @@ public class CDPlayer extends BullData implements Damageable {
     /**
      * Returns true if it failed.
      */
-    public boolean sync(DBObject playerObject) {
+    public boolean sync(DownloadReason reason, DBObject playerObject) {
         for(PlayerData data : playerData) {
             try {
-                data.sync(MongoHelper.getValue(playerObject, data.getTag(), new BasicDBObject()));
+                data.sync(reason, MongoHelper.getValue(playerObject, data.getTag(), new BasicDBObject()));
             } catch(Exception e) {
                 Loader.warning("Error in sync() for " + username + ".");
                 e.printStackTrace();
