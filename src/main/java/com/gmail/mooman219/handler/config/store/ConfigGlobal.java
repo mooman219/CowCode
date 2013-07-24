@@ -26,7 +26,7 @@ public class ConfigGlobal extends ConfigJson {
         public Task task = new Task();
         public static class Task {
             public int threadCount = 5;
-            public int timeoutDelay = 30; // Seconds
+            public int timeoutDelay = 10; // Seconds
         }
     }
     public static Module module = new Module();

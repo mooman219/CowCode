@@ -59,14 +59,14 @@ public class CHTask implements CowHandler {
     @Override
     public void onDisable() {
         Loader.info(cast + "Stopping all threads");
+        asyncPool.shutdown();
+        orderedPool.shutdown();
         try {
             asyncPool.awaitTermination(ConfigGlobal.handler.task.timeoutDelay, TimeUnit.SECONDS);
             orderedPool.awaitTermination(ConfigGlobal.handler.task.timeoutDelay, TimeUnit.SECONDS);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
-        asyncPool.shutdown();
-        orderedPool.shutdown();
     }
 
     public class Manager {
