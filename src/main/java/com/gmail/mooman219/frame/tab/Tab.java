@@ -41,7 +41,7 @@ public class Tab {
     }
 
     public void update() {
-        CHTask.manager.runOrdered(new Runnable() {
+        CHTask.manager.runPlugin(new Runnable() {
             @Override
             public void run() {
                 for(int y = 0; y < maxTabHeight; y++) {
