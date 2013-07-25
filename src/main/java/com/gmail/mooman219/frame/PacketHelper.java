@@ -3,18 +3,22 @@ package com.gmail.mooman219.frame;
 import java.lang.reflect.Field;
 
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import net.minecraft.server.v1_6_R2.EntityPlayer;
 import net.minecraft.server.v1_6_R2.Packet;
+import net.minecraft.server.v1_6_R2.Packet17EntityLocationAction;
 import net.minecraft.server.v1_6_R2.Packet18ArmAnimation;
 import net.minecraft.server.v1_6_R2.Packet201PlayerInfo;
 import net.minecraft.server.v1_6_R2.Packet206SetScoreboardObjective;
 import net.minecraft.server.v1_6_R2.Packet207SetScoreboardScore;
 import net.minecraft.server.v1_6_R2.Packet208SetScoreboardDisplayObjective;
+import net.minecraft.server.v1_6_R2.Packet40EntityMetadata;
 import net.minecraft.server.v1_6_R2.Packet63WorldParticles;
 import net.minecraft.server.v1_6_R2.Packet8UpdateHealth;
 
@@ -41,6 +45,18 @@ public class PacketHelper {
             return null;
         }
         return packet63;
+    }
+
+    public static Packet17EntityLocationAction getEntityLocationAction(Entity entity, int data) {
+        net.minecraft.server.v1_6_R2.Entity handle = ((CraftEntity)entity).getHandle();
+        Packet17EntityLocationAction packet17 = new Packet17EntityLocationAction(handle, data, entity.getLocation().getBlockX(), entity.getLocation().getBlockY(), entity.getLocation().getBlockZ());
+        return packet17;
+    }
+
+    public static Packet40EntityMetadata getEntityMetadata(Entity entity) {
+        net.minecraft.server.v1_6_R2.Entity handle = ((CraftEntity)entity).getHandle();
+        Packet40EntityMetadata packet40 = new Packet40EntityMetadata(handle.id, handle.getDataWatcher(), true);
+        return packet40;
     }
 
     public static Packet206SetScoreboardObjective getSetScoreboardObjective(String scoreboardTitle, String scoreboardDisplayTitle, BoardModifyType scoreboardModifyType) {

@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import com.gmail.mooman219.frame.PacketHelper;
 
 import net.minecraft.server.v1_6_R2.EntityPlayer;
-import net.minecraft.server.v1_6_R2.Packet17EntityLocationAction;
-import net.minecraft.server.v1_6_R2.Packet40EntityMetadata;
 
 public enum PlayerAnimation {
     ARM_SWING {
@@ -43,15 +41,14 @@ public enum PlayerAnimation {
     SLEEP {
         @Override
         protected void playAnimation(EntityPlayer player, int radius) {
-            Packet17EntityLocationAction packet = new Packet17EntityLocationAction(player, 0, (int) player.locX, (int) player.locY, (int) player.locZ);
-            PacketHelper.sendNearby(player.getBukkitEntity().getLocation(), radius, packet);
+            PacketHelper.sendNearby(player.getBukkitEntity().getLocation(), radius, PacketHelper.getEntityLocationAction(player.getBukkitEntity(), 0));
         }
     },
     SNEAK {
         @Override
         protected void playAnimation(EntityPlayer player, int radius) {
             player.getBukkitEntity().setSneaking(true);
-            PacketHelper.sendNearby(player.getBukkitEntity().getLocation(), radius, new Packet40EntityMetadata(player.id, player.getDataWatcher(), true));
+            PacketHelper.sendNearby(player.getBukkitEntity().getLocation(), radius, PacketHelper.getEntityMetadata(player.getBukkitEntity()));
         }
     },
     STOP_SITTING {
@@ -70,7 +67,7 @@ public enum PlayerAnimation {
         @Override
         protected void playAnimation(EntityPlayer player, int radius) {
             player.getBukkitEntity().setSneaking(false);
-            PacketHelper.sendNearby(player.getBukkitEntity().getLocation(), radius, new Packet40EntityMetadata(player.id, player.getDataWatcher(), true));
+            PacketHelper.sendNearby(player.getBukkitEntity().getLocation(), radius, PacketHelper.getEntityMetadata(player.getBukkitEntity()));
         }
     };
 
