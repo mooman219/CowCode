@@ -1,15 +1,15 @@
 package com.gmail.mooman219.old.ai;
 
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityLiving;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntityLiving;
 
-import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
 public class EntityController {
     public final Entity entity;
-    public final net.minecraft.server.Entity handle;
+    public final net.minecraft.server.v1_6_R2.Entity handle;
 
     public EntityController(Entity entity) {
         this.entity = entity;

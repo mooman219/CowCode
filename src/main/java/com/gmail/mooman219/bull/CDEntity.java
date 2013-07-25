@@ -1,6 +1,6 @@
 package com.gmail.mooman219.bull;
 
-import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
@@ -29,12 +29,12 @@ public class CDEntity extends BullData {
         return entity;
     }
 
-    public net.minecraft.server.Entity getHandle() {
+    public net.minecraft.server.v1_6_R2.Entity getHandle() {
         return ((CraftEntity)entity).getHandle();
     }
 
     public static CDEntity get(Entity entity) {
-        net.minecraft.server.Entity handle = ((CraftEntity)entity).getHandle();
+        net.minecraft.server.v1_6_R2.Entity handle = ((CraftEntity)entity).getHandle();
         if(entity instanceof LivingEntity) {
             throw new IllegalArgumentException("LivingEntities are not considered Entities.");
         } else if(handle.bull_live == null) {

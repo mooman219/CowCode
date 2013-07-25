@@ -2,19 +2,20 @@ package com.gmail.mooman219.bull;
 
 import java.util.ArrayList;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.Packet;
-import net.minecraft.server.PendingConnection;
-import net.minecraft.server.PlayerConnection;
+import net.minecraft.server.v1_6_R2.Packet;
+import net.minecraft.server.v1_6_R2.PendingConnection;
+import net.minecraft.server.v1_6_R2.PlayerConnection;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
 import com.gmail.mooman219.frame.MongoHelper;
@@ -431,7 +432,7 @@ public class CDPlayer extends BullData implements Damageable {
     }
 
     public static CDPlayer getSafe(Player player) {
-        net.minecraft.server.EntityPlayer handle = ((CraftPlayer)player).getHandle();
+        EntityPlayer handle = ((CraftPlayer)player).getHandle();
         return handle.bull_live == null ? null : (CDPlayer) handle.bull_live;
     }
 

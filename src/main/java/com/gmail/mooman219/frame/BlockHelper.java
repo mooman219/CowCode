@@ -1,6 +1,5 @@
 package com.gmail.mooman219.frame;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -12,7 +11,7 @@ public class BlockHelper {
      */
     public static Block getLineOfSightSolid(Player sender, int distance) {
         for(Block block : sender.getLineOfSight(null, distance)) {
-            if(block != null && block.getType() != Material.AIR && block.getType().isSolid() && !block.getType().isTransparent()) {
+            if(block != null && !block.getType().isTransparent()) {
                 return block;
             }
         }

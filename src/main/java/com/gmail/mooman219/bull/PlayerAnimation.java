@@ -1,13 +1,13 @@
 package com.gmail.mooman219.bull;
 
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.frame.PacketHelper;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.Packet17EntityLocationAction;
-import net.minecraft.server.Packet40EntityMetadata;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
+import net.minecraft.server.v1_6_R2.Packet17EntityLocationAction;
+import net.minecraft.server.v1_6_R2.Packet40EntityMetadata;
 
 public enum PlayerAnimation {
     ARM_SWING {

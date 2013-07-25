@@ -1,8 +1,8 @@
 package com.gmail.mooman219.bull;
 
-import net.minecraft.server.EntityLiving;
+import net.minecraft.server.v1_6_R2.EntityLiving;
 
-import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -37,7 +37,7 @@ public class CDLiving extends BullData {
     }
 
     public static CDLiving get(LivingEntity livingEntity) {
-        net.minecraft.server.Entity handle = ((CraftLivingEntity)livingEntity).getHandle();
+        EntityLiving handle = ((CraftLivingEntity)livingEntity).getHandle();
         if(livingEntity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered LivingEntities.");
         } else if(handle.bull_live == null) {
@@ -53,7 +53,7 @@ public class CDLiving extends BullData {
      * This should be called when the LivingEntity dies to prevent the data from presisting.
      */
     public static void unload(LivingEntity livingEntity) {
-        net.minecraft.server.Entity handle = ((CraftLivingEntity)livingEntity).getHandle();
+        EntityLiving handle = ((CraftLivingEntity)livingEntity).getHandle();
         if(livingEntity instanceof Player) {
             throw new IllegalArgumentException("Players are not considered LivingEntities.");
         } else if(handle.bull_live != null) {

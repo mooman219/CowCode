@@ -8,15 +8,15 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.Packet;
-import net.minecraft.server.Packet18ArmAnimation;
-import net.minecraft.server.Packet201PlayerInfo;
-import net.minecraft.server.Packet206SetScoreboardObjective;
-import net.minecraft.server.Packet207SetScoreboardScore;
-import net.minecraft.server.Packet208SetScoreboardDisplayObjective;
-import net.minecraft.server.Packet63WorldParticles;
-import net.minecraft.server.Packet8UpdateHealth;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
+import net.minecraft.server.v1_6_R2.Packet;
+import net.minecraft.server.v1_6_R2.Packet18ArmAnimation;
+import net.minecraft.server.v1_6_R2.Packet201PlayerInfo;
+import net.minecraft.server.v1_6_R2.Packet206SetScoreboardObjective;
+import net.minecraft.server.v1_6_R2.Packet207SetScoreboardScore;
+import net.minecraft.server.v1_6_R2.Packet208SetScoreboardDisplayObjective;
+import net.minecraft.server.v1_6_R2.Packet63WorldParticles;
+import net.minecraft.server.v1_6_R2.Packet8UpdateHealth;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
