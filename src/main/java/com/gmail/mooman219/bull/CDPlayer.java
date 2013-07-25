@@ -203,10 +203,10 @@ public class CDPlayer extends BullData implements Damageable {
         lastJumpModifier = modifier;
         player.removePotionEffect(PotionEffectType.JUMP);
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
-        //getHandle().effects.remove(PotionEffectType.JUMP.getId());
+        //getHandle().effects.remove(PotionEffectType.JUMP.getId()); // This bugs shit out, and only works sometimes
         getHandle().updateEffects = false;
     }
-    private int lastJumpModifier = -10;
+    private int lastJumpModifier = -10; // Cached value
 
     /**
      * Used the percent to update the movespeed of players.
@@ -230,7 +230,7 @@ public class CDPlayer extends BullData implements Damageable {
         lastMoveSpeed = moveSpeed;
         player.setWalkSpeed(moveSpeed);
     }
-    private float lastMoveSpeed = -10f;
+    private float lastMoveSpeed = -10f; // Cached value
 
     @Override
     public void damage(double amount) {

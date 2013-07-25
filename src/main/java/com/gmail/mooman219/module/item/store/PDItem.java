@@ -20,11 +20,15 @@ public class PDItem extends PlayerData {
      * Offline
      */
 
+    public BasicInventory savedInventory = new BasicInventory();
+
     @Override
     public void sync(DownloadReason reason, DBObject chat) {
         switch(reason) {
         case LOGIN:
-            setInventory(BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory());
+            savedInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList()));
+            // Save to the cache.
+            cachedInventory = savedInventory.toInventory();
         case QUERY:
         default:
             break;
@@ -36,8 +40,10 @@ public class PDItem extends PlayerData {
     public DBObject getTemplate(UploadReason reason) {
         switch(reason) {
         case SAVE:
+            // Pull from cache
+            savedInventory = cachedInventory != null ? new BasicInventory(cachedInventory) : savedInventory;
             return new BasicDBObject()
-            .append(getTag() + ".inventory", new BasicInventory(playerInventory).toList());
+            .append(getTag() + ".inventory", savedInventory.toList());
         case STATUS:
         default:
             return new BasicDBObject();
@@ -48,25 +54,25 @@ public class PDItem extends PlayerData {
      * Live
      */
 
-    private ItemStack[] playerInventory;
+    /*
+     * Cache is important. This means that we have 2 copies of the players inventory.
+     * If the event happens where this inventory was never set, we can pull from the original one.
+     */
+    private ItemStack[] cachedInventory;
 
     public void setInventory(ItemStack[] inventory) {
-        playerInventory = inventory.clone();
+        cachedInventory = inventory;
     }
 
     public ItemStack[] getInventory() {
-        return playerInventory.clone();
+        return cachedInventory;
     }
 
-    /**
-     * No create this time around because of the special sync.
-     * This in turn means we can process all the shit on a different thread.
-     */
     @Override
     public void create() {}
 
     @Override
     public void destroy() {
-        playerInventory = null;
+        cachedInventory = null;
     }
 }
