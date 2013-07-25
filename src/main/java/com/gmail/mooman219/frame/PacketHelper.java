@@ -24,7 +24,7 @@ import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
 import com.gmail.mooman219.frame.text.TextHelper;
 
 public class PacketHelper {
-    private static final Location PACKET_CACHE_LOCATION = new Location(null, 0, 0, 0);
+    private static final Field[] fieldsPacket63WorldParticles = ReflectHelper.getFields(Packet63WorldParticles.class);
 
     public static Packet63WorldParticles getWorldParticles(Particle particle, Vector location, Vector offset, float speed, int count) {
         Packet63WorldParticles packet63 = new Packet63WorldParticles();
@@ -32,11 +32,9 @@ public class PacketHelper {
                 (float) location.getX(), (float) location.getY(), (float) location.getZ(),
                 (float) offset.getX(), (float) offset.getY(), (float) offset.getZ(),
                 speed, count};
-        Field[] fields = packet63.getClass().getDeclaredFields();
         try {
-            for(int i = 0; i < values.length && i < fields.length; i++) {
-                fields[i].setAccessible(true);
-                fields[i].set(packet63, values[i]);
+            for(int i = 0; i < values.length && i < fieldsPacket63WorldParticles.length; i++) {
+                fieldsPacket63WorldParticles[i].set(packet63, values[i]);
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -122,7 +120,7 @@ public class PacketHelper {
             if(player == null) {
                 continue;
             }
-            if (location.distanceSquared(player.getLocation(PACKET_CACHE_LOCATION)) > radius) {
+            if (location.distanceSquared(player.getLocation()) > radius) {
                 continue;
             }
             CDPlayer cdplayer = CDPlayer.get(player);

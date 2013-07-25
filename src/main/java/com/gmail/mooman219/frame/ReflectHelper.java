@@ -4,6 +4,31 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class ReflectHelper {
+    public static Field[] getFields(Class<?> clazz) {
+        Field[] fields = null;
+        try {
+            fields = clazz.getDeclaredFields();
+            for(Field field : fields) {
+                field.setAccessible(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fields;
+    }
+
+
+    public static Field getField(Class<?> clazz, String field) {
+        Field f = null;
+        try {
+            f = clazz.getDeclaredField(field);
+            f.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
     public static <T> Object get(Class<?> clazz, T object, String fieldName) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
