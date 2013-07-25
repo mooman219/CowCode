@@ -41,12 +41,6 @@ public class AspectWeapon extends AspectItem {
     }
 
     @Override
-    public AspectWeapon read(ItemStack item) {
-        super.read(item);
-        return this;
-    }
-
-    @Override
     @SuppressWarnings("rawtypes")
     public ArrayList<AspectKey> getKeys() {
         ArrayList<AspectKey> keyList = super.getKeys();

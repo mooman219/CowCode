@@ -59,12 +59,13 @@ public class Aspect {
     }
 
     @SuppressWarnings("rawtypes")
-    public ItemStack write(ItemStack item) {
+    public final ItemStack write(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         ArrayList<String> lore = new ArrayList<String>();
-        for(AspectKey aspect : getKeys()) {
-            if(aspect.canWrite()) {
-                lore.add(aspect.write());
+        onWrite(item);
+        for(AspectKey key : getKeys()) {
+            if(key.canWrite()) {
+                lore.add(key.write());
             }
         }
         meta.setLore(lore);
@@ -73,21 +74,31 @@ public class Aspect {
     }
 
     @SuppressWarnings("rawtypes")
-    public Aspect read(ItemStack item) {
+    public final void read(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
         ArrayList<AspectKey> keyList = getKeys();
         for(String line : lore) {
-            Iterator<AspectKey> iterator = keyList.iterator();
-            while(iterator.hasNext()) {
-                if(iterator.next().read(line)) {
-                    iterator.remove();
+            Iterator<AspectKey> keyIterator = keyList.iterator();
+            while(keyIterator.hasNext()) {
+                if(keyIterator.next().read(line)) {
+                    keyIterator.remove();
                     break;
                 }
             }
         }
-        return this;
+        onRead(item);
     }
+
+    /**
+     * Called after the Aspect reads the lore.
+     */
+    public void onRead(ItemStack item) {}
+
+    /**
+     * Called before the aspect writes the lore.
+     */
+    public void onWrite(ItemStack item) {}
 
     public static Aspect get(ItemStack item) {
         Aspect aspect = new Aspect();

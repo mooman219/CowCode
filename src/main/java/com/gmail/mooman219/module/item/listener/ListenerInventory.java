@@ -5,14 +5,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import com.gmail.mooman219.frame.item.AspectItem;
+import com.gmail.mooman219.frame.item.Aspect;
 import com.gmail.mooman219.frame.item.ItemHelper;
 
 public class ListenerInventory implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onClick(InventoryClickEvent event) {
         if(!ItemHelper.isNull(event.getCurrentItem())) {
-            AspectItem item = AspectItem.get(event.getCurrentItem());
+            Aspect item = Aspect.get(event.getCurrentItem());
             if(item.isUnmoveable()) {
                 event.setCancelled(true);
             }

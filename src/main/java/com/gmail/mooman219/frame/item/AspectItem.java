@@ -30,24 +30,21 @@ public class AspectItem extends Aspect {
     }
 
     @Override
-    public ItemStack write(ItemStack item) {
-        setAspectType(ItemType.fromItem(item));
-        return super.write(item);
-    }
-
-    @Override
-    public AspectItem read(ItemStack item) {
-        super.read(item);
-        setAspectType(ItemType.fromItem(item));
-        return this;
-    }
-
-    @Override
     @SuppressWarnings("rawtypes")
     public ArrayList<AspectKey> getKeys() {
-        ArrayList<AspectKey> keyList = new ArrayList<AspectKey>();
+        ArrayList<AspectKey> keyList = super.getKeys();
         keyList.add(0, rarityAspectPair);
         return keyList;
+    }
+
+    @Override
+    public void onRead(ItemStack item) {
+        setAspectType(ItemType.fromItem(item));
+    }
+
+    @Override
+    public void onWrite(ItemStack item) {
+        setAspectType(ItemType.fromItem(item));
     }
 
     public static AspectItem get(ItemStack item) {

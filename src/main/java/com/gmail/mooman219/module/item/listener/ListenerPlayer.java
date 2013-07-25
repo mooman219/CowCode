@@ -6,11 +6,9 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.ItemStack;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.item.AspectItem;
-import com.gmail.mooman219.frame.item.ItemHelper;
+import com.gmail.mooman219.frame.item.Aspect;
 import com.gmail.mooman219.module.item.inventory.ItemDefaults;
 
 public class ListenerPlayer implements Listener {
@@ -27,7 +25,7 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event) {
-        AspectItem item = AspectItem.get(event.getItemDrop().getItemStack());
+        Aspect item = Aspect.get(event.getItemDrop().getItemStack());
         if(item.isUnmoveable()) {
             event.setCancelled(true);
         } else if(item.isSoulbound()) {
@@ -38,16 +36,5 @@ public class ListenerPlayer implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
-    }
-
-    public static boolean isLocked(ItemStack item) {
-        if(item == null) {
-            return false;
-        }
-        switch(ItemHelper.getItemMeta(item).getDisplayName()) {
-        case "":
-            return true;
-        }
-        return false;
     }
 }

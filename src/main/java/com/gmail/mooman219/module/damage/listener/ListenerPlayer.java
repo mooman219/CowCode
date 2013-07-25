@@ -17,7 +17,7 @@ public class ListenerPlayer implements Listener {
         CHTask.manager.runBukkit(new Runnable() {
             @Override
             public void run() {
-                player.updateHealth(false);
+                player.updateHealth();
             }
         }, 2);
     }
@@ -27,6 +27,6 @@ public class ListenerPlayer implements Listener {
         CDPlayer player = CDPlayer.get(event.getPlayer());
         player.getSidebar().addKey("hp", CCDamage.FRM.BARHEALTH.parse(player.stat.healthCur), 9);
         CCDamage.healthBoard.addPlayer(player);
-        player.updateHealth(false);
+        player.updateHealth();
     }
 }

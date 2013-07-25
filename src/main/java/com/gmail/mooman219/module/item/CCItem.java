@@ -6,6 +6,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.item.command.ItemStats;
 import com.gmail.mooman219.module.item.listener.ListenerData;
+import com.gmail.mooman219.module.item.listener.ListenerInventory;
 import com.gmail.mooman219.module.item.listener.ListenerPlayer;
 
 public class CCItem implements CowComponent {
@@ -18,6 +19,7 @@ public class CCItem implements CowComponent {
 
     public ListenerPlayer listenerPlayer;
     public ListenerData listenerData;
+    public ListenerInventory listenerInventory;
 
     public CCItem(Loader plugin){
         this.plugin = plugin;
@@ -34,6 +36,7 @@ public class CCItem implements CowComponent {
     public void onEnable(){
         listenerPlayer = plugin.addListener(new ListenerPlayer());
         listenerData = plugin.addListener(new ListenerData());
+        listenerInventory = plugin.addListener(new ListenerInventory());
     }
 
     @Override

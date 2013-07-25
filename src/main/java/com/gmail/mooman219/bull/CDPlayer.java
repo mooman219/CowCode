@@ -167,26 +167,19 @@ public class CDPlayer extends BullData implements Damageable {
      */
 
     /**
-     * Matches the players hearts to the current health state.
-     * Also updates health visuals that players see.
-     * This MAY kill a player.
+     * This will make the health number update on the players screen.
+     * This WILL NOT kill a player.
      */
-    public void updateHealth(boolean isDamage) {
-        double percent = stat.healthCur / stat.healthMax;
-        double health = percent * 20D;
+    public void updateHealth() {
         if(!isDead()) {
-            if(isDamage) {
-                player.damage(0);
-                WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
-            } else {
-                WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK.getId());
-            }
+            double percent = stat.healthCur / stat.healthMax;
+            double health = percent * 20D; health = health <= 0 ? 1 : health;
             updateJump(percent);
             updateMoveSpeed(percent);
+            player.setHealth(health);
         }
         tabList.set(0, 19, NumberHelper.toInt(stat.healthCur) + "/" + NumberHelper.toInt(stat.healthMax));
         tabList.update();
-        player.setHealth(health);
         sidebar.modifyName("hp", CCDamage.FRM.BARHEALTH.parse(stat.healthCur));
         CCDamage.healthBoard.updatePlayer(this);
     }
@@ -204,11 +197,16 @@ public class CDPlayer extends BullData implements Damageable {
         } else { // 25% - 00%
             modifier = -1;
         }
-        if(player.hasPotionEffect(PotionEffectType.JUMP)) {
-            player.removePotionEffect(PotionEffectType.JUMP);
+        if(lastJumpModifier == modifier) {
+            return;
         }
+        lastJumpModifier = modifier;
+        player.removePotionEffect(PotionEffectType.JUMP);
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
+        //getHandle().effects.remove(PotionEffectType.JUMP.getId());
+        getHandle().updateEffects = false;
     }
+    private int lastJumpModifier = -10;
 
     /**
      * Used the percent to update the movespeed of players.
@@ -218,19 +216,28 @@ public class CDPlayer extends BullData implements Damageable {
      *  public float walkSpeed = 0.1F;
      */
     public void updateMoveSpeed(double percent) {
-        float defaultMoveSpeed = 0.2f;
+        float moveSpeed = 0.2f;
         if(percent > 0.5D) { // 100% - 50%
-            defaultMoveSpeed *= 1.2f;
+            moveSpeed *= 1.2f;
         } else if(percent > 0.25D) { // 50% - 25%
-            defaultMoveSpeed *= 1.0f;
+            moveSpeed *= 1.0f;
         } else { // 25% - 00%
-            defaultMoveSpeed *= 0.8f;
+            moveSpeed *= 0.8f;
         }
-        player.setWalkSpeed(defaultMoveSpeed);
+        if(lastMoveSpeed == moveSpeed) {
+            return;
+        }
+        lastMoveSpeed = moveSpeed;
+        player.setWalkSpeed(moveSpeed);
     }
+    private float lastMoveSpeed = -10f;
 
     @Override
     public void damage(double amount) {
+        if(!isDead()) {
+            player.damage(0);
+            WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
+        }
         setHealth(stat.healthCur - amount);
         setLastDamaged(TimeHelper.time());
     }
@@ -252,6 +259,9 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public void heal(double amount) {
+        if(!isDead()) {
+            WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK.getId());
+        }
         setHealth(stat.healthCur + amount);
     }
 
@@ -267,22 +277,21 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public void kill() {
+        if(!player.isDead()) {
+            player.setHealth(0);
+        }
         stat.healthCur = 0;
-        updateHealth(true);
+        updateHealth();
     }
 
     @Override
     public void resetHealth() {
         stat.healthCur = stat.healthMax;
-        updateHealth(false);
+        updateHealth();
     }
 
     @Override
     public void setHealth(double amount) {
-        boolean isDamage = false;
-        if(stat.healthCur > amount) {
-            isDamage = true;
-        }
         stat.healthCur = amount;
         // Normal health overflow check
         if(isOverflowing()) {
@@ -290,7 +299,7 @@ public class CDPlayer extends BullData implements Damageable {
         } else if(isDead()) {
             kill();
         } else {
-            updateHealth(isDamage);
+            updateHealth();
         }
     }
 
@@ -301,18 +310,12 @@ public class CDPlayer extends BullData implements Damageable {
 
     @Override
     public void setMaxHealth(double amount) {
-        boolean isDamage = false;
         stat.healthMax = amount;
         // Max health shouldn't be 0 EVER
         if(stat.healthMax <= 0) {
             stat.healthMax = 1;
         }
-        // Normal health overflow check
-        if(isOverflowing()) {
-            stat.healthCur = stat.healthMax;
-            isDamage = true;
-        }
-        updateHealth(isDamage);
+        setHealth(stat.healthCur);
     }
 
     /*
@@ -348,7 +351,7 @@ public class CDPlayer extends BullData implements Damageable {
 
     public Player getPlayer() {
         if(player == null) {
-            throw new IllegalStateException("You cannot get a null player for " + getUsername() + ". CDPlayer might be shutdown or not started yet.");
+            throw new IllegalStateException("You cannot get a null player for " + username + ". CDPlayer might be shutdown or not started yet.");
         }
         return player;
     }
@@ -421,6 +424,10 @@ public class CDPlayer extends BullData implements Damageable {
      */
 
     public EntityPlayer getHandle() {
+        if(player == null) {
+            Loader.warning("Null player for '" + username + "'");
+            return null;
+        }
         return ((CraftPlayer)player).getHandle();
     }
 
