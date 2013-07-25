@@ -50,6 +50,7 @@ public class CCVanilla implements CowComponent {
     public class Messages {
         public final Bulletin SHRIEK = new Bulletin(Chat.msgInfo, "You scream at the top of your lungs!", Chat.formatInfo);
         public final Bulletin SUICIDE = new Bulletin(Chat.msgError, "You commit suicide.", Chat.formatError);
+        public final Bulletin SUICIDE_LOL = new Bulletin(Chat.msgError, "A very fast mutation begins, cellular growth quickly grows skin all over the open orifices on your face. Helvetica Scenario.", Chat.formatError);
         public final Bulletin HEAL = new Bulletin(Chat.msgInfo, "You have been healed.", Chat.formatInfo);
     }
 
