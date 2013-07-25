@@ -108,3 +108,6 @@ commands:
     suicide:
         aliases:
         - mylittleponyisgood
+    heal:
+        aliases:
+        - hailmooman

@@ -5,6 +5,7 @@ import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.vanilla.command.Gamemode;
+import com.gmail.mooman219.module.vanilla.command.Heal;
 import com.gmail.mooman219.module.vanilla.command.Music;
 import com.gmail.mooman219.module.vanilla.command.Shriek;
 import com.gmail.mooman219.module.vanilla.command.Suicide;
@@ -43,11 +44,13 @@ public class CCVanilla implements CowComponent {
         plugin.addCommand(new Shriek());
         plugin.addCommand(new Gamemode());
         plugin.addCommand(new Suicide());
+        plugin.addCommand(new Heal());
     }
 
     public class Messages {
         public final Bulletin SHRIEK = new Bulletin(Chat.msgInfo, "You scream at the top of your lungs!", Chat.formatInfo);
         public final Bulletin SUICIDE = new Bulletin(Chat.msgError, "You commit suicide.", Chat.formatError);
+        public final Bulletin HEAL = new Bulletin(Chat.msgInfo, "You have been healed.", Chat.formatInfo);
     }
 
     public class Formats {
