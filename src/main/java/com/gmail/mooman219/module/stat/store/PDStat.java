@@ -1,7 +1,7 @@
 package com.gmail.mooman219.module.stat.store;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.MongoHelper;
+import com.gmail.mooman219.frame.database.MongoHelper;
 import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;

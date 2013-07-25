@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Location;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.MongoHelper;
+import com.gmail.mooman219.frame.database.MongoHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicRichLocation;
 import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.database.type.UploadReason;

@@ -1,8 +1,8 @@
 package com.gmail.mooman219.frame.tab;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.PacketHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.handler.task.CHTask;
 
 public class Tab {

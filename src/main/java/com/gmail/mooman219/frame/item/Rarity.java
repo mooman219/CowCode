@@ -1,6 +1,6 @@
 package com.gmail.mooman219.frame.item;
 
-import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.text.Chat;
 
 public enum Rarity {

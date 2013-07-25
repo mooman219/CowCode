@@ -2,7 +2,7 @@ package com.gmail.mooman219.module.region.type;
 
 import java.io.IOException;
 
-import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

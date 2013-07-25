@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.PacketHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 
 /**
  * The faster version (this one), basically just doesn't save any information and

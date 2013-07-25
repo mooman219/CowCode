@@ -10,8 +10,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.item.ItemHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
 

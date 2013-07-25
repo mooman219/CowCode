@@ -1,6 +1,6 @@
 package com.gmail.mooman219.frame.serialize.aspect;
 
-import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class KeyByte extends AspectKey<Byte> {
     public KeyByte(String name, byte defaultValue) {

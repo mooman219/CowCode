@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.mysql;
+package com.gmail.mooman219.frame.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

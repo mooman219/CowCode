@@ -1,5 +1,6 @@
-package com.gmail.mooman219.frame;
+package com.gmail.mooman219.frame.database;
 
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;

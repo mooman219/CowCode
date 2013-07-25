@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.bukkit.util.Vector;
 
-import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.layout.JsonData;
 import com.google.gson.TypeAdapter;

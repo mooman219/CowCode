@@ -1,5 +1,5 @@
 // ============================================================================
-package com.gmail.mooman219.frame;
+package com.gmail.mooman219.frame.math;
 
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;

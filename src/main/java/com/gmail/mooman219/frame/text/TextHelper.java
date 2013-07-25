@@ -2,7 +2,7 @@ package com.gmail.mooman219.frame.text;
 
 import java.util.regex.Pattern;
 
-import com.gmail.mooman219.frame.NumberHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class TextHelper {
     public static final Pattern chatPattern = Pattern.compile("&([A-FK-OR0-9])", Pattern.CASE_INSENSITIVE);

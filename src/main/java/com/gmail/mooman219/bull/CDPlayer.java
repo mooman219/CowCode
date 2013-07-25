@@ -18,9 +18,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.craftbukkit.BullData;
-import com.gmail.mooman219.frame.MongoHelper;
-import com.gmail.mooman219.frame.NumberHelper;
 import com.gmail.mooman219.frame.WorldHelper;
+import com.gmail.mooman219.frame.database.MongoHelper;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.scoreboard.Board;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.tab.Tab;
