@@ -14,6 +14,7 @@ public class Heal extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
+        sender.setSaturation(5f); // DON'T QUESTION MY REASONING FOR THIS
         playerData.heal(9001);
         CCVanilla.MSG.HEAL.send(sender);
     }
