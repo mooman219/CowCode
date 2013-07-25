@@ -19,7 +19,7 @@ public class ListenerPlayer implements Listener {
             public void run() {
                 player.updateHealth();
             }
-        }, 2);
+        }, 3);
     }
 
     @EventHandler()
