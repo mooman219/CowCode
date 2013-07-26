@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
-import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.serialize.json.BasicChunkLocation;
 import com.gmail.mooman219.module.region.store.BasicRegion;
 import com.gmail.mooman219.module.region.store.StoreChunk;
@@ -40,7 +39,6 @@ public class RegionManager {
      * Otherwise returns the global region.
      */
     public static BasicRegion getRegion(Location location) {
-        Loader.info("Get by Location");
         return RegionManager.getRegion(StoreChunk.getChunks().get(new BasicChunkLocation(location.getChunk())));
     }
 
@@ -49,7 +47,6 @@ public class RegionManager {
      * Otherwise returns the global region.
      */
     public static BasicRegion getRegion(UUID uuid) {
-        Loader.info("Get by UUID");
         if(uuid == null) {
             return StoreRegion.getGlobalInfo();
         }
@@ -62,7 +59,6 @@ public class RegionManager {
      * Otherwise returns null.
      */
     public static BasicRegion getRegion(String id) {
-        Loader.info("Get by ID");
         if(id.equalsIgnoreCase("global")) {
             return StoreRegion.getGlobalInfo();
         }

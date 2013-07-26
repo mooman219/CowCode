@@ -44,6 +44,7 @@ public class ListenerPlayer implements Listener{
                     }
                 } else if(CEventFactory.callRegionChangeEvent(event, player, player.region.getRegion(), toRegion).isCancelled()) {
                     event.setCancelled(true);
+                    event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
                     return;
                 }
                 player.region.setRegion(toRegion);
