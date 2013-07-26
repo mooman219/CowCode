@@ -6,10 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.Material;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.mooman219.frame.serialize.json.BasicVectorDouble;
 import com.gmail.mooman219.frame.serialize.json.BasicVectorInteger;
 import com.gmail.mooman219.frame.serialize.json.BukkitAdapters;
@@ -19,10 +15,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 public class JsonHelper {
-    /**
-     * google-gson
-     */
-
     private static Gson gson;
 
     static {
@@ -48,36 +40,5 @@ public class JsonHelper {
 
     public static String toJson(Object object) {
         return getGson().toJson(object);
-    }
-
-    /**
-     * Jackson
-     */
-
-    // Read shit
-    // mapper.readValue(input string, class being read)
-    //
-    // Indented fancy output
-    // SerializationFeature.INDENT_OUTPUT
-    //
-    // Variable Visability
-    // mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
-    // Or use at top of class:
-    // @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-
-    public static ObjectMapper getJackson() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper;
-    }
-
-    public static String toJackson(Object object) {
-        try {
-            return getJackson().writeValueAsString(object);
-        } catch(JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 }
