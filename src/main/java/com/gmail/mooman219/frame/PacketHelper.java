@@ -93,6 +93,7 @@ public class PacketHelper {
         return packet201;
     }
 
+    // TODO - SUPER AWESOME FAKE DEATH ANIMATION SHIT
     public static Packet8UpdateHealth getUpdateHealth(float health, int foodlevel, float foodsaturation) {
         Packet8UpdateHealth packet8 = new Packet8UpdateHealth(health, foodlevel, foodsaturation);
         return packet8;

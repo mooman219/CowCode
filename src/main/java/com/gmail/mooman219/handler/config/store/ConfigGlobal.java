@@ -18,6 +18,7 @@ public class ConfigGlobal extends ConfigJson {
             public String server_id = "Alpha";
             public String server_loc = "US";
             public int downloadTimeout = 5; // Seconds
+            public long connectionRetryDelay = 2000;
             public String hostname = "localhost";
             public int portnmbr = 27017;
             public String username = "cow";
@@ -25,7 +26,8 @@ public class ConfigGlobal extends ConfigJson {
         }
         public Task task = new Task();
         public static class Task {
-            public int threadCount = 7;
+            public int pluginThreads = 3;
+            public int databaseThreads = 4;
             public int timeoutDelay = 10; // Seconds
         }
     }

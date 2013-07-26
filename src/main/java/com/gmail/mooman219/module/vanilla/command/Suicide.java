@@ -18,7 +18,7 @@ public class Suicide extends CCommand {
         playerData.damage(9001);
         if(NumberHelper.random() < 0.001) { // 0.1%
             CCVanilla.MSG.SUICIDE_LOL.send(sender);
-        } else {            
+        } else {
             CCVanilla.MSG.SUICIDE.send(sender);
         }
     }
