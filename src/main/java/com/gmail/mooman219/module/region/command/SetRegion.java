@@ -17,7 +17,7 @@ public class SetRegion extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.gerRegion(args[0]);
+        BasicRegion region = RegionManager.getRegion(args[0]);
         if(region != null) {
             RegionManager.setRegion(sender.getLocation(), region);
             CCRegion.FRM.MODIFIED.send(sender, region.getID());

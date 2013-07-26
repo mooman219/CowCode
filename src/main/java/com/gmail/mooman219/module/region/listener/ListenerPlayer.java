@@ -6,6 +6,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.CEventFactory;
@@ -16,45 +17,52 @@ import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class ListenerPlayer implements Listener{
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onMove(PlayerMoveEvent event) {
+        // Checks to see if the player has moved into a new chunk
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
+            CDPlayer player = CDPlayer.get(event.getPlayer());
             BasicRegion toRegion = RegionManager.getRegion(event.getTo());
-            CDPlayer playerData = CDPlayer.get(event.getPlayer());
-            if(!toRegion.equals(playerData.region.getRegion())) {
+            BasicRegion fromRegion = player.region.getRegion();
+            // If the to and from regions are the same, just let them move w/o anymore checks.
+            if(!toRegion.equals(fromRegion)) {
                 if(toRegion.isLocked()) {
-                    BasicRegion fromRegion = RegionManager.getRegion(event.getFrom());
                     if(fromRegion.isLocked()) {
                         // They broke it, let them in :\
-                        CCRegion.MSG.LOCKEDFAIL.send(playerData);
+                        // If we don't let them in, they'll be glitched inbetween the 2 locked regions.
+                        CCRegion.MSG.LOCKEDFAIL.send(player);
                     } else {
-                        CCRegion.MSG.LOCKED.send(playerData);
+                        CCRegion.MSG.LOCKED.send(player);
                         event.setCancelled(true);
                         event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
                         // Remove because abuse
                         //VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
-                        playerData.sendBlockChange(event.getTo(), Material.GLASS);
-                        playerData.sendBlockChange(event.getTo().clone().add(0, 1, 0), Material.GLASS);
-                        playerData.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
+                        player.sendBlockChange(event.getTo(), Material.GLASS);
+                        player.sendBlockChange(event.getTo().clone().add(0, 1, 0), Material.GLASS);
+                        player.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
                         return;
                     }
-                } else if(CEventFactory.callRegionChangeEvent(event, playerData, playerData.region.getRegion(), toRegion).isCancelled()) {
+                } else if(CEventFactory.callRegionChangeEvent(event, player, player.region.getRegion(), toRegion).isCancelled()) {
                     event.setCancelled(true);
                     return;
                 }
-                playerData.region.setRegion(toRegion);
-                playerData.getSidebar().modifyName("regionn", Chat.GREEN + toRegion.getName());
-                playerData.getSidebar().modifyName("regionc", toRegion.getCombatType().getColoredName());
+                player.region.setRegion(toRegion);
             }
         }
     }
 
-    @EventHandler()
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
-        CDPlayer playerData = CDPlayer.get(event.getPlayer());
+        CDPlayer player = CDPlayer.get(event.getPlayer());
         BasicRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
-        playerData.region.setRegion(region);
-        playerData.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
-        playerData.getSidebar().addKey("regionc", region.getCombatType().getColoredName(), 5);
+        player.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
+        player.getSidebar().addKey("regionc", region.getCombatType().getColoredName(), 5);
+        player.region.setRegion(region);
+    }
+
+    @EventHandler()
+    public void onRespawn(PlayerRespawnEvent event){
+        CDPlayer player = CDPlayer.get(event.getPlayer());
+        player.region.setRegion(RegionManager.getRegion(event.getRespawnLocation()));
     }
 }

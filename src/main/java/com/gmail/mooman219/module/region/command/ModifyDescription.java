@@ -11,17 +11,18 @@ import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.store.BasicRegion;
 
-public class ModifyInfo extends CCommand {
-    public ModifyInfo() {
-        super("modifyinfo", Rank.DEVELOPER, "/ModifyInfo (id) (info)", Carg.STRING, Carg.MESSAGE);
+public class ModifyDescription extends CCommand {
+    public ModifyDescription() {
+        super("modifydescription", Rank.DEVELOPER, "/ModifyInfo (id) (description)", Carg.STRING, Carg.MESSAGE);
     }
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.gerRegion(args[0]);
+        BasicRegion region = RegionManager.getRegion(args[0]);
         if(region != null) {
             region.setDescription(TextHelper.merge(args, 1));
             CCRegion.FRM.MODIFIED.send(sender, region.getID());
+            Region.sendInfo(sender, region);
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
         }

@@ -75,10 +75,15 @@ commands:
     modifyid:
     modifycombat:
     modifylock:
-    modifyinfo:
+    modifydescription:
     modifyname:
     newregion:
     setregion:
+    region:
+        aliases:
+        - regioninfo
+        - whatregion
+        - whereami
     setchatrange:
         aliases:
         - csr

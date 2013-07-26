@@ -18,11 +18,12 @@ public class ModifyName extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.gerRegion(args[0]);
+        BasicRegion region = RegionManager.getRegion(args[0]);
         String name = TextHelper.merge(args, 1);
         if(region != null) {
             region.setName(name);
             CCRegion.FRM.MODIFIED.send(sender, region.getID());
+            Region.sendInfo(sender, region);
         } else {
             CCRegion.MSG.NONEXISTS.send(sender);
         }

@@ -4,19 +4,26 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
+import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.serialize.json.BasicChunkLocation;
 import com.gmail.mooman219.module.region.store.BasicRegion;
 import com.gmail.mooman219.module.region.store.StoreChunk;
 import com.gmail.mooman219.module.region.store.StoreRegion;
 
 public class RegionManager {
+    /**
+     * Returns the newly created region.
+     * Otherwise returns null if a region matching the id already exists.
+     */
     public static BasicRegion addRegion(String id, String name) {
-        BasicRegion information = gerRegion(id);
-        if(gerRegion(id) == null) {
+        BasicRegion information = getRegion(id);
+        if(information == null) {
             information = new BasicRegion(id, name);
             StoreRegion.getRegions().put(information.getUUID(), information);
+            return information;
+        } else {
+            return null;
         }
-        return information;
     }
 
     public static void setRegion(Location location, BasicRegion region) {
@@ -28,26 +35,34 @@ public class RegionManager {
         }
     }
 
+    /**
+     * Returns the region located at the given location.
+     * Otherwise returns the global region.
+     */
     public static BasicRegion getRegion(Location location) {
-        BasicChunkLocation chunk = new BasicChunkLocation(location.getChunk());
-        UUID regionUID = StoreChunk.getChunks().get(chunk);
-        if(regionUID == null) {
-            return StoreRegion.getGlobalInfo();
-        } else {
-            BasicRegion region = RegionManager.getRegion(regionUID);
-            if(region.equals(StoreRegion.getGlobalInfo())) {
-                StoreChunk.getChunks().remove(chunk);
-            }
-            return region;
-        }
+        Loader.info("Get by Location");
+        return RegionManager.getRegion(StoreChunk.getChunks().get(new BasicChunkLocation(location.getChunk())));
     }
 
+    /**
+     * Returns the region with the matching uuid.
+     * Otherwise returns the global region.
+     */
     public static BasicRegion getRegion(UUID uuid) {
+        Loader.info("Get by UUID");
+        if(uuid == null) {
+            return StoreRegion.getGlobalInfo();
+        }
         BasicRegion info = StoreRegion.getRegions().get(uuid);
         return info != null ? info : StoreRegion.getGlobalInfo();
     }
 
-    public static BasicRegion gerRegion(String id) {
+    /**
+     * Returns the region with the matching id.
+     * Otherwise returns null.
+     */
+    public static BasicRegion getRegion(String id) {
+        Loader.info("Get by ID");
         if(id.equalsIgnoreCase("global")) {
             return StoreRegion.getGlobalInfo();
         }
