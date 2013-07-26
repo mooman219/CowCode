@@ -23,6 +23,12 @@ public class JsonHelper {
      * google-gson
      */
 
+    private static Gson gson;
+
+    static {
+        gson = getGsonBuilder().create();
+    }
+
     public static GsonBuilder getGsonBuilder() {
         return new GsonBuilder()
         .registerTypeAdapter(BasicVectorDouble.class, BasicVectorDouble.getAdapter())
@@ -33,7 +39,7 @@ public class JsonHelper {
     }
 
     public static Gson getGson() {
-        return getGsonBuilder().create();
+        return gson;
     }
 
     public static <T> Type getCollectionType(T type) {
