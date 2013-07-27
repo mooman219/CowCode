@@ -3,9 +3,10 @@ package com.gmail.mooman219.frame.team;
 public enum TeamModifyType {
     CREATED(0),
     REMOVED(1),
-    UPDATED(2),
-    PLAYER_ADD(3),
-    PLAYER_REMOVE(4);
+    UPDATED(2);
+    //UNSUPPORTED
+    //PLAYER_ADD(3),
+    //PLAYER_REMOVE(4);
 
     private final int id;
 

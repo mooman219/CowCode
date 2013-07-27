@@ -31,13 +31,13 @@ public class HealthBoard {
         player.sendPacket(PacketHelper.getSetScoreboardDisplay(title, BoardDisplayType.BELOWNAME));
         // Tell all players on the server the given player's name and health,
         // Also tell the given player the health of all other players
+        PacketHelper.sendGlobalExcept(player, packet);
         for(Player bukkitOther : Bukkit.getOnlinePlayers()) {
             if(bukkitOther.getName().equals(player.getUsername())) {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
             player.sendPacket(PacketHelper.getSetScoreboardScore(title, other.getUsername(), NumberHelper.round(other.stat.healthCur), BoardModifyType.UPDATE));
-            other.sendPacket(packet);
         }
     }
 

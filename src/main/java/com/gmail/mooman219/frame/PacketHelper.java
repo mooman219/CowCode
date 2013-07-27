@@ -52,20 +52,24 @@ public class PacketHelper {
 
     public static Packet209SetScoreboardTeam getSetScoreboardTeam(TeamModifyType modifyType, boolean friendlyFire, boolean seeInvisable, String scoreboardName, String displayName, String prefix, String suffix, Collection<String> players) {
         Packet209SetScoreboardTeam packet209 = new Packet209SetScoreboardTeam();
-        int data = 0;
-        if(friendlyFire) {
-            data |= 1;
+        packet209.f = modifyType.getID();
+        packet209.a = scoreboardName;
+        if(modifyType == TeamModifyType.CREATED || modifyType == TeamModifyType.UPDATED) {
+            int data = 0;
+            if(friendlyFire) {
+                data |= 1;
+            }
+            if(seeInvisable) {
+                data |= 2;
+            }
+            packet209.b = displayName;
+            packet209.c = prefix;
+            packet209.d = suffix;
+            packet209.g = data;
+            if(modifyType == TeamModifyType.CREATED) {
+                packet209.e = players;
+            }
         }
-        if(seeInvisable) {
-            data |= 2;
-        }
-        packet209.f = modifyType.getID();   // Modes: (0 to 4)
-        packet209.a = scoreboardName;       // CREATE ? REMOVE ? UPDATED ? PLAYER_ADD ? PLAYER_REMOVE
-        packet209.b = displayName;          // CREATE |        | UPDATED |
-        packet209.c = prefix;               // CREATE |        | UPDATED |
-        packet209.d = suffix;               // CREATE |        | UPDATED |
-        packet209.g = data;                 // CREATE |        | UPDATED |
-        packet209.e = players;              // CREATE |        |         | PLAYER_ADD | PLAYER_REMOVE
         return packet209;
     }
 

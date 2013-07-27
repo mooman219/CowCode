@@ -52,8 +52,8 @@ public class CDPlayer extends BullData implements Damageable {
     private Player player = null;
     private Board sidebar = null;
     private Tab tabList = null;
-    private String prefix = null;
-    private String suffix = null;
+    private String prefix = "";
+    private String suffix = "";
     // [+] Module information
     private ArrayList<PlayerData> playerData = null;
     public PDService service = null;
@@ -121,6 +121,8 @@ public class CDPlayer extends BullData implements Damageable {
             sidebar = null;
             tabList = null;
             player = null;
+            prefix = null;
+            suffix = null;
             break;
         case POST_REMOVAL: // This is done in another thread
             for(PlayerData data : playerData) {
