@@ -13,8 +13,10 @@ import com.gmail.mooman219.module.chat.CCChat;
 public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        event.setJoinMessage(CCChat.FRM.LOGIN.parse(event.getPlayer().getName()));
-        CCChat.loneBoard.add(CDPlayer.get(event.getPlayer()));
+        CDPlayer player = CDPlayer.get(event.getPlayer());
+        event.setJoinMessage(CCChat.FRM.LOGIN.parse(player.getUsername()));
+        CCChat.loneBoard.add(player);
+        player.setOverheadPrefix(player.service.rank.color);
     }
 
     @EventHandler()

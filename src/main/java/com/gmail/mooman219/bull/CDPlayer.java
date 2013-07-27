@@ -408,17 +408,17 @@ public class CDPlayer extends BullData implements Damageable {
     }
 
     public void setOverheadPrefix(String prefix) {
-        this.prefix = prefix;
+        this.prefix = TextHelper.shrink(prefix, false);
         if(sidebar != null && getHandle().playerConnection != null) {
-            sidebar.modifyTitle(prefix + username + suffix);
+            sidebar.modifyTitle(this.prefix + username + this.suffix);
         }
         CCChat.loneBoard.update(this);
     }
 
     public void setOverheadSuffix(String suffix) {
-        this.suffix = suffix;
+        this.suffix = TextHelper.shrink(suffix, false);
         if(sidebar != null && getHandle().playerConnection != null) {
-            sidebar.modifyTitle(prefix + username + suffix);
+            sidebar.modifyTitle(this.prefix + username + this.suffix);
         }
         CCChat.loneBoard.update(this);
     }
