@@ -11,6 +11,6 @@ public class ListenerData implements Listener{
     public void onCreation(DataCreateEvent event) {
         CDPlayer player = event.getPlayer();
         player.setDisplayName(player.service.rank.color + player.getUsername());
-        player.setOverheadName(player.service.rank.color + player.getUsername());
+        player.setOverheadPrefix(player.service.rank.color);
     }
 }

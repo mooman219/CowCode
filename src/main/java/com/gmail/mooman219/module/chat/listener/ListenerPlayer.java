@@ -7,12 +7,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.module.chat.CCChat;
 
 public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         event.setJoinMessage(CCChat.FRM.LOGIN.parse(event.getPlayer().getName()));
+        CCChat.loneBoard.add(CDPlayer.get(event.getPlayer()));
     }
 
     @EventHandler()
@@ -23,6 +25,7 @@ public class ListenerPlayer implements Listener{
     @EventHandler()
     public void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage(CCChat.FRM.QUIT.parse(event.getPlayer().getName()));
+        CCChat.loneBoard.remove(CDPlayer.get(event.getPlayer()));
     }
 
     @EventHandler()

@@ -1,6 +1,7 @@
 package com.gmail.mooman219.frame;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
@@ -18,6 +19,7 @@ import net.minecraft.server.v1_6_R2.Packet201PlayerInfo;
 import net.minecraft.server.v1_6_R2.Packet206SetScoreboardObjective;
 import net.minecraft.server.v1_6_R2.Packet207SetScoreboardScore;
 import net.minecraft.server.v1_6_R2.Packet208SetScoreboardDisplayObjective;
+import net.minecraft.server.v1_6_R2.Packet209SetScoreboardTeam;
 import net.minecraft.server.v1_6_R2.Packet40EntityMetadata;
 import net.minecraft.server.v1_6_R2.Packet63WorldParticles;
 import net.minecraft.server.v1_6_R2.Packet8UpdateHealth;
@@ -25,6 +27,7 @@ import net.minecraft.server.v1_6_R2.Packet8UpdateHealth;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
+import com.gmail.mooman219.frame.team.TeamModifyType;
 import com.gmail.mooman219.frame.text.TextHelper;
 
 public class PacketHelper {
@@ -45,6 +48,25 @@ public class PacketHelper {
             return null;
         }
         return packet63;
+    }
+
+    public static Packet209SetScoreboardTeam getSetScoreboardTeam(TeamModifyType modifyType, boolean friendlyFire, boolean seeInvisable, String scoreboardName, String displayName, String prefix, String suffix, Collection<String> players) {
+        Packet209SetScoreboardTeam packet209 = new Packet209SetScoreboardTeam();
+        int data = 0;
+        if(friendlyFire) {
+            data |= 1;
+        }
+        if(seeInvisable) {
+            data |= 2;
+        }
+        packet209.f = modifyType.getID();   // Modes: (0 to 4)
+        packet209.a = scoreboardName;       // CREATE ? REMOVE ? UPDATED ? PLAYER_ADD ? PLAYER_REMOVE
+        packet209.b = displayName;          // CREATE |        | UPDATED |
+        packet209.c = prefix;               // CREATE |        | UPDATED |
+        packet209.d = suffix;               // CREATE |        | UPDATED |
+        packet209.g = data;                 // CREATE |        | UPDATED |
+        packet209.e = players;              // CREATE |        |         | PLAYER_ADD | PLAYER_REMOVE
+        return packet209;
     }
 
     public static Packet17EntityLocationAction getEntityLocationAction(Entity entity, int data) {
@@ -122,6 +144,21 @@ public class PacketHelper {
                     continue;
                 }
                 cdplayer.sendPacket(packet);
+            }
+        }
+    }
+
+    public static void sendGlobalExcept(CDPlayer player, Packet... packets) {
+        for(Player other : Bukkit.getOnlinePlayers()) {
+            if(other == null || other.getName().equals(player.getUsername())) {
+                continue;
+            }
+            CDPlayer cdOther = CDPlayer.get(other);
+            for (Packet packet : packets) {
+                if(packet == null) {
+                    continue;
+                }
+                cdOther.sendPacket(packet);
             }
         }
     }

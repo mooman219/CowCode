@@ -6,7 +6,6 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.module.chat.CCChat;
 
 public class SetOverheadName extends CCommand {
     public SetOverheadName() {
@@ -15,7 +14,8 @@ public class SetOverheadName extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        playerData.setOverheadName(args[0]);
-        CCChat.FRM.SETOVERHEAD.send(sender, playerData.getOverheadName());
+        //playerData.setOverheadName(args[0]);
+        //CCChat.FRM.SETOVERHEAD.send(sender, playerData.getOverheadName());
+        sender.sendMessage("Shit tyrone, FEATURES REMOVED");
     }
 }

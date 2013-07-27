@@ -32,6 +32,7 @@ import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.Damageable;
 import com.gmail.mooman219.layout.PlayerData;
+import com.gmail.mooman219.module.chat.CCChat;
 import com.gmail.mooman219.module.chat.store.PDChat;
 import com.gmail.mooman219.module.damage.CCDamage;
 import com.gmail.mooman219.module.item.store.PDItem;
@@ -51,6 +52,8 @@ public class CDPlayer extends BullData implements Damageable {
     private Player player = null;
     private Board sidebar = null;
     private Tab tabList = null;
+    private String prefix = null;
+    private String suffix = null;
     // [+] Module information
     private ArrayList<PlayerData> playerData = null;
     public PDService service = null;
@@ -104,7 +107,7 @@ public class CDPlayer extends BullData implements Damageable {
             this.player = player;
             break;
         case JOIN:
-            sidebar = new Board(this, username, getOverheadName(), BoardDisplayType.SIDEBAR);
+            sidebar = new Board(this, username, prefix + username + suffix, BoardDisplayType.SIDEBAR);
             tabList = new Tab(this);
             break;
         default:
@@ -335,12 +338,16 @@ public class CDPlayer extends BullData implements Damageable {
         });
     }
 
-    public String getUsername() {
-        return username;
+    public float getMoveSpeed() {
+        return player.getWalkSpeed();
     }
 
-    public String getOverheadName() {
-        return player.getOverheadName();
+    public String getOverheadPrefix() {
+        return prefix;
+    }
+
+    public String getOverheadSuffix() {
+        return suffix;
     }
 
     public Player getPlayer() {
@@ -358,6 +365,10 @@ public class CDPlayer extends BullData implements Damageable {
         return tabList;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void playAnimation(PlayerAnimation animation) {
         animation.play(player);
     }
@@ -366,12 +377,18 @@ public class CDPlayer extends BullData implements Damageable {
         animation.play(player, radius);
     }
 
+    public void sendBlockChange(Location location, Material material) {
+        player.sendBlockChange(location, material, (byte) 0);
+    }
+
     public void sendPacket(final Packet packet) {
         EntityPlayer handle = getHandle();
-        if(packet == null) {
-            Loader.warning("Null packet for '" + username + "'");
+        if(handle == null) {
+            Loader.warning("sendPacket(): Null handle for '" + username + "'");
+        } else if(packet == null) {
+            Loader.warning("sendPacket(): Null packet for '" + username + "'");
         } else if(handle.playerConnection == null) {
-            Loader.warning("Null connection for '" + username + "'");
+            Loader.warning("sendPacket(): Null connection for '" + username + "'");
         } else {
             handle.playerConnection.sendPacket(packet);
         }
@@ -381,23 +398,6 @@ public class CDPlayer extends BullData implements Damageable {
         player.setDisplayName(name + Chat.RESET);
     }
 
-    public String setOverheadName(String name) {
-        String oldName = player.getOverheadName();
-        if(sidebar != null && getHandle().playerConnection != null) {
-            sidebar.modifyTitle(name);
-        }
-        player.setOverheadName(TextHelper.shrink(name, false));
-        return oldName;
-    }
-
-    public void setTabListName(String name) {
-        player.setPlayerListName(TextHelper.shrink(name, true));
-    }
-
-    public void sendBlockChange(Location location, Material material) {
-        player.sendBlockChange(location, material, (byte) 0);
-    }
-
     /**
      * Recommended value is between -1 and 1
      */
@@ -405,8 +405,24 @@ public class CDPlayer extends BullData implements Damageable {
         player.setWalkSpeed(value);
     }
 
-    public float getMoveSpeed() {
-        return player.getWalkSpeed();
+    public void setOverheadPrefix(String prefix) {
+        this.prefix = prefix;
+        if(sidebar != null && getHandle().playerConnection != null) {
+            sidebar.modifyTitle(prefix + username + suffix);
+        }
+        CCChat.loneBoard.update(this);
+    }
+
+    public void setOverheadSuffix(String suffix) {
+        this.suffix = suffix;
+        if(sidebar != null && getHandle().playerConnection != null) {
+            sidebar.modifyTitle(prefix + username + suffix);
+        }
+        CCChat.loneBoard.update(this);
+    }
+
+    public void setTabListName(String name) {
+        player.setPlayerListName(TextHelper.shrink(name, true));
     }
 
     /*
