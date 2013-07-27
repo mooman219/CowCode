@@ -9,12 +9,12 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.item.Aspect;
-import com.gmail.mooman219.module.item.inventory.ItemDefaults;
+import com.gmail.mooman219.module.item.inventory.InventoryDefaults;
 
 public class ListenerPlayer implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
+        InventoryDefaults.setupPlayerInventory(event.getPlayer().getInventory());
     }
 
     @EventHandler
@@ -35,6 +35,6 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
-        ItemDefaults.playerInv.apply(event.getPlayer().getInventory());
+        InventoryDefaults.setupPlayerInventory(event.getPlayer().getInventory());
     }
 }

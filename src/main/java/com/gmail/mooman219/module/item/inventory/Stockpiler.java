@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.gmail.mooman219.frame.item.ItemHelper;
+
 public class Stockpiler {
     private HashMap<Character, ItemStack> charList;
     private Character[][] charMap;
@@ -51,9 +53,11 @@ public class Stockpiler {
                 ItemStack oldItem = inventory.getItem(slot);
                 if(slot >= inventory.getSize()) {
                     return;
-                } else if(item == null && isClearing) {
-                    inventory.clear(slot);
-                } else if(oldItem == null || isOverwriting){
+                } else if(ItemHelper.isNull(item)) {
+                    if(isClearing) {                        
+                        inventory.clear(slot);
+                    }
+                } else if(ItemHelper.isNull(oldItem) || isOverwriting){
                     inventory.setItem(slot, item);
                 }
             }

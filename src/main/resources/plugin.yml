@@ -108,6 +108,9 @@ commands:
         - itemlookup
         - whatitem
         - whatisthis
+    resetinventory:
+        aliases:
+        - resetitems
     toggleworldsaving:
         aliases:
         - togglesworldsave

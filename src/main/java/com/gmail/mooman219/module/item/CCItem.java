@@ -5,6 +5,7 @@ import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowComponent;
 import com.gmail.mooman219.module.item.command.ItemStats;
+import com.gmail.mooman219.module.item.command.ResetInventory;
 import com.gmail.mooman219.module.item.listener.ListenerData;
 import com.gmail.mooman219.module.item.listener.ListenerInventory;
 import com.gmail.mooman219.module.item.listener.ListenerPlayer;
@@ -48,10 +49,12 @@ public class CCItem implements CowComponent {
     @Override
     public void loadCommands() {
         plugin.addCommand(new ItemStats());
+        plugin.addCommand(new ResetInventory());
     }
 
     public class Messages {
         public final Bulletin STATFAIL = new Bulletin(Chat.msgError, "You don't have an item in your hand!", Chat.formatError);
+        public final Bulletin INVENTORY_RESET = new Bulletin(Chat.msgError, "Your inventory has be reset to its default state.", Chat.formatError);
     }
 
     public class Formats {}

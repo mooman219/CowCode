@@ -8,10 +8,11 @@ import org.bukkit.inventory.InventoryHolder;
 import com.gmail.mooman219.frame.text.Chat;
 
 public abstract class Stockpile implements InventoryHolder {
+    private static final String prefix = Chat.BOLD + "* " + Chat.RESET;
     private Inventory inventory;
 
     public Stockpile(int size, String name) {
-        inventory = Bukkit.createInventory(this, size, Chat.BOLD + "* " + Chat.RESET + name);
+        inventory = Bukkit.createInventory(this, size, prefix + name);
     }
 
     public InventoryClickEvent onClick(InventoryClickEvent event) {
@@ -23,8 +24,12 @@ public abstract class Stockpile implements InventoryHolder {
         return inventory;
     }
 
+    public static boolean isStockpile(Inventory inventory) {
+        return inventory != null && inventory.getName().startsWith(prefix) && inventory.getHolder() != null;
+    }
+
     public static Stockpile getStockpile(Inventory inventory) {
-        if(inventory != null && inventory.getName().toLowerCase().startsWith(Chat.BOLD + "* " + Chat.RESET) && inventory.getHolder() != null) {
+        if(isStockpile(inventory)) {
             return (Stockpile) inventory.getHolder();
         }
         return null;

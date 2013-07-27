@@ -25,8 +25,6 @@ import com.gmail.mooman219.module.service.CCService;
 public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
-        //Loader.info(CCService.cast + "[EVENT] PreLogin: " + event.getName());
-
         // Kick the player if they do not have a minecraft account :)
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.KICK_VERIFY) {
             event.setKickMessage(CCService.MSG.USERNAMEFAIL + "");
@@ -53,8 +51,6 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(PlayerLoginEvent event) {
-        //Loader.info(CCService.cast + "[EVENT] Login: " + event.getPlayer().getName());
-
         CDPlayer player = CDPlayer.get(event.getPlayer());
         player.startup(event.getPlayer(), PlayerStartupType.LOGIN);
         CEventFactory.callDataCreateEvent(event, player);
@@ -64,8 +60,6 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
-        //Loader.info(CCService.cast + "[EVENT] Join: " + event.getPlayer().getName());
-
         CDPlayer player = CDPlayer.get(event.getPlayer());
         player.startup(event.getPlayer(), PlayerStartupType.JOIN);
         CCService.MSG.DATALOAD.send(event.getPlayer());
@@ -73,8 +67,6 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
-        //Loader.info(CCService.cast + "[EVENT] Quit: " + event.getPlayer().getName());
-
         CDPlayer player = CDPlayer.getSafe(event.getPlayer());
         if(player == null) {
             Loader.warning(CCService.cast + "Null quitting player '" + event.getPlayer().getName() + "'");
