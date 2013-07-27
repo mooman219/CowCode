@@ -7,10 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.frame.LocationHelper;
+import com.gmail.mooman219.frame.VectorHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
@@ -36,7 +38,7 @@ public class ListenerPlayer implements Listener{
                         event.setCancelled(true);
                         event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
                         // Remove because abuse
-                        //VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
+                        VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
                         player.sendBlockChange(event.getTo(), Material.GLASS);
                         player.sendBlockChange(event.getTo().clone().add(0, 1, 0), Material.GLASS);
                         player.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);

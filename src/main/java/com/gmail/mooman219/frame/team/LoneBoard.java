@@ -39,7 +39,7 @@ public class LoneBoard {
 
     public void update(CDPlayer player) {
         if(entries.contains(player)) {
-            PacketHelper.sendGlobal(PacketHelper.getSetScoreboardTeam(TeamModifyType.UPDATED, false, false, player.getUsername(), player.getUsername(), player.getOverheadPrefix(), player.getOverheadSuffix(), toCollection(player)));
+            PacketHelper.sendGlobalExcept(player, PacketHelper.getSetScoreboardTeam(TeamModifyType.UPDATED, false, false, player.getUsername(), player.getUsername(), player.getOverheadPrefix(), player.getOverheadSuffix(), toCollection(player)));
         } else {
             Loader.warning("update(): Player not in entries");
         }

@@ -31,16 +31,31 @@ public class MongoHelper {
 
     public static long getValue(DBObject document, String query, long defaultValue) {
         Object object = document.get(query);
-        return object == null ? defaultValue : NumberHelper.toLong(object);
+        return object == null ? defaultValue : NumberHelper.toLong(object, defaultValue);
     }
 
     public static double getValue(DBObject document, String query, double defaultValue) {
         Object object = document.get(query);
-        return object == null ? defaultValue : NumberHelper.toDouble(object);
+        return object == null ? defaultValue : NumberHelper.toDouble(object, defaultValue);
+    }
+
+    public static float getValue(DBObject document, String query, float defaultValue) {
+        Object object = document.get(query);
+        return object == null ? defaultValue : NumberHelper.toFloat(object, defaultValue);
     }
 
     public static int getValue(DBObject document, String query, int defaultValue) {
         Object object = document.get(query);
-        return object == null ? defaultValue : NumberHelper.toInt(object);
+        return object == null ? defaultValue : NumberHelper.toInt(object, defaultValue);
+    }
+
+    public static short getValue(DBObject document, String query, short defaultValue) {
+        Object object = document.get(query);
+        return object == null ? defaultValue : NumberHelper.toShort(object, defaultValue);
+    }
+
+    public static byte getValue(DBObject document, String query, byte defaultValue) {
+        Object object = document.get(query);
+        return object == null ? defaultValue : NumberHelper.toByte(object, defaultValue);
     }
 }

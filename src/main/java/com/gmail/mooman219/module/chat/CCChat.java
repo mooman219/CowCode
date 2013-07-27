@@ -10,7 +10,8 @@ import com.gmail.mooman219.module.chat.command.Message;
 import com.gmail.mooman219.module.chat.command.Mute;
 import com.gmail.mooman219.module.chat.command.Reply;
 import com.gmail.mooman219.module.chat.command.SetChatRange;
-import com.gmail.mooman219.module.chat.command.SetOverheadName;
+import com.gmail.mooman219.module.chat.command.SetOverheadPrefix;
+import com.gmail.mooman219.module.chat.command.SetOverheadSuffix;
 import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
@@ -59,7 +60,8 @@ public class CCChat implements CowComponent {
         plugin.addCommand(new Mute());
         plugin.addCommand(new Reply());
         plugin.addCommand(new SetChatRange());
-        plugin.addCommand(new SetOverheadName());
+        plugin.addCommand(new SetOverheadPrefix());
+        plugin.addCommand(new SetOverheadSuffix());
     }
 
     public class Messages {

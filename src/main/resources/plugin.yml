@@ -87,10 +87,12 @@ commands:
     setchatrange:
         aliases:
         - csr
-    setoverheadname:
+    setoverheadprefix:
         aliases:
-        - cshn
-        - setheadname
+        - csop
+    setoverheadsuffix:
+        aliases:
+        - csos
     music:
         aliases:
         - tunes

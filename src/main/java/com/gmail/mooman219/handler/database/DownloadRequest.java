@@ -30,10 +30,9 @@ class PlayerDownloader implements Callable<CDPlayer> {
                 if(playerObject == null) {
                     CHDatabase.manager.createPlayerObject(username);
                     CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
-                } else {
-                    if(player.sync(reason, playerObject)) {
-                        return null;
-                    }
+                }
+                if(player.sync(reason, playerObject)) {
+                    return null;
                 }
                 return player;
             case QUERY:
