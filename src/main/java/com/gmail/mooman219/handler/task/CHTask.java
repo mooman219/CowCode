@@ -1,7 +1,6 @@
 package com.gmail.mooman219.handler.task;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,7 +21,6 @@ public class CHTask implements CowHandler {
 
     public static Manager manager;
     private ScheduledExecutorService asyncPool;
-    private ExecutorService databasePool;
 
     public CHTask(Loader plugin) {
         this.plugin = plugin;
@@ -38,7 +36,6 @@ public class CHTask implements CowHandler {
         manager = new Manager();
         Loader.info(cast + "Starting plugin threads");
         asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads);
-        databasePool = Executors.newFixedThreadPool(ConfigGlobal.handler.task.databaseThreads);
         Loader.info(cast + "Starting second clocks");
 
         manager.runPlugin(new Runnable() {
@@ -60,10 +57,8 @@ public class CHTask implements CowHandler {
     public void onDisable() {
         Loader.info(cast + "Stopping all threads");
         asyncPool.shutdown();
-        databasePool.shutdown();
         try {
             asyncPool.awaitTermination(ConfigGlobal.handler.task.timeoutDelay, TimeUnit.SECONDS);
-            databasePool.awaitTermination(ConfigGlobal.handler.task.timeoutDelay, TimeUnit.SECONDS);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
@@ -96,10 +91,6 @@ public class CHTask implements CowHandler {
 
         public Future<?> runPlugin(Runnable runnable, long delay, long period) {
             return asyncPool.scheduleAtFixedRate(runnable, delay, period, TimeUnit.MILLISECONDS);
-        }
-
-        public Future<?> runDatabase(Runnable runnable) {
-            return databasePool.submit(runnable);
         }
     }
 }

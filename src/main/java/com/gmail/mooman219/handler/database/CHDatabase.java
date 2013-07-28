@@ -71,7 +71,7 @@ public class CHDatabase implements CowHandler {
         public void uploadPlayer(CDPlayer player, UploadReason reason, boolean shouldRemove, boolean runAsync) {
             UploadRequest request = new UploadRequest(player, reason, shouldRemove, runAsync);
             if(runAsync) {
-                CHTask.manager.runDatabase(request);
+                CHTask.manager.runPlugin(request);
             } else {
                 request.run();
             }
@@ -81,9 +81,6 @@ public class CHDatabase implements CowHandler {
             PlayerDownloader downloader = new PlayerDownloader(username, reason);
             Future<CDPlayer> future = CHTask.manager.runPlugin(downloader);
             try {
-                // Wait for the download, if it is taking too long, then just stop
-                //  and return null. Anything that uses downloadPlayer should be r-
-                // -eady to handle a null player
                 return future.get(ConfigGlobal.handler.database.downloadTimeout, TimeUnit.SECONDS);
             } catch(TimeoutException e) {
             } catch(Exception e) {

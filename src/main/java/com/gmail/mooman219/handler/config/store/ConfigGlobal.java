@@ -26,8 +26,7 @@ public class ConfigGlobal extends ConfigJson {
         }
         public Task task = new Task();
         public static class Task {
-            public int pluginThreads = 3;
-            public int databaseThreads = 4;
+            public int pluginThreads = 10;
             public int timeoutDelay = 10; // Seconds
         }
     }
