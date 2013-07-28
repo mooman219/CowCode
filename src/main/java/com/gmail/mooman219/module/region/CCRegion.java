@@ -3,7 +3,7 @@ package com.gmail.mooman219.module.region;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.module.region.command.ModifyCombat;
 import com.gmail.mooman219.module.region.command.ModifyID;
 import com.gmail.mooman219.module.region.command.ModifyDescription;
@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.region.listener.ListenerPlayer;
 import com.gmail.mooman219.module.region.store.StoreChunk;
 import com.gmail.mooman219.module.region.store.StoreRegion;
 
-public class CCRegion implements CowComponent {
+public class CCRegion implements CowModule {
     public final Loader plugin;
     public StoreRegion storeRegion;
     public StoreChunk storeChunk;
@@ -54,9 +54,6 @@ public class CCRegion implements CowComponent {
         Loader.info(cast + "Saving " + storeChunk.getFile().getName());
         storeChunk.save();
     }
-
-    @Override
-    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {

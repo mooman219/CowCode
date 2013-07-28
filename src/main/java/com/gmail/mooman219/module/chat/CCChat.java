@@ -4,7 +4,7 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.team.LoneBoard;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.module.chat.command.Global;
 import com.gmail.mooman219.module.chat.command.Message;
 import com.gmail.mooman219.module.chat.command.Mute;
@@ -16,7 +16,7 @@ import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
 
-public class CCChat implements CowComponent {
+public class CCChat implements CowModule {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
@@ -49,9 +49,6 @@ public class CCChat implements CowComponent {
 
     @Override
     public void onDisable(){}
-
-    @Override
-    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {

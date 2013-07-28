@@ -1,6 +1,6 @@
 package com.gmail.mooman219.layout;
 
-public interface CowComponent {
+public interface CowModule {
     public String getName();
 
     public void onEnable();
@@ -8,6 +8,4 @@ public interface CowComponent {
     public void onDisable();
 
     public void loadCommands();
-
-    public void registerConfigurationSerialization();
 }

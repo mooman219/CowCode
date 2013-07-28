@@ -5,19 +5,15 @@ import java.util.Collections;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.mooman219.frame.command.CCommand;
-import com.gmail.mooman219.frame.serialize.yaml.CSBasicLocation;
-import com.gmail.mooman219.frame.serialize.yaml.CSChunkLocation;
-import com.gmail.mooman219.frame.serialize.yaml.CSLocation;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.module.chat.CCChat;
 import com.gmail.mooman219.module.damage.CCDamage;
@@ -33,22 +29,8 @@ import com.gmail.mooman219.module.world.CCWorld;
 
 public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
-    private ArrayList<CowComponent> componentList = new ArrayList<CowComponent>();
+    private ArrayList<CowModule> moduleList = new ArrayList<CowModule>();
     private ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
-
-    public void registerConfigurationSerialization() {
-        Loader.info("Registering Configuration Serializables");
-        ConfigurationSerialization.registerClass(CSBasicLocation.class, "CSBasicLocation");
-        ConfigurationSerialization.registerClass(CSChunkLocation.class, "CSChunkLocation");
-        ConfigurationSerialization.registerClass(CSLocation.class, "CSLocation");
-        for(CowComponent p : componentList) {
-            try {
-                p.registerConfigurationSerialization();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public void processHandlers(boolean enable) {
         Loader.info((enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
@@ -66,9 +48,9 @@ public class Loader extends JavaPlugin {
         }
     }
 
-    public void processComponents(boolean enable) {
-        Loader.info((enable ? "Loading" : "Unloading") + " " + componentList.size() + " components");
-        for(CowComponent p : componentList) {
+    public void processModules(boolean enable) {
+        Loader.info((enable ? "Loading" : "Unloading") + " " + moduleList.size() + " modules");
+        for(CowModule p : moduleList) {
             Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
             try {
                 if(enable) {
@@ -83,20 +65,6 @@ public class Loader extends JavaPlugin {
         }
     }
 
-    /* Cheat sheet, most likely out of date due to lazyness.
-     * I like to append letters to my files that have common names
-     * to clarify I want to use my version of said file.
-     * C    | Cow             | Cow related files
-     * CD	| Cow Data		  |
-     * CH   | Cow Handler     | Handler component
-     * CC   | Cow Component   | Plugin components
-     * CS   | Cow Serialize   | Custom ConfigurationSerializables
-     *
-     *
-     * PD   | Player Data
-     * PL   | Player Live
-     */
-
     @Override
     public void onLoad() {
         // Order IS important
@@ -104,20 +72,18 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHTask(this));
         handlerList.add(new CHDatabase());
         // ~
-        componentList.add(new CCService(this));
-        componentList.add(new CCLogin(this));
-        componentList.add(new CCGraveyard(this));
-        componentList.add(new CCMineral(this));
-        componentList.add(new CCChat(this));
-        componentList.add(new CCRegion(this));
-        componentList.add(new CCWorld(this));
-        componentList.add(new CCVanilla(this));
-        componentList.add(new CCDamage(this));
+        moduleList.add(new CCService(this));
+        moduleList.add(new CCLogin(this));
+        moduleList.add(new CCGraveyard(this));
+        moduleList.add(new CCMineral(this));
+        moduleList.add(new CCChat(this));
+        moduleList.add(new CCRegion(this));
+        moduleList.add(new CCWorld(this));
+        moduleList.add(new CCVanilla(this));
+        moduleList.add(new CCDamage(this));
         // RPG
-        componentList.add(new CCItem(this));
-        componentList.add(new CCStat(this));
-        // Register early
-        registerConfigurationSerialization();
+        moduleList.add(new CCItem(this));
+        moduleList.add(new CCStat(this));
     }
 
     @Override
@@ -125,7 +91,7 @@ public class Loader extends JavaPlugin {
         // Start handlers
         processHandlers(true);
         // Start components
-        processComponents(true);
+        processModules(true);
 
         PluginDescriptionFile pdfFile = getDescription();
         Loader.info("Version: " + pdfFile.getVersion() + " Enabled.");
@@ -135,8 +101,8 @@ public class Loader extends JavaPlugin {
     @Override
     public void onDisable() {
         // Shutdown components
-        Collections.reverse(componentList);
-        processComponents(false);
+        Collections.reverse(moduleList);
+        processModules(false);
         // Shutdown handlers
         processHandlers(false);
 

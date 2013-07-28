@@ -234,7 +234,7 @@ public class CDPlayer extends BullData implements Damageable {
     @Override
     public void damage(double amount) {
         if(!isDead()) {
-            player.damage(0);
+            player.damage(0d);
             WorldHelper.playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.REDSTONE_WIRE.getId());
         }
         setHealth(stat.healthCur - amount);
@@ -277,7 +277,7 @@ public class CDPlayer extends BullData implements Damageable {
     @Override
     public void kill() {
         if(!player.isDead()) {
-            player.setHealth(0);
+            player.setHealth(0d);
         }
         stat.healthCur = 0;
         updateHealth();

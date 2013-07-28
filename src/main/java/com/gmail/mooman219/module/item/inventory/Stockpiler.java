@@ -54,7 +54,7 @@ public class Stockpiler {
                 if(slot >= inventory.getSize()) {
                     return;
                 } else if(ItemHelper.isNull(item)) {
-                    if(isClearing) {                        
+                    if(isClearing) {
                         inventory.clear(slot);
                     }
                 } else if(ItemHelper.isNull(oldItem) || isOverwriting){

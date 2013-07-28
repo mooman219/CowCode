@@ -3,7 +3,7 @@ package com.gmail.mooman219.module.service;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.module.service.command.LoadConfig;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
@@ -12,7 +12,7 @@ import com.gmail.mooman219.module.service.listener.ListenerPlayer;
 import com.gmail.mooman219.module.service.listener.ListenerEntity;
 import com.gmail.mooman219.module.service.listener.MessingAround;
 
-public class CCService implements CowComponent {
+public class CCService implements CowModule {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
@@ -44,9 +44,6 @@ public class CCService implements CowComponent {
 
     @Override
     public void onDisable() {}
-
-    @Override
-    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {

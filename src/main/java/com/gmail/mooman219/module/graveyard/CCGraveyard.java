@@ -3,7 +3,7 @@ package com.gmail.mooman219.module.graveyard;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.module.graveyard.command.AddGraveyard;
 import com.gmail.mooman219.module.graveyard.command.ClearGraveyards;
 import com.gmail.mooman219.module.graveyard.command.ListGraveyards;
@@ -14,7 +14,7 @@ import com.gmail.mooman219.module.graveyard.command.TotalGraveyards;
 import com.gmail.mooman219.module.graveyard.listener.ListenerPlayer;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
-public class CCGraveyard implements CowComponent {
+public class CCGraveyard implements CowModule {
     public final Loader plugin;
     public StoreGraveyard storeGraveyard;
 
@@ -48,9 +48,6 @@ public class CCGraveyard implements CowComponent {
         Loader.info(cast + "Saving " + storeGraveyard.getFile().getName());
         storeGraveyard.save();
     }
-
-    @Override
-    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {

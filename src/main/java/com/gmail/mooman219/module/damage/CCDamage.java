@@ -4,11 +4,11 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.scoreboard.HealthBoard;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.module.damage.listener.ListenerEntity;
 import com.gmail.mooman219.module.damage.listener.ListenerPlayer;
 
-public class CCDamage implements CowComponent {
+public class CCDamage implements CowModule {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
@@ -39,9 +39,6 @@ public class CCDamage implements CowComponent {
 
     @Override
     public void onDisable(){}
-
-    @Override
-    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {}

@@ -1,9 +1,9 @@
 package com.gmail.mooman219.module.rpg.skill;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.layout.CowComponent;
+import com.gmail.mooman219.layout.CowModule;
 
-public class CCSkill implements CowComponent {
+public class CCSkill implements CowModule {
     public final Loader plugin;
 
     public final static String directory = "plugins/CowCraft/";
@@ -27,9 +27,6 @@ public class CCSkill implements CowComponent {
 
     @Override
     public void onDisable(){}
-
-    @Override
-    public void registerConfigurationSerialization() {}
 
     @Override
     public void loadCommands() {}

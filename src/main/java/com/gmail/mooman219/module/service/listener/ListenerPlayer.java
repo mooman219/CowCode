@@ -25,11 +25,6 @@ import com.gmail.mooman219.module.service.CCService;
 public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
-        // Kick the player if they do not have a minecraft account :)
-        if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.KICK_VERIFY) {
-            event.setKickMessage(CCService.MSG.USERNAMEFAIL + "");
-            return;
-        }
         // Set the kick message blank so that I can tell if another module changed it
         event.setKickMessage("");
         CDPlayer player = CHDatabase.manager.downloadPlayer(event.getName(), DownloadReason.LOGIN);
