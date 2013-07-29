@@ -4,17 +4,15 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.item.command.ItemStats;
 import com.gmail.mooman219.module.item.command.ResetInventory;
 import com.gmail.mooman219.module.item.listener.ListenerData;
 import com.gmail.mooman219.module.item.listener.ListenerInventory;
 import com.gmail.mooman219.module.item.listener.ListenerPlayer;
 
-public class CCItem implements CowModule {
-    public final Loader plugin;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Item] ";
+public class CCItem extends CowModule {
+    private static final ModuleType type = ModuleType.ITEM;
     public static Messages MSG;
     public static Formats FRM;
 
@@ -22,31 +20,40 @@ public class CCItem implements CowModule {
     public ListenerData listenerData;
     public ListenerInventory listenerInventory;
 
-    public CCItem(Loader plugin){
-        this.plugin = plugin;
+    public CCItem(Loader plugin) {
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Item";
+    public ModuleType getType() {
+        return type;
+    }
+
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
     }
 
     @Override
     public void onEnable(){
-        listenerPlayer = plugin.addListener(new ListenerPlayer());
-        listenerData = plugin.addListener(new ListenerData());
-        listenerInventory = plugin.addListener(new ListenerInventory());
+        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+        listenerData = getPlugin().addListener(new ListenerData());
+        listenerInventory = getPlugin().addListener(new ListenerInventory());
     }
 
     @Override
-    public void onDisable(){}
-
-    @Override
     public void loadCommands() {
-        plugin.addCommand(new ItemStats());
-        plugin.addCommand(new ResetInventory());
+        getPlugin().addCommand(new ItemStats());
+        getPlugin().addCommand(new ResetInventory());
     }
 
     public class Messages {

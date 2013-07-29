@@ -50,7 +50,7 @@ public class StoreMineral extends ConfigJson {
             }
         }
         if(removed > 0) {
-            Loader.warning(CCMineral.cast + "Removed " + removed + " invalid minerals.");
+            Loader.warning(CCMineral.getCast() + "Removed " + removed + " invalid minerals.");
         }
     }
 

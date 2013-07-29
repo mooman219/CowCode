@@ -4,6 +4,7 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.service.command.LoadConfig;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
@@ -12,11 +13,8 @@ import com.gmail.mooman219.module.service.listener.ListenerPlayer;
 import com.gmail.mooman219.module.service.listener.ListenerEntity;
 import com.gmail.mooman219.module.service.listener.MessingAround;
 
-public class CCService implements CowModule {
-    public final Loader plugin;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Services] ";
+public class CCService extends CowModule {
+    private static final ModuleType type = ModuleType.SERVICE;
     public static Messages MSG;
     public static Formats FRM;
 
@@ -24,33 +22,42 @@ public class CCService implements CowModule {
     public ListenerEntity listenerEntity;
     public MessingAround messingAround;
 
-    public CCService(Loader head) {
-        plugin = head;
+    public CCService(Loader plugin) {
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Service";
+    public ModuleType getType() {
+        return type;
+    }
+
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
     }
 
     @Override
     public void onEnable(){
-        listenerPlayer = plugin.addListener(new ListenerPlayer());
-        listenerEntity = plugin.addListener(new ListenerEntity());
-        messingAround = plugin.addListener(new MessingAround());
+        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+        listenerEntity = getPlugin().addListener(new ListenerEntity());
+        messingAround = getPlugin().addListener(new MessingAround());
     }
 
     @Override
-    public void onDisable() {}
-
-    @Override
     public void loadCommands() {
-        plugin.addCommand(new Whois());
-        plugin.addCommand(new Test());
-        plugin.addCommand(new Memory());
-        plugin.addCommand(new LoadConfig());
+        getPlugin().addCommand(new Whois());
+        getPlugin().addCommand(new Test());
+        getPlugin().addCommand(new Memory());
+        getPlugin().addCommand(new LoadConfig());
     }
 
     public class Messages {

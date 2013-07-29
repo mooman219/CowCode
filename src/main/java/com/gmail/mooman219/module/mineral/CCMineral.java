@@ -4,6 +4,7 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.mineral.command.AddMineral;
 import com.gmail.mooman219.module.mineral.command.ClearMinerals;
 import com.gmail.mooman219.module.mineral.command.ListMinerals;
@@ -14,53 +15,61 @@ import com.gmail.mooman219.module.mineral.listener.ListenerBlock;
 import com.gmail.mooman219.module.mineral.listener.ListenerTime;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
-public class CCMineral implements CowModule {
-    public final Loader plugin;
-    public StoreMineral storeMineral;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Mineral] ";
+public class CCMineral extends CowModule {
+    private static final ModuleType type = ModuleType.MINERAL;
     public static Messages MSG;
     public static Formats FRM;
 
+    public StoreMineral storeMineral;
     public ListenerBlock listenerBlock;
     public ListenerTime listenerTime;
 
-    public CCMineral(Loader plugin){
-        this.plugin = plugin;
+    public CCMineral(Loader plugin) {
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Mineral";
+    public ModuleType getType() {
+        return type;
     }
 
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
+    }
     @Override
     public void onEnable(){
-        storeMineral = new StoreMineral(cast, directory);
+        storeMineral = new StoreMineral(getCast(), getDirectory());
 
-        listenerBlock = plugin.addListener(new ListenerBlock());
-        listenerTime = plugin.addListener(new ListenerTime());
+        listenerBlock = getPlugin().addListener(new ListenerBlock());
+        listenerTime = getPlugin().addListener(new ListenerTime());
     }
 
     @Override
     public void onDisable(){
-        Loader.info(cast + "Reverting minerals");
+        Loader.info(getCast() + "Reverting minerals");
         MineralManager.revert();
-        Loader.info(cast + "Saving " + storeMineral.getFile().getName());
+        Loader.info(getCast() + "Saving " + storeMineral.getFile().getName());
         storeMineral.save();
     }
 
     @Override
     public void loadCommands() {
-        plugin.addCommand(new AddMineral(this));
-        plugin.addCommand(new ClearMinerals(this));
-        plugin.addCommand(new ListMinerals());
-        plugin.addCommand(new RemoveMineral(this));
-        plugin.addCommand(new RevertMinerals());
-        plugin.addCommand(new TotalMinerals());
+        getPlugin().addCommand(new AddMineral(this));
+        getPlugin().addCommand(new ClearMinerals(this));
+        getPlugin().addCommand(new ListMinerals());
+        getPlugin().addCommand(new RemoveMineral(this));
+        getPlugin().addCommand(new RevertMinerals());
+        getPlugin().addCommand(new TotalMinerals());
     }
 
     public class Messages {

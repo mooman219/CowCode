@@ -4,29 +4,39 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.vanilla.command.Gamemode;
 import com.gmail.mooman219.module.vanilla.command.Heal;
 import com.gmail.mooman219.module.vanilla.command.Music;
 import com.gmail.mooman219.module.vanilla.command.Shriek;
 import com.gmail.mooman219.module.vanilla.command.Suicide;
 
-public class CCVanilla implements CowModule {
-    public final Loader plugin;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Vanilla] ";
+public class CCVanilla extends CowModule {
+    private static final ModuleType type = ModuleType.VANILLA;
     public static Messages MSG;
     public static Formats FRM;
 
     public CCVanilla(Loader plugin){
-        this.plugin = plugin;
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Vanilla";
+    public ModuleType getType() {
+        return type;
+    }
+
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
     }
 
     @Override
@@ -37,11 +47,11 @@ public class CCVanilla implements CowModule {
 
     @Override
     public void loadCommands() {
-        plugin.addCommand(new Music());
-        plugin.addCommand(new Shriek());
-        plugin.addCommand(new Gamemode());
-        plugin.addCommand(new Suicide());
-        plugin.addCommand(new Heal());
+        getPlugin().addCommand(new Music());
+        getPlugin().addCommand(new Shriek());
+        getPlugin().addCommand(new Gamemode());
+        getPlugin().addCommand(new Suicide());
+        getPlugin().addCommand(new Heal());
     }
 
     public class Messages {

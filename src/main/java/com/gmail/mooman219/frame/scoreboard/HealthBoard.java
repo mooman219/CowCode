@@ -9,10 +9,6 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.PacketHelper;
 import com.gmail.mooman219.frame.math.NumberHelper;
 
-/**
- * The faster version (this one), basically just doesn't save any information and
- * relies on the client to store all the names.
- */
 public class HealthBoard {
     private final String title;
     private final String displayTitle;

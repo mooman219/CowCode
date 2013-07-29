@@ -5,6 +5,7 @@ import com.gmail.mooman219.frame.team.LoneBoard;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.chat.command.Global;
 import com.gmail.mooman219.module.chat.command.Message;
 import com.gmail.mooman219.module.chat.command.Mute;
@@ -16,11 +17,8 @@ import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
 
-public class CCChat implements CowModule {
-    public final Loader plugin;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Chat] ";
+public class CCChat extends CowModule {
+    private static final ModuleType type = ModuleType.CHAT;
     public static Messages MSG;
     public static Formats FRM;
 
@@ -30,35 +28,44 @@ public class CCChat implements CowModule {
     public ListenerData listenerData;
 
     public CCChat(Loader plugin){
-        this.plugin = plugin;
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Chat";
+    public ModuleType getType() {
+        return type;
+    }
+
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
     }
 
     @Override
     public void onEnable(){
-        listenerChat = plugin.addListener(new ListenerChat());
-        listenerPlayer = plugin.addListener(new ListenerPlayer());
-        listenerData = plugin.addListener(new ListenerData());
+        listenerChat = getPlugin().addListener(new ListenerChat());
+        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+        listenerData = getPlugin().addListener(new ListenerData());
     }
 
     @Override
-    public void onDisable(){}
-
-    @Override
     public void loadCommands() {
-        plugin.addCommand(new Global());
-        plugin.addCommand(new Message());
-        plugin.addCommand(new Mute());
-        plugin.addCommand(new Reply());
-        plugin.addCommand(new SetChatRange());
-        plugin.addCommand(new SetOverheadPrefix());
-        plugin.addCommand(new SetOverheadSuffix());
+        getPlugin().addCommand(new Global());
+        getPlugin().addCommand(new Message());
+        getPlugin().addCommand(new Mute());
+        getPlugin().addCommand(new Reply());
+        getPlugin().addCommand(new SetChatRange());
+        getPlugin().addCommand(new SetOverheadPrefix());
+        getPlugin().addCommand(new SetOverheadSuffix());
     }
 
     public class Messages {

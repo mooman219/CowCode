@@ -2,34 +2,35 @@ package com.gmail.mooman219.module.stat;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 
-public class CCStat implements CowModule {
-    public final Loader plugin;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Stat] ";
+public class CCStat extends CowModule {
+    private static final ModuleType type = ModuleType.STAT;
     public static Messages MSG;
     public static Formats FRM;
 
     public CCStat(Loader plugin){
-        this.plugin = plugin;
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Stat";
+    public ModuleType getType() {
+        return type;
     }
 
-    @Override
-    public void onEnable(){}
+    public static String getName() {
+        return type.getName();
+    }
 
-    @Override
-    public void onDisable(){}
+    public static String getCast() {
+        return type.getCast();
+    }
 
-    @Override
-    public void loadCommands() {}
+    public static String getDirectory() {
+        return type.getDirectory();
+    }
 
     public class Messages {}
 

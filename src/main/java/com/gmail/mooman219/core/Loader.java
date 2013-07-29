@@ -34,13 +34,13 @@ public class Loader extends JavaPlugin {
 
     public void processHandlers(boolean enable) {
         Loader.info((enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
-        for(CowHandler p : handlerList) {
-            Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
+        for(CowHandler handler : handlerList) {
+            Loader.info((enable ? "Enabling" : "Disabling") + " " + handler.getName());
             try {
                 if(enable) {
-                    p.onEnable();
+                    handler.onEnable();
                 } else {
-                    p.onDisable();
+                    handler.onDisable();
                 }
             } catch(Exception e) {
                 e.printStackTrace();
@@ -50,14 +50,14 @@ public class Loader extends JavaPlugin {
 
     public void processModules(boolean enable) {
         Loader.info((enable ? "Loading" : "Unloading") + " " + moduleList.size() + " modules");
-        for(CowModule p : moduleList) {
-            Loader.info((enable ? "Enabling" : "Disabling") + " " + p.getName());
+        for(CowModule module : moduleList) {
+            Loader.info((enable ? "Enabling" : "Disabling") + " " + module.getType().getName());
             try {
                 if(enable) {
-                    p.onEnable();
-                    p.loadCommands();
+                    module.onEnable();
+                    module.loadCommands();
                 } else {
-                    p.onDisable();
+                    module.onDisable();
                 }
             } catch(Exception e) {
                 e.printStackTrace();
@@ -81,7 +81,6 @@ public class Loader extends JavaPlugin {
         moduleList.add(new CCWorld(this));
         moduleList.add(new CCVanilla(this));
         moduleList.add(new CCDamage(this));
-        // RPG
         moduleList.add(new CCItem(this));
         moduleList.add(new CCStat(this));
     }

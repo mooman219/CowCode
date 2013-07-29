@@ -64,7 +64,7 @@ public class ListenerPlayer implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         CDPlayer player = CDPlayer.getSafe(event.getPlayer());
         if(player == null) {
-            Loader.warning(CCService.cast + "Null quitting player '" + event.getPlayer().getName() + "'");
+            Loader.warning(CCService.getCast() + "Null quitting player '" + event.getPlayer().getName() + "'");
             return;
         }
         player.shutdown(PlayerShutdownType.POST_QUIT);
@@ -73,7 +73,7 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDisable(PluginDisableEvent event) {
-        Loader.info(CCService.cast + "Removing players");
+        Loader.info(CCService.getCast() + "Removing players");
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer(CCLogin.MSG.SHUTDOWN + "");
         }

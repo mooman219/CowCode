@@ -4,6 +4,7 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.graveyard.command.AddGraveyard;
 import com.gmail.mooman219.module.graveyard.command.ClearGraveyards;
 import com.gmail.mooman219.module.graveyard.command.ListGraveyards;
@@ -14,50 +15,59 @@ import com.gmail.mooman219.module.graveyard.command.TotalGraveyards;
 import com.gmail.mooman219.module.graveyard.listener.ListenerPlayer;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
-public class CCGraveyard implements CowModule {
-    public final Loader plugin;
-    public StoreGraveyard storeGraveyard;
-
-    public final static String directory = "plugins/CowCraft/";
-    public final static String cast = "[Graveyard] ";
+public class CCGraveyard extends CowModule {
+    private static final ModuleType type = ModuleType.GRAVEYARD;
     public static Messages MSG;
     public static Formats FRM;
 
+    public StoreGraveyard storeGraveyard;
     public ListenerPlayer listenerPlayer;
 
     public CCGraveyard(Loader plugin){
-        this.plugin = plugin;
+        super(plugin);
         MSG = new Messages();
         FRM = new Formats();
     }
 
     @Override
-    public String getName() {
-        return "Graveyard";
+    public ModuleType getType() {
+        return type;
+    }
+
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
     }
 
     @Override
     public void onEnable(){
-        storeGraveyard = new StoreGraveyard(cast, directory);
+        storeGraveyard = new StoreGraveyard(getCast(), getDirectory());
 
-        listenerPlayer = plugin.addListener(new ListenerPlayer());
+        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
     }
 
     @Override
     public void onDisable(){
-        Loader.info(cast + "Saving " + storeGraveyard.getFile().getName());
+        Loader.info(getCast() + "Saving " + storeGraveyard.getFile().getName());
         storeGraveyard.save();
     }
 
     @Override
     public void loadCommands() {
-        plugin.addCommand(new AddGraveyard());
-        plugin.addCommand(new ClearGraveyards());
-        plugin.addCommand(new ListGraveyards());
-        plugin.addCommand(new RemoveGraveyard());
-        plugin.addCommand(new TeleportClosestGraveyard());
-        plugin.addCommand(new TeleportGraveyard());
-        plugin.addCommand(new TotalGraveyards());
+        getPlugin().addCommand(new AddGraveyard());
+        getPlugin().addCommand(new ClearGraveyards());
+        getPlugin().addCommand(new ListGraveyards());
+        getPlugin().addCommand(new RemoveGraveyard());
+        getPlugin().addCommand(new TeleportClosestGraveyard());
+        getPlugin().addCommand(new TeleportGraveyard());
+        getPlugin().addCommand(new TotalGraveyards());
     }
 
     public class Messages {
