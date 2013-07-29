@@ -68,9 +68,9 @@ public class Loader extends JavaPlugin {
     @Override
     public void onLoad() {
         // Order IS important
-        handlerList.add(new CHConfig(this));
+        handlerList.add(new CHConfig());
         handlerList.add(new CHTask(this));
-        handlerList.add(new CHDatabase(this));
+        handlerList.add(new CHDatabase());
         // ~
         moduleList.add(new CCService(this));
         moduleList.add(new CCLogin(this));

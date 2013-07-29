@@ -17,12 +17,13 @@ import com.gmail.mooman219.layout.HandlerType;
 
 public class CHTask extends CowHandler {
     private static final HandlerType type = HandlerType.TASK;
+    public final Loader plugin;
     private static Manager manager;
 
     private ScheduledExecutorService asyncPool;
 
     public CHTask(Loader plugin) {
-        super(plugin);
+        this.plugin = plugin;
     }
 
     @Override
@@ -40,6 +41,10 @@ public class CHTask extends CowHandler {
 
     public static String getDirectory() {
         return type.getDirectory();
+    }
+    
+    public Loader getPlugin() {
+        return plugin;
     }
 
     @Override

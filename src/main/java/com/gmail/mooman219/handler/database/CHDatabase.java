@@ -29,10 +29,6 @@ public class CHDatabase extends CowHandler {
     private DBCollection usersCollection;
     private MongoClient client;
 
-    public CHDatabase(Loader plugin) {
-        super(plugin);
-    }
-
     @Override
     public HandlerType getType() {
         return type;
