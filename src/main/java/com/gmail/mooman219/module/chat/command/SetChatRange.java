@@ -20,7 +20,7 @@ public class SetChatRange extends CCommand {
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         int oldRange = ConfigGlobal.module.chat.radius;
         ConfigGlobal.module.chat.radius = NumberHelper.toInt(Math.pow(Integer.parseInt(args[0]), 2));
-        CHConfig.configGlobal.save();
+        CHConfig.getConfig().save();
         CCChat.FRM.SETRANGE.send(sender, oldRange, ConfigGlobal.module.chat.radius);
 
     }

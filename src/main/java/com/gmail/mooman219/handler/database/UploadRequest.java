@@ -29,16 +29,16 @@ public class UploadRequest implements Runnable {
                 CEventFactory.callDataRemovalEvent(runAsync, player);
             }
             DBObject playerObject = player.getTemplate(reason);
-            WriteResult result = CHDatabase.manager.getUsersCollection().update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
+            WriteResult result = CHDatabase.getManager().getUsersCollection().update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
             if(result.getError() != null) {
-                Loader.warning(CHDatabase.cast + "Mongo Error");
-                Loader.warning(CHDatabase.cast + result.getError());
+                Loader.warning(CHDatabase.getCast() + "Mongo Error");
+                Loader.warning(CHDatabase.getCast() + result.getError());
             }
             if(shouldRemove) {
                 player.shutdown(PlayerShutdownType.POST_REMOVAL);
                 player.clearPlayerData();
             }
-            Loader.info(CHDatabase.cast + "[UP] ["+reason.name()+"] : " + player.getUsername());
+            Loader.info(CHDatabase.getCast() + "[UP] ["+reason.name()+"] : " + player.getUsername());
         } catch(Exception e) {
             e.printStackTrace();
         }

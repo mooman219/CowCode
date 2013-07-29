@@ -322,7 +322,7 @@ public class CDPlayer extends BullData implements Damageable {
      */
 
     public void chat(final String message) {
-        CHTask.manager.runPlugin(new Runnable() {
+        CHTask.getManager().runPlugin(new Runnable() {
             @Override
             public void run() {
                 EntityPlayer handle = getHandle();

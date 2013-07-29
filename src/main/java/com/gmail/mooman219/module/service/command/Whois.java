@@ -32,10 +32,10 @@ public class Whois extends CCommand {
                 displayWhois(sender, CDPlayer.get(other));
                 return;
             }
-            CHTask.manager.runPlugin(new Runnable() {
+            CHTask.getManager().runPlugin(new Runnable() {
                 @Override
                 public void run() {
-                    CDPlayer playerData = CHDatabase.manager.downloadPlayer(args[0], DownloadReason.QUERY);
+                    CDPlayer playerData = CHDatabase.getManager().downloadPlayer(args[0], DownloadReason.QUERY);
                     if(playerData == null) {
                         CCService.FRM.WHOISERROR.send(sender, args[0]);
                     } else {

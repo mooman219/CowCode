@@ -35,7 +35,7 @@ public class Loader extends JavaPlugin {
     public void processHandlers(boolean enable) {
         Loader.info((enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
         for(CowHandler handler : handlerList) {
-            Loader.info((enable ? "Enabling" : "Disabling") + " " + handler.getName());
+            Loader.info((enable ? "Enabling" : "Disabling") + " " + handler.getType().getName());
             try {
                 if(enable) {
                     handler.onEnable();
@@ -68,9 +68,9 @@ public class Loader extends JavaPlugin {
     @Override
     public void onLoad() {
         // Order IS important
-        handlerList.add(new CHConfig());
+        handlerList.add(new CHConfig(this));
         handlerList.add(new CHTask(this));
-        handlerList.add(new CHDatabase());
+        handlerList.add(new CHDatabase(this));
         // ~
         moduleList.add(new CCService(this));
         moduleList.add(new CCLogin(this));

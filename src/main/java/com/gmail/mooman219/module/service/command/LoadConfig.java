@@ -25,7 +25,7 @@ public class LoadConfig extends CCommand {
     }
 
     public void reload(CommandSender sender) {
-        CHConfig.configGlobal.load();
+        CHConfig.getConfig().load();
         CCService.MSG.CONFIGRELOAD.send(sender);
     }
 }

@@ -14,7 +14,7 @@ public class ListenerPlayer implements Listener {
     public void onRespawn(PlayerRespawnEvent event){
         final CDPlayer player = CDPlayer.get(event.getPlayer());
         player.resetHealth();
-        CHTask.manager.runBukkit(new Runnable() {
+        CHTask.getManager().runBukkit(new Runnable() {
             @Override
             public void run() {
                 player.updateHealth();

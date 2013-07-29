@@ -25,19 +25,19 @@ class PlayerDownloader implements Callable<CDPlayer> {
             switch(reason) {
             case LOGIN:
                 player = new CDPlayer(username);
-                playerObject = CHDatabase.manager.downloadPlayerObject(username, true);
-                Loader.info(CHDatabase.cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
+                playerObject = CHDatabase.getManager().downloadPlayerObject(username, true);
+                Loader.info(CHDatabase.getCast() + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                 if(playerObject == null) {
-                    CHDatabase.manager.createPlayerObject(username);
-                    CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, false, false);
+                    CHDatabase.getManager().createPlayerObject(username);
+                    CHDatabase.getManager().uploadPlayer(player, UploadReason.SAVE, false, false);
                 }
                 if(player.sync(reason, playerObject)) {
                     return null;
                 }
                 return player;
             case QUERY:
-                playerObject = CHDatabase.manager.downloadPlayerObject(username, false);
-                Loader.info(CHDatabase.cast + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
+                playerObject = CHDatabase.getManager().downloadPlayerObject(username, false);
+                Loader.info(CHDatabase.getCast() + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                 if(playerObject != null) {
                     player = new CDPlayer(username);
                     player.sync(reason, playerObject);
@@ -50,7 +50,7 @@ class PlayerDownloader implements Callable<CDPlayer> {
             }
         } catch(Exception e) {
             Loader.warning("Something has gone wrong during " + username + "'s download request.");
-            Loader.warning(CHDatabase.cast + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
+            Loader.warning(CHDatabase.getCast() + "Currently" + (CHDatabase.getManager().isConnected() ? " " : " not ") + "connected to database.");
             e.printStackTrace();
         }
         return null;

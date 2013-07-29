@@ -28,7 +28,7 @@ public class ToggleWorldSaving extends CCommand {
         for(World world : WorldHelper.getWorlds()) {
             world.setAutoSave(ConfigGlobal.module.world.disableWorldSaving);
         }
-        CHConfig.configGlobal.save();
+        CHConfig.getConfig().save();
         CCWorld.FRM.WORLDSAVETOGGLE.send(sender, !ConfigGlobal.module.world.disableWorldSaving);
     }
 }

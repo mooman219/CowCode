@@ -27,7 +27,7 @@ public class ListenerPlayer implements Listener {
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
         // Set the kick message blank so that I can tell if another module changed it
         event.setKickMessage("");
-        CDPlayer player = CHDatabase.manager.downloadPlayer(event.getName(), DownloadReason.LOGIN);
+        CDPlayer player = CHDatabase.getManager().downloadPlayer(event.getName(), DownloadReason.LOGIN);
         // If there is no playerdata, don't let the player join, else MAJOR problems.
         if(player == null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CCService.MSG.LOGINERROR + "");
@@ -50,7 +50,7 @@ public class ListenerPlayer implements Listener {
         player.startup(event.getPlayer(), PlayerStartupType.LOGIN);
         CEventFactory.callDataCreateEvent(event, player);
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
-        CHDatabase.manager.uploadPlayer(player, UploadReason.STATUS, false, true);
+        CHDatabase.getManager().uploadPlayer(player, UploadReason.STATUS, false, true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -68,7 +68,7 @@ public class ListenerPlayer implements Listener {
             return;
         }
         player.shutdown(PlayerShutdownType.POST_QUIT);
-        CHDatabase.manager.uploadPlayer(player, UploadReason.SAVE, true, true);
+        CHDatabase.getManager().uploadPlayer(player, UploadReason.SAVE, true, true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

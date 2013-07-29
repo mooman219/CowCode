@@ -13,30 +13,41 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.layout.CowHandler;
+import com.gmail.mooman219.layout.HandlerType;
 
-public class CHTask implements CowHandler {
-    private Loader plugin;
+public class CHTask extends CowHandler {
+    private static final HandlerType type = HandlerType.TASK;
+    private static Manager manager;
 
-    public final static String cast = "[Task] ";
-
-    public static Manager manager;
     private ScheduledExecutorService asyncPool;
 
     public CHTask(Loader plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public String getName() {
-        return "Task";
+    public HandlerType getType() {
+        return type;
+    }
+
+    public static String getName() {
+        return type.getName();
+    }
+
+    public static String getCast() {
+        return type.getCast();
+    }
+
+    public static String getDirectory() {
+        return type.getDirectory();
     }
 
     @Override
     public void onEnable() {
         manager = new Manager();
-        Loader.info(cast + "Starting plugin threads");
+        Loader.info(getCast() + "Starting plugin threads");
         asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads);
-        Loader.info(cast + "Starting second clocks");
+        Loader.info(getCast() + "Starting second clocks");
 
         manager.runPlugin(new Runnable() {
             @Override
@@ -53,9 +64,13 @@ public class CHTask implements CowHandler {
         }, 20, 20);
     }
 
+    public static Manager getManager() {
+        return manager;
+    }
+
     @Override
     public void onDisable() {
-        Loader.info(cast + "Stopping all threads");
+        Loader.info(getCast() + "Stopping all threads");
         asyncPool.shutdown();
         try {
             asyncPool.awaitTermination(ConfigGlobal.handler.task.timeoutDelay, TimeUnit.SECONDS);
@@ -66,15 +81,15 @@ public class CHTask implements CowHandler {
 
     public class Manager {
         public BukkitTask runBukkit(Runnable runnable) {
-            return Bukkit.getScheduler().runTask(plugin, runnable);
+            return Bukkit.getScheduler().runTask(getPlugin(), runnable);
         }
 
         public BukkitTask runBukkit(Runnable runnable, long delay) {
-            return Bukkit.getScheduler().runTaskLater(plugin, runnable, delay);
+            return Bukkit.getScheduler().runTaskLater(getPlugin(), runnable, delay);
         }
 
         public BukkitTask runBukkit(Runnable runnable, long delay, long period) {
-            return Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period);
+            return Bukkit.getScheduler().runTaskTimer(getPlugin(), runnable, delay, period);
         }
 
         public <T> Future<T> runPlugin(Callable<T> callable) {
