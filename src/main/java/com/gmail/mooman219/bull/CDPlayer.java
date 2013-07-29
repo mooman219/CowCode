@@ -3,7 +3,6 @@ package com.gmail.mooman219.bull;
 import java.util.ArrayList;
 
 import net.minecraft.server.v1_6_R2.PendingConnection;
-import net.minecraft.server.v1_6_R2.PlayerConnection;
 import net.minecraft.server.v1_6_R2.EntityPlayer;
 
 import org.bukkit.Effect;
@@ -326,15 +325,12 @@ public class CDPlayer extends BullData implements Damageable {
             public void run() {
                 EntityPlayer handle = getHandle();
                 if(handle == null) {
-                    Loader.warning("Null handle for '" + username + "'");
-                    return;
+                    Loader.warning("chat(): Null handle for '" + username + "'");
+                } else if(handle.playerConnection == null) {
+                    Loader.warning("chat(): Null connection for '" + username + "'");
+                } else {
+                    handle.playerConnection.chat(message, true);
                 }
-                PlayerConnection target = handle.playerConnection;
-                if(target == null) {
-                    Loader.warning("Null connection for '" + username + "'");
-                    return;
-                }
-                target.chat(message, true);
             }
         });
     }
