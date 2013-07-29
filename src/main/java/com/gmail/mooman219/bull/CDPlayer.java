@@ -86,50 +86,50 @@ public class CDPlayer extends BullData implements Damageable {
     }
 
     /**
-     * DO THIS AFTER YOUR DONE WITH ALL DATA.
-     * Otherwise, you cannot save/load/doanything with the playerdata after this is called.
-     * As of right now, only the player upload code calls this AFTER it's completely down uploading it.
+     * Called in PlayerPreLoginEvent.
+     * This is done in another thread.
      */
-    public void clearPlayerData() {
+    public void processPreLogin() {
+        for(PlayerData playerdata : playerData) {
+            playerdata.create();
+        }
+    }
+
+    /**
+     * Called in PlayerLoginEvent.
+     */
+    public void processLogin(Player player) {
+        this.player = player;
+    }
+
+    /**
+     * Called in PlayerJoinEvent.
+     */
+    public void processJoin() {
+        sidebar = new Board(this, username, prefix + username + suffix, BoardDisplayType.SIDEBAR);
+        tabList = new Tab(this);
+    }
+
+    /**
+     * Called in PlayerQuitEvent.
+     */
+    public void processQuit() {
+        sidebar = null;
+        tabList = null;
+        player = null;
+        prefix = null;
+        suffix = null;
+    }
+
+    /**
+     * Called from the UploadRequest.
+     * This is done in another thread.
+     */
+    public void processRemoval() {
+        for(PlayerData data : playerData) {
+            data.destroy();
+        }
         playerData.clear();
-    }
-
-    public void startup(Player player, PlayerStartupType startupType) {
-        switch(startupType) {
-        case PRELOGIN: // This is done in another thread
-            for(PlayerData playerdata : playerData) {
-                playerdata.create();
-            }
-            break;
-        case LOGIN:
-            this.player = player;
-            break;
-        case JOIN:
-            sidebar = new Board(this, username, prefix + username + suffix, BoardDisplayType.SIDEBAR);
-            tabList = new Tab(this);
-            break;
-        default:
-            break;
-        }
-    }
-
-    public void shutdown(PlayerShutdownType shutdownType) {
-        switch(shutdownType) {
-        case POST_QUIT:
-            sidebar = null;
-            tabList = null;
-            player = null;
-            prefix = null;
-            suffix = null;
-            break;
-        case POST_REMOVAL: // This is done in another thread
-            for(PlayerData data : playerData) {
-                data.destroy();
-            }
-            break;
-        default:
-            break;
-        }
     }
 
     /*
@@ -227,7 +227,7 @@ public class CDPlayer extends BullData implements Damageable {
         lastMoveSpeed = moveSpeed;
         player.setWalkSpeed(moveSpeed);
     }
-    private float lastMoveSpeed = -10f; // Cached value
+    private float lastMoveSpeed = -10f;
 
     @Override
     public void damage(double amount) {

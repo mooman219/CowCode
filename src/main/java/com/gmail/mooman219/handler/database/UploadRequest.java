@@ -1,7 +1,6 @@
 package com.gmail.mooman219.handler.database;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.bull.PlayerShutdownType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.database.type.UploadReason;
@@ -35,8 +34,7 @@ public class UploadRequest implements Runnable {
                 Loader.warning(CHDatabase.getCast() + result.getError());
             }
             if(shouldRemove) {
-                player.shutdown(PlayerShutdownType.POST_REMOVAL);
-                player.clearPlayerData();
+                player.processRemoval();
             }
             Loader.info(CHDatabase.getCast() + "[UP] ["+reason.name()+"] : " + player.getUsername());
         } catch(Exception e) {

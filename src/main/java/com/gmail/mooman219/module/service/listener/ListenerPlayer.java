@@ -12,8 +12,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.bull.PlayerShutdownType;
-import com.gmail.mooman219.bull.PlayerStartupType;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.database.CHDatabase;
@@ -35,7 +33,7 @@ public class ListenerPlayer implements Listener {
         }
         CEventFactory.callDataVerifyEvent(event, player);
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.ALLOWED) {
-            player.startup(null, PlayerStartupType.PRELOGIN);
+            player.processPreLogin();
             CDPlayer.set(event, player);
         } else if(event.getKickMessage().length() <= 0) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CCService.MSG.LOGINERROR + "");
@@ -47,7 +45,7 @@ public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(PlayerLoginEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.startup(event.getPlayer(), PlayerStartupType.LOGIN);
+        player.processLogin(event.getPlayer());
         CEventFactory.callDataCreateEvent(event, player);
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
         CHDatabase.getManager().uploadPlayer(player, UploadReason.STATUS, false, true);
@@ -56,7 +54,7 @@ public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.startup(event.getPlayer(), PlayerStartupType.JOIN);
+        player.processJoin();
         CCService.MSG.DATALOAD.send(event.getPlayer());
     }
 
@@ -64,10 +62,10 @@ public class ListenerPlayer implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         CDPlayer player = CDPlayer.getSafe(event.getPlayer());
         if(player == null) {
-            Loader.warning(CCService.getCast() + "Null quitting player '" + event.getPlayer().getName() + "'");
+            Loader.warning(CCService.getCast() + "onQuit(): Null player '" + event.getPlayer().getName() + "'");
             return;
         }
-        player.shutdown(PlayerShutdownType.POST_QUIT);
+        player.processQuit();
         CHDatabase.getManager().uploadPlayer(player, UploadReason.SAVE, true, true);
     }
 
@@ -75,7 +73,7 @@ public class ListenerPlayer implements Listener {
     public void onDisable(PluginDisableEvent event) {
         Loader.info(CCService.getCast() + "Removing players");
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.kickPlayer(CCLogin.MSG.SHUTDOWN + "");
+            CCLogin.MSG.SHUTDOWN.kick(player);
         }
     }
 }

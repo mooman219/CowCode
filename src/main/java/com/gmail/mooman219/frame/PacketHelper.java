@@ -1,6 +1,5 @@
 package com.gmail.mooman219.frame;
 
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 import org.bukkit.Bukkit;
@@ -9,8 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
-
 import net.minecraft.server.v1_6_R2.EntityPlayer;
 import net.minecraft.server.v1_6_R2.Packet;
 import net.minecraft.server.v1_6_R2.Packet17EntityLocationAction;
@@ -21,7 +18,6 @@ import net.minecraft.server.v1_6_R2.Packet207SetScoreboardScore;
 import net.minecraft.server.v1_6_R2.Packet208SetScoreboardDisplayObjective;
 import net.minecraft.server.v1_6_R2.Packet209SetScoreboardTeam;
 import net.minecraft.server.v1_6_R2.Packet40EntityMetadata;
-import net.minecraft.server.v1_6_R2.Packet63WorldParticles;
 import net.minecraft.server.v1_6_R2.Packet8UpdateHealth;
 
 import com.gmail.mooman219.bull.CDPlayer;
@@ -32,25 +28,6 @@ import com.gmail.mooman219.frame.team.TeamModifyType;
 import com.gmail.mooman219.frame.text.TextHelper;
 
 public class PacketHelper {
-    private static final Field[] fieldsPacket63WorldParticles = ReflectHelper.getFields(Packet63WorldParticles.class);
-
-    public static Packet63WorldParticles getWorldParticles(Particle particle, Vector location, Vector offset, float speed, int count) {
-        Packet63WorldParticles packet63 = new Packet63WorldParticles();
-        Object[] values = {particle.getName(),
-                (float) location.getX(), (float) location.getY(), (float) location.getZ(),
-                (float) offset.getX(), (float) offset.getY(), (float) offset.getZ(),
-                speed, count};
-        try {
-            for(int i = 0; i < values.length && i < fieldsPacket63WorldParticles.length; i++) {
-                fieldsPacket63WorldParticles[i].set(packet63, values[i]);
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return packet63;
-    }
-
     public static Packet209SetScoreboardTeam getSetScoreboardTeam(TeamModifyType modifyType, boolean friendlyFire, boolean seeInvisable, String scoreboardName, String displayName, String prefix, String suffix, Collection<String> players) {
         Packet209SetScoreboardTeam packet209 = new Packet209SetScoreboardTeam();
         packet209.f = modifyType.getID();

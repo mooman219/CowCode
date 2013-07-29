@@ -42,7 +42,7 @@ public class CHTask extends CowHandler {
     public static String getDirectory() {
         return type.getDirectory();
     }
-    
+
     public Loader getPlugin() {
         return plugin;
     }
