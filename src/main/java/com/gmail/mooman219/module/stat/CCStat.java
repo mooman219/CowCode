@@ -1,6 +1,5 @@
 package com.gmail.mooman219.module.stat;
 
-import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.ModuleType;
 
@@ -9,8 +8,7 @@ public class CCStat extends CowModule {
     public static Messages MSG;
     public static Formats FRM;
 
-    public CCStat(Loader plugin){
-        super(plugin);
+    public CCStat(){
         MSG = new Messages();
         FRM = new Formats();
     }

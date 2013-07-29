@@ -6,18 +6,15 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.vanilla.command.Gamemode;
-import com.gmail.mooman219.module.vanilla.command.Heal;
 import com.gmail.mooman219.module.vanilla.command.Music;
 import com.gmail.mooman219.module.vanilla.command.Shriek;
-import com.gmail.mooman219.module.vanilla.command.Suicide;
 
 public class CCVanilla extends CowModule {
     private static final ModuleType type = ModuleType.VANILLA;
     public static Messages MSG;
     public static Formats FRM;
 
-    public CCVanilla(Loader plugin){
-        super(plugin);
+    public CCVanilla(){
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -40,18 +37,10 @@ public class CCVanilla extends CowModule {
     }
 
     @Override
-    public void onEnable(){}
-
-    @Override
-    public void onDisable(){}
-
-    @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new Music());
-        getPlugin().addCommand(new Shriek());
-        getPlugin().addCommand(new Gamemode());
-        getPlugin().addCommand(new Suicide());
-        getPlugin().addCommand(new Heal());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new Music());
+        plugin.addCommand(new Shriek());
+        plugin.addCommand(new Gamemode());
     }
 
     public class Messages {

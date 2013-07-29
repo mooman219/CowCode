@@ -18,12 +18,7 @@ public class CCService extends CowModule {
     public static Messages MSG;
     public static Formats FRM;
 
-    public ListenerPlayer listenerPlayer;
-    public ListenerEntity listenerEntity;
-    public MessingAround messingAround;
-
-    public CCService(Loader plugin) {
-        super(plugin);
+    public CCService() {
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -46,18 +41,18 @@ public class CCService extends CowModule {
     }
 
     @Override
-    public void onEnable(){
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
-        listenerEntity = getPlugin().addListener(new ListenerEntity());
-        messingAround = getPlugin().addListener(new MessingAround());
+    public void onEnable(Loader plugin){
+        plugin.addListener(new ListenerPlayer());
+        plugin.addListener(new ListenerEntity());
+        plugin.addListener(new MessingAround());
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new Whois());
-        getPlugin().addCommand(new Test());
-        getPlugin().addCommand(new Memory());
-        getPlugin().addCommand(new LoadConfig());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new Whois());
+        plugin.addCommand(new Test());
+        plugin.addCommand(new Memory());
+        plugin.addCommand(new LoadConfig());
     }
 
     public class Messages {

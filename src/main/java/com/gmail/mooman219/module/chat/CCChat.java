@@ -23,12 +23,8 @@ public class CCChat extends CowModule {
     public static Formats FRM;
 
     public final static LoneBoard loneBoard = new LoneBoard();;
-    public ListenerChat listenerChat;
-    public ListenerPlayer listenerPlayer;
-    public ListenerData listenerData;
 
-    public CCChat(Loader plugin){
-        super(plugin);
+    public CCChat(){
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -51,21 +47,21 @@ public class CCChat extends CowModule {
     }
 
     @Override
-    public void onEnable(){
-        listenerChat = getPlugin().addListener(new ListenerChat());
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
-        listenerData = getPlugin().addListener(new ListenerData());
+    public void onEnable(Loader plugin){
+        plugin.addListener(new ListenerChat());
+        plugin.addListener(new ListenerPlayer());
+        plugin.addListener(new ListenerData());
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new Global());
-        getPlugin().addCommand(new Message());
-        getPlugin().addCommand(new Mute());
-        getPlugin().addCommand(new Reply());
-        getPlugin().addCommand(new SetChatRange());
-        getPlugin().addCommand(new SetOverheadPrefix());
-        getPlugin().addCommand(new SetOverheadSuffix());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new Global());
+        plugin.addCommand(new Message());
+        plugin.addCommand(new Mute());
+        plugin.addCommand(new Reply());
+        plugin.addCommand(new SetChatRange());
+        plugin.addCommand(new SetOverheadPrefix());
+        plugin.addCommand(new SetOverheadSuffix());
     }
 
     public class Messages {

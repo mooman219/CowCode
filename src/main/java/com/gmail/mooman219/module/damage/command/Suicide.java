@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.vanilla.command;
+package com.gmail.mooman219.module.damage.command;
 
 import org.bukkit.entity.Player;
 

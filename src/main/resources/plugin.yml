@@ -83,6 +83,8 @@ commands:
         aliases:
         - regioninfo
         - whatregion
+        - whatzone
+        - whatarea
         - whereami
     setchatrange:
         aliases:
@@ -111,6 +113,7 @@ commands:
     resetinventory:
         aliases:
         - resetitems
+        - fixinventory
     toggleworldsaving:
         aliases:
         - togglesworldsave

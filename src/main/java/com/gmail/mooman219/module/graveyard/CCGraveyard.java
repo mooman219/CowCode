@@ -21,10 +21,8 @@ public class CCGraveyard extends CowModule {
     public static Formats FRM;
 
     public StoreGraveyard storeGraveyard;
-    public ListenerPlayer listenerPlayer;
 
-    public CCGraveyard(Loader plugin){
-        super(plugin);
+    public CCGraveyard(){
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -47,27 +45,27 @@ public class CCGraveyard extends CowModule {
     }
 
     @Override
-    public void onEnable(){
+    public void onEnable(Loader plugin){
         storeGraveyard = new StoreGraveyard(getCast(), getDirectory());
 
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+        plugin.addListener(new ListenerPlayer());
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable(Loader plugin){
         Loader.info(getCast() + "Saving " + storeGraveyard.getFile().getName());
         storeGraveyard.save();
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new AddGraveyard());
-        getPlugin().addCommand(new ClearGraveyards());
-        getPlugin().addCommand(new ListGraveyards());
-        getPlugin().addCommand(new RemoveGraveyard());
-        getPlugin().addCommand(new TeleportClosestGraveyard());
-        getPlugin().addCommand(new TeleportGraveyard());
-        getPlugin().addCommand(new TotalGraveyards());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new AddGraveyard());
+        plugin.addCommand(new ClearGraveyards());
+        plugin.addCommand(new ListGraveyards());
+        plugin.addCommand(new RemoveGraveyard());
+        plugin.addCommand(new TeleportClosestGraveyard());
+        plugin.addCommand(new TeleportGraveyard());
+        plugin.addCommand(new TotalGraveyards());
     }
 
     public class Messages {

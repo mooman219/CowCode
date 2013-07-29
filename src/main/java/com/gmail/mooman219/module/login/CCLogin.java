@@ -13,11 +13,7 @@ public class CCLogin extends CowModule{
     public static Messages MSG;
     public static Formats FRM;
 
-    public ListenerData listenerData;
-    public ListenerPlayer listenerPlayer;
-
-    public CCLogin(Loader plugin) {
-        super(plugin);
+    public CCLogin() {
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -40,9 +36,9 @@ public class CCLogin extends CowModule{
     }
 
     @Override
-    public void onEnable(){
-        listenerData = getPlugin().addListener(new ListenerData());
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+    public void onEnable(Loader plugin){
+        plugin.addListener(new ListenerData());
+        plugin.addListener(new ListenerPlayer());
     }
 
     public class Messages {

@@ -21,11 +21,8 @@ public class CCMineral extends CowModule {
     public static Formats FRM;
 
     public StoreMineral storeMineral;
-    public ListenerBlock listenerBlock;
-    public ListenerTime listenerTime;
 
-    public CCMineral(Loader plugin) {
-        super(plugin);
+    public CCMineral() {
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -47,15 +44,15 @@ public class CCMineral extends CowModule {
         return type.getDirectory();
     }
     @Override
-    public void onEnable(){
+    public void onEnable(Loader plugin){
         storeMineral = new StoreMineral(getCast(), getDirectory());
 
-        listenerBlock = getPlugin().addListener(new ListenerBlock());
-        listenerTime = getPlugin().addListener(new ListenerTime());
+        plugin.addListener(new ListenerBlock());
+        plugin.addListener(new ListenerTime());
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable(Loader plugin){
         Loader.info(getCast() + "Reverting minerals");
         MineralManager.revert();
         Loader.info(getCast() + "Saving " + storeMineral.getFile().getName());
@@ -63,13 +60,13 @@ public class CCMineral extends CowModule {
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new AddMineral(this));
-        getPlugin().addCommand(new ClearMinerals(this));
-        getPlugin().addCommand(new ListMinerals());
-        getPlugin().addCommand(new RemoveMineral(this));
-        getPlugin().addCommand(new RevertMinerals());
-        getPlugin().addCommand(new TotalMinerals());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new AddMineral(this));
+        plugin.addCommand(new ClearMinerals(this));
+        plugin.addCommand(new ListMinerals());
+        plugin.addCommand(new RemoveMineral(this));
+        plugin.addCommand(new RevertMinerals());
+        plugin.addCommand(new TotalMinerals());
     }
 
     public class Messages {

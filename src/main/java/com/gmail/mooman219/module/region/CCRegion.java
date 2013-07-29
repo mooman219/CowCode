@@ -24,10 +24,8 @@ public class CCRegion extends CowModule {
 
     public StoreRegion storeRegion;
     public StoreChunk storeChunk;
-    public ListenerPlayer listenerPlayer;
 
-    public CCRegion(Loader plugin) {
-        super(plugin);
+    public CCRegion() {
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -50,15 +48,15 @@ public class CCRegion extends CowModule {
     }
 
     @Override
-    public void onEnable(){
+    public void onEnable(Loader plugin){
         storeRegion = new StoreRegion(getCast(), getDirectory());
         storeChunk = new StoreChunk(getCast(), getDirectory());
 
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+        plugin.addListener(new ListenerPlayer());
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable(Loader plugin){
         Loader.info(getCast() + "Saving " + storeRegion.getFile().getName());
         storeRegion.save();
         Loader.info(getCast() + "Saving " + storeChunk.getFile().getName());
@@ -66,15 +64,15 @@ public class CCRegion extends CowModule {
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new ModifyID());
-        getPlugin().addCommand(new ModifyCombat());
-        getPlugin().addCommand(new ModifyDescription());
-        getPlugin().addCommand(new ModifyLock());
-        getPlugin().addCommand(new ModifyName());
-        getPlugin().addCommand(new NewRegion());
-        getPlugin().addCommand(new Region());
-        getPlugin().addCommand(new SetRegion());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new ModifyID());
+        plugin.addCommand(new ModifyCombat());
+        plugin.addCommand(new ModifyDescription());
+        plugin.addCommand(new ModifyLock());
+        plugin.addCommand(new ModifyName());
+        plugin.addCommand(new NewRegion());
+        plugin.addCommand(new Region());
+        plugin.addCommand(new SetRegion());
     }
 
     public class Messages {

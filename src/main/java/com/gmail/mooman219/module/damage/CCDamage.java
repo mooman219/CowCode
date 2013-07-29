@@ -6,6 +6,8 @@ import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.ModuleType;
+import com.gmail.mooman219.module.damage.command.Heal;
+import com.gmail.mooman219.module.damage.command.Suicide;
 import com.gmail.mooman219.module.damage.listener.ListenerEntity;
 import com.gmail.mooman219.module.damage.listener.ListenerPlayer;
 
@@ -15,11 +17,8 @@ public class CCDamage extends CowModule {
     public static Formats FRM;
 
     public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
-    public ListenerEntity listenerEntity;
-    public ListenerPlayer listenerPlayer;
 
-    public CCDamage(Loader plugin){
-        super(plugin);
+    public CCDamage(){
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -42,9 +41,15 @@ public class CCDamage extends CowModule {
     }
 
     @Override
-    public void onEnable(){
-        listenerEntity = getPlugin().addListener(new ListenerEntity());
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
+    public void onEnable(Loader plugin){
+        plugin.addListener(new ListenerEntity());
+        plugin.addListener(new ListenerPlayer());
+    }
+
+    @Override
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new Suicide());
+        plugin.addCommand(new Heal());
     }
 
     public class Messages {}

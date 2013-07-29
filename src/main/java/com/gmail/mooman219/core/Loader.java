@@ -54,10 +54,10 @@ public class Loader extends JavaPlugin {
             Loader.info((enable ? "Enabling" : "Disabling") + " " + module.getType().getName());
             try {
                 if(enable) {
-                    module.onEnable();
-                    module.loadCommands();
+                    module.onEnable(this);
+                    module.loadCommands(this);
                 } else {
-                    module.onDisable();
+                    module.onDisable(this);
                 }
             } catch(Exception e) {
                 e.printStackTrace();
@@ -72,17 +72,17 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHTask(this));
         handlerList.add(new CHDatabase());
         // ~
-        moduleList.add(new CCService(this));
-        moduleList.add(new CCLogin(this));
-        moduleList.add(new CCGraveyard(this));
-        moduleList.add(new CCMineral(this));
-        moduleList.add(new CCChat(this));
-        moduleList.add(new CCRegion(this));
-        moduleList.add(new CCWorld(this));
-        moduleList.add(new CCVanilla(this));
-        moduleList.add(new CCDamage(this));
-        moduleList.add(new CCItem(this));
-        moduleList.add(new CCStat(this));
+        moduleList.add(new CCService());
+        moduleList.add(new CCLogin());
+        moduleList.add(new CCGraveyard());
+        moduleList.add(new CCMineral());
+        moduleList.add(new CCChat());
+        moduleList.add(new CCRegion());
+        moduleList.add(new CCWorld());
+        moduleList.add(new CCVanilla());
+        moduleList.add(new CCDamage());
+        moduleList.add(new CCItem());
+        moduleList.add(new CCStat());
     }
 
     @Override

@@ -16,12 +16,7 @@ public class CCItem extends CowModule {
     public static Messages MSG;
     public static Formats FRM;
 
-    public ListenerPlayer listenerPlayer;
-    public ListenerData listenerData;
-    public ListenerInventory listenerInventory;
-
-    public CCItem(Loader plugin) {
-        super(plugin);
+    public CCItem() {
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -44,16 +39,16 @@ public class CCItem extends CowModule {
     }
 
     @Override
-    public void onEnable(){
-        listenerPlayer = getPlugin().addListener(new ListenerPlayer());
-        listenerData = getPlugin().addListener(new ListenerData());
-        listenerInventory = getPlugin().addListener(new ListenerInventory());
+    public void onEnable(Loader plugin){
+        plugin.addListener(new ListenerPlayer());
+        plugin.addListener(new ListenerData());
+        plugin.addListener(new ListenerInventory());
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new ItemStats());
-        getPlugin().addCommand(new ResetInventory());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new ItemStats());
+        plugin.addCommand(new ResetInventory());
     }
 
     public class Messages {

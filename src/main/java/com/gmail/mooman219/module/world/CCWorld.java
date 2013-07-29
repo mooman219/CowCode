@@ -14,11 +14,7 @@ public class CCWorld extends CowModule {
     public static Messages MSG;
     public static Formats FRM;
 
-    public ListenerBlock listenerBlock;
-    public ListenerWorld listenerWorld;
-
-    public CCWorld(Loader plugin) {
-        super(plugin);
+    public CCWorld() {
         MSG = new Messages();
         FRM = new Formats();
     }
@@ -41,14 +37,14 @@ public class CCWorld extends CowModule {
     }
 
     @Override
-    public void onEnable(){
-        listenerBlock = getPlugin().addListener(new ListenerBlock());
-        listenerWorld = getPlugin().addListener(new ListenerWorld());
+    public void onEnable(Loader plugin){
+        plugin.addListener(new ListenerBlock());
+        plugin.addListener(new ListenerWorld());
     }
 
     @Override
-    public void loadCommands() {
-        getPlugin().addCommand(new ToggleWorldSaving());
+    public void loadCommands(Loader plugin) {
+        plugin.addCommand(new ToggleWorldSaving());
     }
 
     public class Messages {}
