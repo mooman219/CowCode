@@ -25,6 +25,7 @@ import net.minecraft.server.v1_6_R2.Packet63WorldParticles;
 import net.minecraft.server.v1_6_R2.Packet8UpdateHealth;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.scoreboard.BoardDisplayType;
 import com.gmail.mooman219.frame.scoreboard.BoardModifyType;
 import com.gmail.mooman219.frame.team.TeamModifyType;
@@ -130,10 +131,7 @@ public class PacketHelper {
             if(player == null) {
                 continue;
             }
-            CDPlayer cdplayer = CDPlayer.get(player);
-            for (Packet packet : packets) {
-                cdplayer.sendPacket(packet);
-            }
+            send(CDPlayer.get(player), packets);
         }
     }
 
@@ -142,13 +140,7 @@ public class PacketHelper {
             if(player == null) {
                 continue;
             }
-            CDPlayer cdplayer = CDPlayer.get(player);
-            for (Packet packet : packets) {
-                if(packet == null) {
-                    continue;
-                }
-                cdplayer.sendPacket(packet);
-            }
+            send(CDPlayer.get(player), packets);
         }
     }
 
@@ -157,13 +149,7 @@ public class PacketHelper {
             if(other == null || other.getName().equals(player.getUsername())) {
                 continue;
             }
-            CDPlayer cdOther = CDPlayer.get(other);
-            for (Packet packet : packets) {
-                if(packet == null) {
-                    continue;
-                }
-                cdOther.sendPacket(packet);
-            }
+            send(CDPlayer.get(other), packets);
         }
     }
 
@@ -181,12 +167,23 @@ public class PacketHelper {
             if (location.distanceSquared(player.getLocation()) > radius) {
                 continue;
             }
-            CDPlayer cdplayer = CDPlayer.get(player);
-            for (Packet packet : packets) {
-                if(packet == null) {
-                    continue;
+            send(CDPlayer.get(player), packets);
+        }
+    }
+
+    public static void send(CDPlayer player, Packet... packets) {
+        EntityPlayer handle = player.getHandle();
+        if(handle == null) {
+            Loader.warning("send(): Null handle for '" + player.getUsername() + "'");
+        } else if(handle.playerConnection == null) {
+            Loader.warning("send(): Null playerconnection for '" + player.getUsername() + "'");
+        } else {
+            for(Packet packet : packets) {
+                if(packet != null) {
+                    handle.playerConnection.sendPacket(packet);
+                } else {
+                    Loader.warning("sendPacket(): Null packet for '" + player.getUsername() + "'");
                 }
-                cdplayer.sendPacket(packet);
             }
         }
     }

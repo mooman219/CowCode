@@ -23,8 +23,8 @@ public class HealthBoard {
         String name = player.getUsername();
         Packet packet = PacketHelper.getSetScoreboardScore(title, name, health, BoardModifyType.UPDATE);
         // Create the board on the client for the new player
-        player.sendPacket(PacketHelper.getSetScoreboardObjective(title, displayTitle, BoardModifyType.UPDATE));
-        player.sendPacket(PacketHelper.getSetScoreboardDisplay(title, BoardDisplayType.BELOWNAME));
+        PacketHelper.send(player, PacketHelper.getSetScoreboardObjective(title, displayTitle, BoardModifyType.UPDATE));
+        PacketHelper.send(player, PacketHelper.getSetScoreboardDisplay(title, BoardDisplayType.BELOWNAME));
         // Tell all players on the server the given player's name and health,
         // Also tell the given player the health of all other players
         PacketHelper.sendGlobalExcept(player, packet);
@@ -33,7 +33,7 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            player.sendPacket(PacketHelper.getSetScoreboardScore(title, other.getUsername(), NumberHelper.round(other.stat.healthCur), BoardModifyType.UPDATE));
+            PacketHelper.send(player, PacketHelper.getSetScoreboardScore(title, other.getUsername(), NumberHelper.round(other.stat.healthCur), BoardModifyType.UPDATE));
         }
     }
 

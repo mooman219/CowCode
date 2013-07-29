@@ -29,8 +29,8 @@ public class LoneBoard {
                     continue;
                 }
                 CDPlayer other = CDPlayer.get(bukkitOther);
-                player.sendPacket(PacketHelper.getSetScoreboardTeam(TeamModifyType.CREATED, false, false, other.getUsername(), other.getUsername(), other.getOverheadPrefix(), other.getOverheadSuffix(), toCollection(other)));
-                other.sendPacket(packet);
+                PacketHelper.send(player, PacketHelper.getSetScoreboardTeam(TeamModifyType.CREATED, false, false, other.getUsername(), other.getUsername(), other.getOverheadPrefix(), other.getOverheadSuffix(), toCollection(other)));
+                PacketHelper.send(other, packet);
             }
         } else {
             Loader.warning("add(): Player already in entries");

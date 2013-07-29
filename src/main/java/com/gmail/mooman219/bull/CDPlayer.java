@@ -2,7 +2,6 @@ package com.gmail.mooman219.bull;
 
 import java.util.ArrayList;
 
-import net.minecraft.server.v1_6_R2.Packet;
 import net.minecraft.server.v1_6_R2.PendingConnection;
 import net.minecraft.server.v1_6_R2.PlayerConnection;
 import net.minecraft.server.v1_6_R2.EntityPlayer;
@@ -352,10 +351,10 @@ public class CDPlayer extends BullData implements Damageable {
         return suffix;
     }
 
+    /**
+     * This can return null depending on when it's called.
+     */
     public Player getPlayer() {
-        if(player == null) {
-            throw new IllegalStateException("You cannot get a null player for " + username + ". CDPlayer might be shutdown or not started yet.");
-        }
         return player;
     }
 
@@ -381,19 +380,6 @@ public class CDPlayer extends BullData implements Damageable {
 
     public void sendBlockChange(Location location, Material material) {
         player.sendBlockChange(location, material, (byte) 0);
-    }
-
-    public void sendPacket(final Packet packet) {
-        EntityPlayer handle = getHandle();
-        if(handle == null) {
-            Loader.warning("sendPacket(): Null handle for '" + username + "'");
-        } else if(packet == null) {
-            Loader.warning("sendPacket(): Null packet for '" + username + "'");
-        } else if(handle.playerConnection == null) {
-            Loader.warning("sendPacket(): Null connection for '" + username + "'");
-        } else {
-            handle.playerConnection.sendPacket(packet);
-        }
     }
 
     public void setDisplayName(String name) {
@@ -436,14 +422,13 @@ public class CDPlayer extends BullData implements Damageable {
      */
 
     public EntityPlayer getHandle() {
-        if(player == null) {
-            Loader.warning("Null player for '" + username + "'");
-            return null;
-        }
-        return ((CraftPlayer)player).getHandle();
+        return player != null ? ((CraftPlayer)player).getHandle() : null;
     }
 
     public static CDPlayer getSafe(Player player) {
+        if(player == null) {
+            return null;
+        }
         EntityPlayer handle = ((CraftPlayer)player).getHandle();
         return handle.bull_live == null ? null : (CDPlayer) handle.bull_live;
     }
