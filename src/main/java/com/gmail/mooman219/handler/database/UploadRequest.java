@@ -27,7 +27,7 @@ public class UploadRequest implements Runnable {
             if(shouldRemove) {
                 CEventFactory.callDataRemovalEvent(runAsync, player);
             }
-            DBObject playerObject = player.getTemplate(reason);
+            DBObject playerObject = player.save(reason);
             WriteResult result = CHDatabase.getManager().getUsersCollection().update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
             if(result.getError() != null) {
                 Loader.warning(CHDatabase.getCast() + "Mongo Error");

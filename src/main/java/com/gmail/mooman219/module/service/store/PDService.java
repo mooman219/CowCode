@@ -23,7 +23,7 @@ public class PDService extends PlayerData {
     public int staffLevel = 0;
 
     @Override
-    public void sync(DownloadReason reason, DBObject rank) {
+    public void load(DownloadReason reason, DBObject rank) {
         switch(reason) {
         case LOGIN:
         case QUERY:
@@ -36,7 +36,7 @@ public class PDService extends PlayerData {
     }
 
     @Override
-    public DBObject getTemplate(UploadReason reason) {
+    public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()

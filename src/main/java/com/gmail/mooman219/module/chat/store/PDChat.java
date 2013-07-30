@@ -22,7 +22,7 @@ public class PDChat extends PlayerData {
     public long mutedUntil = 0l;
 
     @Override
-    public void sync(DownloadReason reason, DBObject chat) {
+    public void load(DownloadReason reason, DBObject chat) {
         switch(reason) {
         case LOGIN:
         case QUERY:
@@ -33,7 +33,7 @@ public class PDChat extends PlayerData {
     }
 
     @Override
-    public DBObject getTemplate(UploadReason reason) {
+    public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()

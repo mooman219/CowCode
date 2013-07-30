@@ -163,10 +163,10 @@ public class CDPlayer extends BullData implements Damageable {
     /**
      * Returns true if it failed.
      */
-    public boolean sync(DownloadReason reason, DBObject playerObject) {
+    public boolean load(DownloadReason reason, DBObject playerObject) {
         for(PlayerData data : playerData) {
             try {
-                data.sync(reason, MongoHelper.getValue(playerObject, data.getTag(), new BasicDBObject()));
+                data.load(reason, MongoHelper.getValue(playerObject, data.getTag(), new BasicDBObject()));
             } catch(Exception e) {
                 Loader.warning("Error in sync() for " + username + ".");
                 e.printStackTrace();
@@ -176,11 +176,11 @@ public class CDPlayer extends BullData implements Damageable {
         return false;
     }
 
-    public BasicDBObject getTemplate(UploadReason reason) {
+    public BasicDBObject save(UploadReason reason) {
         BasicDBObject template = new BasicDBObject();
         for(PlayerData data : playerData) {
             try {
-                template.putAll(data.getTemplate(reason));
+                template.putAll(data.save(reason));
             } catch(Exception e) {
                 Loader.warning("Error in getTemplate() for " + username + ".");
                 e.printStackTrace();

@@ -31,7 +31,7 @@ class PlayerDownloader implements Callable<CDPlayer> {
                     CHDatabase.getManager().createPlayerObject(username);
                     CHDatabase.getManager().uploadPlayer(player, UploadReason.SAVE, false, false);
                 }
-                if(player.sync(reason, playerObject)) {
+                if(player.load(reason, playerObject)) {
                     return null;
                 }
                 return player;
@@ -40,7 +40,7 @@ class PlayerDownloader implements Callable<CDPlayer> {
                 Loader.info(CHDatabase.getCast() + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                 if(playerObject != null) {
                     player = new CDPlayer(username);
-                    player.sync(reason, playerObject);
+                    player.load(reason, playerObject);
                     return player;
                 } else {
                     return null;

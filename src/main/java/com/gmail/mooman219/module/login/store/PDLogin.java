@@ -30,7 +30,7 @@ public class PDLogin extends PlayerData {
     public String lastKnownIP = "0.0.0.0";
 
     @Override
-    public void sync(DownloadReason reason, DBObject login) {
+    public void load(DownloadReason reason, DBObject login) {
         switch(reason) {
         case LOGIN:
             setPosition(BasicRichLocation.fromString(MongoHelper.getValue(login, "position", "")));
@@ -47,7 +47,7 @@ public class PDLogin extends PlayerData {
     }
 
     @Override
-    public DBObject getTemplate(UploadReason reason) {
+    public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()

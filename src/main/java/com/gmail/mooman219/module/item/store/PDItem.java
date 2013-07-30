@@ -23,7 +23,7 @@ public class PDItem extends PlayerData {
     public BasicInventory savedInventory = new BasicInventory();
 
     @Override
-    public void sync(DownloadReason reason, DBObject chat) {
+    public void load(DownloadReason reason, DBObject chat) {
         switch(reason) {
         case LOGIN:
             savedInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList()));
@@ -37,7 +37,7 @@ public class PDItem extends PlayerData {
     }
 
     @Override
-    public DBObject getTemplate(UploadReason reason) {
+    public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
             // Pull from cache

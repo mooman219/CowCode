@@ -11,7 +11,7 @@ import com.mongodb.DBObject;
 public interface MongoData {
     public String getTag();
 
-    public void sync(DownloadReason reason, DBObject object);
+    public void load(DownloadReason reason, DBObject object);
 
-    public DBObject getTemplate(UploadReason reason);
+    public DBObject save(UploadReason reason);
 }

@@ -90,7 +90,7 @@ public class PDStat extends PlayerData {
     public int unspentPoints = 3;
 
     @Override
-    public void sync(DownloadReason reason, DBObject stat) {
+    public void load(DownloadReason reason, DBObject stat) {
         switch(reason) {
         case LOGIN:
         case QUERY:
@@ -116,7 +116,7 @@ public class PDStat extends PlayerData {
     }
 
     @Override
-    public DBObject getTemplate(UploadReason reason) {
+    public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()

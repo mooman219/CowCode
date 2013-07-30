@@ -23,10 +23,10 @@ public abstract class PlayerData implements MongoData {
     }
 
     @Override
-    public void sync(DownloadReason reason, DBObject rank) {}
+    public void load(DownloadReason reason, DBObject rank) {}
 
     @Override
-    public DBObject getTemplate(UploadReason reason) {
+    public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
         case STATUS:
