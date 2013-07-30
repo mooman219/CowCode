@@ -52,7 +52,7 @@ public class CHTask extends CowHandler {
     public void onEnable() {
         manager = new Manager();
         Loader.info(getCast() + "Starting plugin threads");
-        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads, new ThreadFactoryBuilder().setNameFormat("Cow Plugin Thread - %1$d").build());
+        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads, new ThreadFactoryBuilder().setNameFormat("Cow Plugin Thread - $d").build());
         Loader.info(getCast() + "Starting second clocks");
 
         manager.runPlugin(new Runnable() {
@@ -86,6 +86,10 @@ public class CHTask extends CowHandler {
     }
 
     public class Manager {
+        public boolean isInPool() {
+            return Thread.currentThread().getName().startsWith("Cow Plugin Thread");
+        }
+
         public BukkitTask runBukkit(Runnable runnable) {
             return Bukkit.getScheduler().runTask(getPlugin(), runnable);
         }

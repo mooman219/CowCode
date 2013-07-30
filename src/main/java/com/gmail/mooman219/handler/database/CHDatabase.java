@@ -84,7 +84,7 @@ public class CHDatabase extends CowHandler {
         }
 
         public void uploadPlayer(CDPlayer player, UploadReason reason, boolean shouldRemove, boolean runAsync) {
-            UploadRequest request = new UploadRequest(player, reason, shouldRemove, runAsync);
+            UploadRequest request = new UploadRequest(player, reason, shouldRemove);
             if(runAsync) {
                 CHTask.getManager().runPlugin(request);
             } else {
