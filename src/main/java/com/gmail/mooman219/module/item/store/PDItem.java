@@ -20,15 +20,12 @@ public class PDItem extends PlayerData {
      * Offline
      */
 
-    public BasicInventory savedInventory = new BasicInventory();
-
     @Override
     public void load(DownloadReason reason, DBObject chat) {
         switch(reason) {
         case LOGIN:
-            savedInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList()));
-            // Save to the cache.
-            cachedInventory = savedInventory.toInventory();
+            equipmentInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "equipment", new BasicInventory().toList())).toInventory();
+            playerInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory();
         case QUERY:
         default:
             break;
@@ -40,10 +37,9 @@ public class PDItem extends PlayerData {
     public DBObject save(UploadReason reason) {
         switch(reason) {
         case SAVE:
-            // Pull from cache
-            savedInventory = cachedInventory != null ? new BasicInventory(cachedInventory) : savedInventory;
             return new BasicDBObject()
-            .append(getTag() + ".inventory", savedInventory.toList());
+            .append(getTag() + ".equipment", (equipmentInventory != null ? new BasicInventory(equipmentInventory) : new BasicInventory()).toList())
+            .append(getTag() + ".inventory", (playerInventory != null ? new BasicInventory(playerInventory) : new BasicInventory()).toList());
         case STATUS:
         default:
             return new BasicDBObject();
@@ -54,18 +50,23 @@ public class PDItem extends PlayerData {
      * Live
      */
 
-    /*
-     * Cache is important. This means that we have 2 copies of the players inventory.
-     * If the event happens where this inventory was never set, we can pull from the original one.
-     */
-    private ItemStack[] cachedInventory;
+    private ItemStack[] equipmentInventory;
+    private ItemStack[] playerInventory;
 
-    public void setInventory(ItemStack[] inventory) {
-        cachedInventory = inventory;
+    public void setEquipmentInventory(ItemStack[] inventory) {
+        equipmentInventory = inventory;
     }
 
-    public ItemStack[] getInventory() {
-        return cachedInventory;
+    public void setPlayerInventory(ItemStack[] inventory) {
+        playerInventory = inventory;
+    }
+
+    public ItemStack[] getEquipmentInventory() {
+        return equipmentInventory;
+    }
+
+    public ItemStack[] getPlayerInventory() {
+        return playerInventory;
     }
 
     @Override
@@ -73,6 +74,7 @@ public class PDItem extends PlayerData {
 
     @Override
     public void destroy() {
-        cachedInventory = null;
+        equipmentInventory = null;
+        playerInventory = null;
     }
 }
