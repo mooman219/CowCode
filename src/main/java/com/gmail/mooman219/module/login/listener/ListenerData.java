@@ -19,10 +19,10 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onVerify(DataVerifyEvent event) {
         CDPlayer player = event.getPlayer();
-        if(player.service.rank.index < Rank.MODERATOR.index) {
+        if(player.service().rank.index < Rank.MODERATOR.index) {
             long currentTime = TimeHelper.time();
-            if(currentTime - player.login.lastlogin < ConfigGlobal.module.login.loginDelay) {
-                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.login.lastlogin), TimeType.MILLISECOND)));
+            if(currentTime - player.login().lastlogin < ConfigGlobal.module.login.loginDelay) {
+                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.login().lastlogin), TimeType.MILLISECOND)));
                 return;
             }
         }
@@ -32,19 +32,19 @@ public class ListenerData implements Listener {
     public void onCreation(DataCreateEvent event) {
         CDPlayer player = event.getPlayer();
         long currentTime = TimeHelper.time();
-        if(player.login.firstlogin == 0) {
-            player.login.firstlogin = currentTime;
+        if(player.login().firstlogin == 0) {
+            player.login().firstlogin = currentTime;
         }
-        player.login.lastlogin = currentTime;
-        player.login.isOnline = true;
+        player.login().lastlogin = currentTime;
+        player.login().isOnline = true;
     }
 
     @EventHandler()
     public void onRemoval(DataRemovalEvent event) {
         CDPlayer player = event.getPlayer();
         long currentTime = TimeHelper.time();
-        player.login.timeplayed += currentTime - player.login.lastlogin;
-        player.login.lastlogin = currentTime;
-        player.login.isOnline = false;
+        player.login().timeplayed += currentTime - player.login().lastlogin;
+        player.login().lastlogin = currentTime;
+        player.login().isOnline = false;
     }
 }

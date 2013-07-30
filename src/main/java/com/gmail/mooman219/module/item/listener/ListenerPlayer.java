@@ -20,7 +20,7 @@ public class ListenerPlayer implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.item.setInventory(player.getPlayer().getInventory().getContents());
+        player.item().setInventory(player.getPlayer().getInventory().getContents());
     }
 
     @EventHandler

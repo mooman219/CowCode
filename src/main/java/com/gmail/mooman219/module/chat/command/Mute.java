@@ -28,7 +28,7 @@ public class Mute extends CCommand {
             TimeString mutedUntilString = new TimeString(type, amount);
             long mutedUntil = TimeHelper.time() + TimeHelper.convert(amount, type, TimeType.MILLISECOND);
 
-            targetData.chat.mutedUntil = mutedUntil;
+            targetData.chat().mutedUntil = mutedUntil;
             CCChat.FRM.MUTED_TARGET.send(targetData, mutedUntilString.toString());
             CCChat.FRM.MUTED_SENDER.send(playerData, target.getName(), mutedUntilString.toString());
         } else {

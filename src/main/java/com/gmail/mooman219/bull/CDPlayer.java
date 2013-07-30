@@ -54,12 +54,12 @@ public class CDPlayer extends BullData implements Damageable {
     private String suffix = "";
     // [+] Module information
     private ArrayList<PlayerData> playerData = null;
-    public PDService service = null;
-    public PDLogin login = null;
-    public PDChat chat = null;
-    public PDStat stat = null;
-    public PDRegion region = null;
-    public PDItem item = null;
+    private PDService service = null;
+    private PDLogin login = null;
+    private PDChat chat = null;
+    private PDStat stat = null;
+    private PDRegion region = null;
+    private PDItem item = null;
 
     public CDPlayer(String username) {
         this.username = username;
@@ -71,6 +71,30 @@ public class CDPlayer extends BullData implements Damageable {
         this.stat = addPlayerData(new PDStat(this));
         this.region = addPlayerData(new PDRegion(this));
         this.item = addPlayerData(new PDItem(this));
+    }
+
+    public PDItem item() {
+        return item;
+    }
+
+    public PDRegion region() {
+        return region;
+    }
+
+    public PDStat stat() {
+        return stat;
+    }
+
+    public PDChat chat() {
+        return chat;
+    }
+
+    public PDLogin login() {
+        return login;
+    }
+
+    public PDService service() {
+        return service;
     }
 
     /**

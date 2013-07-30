@@ -27,7 +27,7 @@ public class Region extends CCommand {
                 CCRegion.MSG.NONEXISTS.send(sender);
             }
         } else {
-            sendInfo(sender, playerData.region.getRegion());
+            sendInfo(sender, playerData.region().getRegion());
         }
     }
 

@@ -9,6 +9,6 @@ public class ListenerData implements Listener {
     @EventHandler()
     public void onCreation(DataCreateEvent event) {
         CDPlayer player = event.getPlayer();
-        player.getPlayer().getInventory().setContents(player.item.getInventory());
+        player.getPlayer().getInventory().setContents(player.item().getInventory());
     }
 }

@@ -25,7 +25,7 @@ public class ListenerPlayer implements Listener{
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDPlayer player = CDPlayer.get(event.getPlayer());
             BasicRegion toRegion = RegionManager.getRegion(event.getTo());
-            BasicRegion fromRegion = player.region.getRegion();
+            BasicRegion fromRegion = player.region().getRegion();
             // If the to and from regions are the same, just let them move w/o anymore checks.
             if(!toRegion.equals(fromRegion)) {
                 if(toRegion.isLocked()) {
@@ -44,12 +44,12 @@ public class ListenerPlayer implements Listener{
                         player.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
                         return;
                     }
-                } else if(CEventFactory.callRegionChangeEvent(event, player, player.region.getRegion(), toRegion).isCancelled()) {
+                } else if(CEventFactory.callRegionChangeEvent(event, player, player.region().getRegion(), toRegion).isCancelled()) {
                     event.setCancelled(true);
                     event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
                     return;
                 }
-                player.region.setRegion(toRegion);
+                player.region().setRegion(toRegion);
             }
         }
     }
@@ -60,12 +60,12 @@ public class ListenerPlayer implements Listener{
         BasicRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
         player.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
         player.getSidebar().addKey("regionc", region.getCombatType().getColoredName(), 5);
-        player.region.setRegion(region);
+        player.region().setRegion(region);
     }
 
     @EventHandler()
     public void onRespawn(PlayerRespawnEvent event){
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.region.setRegion(RegionManager.getRegion(event.getRespawnLocation()));
+        player.region().setRegion(RegionManager.getRegion(event.getRespawnLocation()));
     }
 }

@@ -16,7 +16,7 @@ public class ListenerPlayer implements Listener{
         CDPlayer player = CDPlayer.get(event.getPlayer());
         event.setJoinMessage(CCChat.FRM.LOGIN.parse(player.getUsername()));
         CCChat.loneBoard.add(player);
-        player.setOverheadPrefix(player.service.rank.color);
+        player.setOverheadPrefix(player.service().rank.color);
     }
 
     @EventHandler()

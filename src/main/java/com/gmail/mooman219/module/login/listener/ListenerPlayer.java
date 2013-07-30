@@ -15,16 +15,16 @@ public class ListenerPlayer implements Listener {
         CDPlayer player = CDPlayer.get(event.getPlayer());
         // IP storage (Because it's not available in Login)
         String ip = player.getPlayer().getAddress().getAddress().getHostAddress();
-        player.login.lastKnownIP = ip;
-        if(!player.login.knownIPs.contains(ip)) {
-            player.login.knownIPs.add(ip);
+        player.login().lastKnownIP = ip;
+        if(!player.login().knownIPs.contains(ip)) {
+            player.login().knownIPs.add(ip);
         }
         // Gamemode correction
         if(player.getPlayer().getGameMode() == GameMode.SURVIVAL) {
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
         }
         // Position saving
-        Location position = player.login.getPosition();
+        Location position = player.login().getPosition();
         if(position != null) {
             player.getPlayer().teleport(position);
         }
@@ -33,6 +33,6 @@ public class ListenerPlayer implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        player.login.setPosition(player.getPlayer().getLocation());
+        player.login().setPosition(player.getPlayer().getLocation());
     }
 }

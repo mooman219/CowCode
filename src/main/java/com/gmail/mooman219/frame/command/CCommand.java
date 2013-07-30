@@ -36,7 +36,7 @@ public class CCommand implements CommandExecutor {
         } else if(sender instanceof Player) {
             Player player = (Player) sender;
             CDPlayer playerData = CDPlayer.get(player);
-            if(playerData.service.rank.index >= requiredRank.index) {
+            if(playerData.service().rank.index >= requiredRank.index) {
                 processPlayer(player, playerData, args);
             } else {
                 sender.sendMessage(Chat.msgError + "Insufficient rank.");

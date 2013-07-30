@@ -23,9 +23,9 @@ public class ListenerChat implements Listener{
     public void onChat(AsyncPlayerChatEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
 //    ~ Muted players
-        if(player.chat.mutedUntil - TimeHelper.time() > 0) {
+        if(player.chat().mutedUntil - TimeHelper.time() > 0) {
             event.setCancelled(true);
-            CCChat.FRM.MUTED_TARGET.send(player, TimeHelper.getLargestType(player.chat.mutedUntil - TimeHelper.time(), TimeType.MILLISECOND).toString());
+            CCChat.FRM.MUTED_TARGET.send(player, TimeHelper.getLargestType(player.chat().mutedUntil - TimeHelper.time(), TimeType.MILLISECOND).toString());
 //    ~ Private chat
         } else if(event.getMessage().charAt(0) == '@') {
             event.setCancelled(true);
@@ -33,7 +33,7 @@ public class ListenerChat implements Listener{
             if(message.length <= 1) {
                 CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
             } else if(message[0].length() == 1) {
-                message(player, player.chat.getLastMessaged(), message[1]);
+                message(player, player.chat().getLastMessaged(), message[1]);
             } else {
                 Player foundPlayer = Bukkit.getPlayer(message[0].substring(1));
                 if(foundPlayer == null) {
@@ -52,20 +52,20 @@ public class ListenerChat implements Listener{
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
                 CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
-            } else if(TimeHelper.time() - player.chat.getLastGlobalChat() <= ConfigGlobal.module.chat.globalDelay) {
-                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (TimeHelper.time() - player.chat.getLastGlobalChat()), TimeType.MILLISECOND));
+            } else if(TimeHelper.time() - player.chat().getLastGlobalChat() <= ConfigGlobal.module.chat.globalDelay) {
+                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (TimeHelper.time() - player.chat().getLastGlobalChat()), TimeType.MILLISECOND));
             } else {
-                event.setFormat(Chat.msgGlobal + player.service.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
+                event.setFormat(Chat.msgGlobal + player.service().rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
                 event.setCancelled(false);
                 // Moderators and above are not effected by the delay
-                if(player.service.rank.index < Rank.MODERATOR.index) {
-                    player.chat.setLastGlobalChat(TimeHelper.time());
+                if(player.service().rank.index < Rank.MODERATOR.index) {
+                    player.chat().setLastGlobalChat(TimeHelper.time());
                 }
             }
 //    ~ Normal chat
         } else {
-            event.setFormat(player.service.rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
+            event.setFormat(player.service().rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
             Iterator<Player> iterator = event.getRecipients().iterator();
             while(iterator.hasNext()) {
                 Player recipient = iterator.next();
@@ -84,13 +84,13 @@ public class ListenerChat implements Listener{
 
     public void message(CDPlayer sender, CDPlayer receiver, String message) {
         if(receiver == null || !receiver.getPlayer().isOnline()) {
-            sender.chat.setLastMessaged(null);
+            sender.chat().setLastMessaged(null);
             CCChat.MSG.MESSAGE_LOST.send(sender);
         } else {
-            sender.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "TO " + Chat.RESET + receiver.service.rank.tag + receiver.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
-            receiver.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "FROM " + Chat.RESET + sender.service.rank.tag + sender.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
-            sender.chat.setLastMessaged(receiver);
-            receiver.chat.setLastMessaged(sender);
+            sender.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "TO " + Chat.RESET + receiver.service().rank.tag + receiver.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
+            receiver.getPlayer().sendMessage(Chat.DARK_GRAY + "" + Chat.BOLD + "FROM " + Chat.RESET + sender.service().rank.tag + sender.getPlayer().getDisplayName() + Chat.DARK_GRAY + ":" + Chat.WHITE + " " + message);
+            sender.chat().setLastMessaged(receiver);
+            receiver.chat().setLastMessaged(sender);
         }
     }
 }

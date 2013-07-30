@@ -19,7 +19,7 @@ public class HealthBoard {
     }
 
     public void addPlayer(CDPlayer player) {
-        int health = NumberHelper.round(player.stat.healthCur);
+        int health = NumberHelper.round(player.stat().healthCur);
         String name = player.getUsername();
         Packet packet = PacketHelper.getSetScoreboardScore(title, name, health, BoardModifyType.UPDATE);
         // Create the board on the client for the new player
@@ -33,12 +33,12 @@ public class HealthBoard {
                 continue;
             }
             CDPlayer other = CDPlayer.get(bukkitOther);
-            PacketHelper.send(player, PacketHelper.getSetScoreboardScore(title, other.getUsername(), NumberHelper.round(other.stat.healthCur), BoardModifyType.UPDATE));
+            PacketHelper.send(player, PacketHelper.getSetScoreboardScore(title, other.getUsername(), NumberHelper.round(other.stat().healthCur), BoardModifyType.UPDATE));
         }
     }
 
     public void updatePlayer(CDPlayer player) {
-        int health = NumberHelper.round(player.stat.healthCur);
+        int health = NumberHelper.round(player.stat().healthCur);
         String name = player.getUsername();
         Packet packet = PacketHelper.getSetScoreboardScore(title, name, health, BoardModifyType.UPDATE);
         // Tell all players on the server the given player's name and health
