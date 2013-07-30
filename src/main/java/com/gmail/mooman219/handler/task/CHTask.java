@@ -14,6 +14,7 @@ import com.gmail.mooman219.frame.CEventFactory;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.layout.HandlerType;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 public class CHTask extends CowHandler {
     private static final HandlerType type = HandlerType.TASK;
@@ -51,7 +52,7 @@ public class CHTask extends CowHandler {
     public void onEnable() {
         manager = new Manager();
         Loader.info(getCast() + "Starting plugin threads");
-        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads);
+        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads, new ThreadFactoryBuilder().setNameFormat("Cow Plugin Thread - %1$d").build());
         Loader.info(getCast() + "Starting second clocks");
 
         manager.runPlugin(new Runnable() {

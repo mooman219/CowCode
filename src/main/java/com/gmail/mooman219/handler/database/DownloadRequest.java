@@ -32,6 +32,7 @@ class PlayerDownloader implements Callable<CDPlayer> {
                     CHDatabase.getManager().uploadPlayer(player, UploadReason.SAVE, false, false);
                 }
                 if(player.load(reason, playerObject)) {
+                    Loader.warning(CHDatabase.getCast() + "[DOWN] Unable to load playerdata for '" + player.getUsername() + "'");
                     return null;
                 }
                 return player;
