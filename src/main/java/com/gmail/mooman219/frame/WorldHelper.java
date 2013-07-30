@@ -100,6 +100,6 @@ public class WorldHelper {
     }
 
     public static void playSound(Location location, Sound sound) {
-        location.getWorld().playSound(location, sound, 0f, 0f);
+        location.getWorld().playSound(location, sound, 1f, 1f);
     }
 }

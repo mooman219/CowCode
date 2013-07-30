@@ -27,6 +27,7 @@ public class Test extends CCommand {
             AspectWeapon weaponAspect = new AspectWeapon();
             weaponAspect.setMinDamage(6);
             weaponAspect.setMaxDamage(14);
+            weaponAspect.setSoulbound(true);
             weaponAspect.setAttackSpeed(0.8f);
             weaponAspect.setRarity(Rarity.EPIC);
             sender.getInventory().addItem(weaponAspect.write(item));

@@ -43,7 +43,7 @@ public class ConfigGlobal extends ConfigJson {
         }
         public Login login = new Login();
         public static class Login {
-            public int loginDelay = 10000; // Milliseconds
+            public int loginDelay = 2000; // Milliseconds
         }
         public World world = new World();
         public static class World {

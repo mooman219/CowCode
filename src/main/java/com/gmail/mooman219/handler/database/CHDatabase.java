@@ -92,6 +92,9 @@ public class CHDatabase extends CowHandler {
             }
         }
 
+        /**
+         * This method will block while getting the data from the database.
+         */
         public CDPlayer downloadPlayer(final String username, final DownloadReason reason) {
             PlayerDownloader downloader = new PlayerDownloader(username, reason);
             Future<CDPlayer> future = CHTask.getManager().runPlugin(downloader);
@@ -104,6 +107,10 @@ public class CHDatabase extends CowHandler {
             }
             return null;
         }
+
+        /**
+         * These methods are to aid in the downloading/creating of the player.
+         */
 
         protected DBObject downloadPlayerObject(final String username, boolean caseSensitive) {
             if(caseSensitive) {

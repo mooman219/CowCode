@@ -6,7 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
@@ -19,12 +18,10 @@ public class ListenerData implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onVerify(DataVerifyEvent event) {
         CDPlayer player = event.getPlayer();
-        if(player.service().rank.index < Rank.MODERATOR.index) {
-            long currentTime = TimeHelper.time();
-            if(currentTime - player.login().lastlogin < ConfigGlobal.module.login.loginDelay) {
-                event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.login().lastlogin), TimeType.MILLISECOND)));
-                return;
-            }
+        long currentTime = TimeHelper.time();
+        if(currentTime - player.login().lastlogin < ConfigGlobal.module.login.loginDelay) {
+            event.getEvent().disallow(Result.KICK_OTHER, CCLogin.FRM.LOGINDELAY.parse(TimeHelper.getLargestType(ConfigGlobal.module.login.loginDelay - (currentTime - player.login().lastlogin), TimeType.MILLISECOND)));
+            return;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.gmail.mooman219.module.item.listener;
 
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -8,6 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.item.Aspect;
 import com.gmail.mooman219.module.item.inventory.InventoryDefaults;
 
@@ -30,6 +32,7 @@ public class ListenerPlayer implements Listener {
             event.setCancelled(true);
         } else if(item.isSoulbound()) {
             event.getItemDrop().remove();
+            WorldHelper.playSound(event.getPlayer().getLocation(), Sound.FIZZ);
         }
     }
 
