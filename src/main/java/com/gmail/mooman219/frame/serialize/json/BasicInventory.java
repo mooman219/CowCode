@@ -14,8 +14,8 @@ public class BasicInventory implements JsonData {
     @SerializedName("Items") public BasicItemStack[] items;
 
     public BasicInventory(ItemStack... itemStacks) {
-        items = new BasicItemStack[itemStacks.length];
-        for(int i = 0; i < itemStacks.length ; i++) {
+        items = itemStacks != null ? new BasicItemStack[itemStacks.length] : new BasicItemStack[0];
+        for(int i = 0; i < items.length ; i++) {
             if(itemStacks[i] != null) {
                 items[i] = new BasicItemStack(itemStacks[i]);
             }
@@ -48,6 +48,10 @@ public class BasicInventory implements JsonData {
         return list;
     }
 
+    public static ArrayList<String> toList(ItemStack... itemStacks) {
+        return new BasicInventory(itemStacks).toList();
+    }
+
     public static BasicInventory fromList(List<String> list) {
         BasicInventory inventory = new BasicInventory();
         inventory.items = new BasicItemStack[list.size()];
@@ -66,6 +70,10 @@ public class BasicInventory implements JsonData {
     @Override
     public String toString() {
         return JsonHelper.getGson().toJson(this);
+    }
+
+    public static String toString(ItemStack... itemStacks) {
+        return new BasicInventory(itemStacks).toString();
     }
 
     public static BasicInventory fromString(String string) {

@@ -13,6 +13,7 @@ import com.gmail.mooman219.module.region.command.ModifyName;
 import com.gmail.mooman219.module.region.command.NewRegion;
 import com.gmail.mooman219.module.region.command.Region;
 import com.gmail.mooman219.module.region.command.SetRegion;
+import com.gmail.mooman219.module.region.listener.ListenerDamage;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
 import com.gmail.mooman219.module.region.store.StoreChunk;
 import com.gmail.mooman219.module.region.store.StoreRegion;
@@ -53,6 +54,7 @@ public class CCRegion extends CowModule {
         storeChunk = new StoreChunk(getCast(), getDirectory());
 
         plugin.addListener(new ListenerPlayer());
+        plugin.addListener(new ListenerDamage());
     }
 
     @Override

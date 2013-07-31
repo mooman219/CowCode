@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.item.inventory;
+package com.gmail.mooman219.module.item;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

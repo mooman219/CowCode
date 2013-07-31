@@ -5,10 +5,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
-import com.gmail.mooman219.frame.text.Chat;
-
 public abstract class Stockpile implements InventoryHolder {
-    private static final String prefix = Chat.BOLD + "* " + Chat.RESET;
+    private static final String prefix = "* ";
     private Inventory inventory;
 
     public Stockpile(int size, String name) {

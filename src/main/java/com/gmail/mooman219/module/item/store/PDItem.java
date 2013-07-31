@@ -38,8 +38,8 @@ public class PDItem extends PlayerData {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()
-            .append(getTag() + ".equipment", (equipmentInventory != null ? new BasicInventory(equipmentInventory) : new BasicInventory()).toList())
-            .append(getTag() + ".inventory", (playerInventory != null ? new BasicInventory(playerInventory) : new BasicInventory()).toList());
+            .append(getTag() + ".equipment", BasicInventory.toList(equipmentInventory))
+            .append(getTag() + ".inventory", BasicInventory.toList(playerInventory));
         case STATUS:
         default:
             return new BasicDBObject();

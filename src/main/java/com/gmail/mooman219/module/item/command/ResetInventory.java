@@ -6,7 +6,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.item.CCItem;
-import com.gmail.mooman219.module.item.inventory.InventoryDefaults;
+import com.gmail.mooman219.module.item.InventoryDefaults;
 
 public class ResetInventory extends CCommand {
     public ResetInventory() {
