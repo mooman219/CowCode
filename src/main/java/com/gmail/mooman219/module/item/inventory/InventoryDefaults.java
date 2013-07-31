@@ -6,6 +6,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import com.gmail.mooman219.frame.item.Aspect;
 import com.gmail.mooman219.frame.item.ItemHelper;
+import com.gmail.mooman219.frame.item.inventory.Stockpiler;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class InventoryDefaults {
