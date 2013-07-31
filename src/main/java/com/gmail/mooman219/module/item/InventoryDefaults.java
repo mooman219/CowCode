@@ -4,10 +4,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import com.gmail.mooman219.frame.item.Aspect;
-import com.gmail.mooman219.frame.item.ItemHelper;
-import com.gmail.mooman219.frame.item.inventory.Stockpiler;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.module.item.api.Aspect;
+import com.gmail.mooman219.module.item.api.ItemHelper;
+import com.gmail.mooman219.module.item.api.inventory.Stockpiler;
 
 public class InventoryDefaults {
     private final static Stockpiler playerInventory = new Stockpiler(4); // 4 rows

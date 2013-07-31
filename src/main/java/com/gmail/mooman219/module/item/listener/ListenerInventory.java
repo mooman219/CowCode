@@ -5,8 +5,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import com.gmail.mooman219.frame.item.Aspect;
-import com.gmail.mooman219.frame.item.ItemHelper;
+import com.gmail.mooman219.module.item.api.Aspect;
+import com.gmail.mooman219.module.item.api.ItemHelper;
 
 public class ListenerInventory implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)

@@ -10,8 +10,8 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.WorldHelper;
-import com.gmail.mooman219.frame.item.Aspect;
 import com.gmail.mooman219.module.item.InventoryDefaults;
+import com.gmail.mooman219.module.item.api.Aspect;
 
 public class ListenerPlayer implements Listener {
     @EventHandler

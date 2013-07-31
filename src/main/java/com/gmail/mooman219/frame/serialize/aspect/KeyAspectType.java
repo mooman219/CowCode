@@ -1,6 +1,6 @@
 package com.gmail.mooman219.frame.serialize.aspect;
 
-import com.gmail.mooman219.frame.item.ItemType;
+import com.gmail.mooman219.module.item.api.ItemType;
 
 public class KeyAspectType extends AspectKey<ItemType> {
     public KeyAspectType(String name, ItemType defaultValue) {

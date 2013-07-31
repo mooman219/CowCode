@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.item;
+package com.gmail.mooman219.module.item.api;
 
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;

@@ -7,12 +7,12 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.command.Carg;
-import com.gmail.mooman219.frame.item.AspectWeapon;
-import com.gmail.mooman219.frame.item.ItemHelper;
-import com.gmail.mooman219.frame.item.Rarity;
 import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.module.item.api.AspectWeapon;
+import com.gmail.mooman219.module.item.api.ItemHelper;
+import com.gmail.mooman219.module.item.api.Rarity;
 
 public class Test extends CCommand {
     public Test() {

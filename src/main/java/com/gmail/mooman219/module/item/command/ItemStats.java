@@ -4,11 +4,11 @@ import org.bukkit.entity.Player;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
-import com.gmail.mooman219.frame.item.AspectWeapon;
-import com.gmail.mooman219.frame.item.ItemHelper;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.item.CCItem;
+import com.gmail.mooman219.module.item.api.AspectWeapon;
+import com.gmail.mooman219.module.item.api.ItemHelper;
 
 public class ItemStats extends CCommand {
     public ItemStats() {

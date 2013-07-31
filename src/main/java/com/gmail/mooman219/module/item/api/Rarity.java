@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.item;
+package com.gmail.mooman219.module.item.api;
 
 import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.text.Chat;
