@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class Stockpile implements InventoryHolder {
     private static final String prefix = "* ";
@@ -20,6 +21,14 @@ public abstract class Stockpile implements InventoryHolder {
     @Override
     public Inventory getInventory() {
         return inventory;
+    }
+    
+    public ItemStack[] getSignificantItems() {
+        return inventory.getContents();
+    }
+    
+    public void setSignificantItems(ItemStack... itemStacks) {
+        this.inventory.setContents(itemStacks);
     }
 
     public static boolean isStockpile(Inventory inventory) {
