@@ -14,19 +14,19 @@ public abstract class Stockpile implements InventoryHolder {
         inventory = Bukkit.createInventory(this, size, prefix + name);
     }
 
-    public InventoryClickEvent onClick(InventoryClickEvent event) {
-        return event;
-    }
-
     @Override
     public Inventory getInventory() {
         return inventory;
     }
-    
+
     public ItemStack[] getSignificantItems() {
         return inventory.getContents();
     }
-    
+
+    public InventoryClickEvent onClick(InventoryClickEvent event) {
+        return event;
+    }
+
     public void setSignificantItems(ItemStack... itemStacks) {
         this.inventory.setContents(itemStacks);
     }

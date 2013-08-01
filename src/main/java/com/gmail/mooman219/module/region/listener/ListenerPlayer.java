@@ -35,22 +35,30 @@ public class ListenerPlayer implements Listener{
                         CCRegion.MSG.LOCKEDFAIL.send(player);
                     } else {
                         CCRegion.MSG.LOCKED.send(player);
-                        event.setCancelled(true);
-                        event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
+                        cancelPlayerMoveEvent(event);
                         // Remove because abuse
-                        VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
+                        //VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
                         player.sendBlockChange(event.getTo(), Material.GLASS);
                         player.sendBlockChange(event.getTo().clone().add(0, 1, 0), Material.GLASS);
                         player.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
                         return;
                     }
                 } else if(CEventFactory.callRegionChangeEvent(event, player, player.region().getRegion(), toRegion).isCancelled()) {
-                    event.setCancelled(true);
-                    event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
+                    cancelPlayerMoveEvent(event);
                     return;
                 }
                 player.region().setRegion(toRegion);
             }
+        }
+    }
+
+    public void cancelPlayerMoveEvent(PlayerMoveEvent event) {
+        event.setCancelled(true);
+        event.setFrom(LocationHelper.getBlockCenter(event.getFrom()));
+        if(event.getPlayer().getVehicle() != null) {
+            event.getPlayer().getVehicle().eject();
+            // The extra teleport is needed because fuck minecraft
+            event.getPlayer().teleport(LocationHelper.getBlockCenter(event.getFrom()));
         }
     }
 
