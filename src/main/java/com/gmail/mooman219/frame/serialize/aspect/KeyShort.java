@@ -4,12 +4,7 @@ import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class KeyShort extends AspectKey<Short> {
     public KeyShort(String name, short defaultValue) {
-        super(name, defaultValue);
-    }
-
-    @Override
-    public String write() {
-        return getName() + getValue();
+        super("§ι", name, defaultValue);
     }
 
     @Override

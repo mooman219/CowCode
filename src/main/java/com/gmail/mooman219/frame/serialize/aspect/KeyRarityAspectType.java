@@ -11,7 +11,7 @@ public class KeyRarityAspectType extends AspectKey<String> {
     private ItemType aspectType;
 
     public KeyRarityAspectType(String name, String seperator, Rarity rarity, ItemType aspectType) {
-        super(name, rarity.getFullName() + seperator + aspectType.getFullName());
+        super("§θ", name, rarity.getFullName() + seperator + aspectType.getFullName());
         this.seperator = seperator;
         this.defaultRarity = rarity;
         this.defaultAspectType = aspectType;
@@ -47,11 +47,6 @@ public class KeyRarityAspectType extends AspectKey<String> {
     public void setAspectType(ItemType aspectType) {
         this.aspectType = aspectType;
         setValue(rarity.getFullName() + seperator + aspectType.getFullName());
-    }
-
-    @Override
-    public String write() {
-        return getName() + getValue();
     }
 
     @Override

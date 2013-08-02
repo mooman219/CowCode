@@ -4,12 +4,7 @@ import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class KeyFloat extends AspectKey<Float> {
     public KeyFloat(String name, float defaultValue) {
-        super(name, defaultValue);
-    }
-
-    @Override
-    public String write() {
-        return getName() + getValue();
+        super("§δ", name, defaultValue);
     }
 
     @Override

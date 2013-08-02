@@ -4,12 +4,7 @@ import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class KeyByte extends AspectKey<Byte> {
     public KeyByte(String name, byte defaultValue) {
-        super(name, defaultValue);
-    }
-
-    @Override
-    public String write() {
-        return getName() + getValue();
+        super("§β", name, defaultValue);
     }
 
     @Override

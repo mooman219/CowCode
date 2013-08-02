@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 
 public class KeyBoolean extends AspectKey<Boolean> {
     public KeyBoolean(String name, Boolean defaultValue) {
-        super(name, defaultValue);
+        super("§α", name, defaultValue);
         this.setWriteCheck(new BooleanWriteCheck());
     }
 

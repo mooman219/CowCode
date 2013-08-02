@@ -4,13 +4,9 @@ import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class KeyInteger extends AspectKey<Integer> {
     public KeyInteger(String name, int defaultValue) {
-        super(name, defaultValue);
+        super("§ε", name, defaultValue);
     }
 
-    @Override
-    public String write() {
-        return getName() + getValue();
-    }
 
     @Override
     public boolean read(String line) {

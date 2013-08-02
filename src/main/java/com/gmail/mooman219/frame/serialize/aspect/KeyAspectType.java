@@ -4,7 +4,7 @@ import com.gmail.mooman219.module.item.api.ItemType;
 
 public class KeyAspectType extends AspectKey<ItemType> {
     public KeyAspectType(String name, ItemType defaultValue) {
-        super(name, defaultValue);
+        super("§ΰ", name, defaultValue);
     }
 
     @Override

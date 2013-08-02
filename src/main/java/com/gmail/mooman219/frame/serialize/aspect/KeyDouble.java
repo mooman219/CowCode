@@ -4,12 +4,7 @@ import com.gmail.mooman219.frame.math.NumberHelper;
 
 public class KeyDouble extends AspectKey<Double> {
     public KeyDouble(String name, double defaultValue) {
-        super(name, defaultValue);
-    }
-
-    @Override
-    public String write() {
-        return getName() + getValue();
+        super("§γ", name, defaultValue);
     }
 
     @Override

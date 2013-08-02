@@ -10,7 +10,7 @@ public class KeyIntegerRange extends AspectKey<String> {
     private int max;
 
     public KeyIntegerRange(String name, String seperator, int min, int max) {
-        super(name, min + seperator+ max);
+        super("§ζ", name, min + seperator+ max);
         this.seperator = seperator;
         this.defaultMin = min;
         this.defaultMax = max;
@@ -46,11 +46,6 @@ public class KeyIntegerRange extends AspectKey<String> {
     public void setMax(int max) {
         this.max = max;
         setValue(min + seperator+ max);
-    }
-
-    @Override
-    public String write() {
-        return getName() + getValue();
     }
 
     @Override

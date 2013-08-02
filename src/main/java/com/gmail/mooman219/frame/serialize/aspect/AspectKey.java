@@ -3,19 +3,25 @@ package com.gmail.mooman219.frame.serialize.aspect;
 import java.util.concurrent.Callable;
 
 public abstract class AspectKey<T> {
+    private final String identifier;
     private final String name;
     private final T defaultValue;
     private Callable<Boolean> writeCheck;
     private T value;
 
-    public AspectKey(String name, T defaultValue) {
+    public AspectKey(String identifier, String name, T defaultValue) {
+        this.identifier = identifier;
         this.name = name;
         this.defaultValue = defaultValue;
         this.value = defaultValue;
     }
 
     public String getName() {
-        return name;
+        return identifier + name;
+    }
+    
+    public String getIdentifier() {
+        return identifier;
     }
 
     public T getValue() {
@@ -35,7 +41,7 @@ public abstract class AspectKey<T> {
     }
 
     public boolean match(String line) {
-        return line.toLowerCase().contains(name.toLowerCase());
+        return line.startsWith(getName());
     }
 
     public boolean canWrite() {
@@ -49,7 +55,9 @@ public abstract class AspectKey<T> {
         return true;
     }
 
-    public abstract String write();
+    public String write() {
+        return getName() + getValue();
+    }
 
     /**
      * Returns ture is the line matched and was read.
