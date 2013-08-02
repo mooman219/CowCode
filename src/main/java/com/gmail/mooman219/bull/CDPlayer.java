@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -388,6 +389,10 @@ public class CDPlayer extends BullData implements Damageable {
 
     public String getUsername() {
         return username;
+    }
+
+    public void openInventory(InventoryHolder inventoryHolder) {
+        player.openInventory(inventoryHolder.getInventory());
     }
 
     public void playAnimation(PlayerAnimation animation) {

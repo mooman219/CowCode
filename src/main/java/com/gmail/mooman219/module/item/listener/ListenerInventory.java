@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.module.item.api.Aspect;
 import com.gmail.mooman219.module.item.api.ItemHelper;
@@ -15,16 +14,9 @@ import com.gmail.mooman219.module.item.api.inventory.Stockpile;
 import com.gmail.mooman219.module.item.event.ButtonClickEvent;
 
 public class ListenerInventory implements Listener {
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onClickStockpile(InventoryClickEvent event) {
-        if(Stockpile.isStockpile(event.getClickedInventory())) {
-            Stockpile.getStockpile(event.getClickedInventory()).onClick(event);
-        }
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClick(InventoryClickEvent event) {
-        /**/ // UNHOLY AMOUNT OF INVENTORY CLICK INFORMATION
+        /** // UNHOLY AMOUNT OF INVENTORY CLICK INFORMATION
         Loader.info("~~~~~~~~~~~~ Inventory Click Event [Start] ~~~~~~~~~~~~");
         Loader.info("Slot: " + event.getSlot());
         Loader.info("RawSlot: " + event.getRawSlot());
@@ -34,9 +26,12 @@ public class ListenerInventory implements Listener {
         Loader.info("Click: " + event.getClick().name());
         Loader.info("Cursor: " + event.getCursor());
         Loader.info("InventoryName: " + event.getInventory().getName());
-        Loader.info("ClickedInventoryName: " + event.getClickedInventory().getName());
+        Loader.info("ClickedInventoryName: " + (event.getClickedInventory() != null ?event.getClickedInventory().getName() : "null"));
         /**/
-        if(!ItemHelper.isNull(event.getCurrentItem())) {
+        if(Stockpile.isStockpile(event.getClickedInventory())) {
+            Stockpile.getStockpile(event.getClickedInventory()).onClick(event);
+        }
+        if(!event.isCancelled() && !ItemHelper.isNull(event.getCurrentItem())) {
             Aspect item = Aspect.get(event.getCurrentItem());
             if(item.isButton() || item.isUnmoveable()) {
                 event.setCancelled(true);

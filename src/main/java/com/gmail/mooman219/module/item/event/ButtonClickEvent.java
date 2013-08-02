@@ -11,13 +11,13 @@ public class ButtonClickEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final CDPlayer clicker;
-    private final ItemStack clickedItem;
+    private final ItemStack button;
     private final ItemStack heldItem;
     private final ClickType clickType;
 
-    public ButtonClickEvent(CDPlayer clicker, ItemStack clickedItem, ItemStack heldItem, ClickType clickType) {
+    public ButtonClickEvent(CDPlayer clicker, ItemStack button, ItemStack heldItem, ClickType clickType) {
         this.clicker = clicker;
-        this.clickedItem = clickedItem;
+        this.button = button;
         this.heldItem = heldItem;
         this.clickType = clickType;
     }
@@ -35,8 +35,8 @@ public class ButtonClickEvent extends Event {
         return clicker;
     }
 
-    public ItemStack getClickedItem() {
-        return clickedItem;
+    public ItemStack getButton() {
+        return button;
     }
 
     public ClickType getClickType() {

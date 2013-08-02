@@ -18,15 +18,15 @@ public class ReflectHelper {
     }
 
 
-    public static Field getField(Class<?> clazz, String field) {
-        Field f = null;
+    public static Field getField(Class<?> clazz, String fieldName) {
+        Field field = null;
         try {
-            f = clazz.getDeclaredField(field);
-            f.setAccessible(true);
+            field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return f;
+        return field;
     }
 
     public static <T> Object get(Class<?> clazz, T object, String fieldName) {

@@ -16,13 +16,13 @@ import com.gmail.mooman219.module.item.api.Rarity;
 
 public class Test extends CCommand {
     public Test() {
-        super("test", Rank.REGULAR, "/Test (Flag - Create/Read)", Carg.BOOLEAN);
+        super("test", Rank.REGULAR, "/Test (Flag - Create/Read)", Carg.INT);
     }
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        boolean flag = NumberHelper.toBoolean(args[0]);
-        if(flag) {
+        int flag = NumberHelper.toInt(args[0]);
+        if(flag == 0) {
             ItemStack item = ItemHelper.setName(Material.GOLD_AXE.getId(), Chat.GOLD + "Great Axe of Azazel");
             AspectWeapon weaponAspect = new AspectWeapon();
             weaponAspect.setMinDamage(6);
