@@ -44,12 +44,28 @@ public class TextHelper {
         return chatPattern.matcher(string).replaceAll(Chat.COLOR_CHAR + "$1");
     }
 
-    public static String editRainbow(String string) {
+    public static String toRainbow(String string) {
         String newstring = "";
         for(int i = 0; i < string.length(); i++) {
             newstring += rainbowOrder[i % rainbowOrder.length] + "" + Chat.BOLD + string.charAt(i);
         }
         return newstring;
+    }
+
+    public static String toTitleCase(String input) {
+        StringBuilder titleCase = new StringBuilder();
+        boolean nextTitleCase = true;
+        for (char c : input.toCharArray()) {
+            if (Character.isSpaceChar(c)) {
+                nextTitleCase = true;
+            } else if (nextTitleCase) {
+                c = Character.toTitleCase(c);
+                nextTitleCase = false;
+            }
+
+            titleCase.append(c);
+        }
+        return titleCase.toString();
     }
 
     /**
@@ -74,6 +90,10 @@ public class TextHelper {
         return ret.trim();
     }
 
+    /**
+     * Basically returns the number of edits that have to be made
+     * to turn String 's' into String 't'.
+     */
     public static int getLevenshteinDistance(String s, String t) {
         if (s == null || t == null) {
             throw new IllegalArgumentException("El null pointer");

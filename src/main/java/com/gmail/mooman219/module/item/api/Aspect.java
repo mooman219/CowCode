@@ -14,6 +14,7 @@ import com.gmail.mooman219.frame.serialize.aspect.KeyInteger;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class Aspect {
+    private static final String identifier = "§ψ";
     private KeyBoolean button = new KeyBoolean(Chat.GRAY + "Button", false);
     private KeyBoolean soulbound = new KeyBoolean(Chat.GRAY + "Soulbound", false);
     private KeyBoolean unmoveable = new KeyBoolean(Chat.GRAY + "Unmoveable", false);
@@ -73,6 +74,9 @@ public class Aspect {
     @SuppressWarnings("rawtypes")
     public final ItemStack write(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
+        if(!hasAspect(item)) {
+            meta.setDisplayName(identifier + ItemHelper.getDisplayName(item));
+        }
         ArrayList<String> lore = new ArrayList<String>();
         onWrite(item);
         for(AspectKey key : getKeys()) {
@@ -87,15 +91,17 @@ public class Aspect {
 
     @SuppressWarnings("rawtypes")
     public final void read(ItemStack item) {
-        ItemMeta meta = ItemHelper.getItemMeta(item);
-        List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
-        ArrayList<AspectKey> keyList = getKeys();
-        for(String line : lore) {
-            Iterator<AspectKey> keyIterator = keyList.iterator();
-            while(keyIterator.hasNext()) {
-                if(keyIterator.next().read(line)) {
-                    keyIterator.remove();
-                    break;
+        if(hasAspect(item)) {
+            ItemMeta meta = ItemHelper.getItemMeta(item);
+            List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
+            ArrayList<AspectKey> keyList = getKeys();
+            for(String line : lore) {
+                Iterator<AspectKey> keyIterator = keyList.iterator();
+                while(keyIterator.hasNext()) {
+                    if(keyIterator.next().read(line)) {
+                        keyIterator.remove();
+                        break;
+                    }
                 }
             }
         }
@@ -116,6 +122,11 @@ public class Aspect {
         Aspect aspect = new Aspect();
         aspect.read(item);
         return aspect;
+    }
+
+    public static boolean hasAspect(ItemStack item) {
+        ItemMeta meta = ItemHelper.getItemMeta(item);
+        return meta.hasDisplayName() && meta.getDisplayName().startsWith(identifier);
     }
 
     private class PriceWriteCheck implements Callable<Boolean> {

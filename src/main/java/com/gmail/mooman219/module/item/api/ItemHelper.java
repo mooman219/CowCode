@@ -8,7 +8,13 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.mooman219.frame.text.TextHelper;
+
 public class ItemHelper {
+    public static ItemStack setName(Material material, String name) {
+        return setName(new ItemStack(material), name);
+    }
+
     public static ItemStack setName(int id, String name) {
         return setName(new ItemStack(id), name);
     }
@@ -38,6 +44,15 @@ public class ItemHelper {
             ItemMeta itemMeta = Bukkit.getItemFactory().getItemMeta(item.getType());
             item.setItemMeta(itemMeta);
             return itemMeta;
+        }
+    }
+
+    public static String getDisplayName(ItemStack item) {
+        ItemMeta meta = getItemMeta(item);
+        if(meta.hasDisplayName()) {
+            return meta.getDisplayName();
+        } else {
+            return TextHelper.toTitleCase(item.getType().name().replace("_", " "));
         }
     }
 

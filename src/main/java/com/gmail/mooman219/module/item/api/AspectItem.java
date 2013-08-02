@@ -39,11 +39,13 @@ public class AspectItem extends Aspect {
 
     @Override
     public void onRead(ItemStack item) {
+        super.onRead(item);
         setAspectType(ItemType.fromItem(item));
     }
 
     @Override
     public void onWrite(ItemStack item) {
+        super.onWrite(item);
         setAspectType(ItemType.fromItem(item));
     }
 

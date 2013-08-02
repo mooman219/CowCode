@@ -19,7 +19,7 @@ public abstract class AspectKey<T> {
     public String getName() {
         return identifier + name;
     }
-    
+
     public String getIdentifier() {
         return identifier;
     }
