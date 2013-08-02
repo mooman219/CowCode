@@ -8,12 +8,12 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.item.api.inventory.Stockpiler;
 
 public class InventoryHelper {
-    private final static Stockpiler playerInventory = new Stockpiler(4); // 4 rows
+    private final static Stockpiler defaultPlayerInventory = new Stockpiler(4); // 4 rows
 
     static {
-        playerInventory.setClearing(false);
-        playerInventory.setOverwriting(true);
-        playerInventory.set(new String[]{
+        defaultPlayerInventory.setClearing(false);
+        defaultPlayerInventory.setOverwriting(true);
+        defaultPlayerInventory.set(new String[]{
                 "MH  12345",
                 "        E",
                 "         ",
@@ -21,20 +21,23 @@ public class InventoryHelper {
         );
         Aspect aspect = new Aspect();
         aspect.setUnmoveable(true);
-        playerInventory.map('M', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.GOLD + "Main hand")));
-        playerInventory.map('H', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.GRAY + "Off hand")));
-        playerInventory.map('1', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 1")));
-        playerInventory.map('2', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 2")));
-        playerInventory.map('3', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 3")));
-        playerInventory.map('4', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 4")));
-        playerInventory.map('5', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 5")));
-        playerInventory.map('E', aspect.write(ItemHelper.setName(118, Chat.BOLD + "" + Chat.PURPLE + "View Equipment")));
+        defaultPlayerInventory.map('M', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.GOLD + "Main hand")));
+        defaultPlayerInventory.map('H', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.GRAY + "Off hand")));
+        defaultPlayerInventory.map('1', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 1")));
+        defaultPlayerInventory.map('2', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 2")));
+        defaultPlayerInventory.map('3', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 3")));
+        defaultPlayerInventory.map('4', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 4")));
+        defaultPlayerInventory.map('5', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 5")));
+        defaultPlayerInventory.map('E', aspect.write(ItemHelper.setName(118, Chat.BOLD + "" + Chat.PURPLE + "View Equipment")));
     }
 
     public static void setupPlayerInventory(PlayerInventory inventory) {
-        playerInventory.apply(inventory);
+        defaultPlayerInventory.apply(inventory);
     }
 
+    /**
+     * This will not remove buttons, even though they are unmoveable.
+     */
     public static void removeUnmoveables(Inventory inventory) {
         for(ItemStack itemStack : inventory.getContents()) {
             if(!ItemHelper.isNull(itemStack)) {

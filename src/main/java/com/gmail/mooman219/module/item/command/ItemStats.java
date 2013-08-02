@@ -21,6 +21,7 @@ public class ItemStats extends CCommand {
             AspectWeapon weaponAspect = AspectWeapon.get(sender.getItemInHand());
             sender.sendMessage(
                     Chat.msgInfo + Chat.GREEN + "Listing " + Chat.GRAY + "Aspect" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
+                    Chat.linePassive + Chat.GRAY + "Button" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isButton() + "\n" +
                     Chat.linePassive + Chat.GRAY + "Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isSoulbound() + "\n" +
                     Chat.linePassive + Chat.GRAY + "Unmoveable" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isUnmoveable() + "\n" +
                     Chat.linePassive + Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.GREEN + weaponAspect.getPrice()

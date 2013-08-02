@@ -29,7 +29,7 @@ public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDropItem(PlayerDropItemEvent event) {
         Aspect item = Aspect.get(event.getItemDrop().getItemStack());
-        if(item.isUnmoveable()) {
+        if(item.isButton() || item.isUnmoveable()) {
             event.setCancelled(true);
         } else if(item.isSoulbound()) {
             event.getItemDrop().remove();

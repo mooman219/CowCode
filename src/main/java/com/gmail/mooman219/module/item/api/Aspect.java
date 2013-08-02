@@ -27,12 +27,22 @@ public class Aspect {
         return price.getValue();
     }
 
+    public boolean isButton() {
+        return button.getValue();
+    }
+
     public boolean isSoulbound() {
         return soulbound.getValue();
     }
 
     public boolean isUnmoveable() {
         return unmoveable.getValue();
+    }
+
+    public Aspect setButton(boolean button) {
+        this.button.setValue(button);
+        this.unmoveable.setValue(false);
+        return this;
     }
 
     public Aspect setPrice(int price) {
