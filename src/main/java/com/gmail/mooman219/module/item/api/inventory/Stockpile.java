@@ -6,6 +6,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import com.gmail.mooman219.module.item.api.ItemHelper;
+
 public abstract class Stockpile implements InventoryHolder {
     private static final String prefix = "* ";
     private Inventory inventory;
@@ -19,8 +21,15 @@ public abstract class Stockpile implements InventoryHolder {
         return inventory;
     }
 
+    public abstract int[] getSignificantSlots();
+
     public ItemStack[] getSignificantItems() {
-        return inventory.getContents();
+        ItemStack[] items = new ItemStack[getSignificantSlots().length];
+        for(int i = 0; i < getSignificantSlots().length; i++) {
+            ItemStack item = getInventory().getContents()[getSignificantSlots()[i]];
+            items[i] = ItemHelper.isNull(item) ? null : item;
+        }
+        return items;
     }
 
     public InventoryClickEvent onClick(InventoryClickEvent event) {
@@ -28,7 +37,11 @@ public abstract class Stockpile implements InventoryHolder {
     }
 
     public void setSignificantItems(ItemStack... itemStacks) {
-        this.inventory.setContents(itemStacks);
+        for(int i = 0; i < getSignificantSlots().length && i < itemStacks.length; i++) {
+            if(!ItemHelper.isNull(itemStacks[i])) {
+                getInventory().setItem(getSignificantSlots()[i], itemStacks[i]);
+            }
+        }
     }
 
     public static boolean isStockpile(Inventory inventory) {

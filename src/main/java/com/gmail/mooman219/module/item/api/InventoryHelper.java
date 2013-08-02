@@ -28,6 +28,7 @@ public class InventoryHelper {
         defaultPlayerInventory.map('3', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 3")));
         defaultPlayerInventory.map('4', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 4")));
         defaultPlayerInventory.map('5', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 5")));
+        aspect.setButton(true);
         defaultPlayerInventory.map('E', aspect.write(ItemHelper.setName(118, Chat.BOLD + "" + Chat.PURPLE + "View Equipment")));
     }
 
