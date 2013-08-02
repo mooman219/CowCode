@@ -14,6 +14,7 @@ import com.gmail.mooman219.frame.serialize.aspect.KeyInteger;
 import com.gmail.mooman219.frame.text.Chat;
 
 public class Aspect {
+    private KeyBoolean button = new KeyBoolean(Chat.GRAY + "Button", false);
     private KeyBoolean soulbound = new KeyBoolean(Chat.GRAY + "Soulbound", false);
     private KeyBoolean unmoveable = new KeyBoolean(Chat.GRAY + "Unmoveable", false);
     private KeyInteger price = new KeyInteger(Chat.GREEN + "Price" + Chat.DARK_GREEN + ": " + Chat.WHITE, -1);
@@ -55,6 +56,7 @@ public class Aspect {
         keyList.add(soulbound);
         keyList.add(unmoveable);
         keyList.add(price);
+        keyList.add(button);
         return keyList;
     }
 

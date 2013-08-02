@@ -4,9 +4,10 @@ import org.bukkit.Bukkit;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.CEventFactory;
+import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
+import com.gmail.mooman219.module.service.event.DataRemovalEvent;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
@@ -26,8 +27,7 @@ public class UploadRequest implements Runnable {
     public void run() {
         try {
             if(shouldRemove) {
-                Loader.info("Is in pool: " + CHTask.getManager().isInPool());
-                CEventFactory.callDataRemovalEvent(CHTask.getManager().isInPool() || !Bukkit.isPrimaryThread(), player);
+                EventHelper.callEvent(new DataRemovalEvent(CHTask.getManager().isInPool() || !Bukkit.isPrimaryThread(), player));
             }
             DBObject playerObject = player.save(reason);
             WriteResult result = CHDatabase.getManager().getUsersCollection().update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));

@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import com.gmail.mooman219.bull.CDLiving;
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.CEventFactory;
+import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByLivingEvent;
@@ -66,21 +66,21 @@ public class ListenerEntity implements Listener {
     }
 
     public void handlePlayerDamage(CDPlayer player, DamageType damageType, double damage) {
-        PlayerDamageEvent customEvent = CEventFactory.callPlayerDamageEvent(player, damageType, damage);
+        PlayerDamageEvent customEvent = EventHelper.callEvent(new PlayerDamageEvent(player, damageType, damage));
         if(!customEvent.isCancelled()) {
             player.damage(customEvent.getDamage());
         }
     }
 
     public void handlePlayerDamageByPlayer(CDPlayer player, CDPlayer damager, DamageType damageType, double damage) {
-        PlayerDamageByPlayerEvent customEvent = CEventFactory.callPlayerDamageByPlayerEvent(player, damager, damageType, damage);
+        PlayerDamageByPlayerEvent customEvent = EventHelper.callEvent(new PlayerDamageByPlayerEvent(player, damager, damageType, damage));
         if(!customEvent.isCancelled()) {
             player.damage(customEvent.getDamage());
         }
     }
 
     public void handlePlayerDamageByLiving(CDPlayer player, CDLiving damager, DamageType damageType, double damage) {
-        PlayerDamageByLivingEvent customEvent = CEventFactory.callPlayerDamageByLivingEvent(player, damager, damageType, damage);
+        PlayerDamageByLivingEvent customEvent = EventHelper.callEvent(new PlayerDamageByLivingEvent(player, damager, damageType, damage));
         if(!customEvent.isCancelled()) {
             player.damage(customEvent.getDamage());
         }

@@ -7,15 +7,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.util.Vector;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.frame.CEventFactory;
+import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.frame.LocationHelper;
-import com.gmail.mooman219.frame.VectorHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
+import com.gmail.mooman219.module.region.event.RegionChangeEvent;
 import com.gmail.mooman219.module.region.store.BasicRegion;
 
 public class ListenerPlayer implements Listener{
@@ -43,7 +42,7 @@ public class ListenerPlayer implements Listener{
                         player.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
                         return;
                     }
-                } else if(CEventFactory.callRegionChangeEvent(event, player, player.region().getRegion(), toRegion).isCancelled()) {
+                } else if(EventHelper.callEvent(new RegionChangeEvent(event, player, player.region().getRegion(), toRegion)).isCancelled()) {
                     cancelPlayerMoveEvent(event);
                     return;
                 }

@@ -10,8 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.CEventFactory;
+import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.handler.config.store.ConfigGlobal;
+import com.gmail.mooman219.handler.task.event.TickSecondAsyncEvent;
+import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
 import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.layout.HandlerType;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -58,14 +60,14 @@ public class CHTask extends CowHandler {
         manager.runPlugin(new Runnable() {
             @Override
             public void run() {
-                CEventFactory.callTickSecondAsyncEvent();
+                EventHelper.callEvent(new TickSecondAsyncEvent());
             }
         }, 1000, 1000);
 
         manager.runBukkit(new Runnable() {
             @Override
             public void run() {
-                CEventFactory.callTickSecondSyncEvent();
+                EventHelper.callEvent(new TickSecondSyncEvent());
             }
         }, 20, 20);
     }

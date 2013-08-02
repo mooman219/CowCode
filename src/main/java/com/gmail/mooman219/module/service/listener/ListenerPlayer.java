@@ -13,12 +13,14 @@ import org.bukkit.event.server.PluginDisableEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.CEventFactory;
+import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.module.login.CCLogin;
 import com.gmail.mooman219.module.service.CCService;
+import com.gmail.mooman219.module.service.event.DataCreateEvent;
+import com.gmail.mooman219.module.service.event.DataVerifyEvent;
 
 public class ListenerPlayer implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
@@ -31,7 +33,7 @@ public class ListenerPlayer implements Listener {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, CCService.MSG.LOGINERROR + "");
             return;
         }
-        CEventFactory.callDataVerifyEvent(event, player);
+        EventHelper.callEvent(new DataVerifyEvent(event, player));
         if(event.getLoginResult() == AsyncPlayerPreLoginEvent.Result.ALLOWED) {
             player.processPreLogin();
             CDPlayer.set(event, player);
@@ -46,7 +48,7 @@ public class ListenerPlayer implements Listener {
     public void onLogin(PlayerLoginEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
         player.processLogin(event.getPlayer());
-        CEventFactory.callDataCreateEvent(event, player);
+        EventHelper.callEvent(new DataCreateEvent(event, player));
         event.setResult(PlayerLoginEvent.Result.ALLOWED);
         CHDatabase.getManager().uploadPlayer(player, UploadReason.STATUS, false, true);
     }

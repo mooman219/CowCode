@@ -10,8 +10,8 @@ public abstract class Stockpile implements InventoryHolder {
     private static final String prefix = "* ";
     private Inventory inventory;
 
-    public Stockpile(int size, String name) {
-        inventory = Bukkit.createInventory(this, size, prefix + name);
+    public Stockpile(int rows, String name) {
+        inventory = Bukkit.createInventory(this, rows * 9, prefix + name);
     }
 
     @Override

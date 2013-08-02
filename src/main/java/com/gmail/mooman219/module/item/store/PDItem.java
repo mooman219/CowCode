@@ -8,12 +8,15 @@ import com.gmail.mooman219.frame.serialize.json.BasicInventory;
 import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.layout.PlayerData;
+import com.gmail.mooman219.module.item.stockpile.EquipmentStockpile;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class PDItem extends PlayerData {
     public PDItem(CDPlayer player) {
         super(player, "item");
+
+        equipmentStockpile = new EquipmentStockpile();
     }
 
     /**
@@ -24,8 +27,8 @@ public class PDItem extends PlayerData {
     public void load(DownloadReason reason, DBObject chat) {
         switch(reason) {
         case LOGIN:
-            equipmentInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "equipment", new BasicInventory().toList())).toInventory();
-            playerInventory = BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory();
+            setEquipmentInventory(BasicInventory.fromList(MongoHelper.getValue(chat, "equipment", new BasicInventory().toList())).toInventory());
+            setPlayerInventory(BasicInventory.fromList(MongoHelper.getValue(chat, "inventory", new BasicInventory().toList())).toInventory());
         case QUERY:
         default:
             break;
@@ -38,7 +41,7 @@ public class PDItem extends PlayerData {
         switch(reason) {
         case SAVE:
             return new BasicDBObject()
-            .append(getTag() + ".equipment", BasicInventory.toList(equipmentInventory))
+            .append(getTag() + ".equipment", BasicInventory.toList(getEquipmentInventory()))
             .append(getTag() + ".inventory", BasicInventory.toList(playerInventory));
         case STATUS:
         default:
@@ -50,19 +53,23 @@ public class PDItem extends PlayerData {
      * Live
      */
 
-    private ItemStack[] equipmentInventory;
+    private EquipmentStockpile equipmentStockpile;
     private ItemStack[] playerInventory;
 
     public void setEquipmentInventory(ItemStack[] inventory) {
-        equipmentInventory = inventory;
+        equipmentStockpile.setSignificantItems(inventory);
     }
 
     public void setPlayerInventory(ItemStack[] inventory) {
         playerInventory = inventory;
     }
 
+    public EquipmentStockpile getEquipment() {
+        return equipmentStockpile;
+    }
+
     public ItemStack[] getEquipmentInventory() {
-        return equipmentInventory;
+        return equipmentStockpile.getSignificantItems();
     }
 
     public ItemStack[] getPlayerInventory() {
@@ -74,7 +81,7 @@ public class PDItem extends PlayerData {
 
     @Override
     public void destroy() {
-        equipmentInventory = null;
+        equipmentStockpile = null;
         playerInventory = null;
     }
 }

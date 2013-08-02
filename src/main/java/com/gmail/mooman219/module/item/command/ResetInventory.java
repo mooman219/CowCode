@@ -6,7 +6,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.item.CCItem;
-import com.gmail.mooman219.module.item.InventoryDefaults;
+import com.gmail.mooman219.module.item.api.InventoryHelper;
 
 public class ResetInventory extends CCommand {
     public ResetInventory() {
@@ -15,8 +15,8 @@ public class ResetInventory extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        InventoryDefaults.removeUnmoveables(sender.getInventory());
-        InventoryDefaults.setupPlayerInventory(sender.getInventory());
+        InventoryHelper.removeUnmoveables(sender.getInventory());
+        InventoryHelper.setupPlayerInventory(sender.getInventory());
         CCItem.MSG.INVENTORY_RESET.send(sender);
     }
 }
