@@ -4,15 +4,15 @@ import com.gmail.mooman219.module.item.api.inventory.Stockpile;
 
 public class EquipmentStockpile extends Stockpile {
     /**
-     * 4  Head
-     * 11 Amulet
-     * 13 Chest
-     * 22 Legs
-     * 24 Ring 1
-     * 25 Ring 2
-     * 28 Main Hand
-     * 29 Off Hand
-     * 31 Boots
+     * 0 - 4  = Head
+     * 1 - 11 = Amulet
+     * 2 - 13 = Chest
+     * 3 - 22 = Legs
+     * 4 - 24 = Ring 1
+     * 5 - 25 = Ring 2
+     * 6 - 28 = Main Hand
+     * 7 - 29 = Off Hand
+     * 8 - 31 = Boots
      */
     private static final int[] significantSlots = {4, 11, 13, 22, 24, 25, 28, 29, 31};
 

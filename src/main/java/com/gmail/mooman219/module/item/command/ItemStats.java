@@ -7,6 +7,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.item.CCItem;
+import com.gmail.mooman219.module.item.api.Aspect;
 import com.gmail.mooman219.module.item.api.AspectWeapon;
 import com.gmail.mooman219.module.item.api.ItemHelper;
 
@@ -21,6 +22,7 @@ public class ItemStats extends CCommand {
             AspectWeapon weaponAspect = AspectWeapon.get(sender.getItemInHand());
             sender.sendMessage(
                     Chat.msgInfo + Chat.GREEN + "Listing " + Chat.GRAY + "Aspect" + Chat.GREEN + " Elements" + Chat.DARK_GREEN + ": \n" +
+                    Chat.lineInfo + Chat.WHITE + "Has Aspect" + Chat.DARK_GRAY + ": " + Chat.WHITE + Aspect.hasAspect(sender.getItemInHand()) + "\n" +
                     Chat.linePassive + Chat.GRAY + "Button" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isButton() + "\n" +
                     Chat.linePassive + Chat.GRAY + "Soulbound" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isSoulbound() + "\n" +
                     Chat.linePassive + Chat.GRAY + "Unmoveable" + Chat.DARK_GRAY + ": " + Chat.GRAY + weaponAspect.isUnmoveable() + "\n" +

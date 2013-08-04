@@ -16,7 +16,7 @@ public class ResetInventory extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         InventoryHelper.removeUnmoveables(sender.getInventory());
-        InventoryHelper.setupPlayerInventory(sender.getInventory());
+        InventoryHelper.applyPlayerInventory(sender.getInventory());
         CCItem.MSG.INVENTORY_RESET.send(sender);
     }
 }

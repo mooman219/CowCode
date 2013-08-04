@@ -17,7 +17,7 @@ import com.gmail.mooman219.module.item.api.InventoryHelper;
 public class ListenerPlayer implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        InventoryHelper.setupPlayerInventory(event.getPlayer().getInventory());
+        InventoryHelper.applyPlayerInventory(event.getPlayer().getInventory());
     }
 
     @EventHandler
@@ -39,6 +39,6 @@ public class ListenerPlayer implements Listener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
-        InventoryHelper.setupPlayerInventory(event.getPlayer().getInventory());
+        InventoryHelper.applyPlayerInventory(event.getPlayer().getInventory());
     }
 }
