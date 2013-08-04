@@ -45,29 +45,23 @@ public class Stockpiler {
         }
     }
 
-    public Inventory apply(Inventory inventory) {
-        inventory.setContents(apply(inventory.getContents()));
-        return inventory;
-    }
-
-    public ItemStack[] apply(ItemStack... items) {
+    public void apply(Inventory inventory) {
         for(int y = 0; y < charMap.length; y++) {
             for(int x = 0; x < charMap[y].length; x++) {
                 int slot = y * 9 + x;
                 ItemStack item = charList.get(charMap[y][x]);
-                ItemStack oldItem = items[slot];
-                if(slot >= items.length) {
-                    return items;
+                ItemStack oldItem = inventory.getItem(slot);
+                if(slot >= inventory.getSize()) {
+                    return;
                 } else if(ItemHelper.isNull(item)) {
                     if(isClearing) {
-                        items[slot] = null;
+                        inventory.clear(slot);
                     }
                 } else if(ItemHelper.isNull(oldItem) || isOverwriting){
-                    items[slot] = item;
+                    inventory.setItem(slot, item);
                 }
             }
         }
-        return items;
     }
 
     public boolean isOverwriting() {

@@ -56,7 +56,7 @@ public class InventoryHelper {
         defaultPlayerInventory.apply(inventory);
     }
 
-    public static void applyDefaultInventory(Inventory inventory) {
+    public static void applyDefaultEquipment(Inventory inventory) {
         defaultEquipmentInventory.apply(inventory);
     }
 
