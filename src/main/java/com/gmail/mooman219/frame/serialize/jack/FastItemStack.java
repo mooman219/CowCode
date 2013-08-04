@@ -72,6 +72,50 @@ public class FastItemStack implements JacksonData {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public short getDamage() {
+        return damage;
+    }
+
+    public byte getData() {
+        return data;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public List<String> getLore() {
+        return lore;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<String> getPages() {
+        return pages;
+    }
+
+    public FastColor getArmorColor() {
+        return armorColor;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
     public ItemStack toItemStack() {
         if(weakItemStack == null || weakItemStack.get() == null) {
             ItemStack itemstack = new ItemStack(id, amount, damage);
