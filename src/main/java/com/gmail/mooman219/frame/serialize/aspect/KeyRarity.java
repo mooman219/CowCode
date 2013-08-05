@@ -1,6 +1,6 @@
 package com.gmail.mooman219.frame.serialize.aspect;
 
-import com.gmail.mooman219.module.item.api.Rarity;
+import com.gmail.mooman219.module.item.api.aspect.Rarity;
 
 public class KeyRarity extends AspectKey<Rarity> {
     public KeyRarity(String name, Rarity defaultValue) {

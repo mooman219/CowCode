@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.item.api.inventory;
+package com.gmail.mooman219.module.item.api.stockpile;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;

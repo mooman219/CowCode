@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.item.api;
+package com.gmail.mooman219.module.item.api.aspect;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +12,7 @@ import com.gmail.mooman219.frame.serialize.aspect.AspectKey;
 import com.gmail.mooman219.frame.serialize.aspect.KeyBoolean;
 import com.gmail.mooman219.frame.serialize.aspect.KeyInteger;
 import com.gmail.mooman219.frame.text.Chat;
+import com.gmail.mooman219.module.item.api.ItemHelper;
 
 public class Aspect {
     private static final String identifier = "§ψ";

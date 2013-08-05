@@ -1,6 +1,6 @@
 package com.gmail.mooman219.module.item.stockpile;
 
-import com.gmail.mooman219.module.item.api.inventory.Stockpile;
+import com.gmail.mooman219.module.item.api.stockpile.Stockpile;
 
 public class EquipmentStockpile extends Stockpile {
     /**

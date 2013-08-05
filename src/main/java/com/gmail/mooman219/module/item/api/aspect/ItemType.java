@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.item.api;
+package com.gmail.mooman219.module.item.api.aspect;
 
 import org.bukkit.inventory.ItemStack;
 

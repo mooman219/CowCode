@@ -13,9 +13,9 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.serialize.jack.FastItemStack;
 import com.gmail.mooman219.frame.serialize.jack.FastRichLocation;
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.item.api.AspectWeapon;
 import com.gmail.mooman219.module.item.api.ItemHelper;
-import com.gmail.mooman219.module.item.api.Rarity;
+import com.gmail.mooman219.module.item.api.aspect.AspectWeapon;
+import com.gmail.mooman219.module.item.api.aspect.Rarity;
 
 public class Test extends CCommand {
     public Test() {

@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.item.api.inventory;
+package com.gmail.mooman219.module.item.api.stockpile;
 
 import java.util.HashMap;
 

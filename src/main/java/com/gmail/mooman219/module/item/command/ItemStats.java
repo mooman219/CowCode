@@ -7,9 +7,9 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.item.CCItem;
-import com.gmail.mooman219.module.item.api.Aspect;
-import com.gmail.mooman219.module.item.api.AspectWeapon;
 import com.gmail.mooman219.module.item.api.ItemHelper;
+import com.gmail.mooman219.module.item.api.aspect.Aspect;
+import com.gmail.mooman219.module.item.api.aspect.AspectWeapon;
 
 public class ItemStats extends CCommand {
     public ItemStats() {

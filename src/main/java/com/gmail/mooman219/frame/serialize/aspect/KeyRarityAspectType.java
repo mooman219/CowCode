@@ -1,7 +1,7 @@
 package com.gmail.mooman219.frame.serialize.aspect;
 
-import com.gmail.mooman219.module.item.api.ItemType;
-import com.gmail.mooman219.module.item.api.Rarity;
+import com.gmail.mooman219.module.item.api.aspect.ItemType;
+import com.gmail.mooman219.module.item.api.aspect.Rarity;
 
 public class KeyRarityAspectType extends AspectKey<String> {
     private final String seperator;

@@ -5,12 +5,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
+import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
-import com.gmail.mooman219.module.item.api.Aspect;
+import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.module.item.api.ItemHelper;
-import com.gmail.mooman219.module.item.api.inventory.Stockpile;
+import com.gmail.mooman219.module.item.api.aspect.Aspect;
+import com.gmail.mooman219.module.item.api.stockpile.Stockpile;
 import com.gmail.mooman219.module.item.event.ButtonClickEvent;
 
 public class ListenerInventory implements Listener {
@@ -40,5 +44,15 @@ public class ListenerInventory implements Listener {
                 }
             }
         }
+    }
+    
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        Loader.info("Close " + event.getInventory().getName());
+    }    
+    
+    @EventHandler
+    public void onOpen(InventoryOpenEvent event) {
+        Loader.info("Open " + event.getInventory().getName());
     }
 }

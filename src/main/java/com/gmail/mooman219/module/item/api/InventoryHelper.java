@@ -5,7 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import com.gmail.mooman219.frame.text.Chat;
-import com.gmail.mooman219.module.item.api.inventory.Stockpiler;
+import com.gmail.mooman219.module.item.api.aspect.Aspect;
+import com.gmail.mooman219.module.item.api.stockpile.Stockpiler;
 
 public class InventoryHelper {
     private final static Stockpiler defaultPlayerInventory = new Stockpiler(4);
