@@ -1,5 +1,6 @@
 package com.gmail.mooman219.frame.serialize;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.UUID;
@@ -106,6 +107,17 @@ public class JsonHelper {
 
     public static <T> T fromJackson(String data, Class<T> type) {
         if(data != null && data.length() > 0) {
+            try {
+                return mapper.readValue(data, type);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static <T> T fromJackson(File data, Class<T> type) {
+        if(data != null) {
             try {
                 return mapper.readValue(data, type);
             } catch(Exception e) {

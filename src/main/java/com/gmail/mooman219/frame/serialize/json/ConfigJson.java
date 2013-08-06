@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.file;
+package com.gmail.mooman219.frame.serialize.json;
 
 import java.io.File;
 import java.io.FileReader;
@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.file.FileHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.frame.serialize.json.ConfigJson;
 import com.google.gson.Gson;
 
 public abstract class ConfigJson {

@@ -1,4 +1,4 @@
-package com.gmail.mooman219.frame.file;
+package com.gmail.mooman219.frame.serialize.yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.mooman219.core.Loader;
+import com.gmail.mooman219.frame.file.FileHelper;
 
 public abstract class ConfigYaml {
     public final String directory;

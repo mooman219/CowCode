@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicChunkLocation;
+import com.gmail.mooman219.frame.serialize.json.ConfigJson;
 import com.google.gson.Gson;
 
 public class StoreChunk extends ConfigJson {

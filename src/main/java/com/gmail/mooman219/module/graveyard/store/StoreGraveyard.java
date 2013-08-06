@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.frame.serialize.json.ConfigJson;
 import com.google.gson.Gson;
 
 public class StoreGraveyard extends ConfigJson {

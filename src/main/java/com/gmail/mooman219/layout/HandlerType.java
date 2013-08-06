@@ -3,7 +3,8 @@ package com.gmail.mooman219.layout;
 public enum HandlerType {
     CONFIG(0, "Config", "plugins/CowCraft/"),
     DATABASE(1, "Database", "plugins/CowCraft/"),
-    TASK(2, "Task", "plugins/CowCraft/");
+    TASK(2, "Task", "plugins/CowCraft/"),
+    MYSQL(3, "mySQL", "plugins/CowCraft/");
 
     private final int id;
     private final String name;

@@ -5,8 +5,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.frame.serialize.json.ConfigJson;
 import com.gmail.mooman219.module.region.type.RegionCombatType;
 import com.google.gson.Gson;
 

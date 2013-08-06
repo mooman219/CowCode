@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.frame.file.ConfigJson;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.frame.serialize.json.BasicLocation;
+import com.gmail.mooman219.frame.serialize.json.ConfigJson;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.google.gson.Gson;
 
