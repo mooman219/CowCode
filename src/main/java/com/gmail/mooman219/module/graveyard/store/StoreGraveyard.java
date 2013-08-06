@@ -1,40 +1,58 @@
 package com.gmail.mooman219.module.graveyard.store;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.lang.reflect.Modifier;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
-import com.gmail.mooman219.frame.serialize.json.ConfigJson;
-import com.google.gson.Gson;
+import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
+import com.gmail.mooman219.layout.ModuleType;
 
-public class StoreGraveyard extends ConfigJson {
-    private static ArrayList<BasicGraveyard> graveyards = new ArrayList<BasicGraveyard>();
+public class StoreGraveyard extends ConfigJackson {
+    private static GraveyardConfigData data;
 
-    public StoreGraveyard(String cast, String directory) {
-        super(cast, directory, "graveyards", "yml");
+    public StoreGraveyard() {
+        super(ModuleType.GRAVEYARD.getCast(), ModuleType.GRAVEYARD.getDirectory(), "graveyards", "yml");
+    }
+
+    public static GraveyardConfigData getData() {
+        return data;
+    }
+    
+    public static ArrayList<FastGraveyard> getGraveyards() {
+        return data.graveyards;
     }
 
     @Override
-    public void onSave(FileWriter writer) {
-        getGson().toJson(this, writer);
+    public void onLoad(File file) {
+        data = JsonHelper.fromJackson(file, GraveyardConfigData.class);
     }
 
     @Override
-    public void onLoad(FileReader reader) {
-        getGson().fromJson(reader, StoreGraveyard.class);
+    public void onSave(File file) {
+        try {
+            JsonHelper.getFancyJackson().writeValue(file, data);
+        } catch(JsonGenerationException e) {
+            e.printStackTrace();
+        } catch(JsonMappingException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public Gson getGson() {
-        return JsonHelper.getGsonBuilder()
-        .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-        .setPrettyPrinting()
-        .create();
+    public void validateData() {
+        if(data == null) {
+            data = new GraveyardConfigData();
+        }
     }
 
-    public static ArrayList<BasicGraveyard> getGraveyards() {
-        return graveyards;
+    public static class GraveyardConfigData {
+        public ArrayList<FastGraveyard> graveyards = new ArrayList<FastGraveyard>();
+
+        public GraveyardConfigData() {}
     }
 }

@@ -46,14 +46,13 @@ public class CCGraveyard extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
-        storeGraveyard = new StoreGraveyard(getCast(), getDirectory());
+        storeGraveyard = new StoreGraveyard();
 
         plugin.addListener(new ListenerPlayer());
     }
 
     @Override
     public void onDisable(Loader plugin){
-        Loader.info(getCast() + "Saving " + storeGraveyard.getFile().getName());
         storeGraveyard.save();
     }
 

@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
-import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
+import com.gmail.mooman219.module.graveyard.store.FastGraveyard;
 
 public class TeleportGraveyard extends CCommand {
     public TeleportGraveyard() {
@@ -20,12 +20,12 @@ public class TeleportGraveyard extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicGraveyard graveyardData = GraveyardManager.getGraveyard(Integer.parseInt(args[0]));
+        FastGraveyard graveyardData = GraveyardManager.getGraveyard(Integer.parseInt(args[0]));
         if(graveyardData != null) {
-            sender.teleport(graveyardData.getLocation());
-            WorldHelper.playEffect(graveyardData.getLocation(), Effect.MOBSPAWNER_FLAMES);
-            WorldHelper.playEffect(graveyardData.getLocation().clone().add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
-            WorldHelper.playSound(graveyardData.getLocation(), Sound.ENDERMAN_TELEPORT);
+            sender.teleport(graveyardData.toLocation());
+            WorldHelper.playEffect(graveyardData.toLocation(), Effect.MOBSPAWNER_FLAMES);
+            WorldHelper.playEffect(graveyardData.toLocation().clone().add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
+            WorldHelper.playSound(graveyardData.toLocation(), Sound.ENDERMAN_TELEPORT);
             CCGraveyard.FRM.TP.send(sender, args[0]);
         } else {
             CCGraveyard.FRM.TP_FAILED.send(sender, args[0]);

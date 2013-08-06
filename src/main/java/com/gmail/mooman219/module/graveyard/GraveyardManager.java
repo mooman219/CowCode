@@ -5,7 +5,7 @@ import java.util.Iterator;
 import org.bukkit.Location;
 
 import com.gmail.mooman219.frame.LocationHelper;
-import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
+import com.gmail.mooman219.module.graveyard.store.FastGraveyard;
 import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
 
 public class GraveyardManager {
@@ -13,25 +13,25 @@ public class GraveyardManager {
      * @return If the graveyard already existed.
      */
     public static boolean addGraveyard(Location location, int levelRequirement) {
-        BasicGraveyard loc = new BasicGraveyard(location, levelRequirement);
+        FastGraveyard loc = new FastGraveyard(location, levelRequirement);
         boolean ret = false;
-        Iterator<BasicGraveyard> iterator = StoreGraveyard.getGraveyards().iterator();
+        Iterator<FastGraveyard> iterator = StoreGraveyard.getGraveyards().iterator();
         while(iterator.hasNext()) {
-            BasicGraveyard graveyardData = iterator.next();
-            if(graveyardData.getBasicLocation().equals(loc.getBasicLocation())) {
+            FastGraveyard graveyardData = iterator.next();
+            if(graveyardData.getLocation().equals(loc.getLocation())) {
                 iterator.remove();
                 ret = true;
                 // I am not breaking because if BY CHANCE extra graveyards got into the mix that shouldn't have.
             }
         }
-        StoreGraveyard.getGraveyards().add(new BasicGraveyard(location, levelRequirement));
+        StoreGraveyard.getGraveyards().add(new FastGraveyard(location, levelRequirement));
         return ret;
     }
 
     /**
      * @return The graveyard with the matching id.
      */
-    public static BasicGraveyard getGraveyard(int id) {
+    public static FastGraveyard getGraveyard(int id) {
         if(StoreGraveyard.getGraveyards().size() > id) {
             return StoreGraveyard.getGraveyards().get(id);
         }
@@ -41,12 +41,12 @@ public class GraveyardManager {
     /**
      * @return The removed graveyard
      */
-    public static BasicGraveyard removeGraveyard(Location location) {
-        BasicGraveyard closestGraveyard = getClosestGraveyard(location);
-        Iterator<BasicGraveyard> iterator = StoreGraveyard.getGraveyards().iterator();
+    public static FastGraveyard removeGraveyard(Location location) {
+        FastGraveyard closestGraveyard = getClosestGraveyard(location);
+        Iterator<FastGraveyard> iterator = StoreGraveyard.getGraveyards().iterator();
         while(iterator.hasNext()) {
-            BasicGraveyard graveyardData = iterator.next();
-            if(graveyardData.getBasicLocation().equals(closestGraveyard.getBasicLocation())) {
+            FastGraveyard graveyardData = iterator.next();
+            if(graveyardData.getLocation().equals(closestGraveyard.getLocation())) {
                 iterator.remove();
                 return closestGraveyard;
             }
@@ -57,14 +57,14 @@ public class GraveyardManager {
     /**
      * @return The closest graveyard.
      */
-    public static BasicGraveyard getClosestGraveyard(Location location) {
+    public static FastGraveyard getClosestGraveyard(Location location) {
         if(StoreGraveyard.getGraveyards().size() <= 0) {
             return null;
         }
-        BasicGraveyard best = StoreGraveyard.getGraveyards().get(0);
-        double lowestDistance = LocationHelper.get2DistanceSquared(StoreGraveyard.getGraveyards().get(0).getLocation(), location);
-        for(BasicGraveyard graveyardData : StoreGraveyard.getGraveyards()) {
-            double possibleDistance = LocationHelper.get2DistanceSquared(graveyardData.getLocation(), location);
+        FastGraveyard best = StoreGraveyard.getGraveyards().get(0);
+        double lowestDistance = LocationHelper.get2DistanceSquared(StoreGraveyard.getGraveyards().get(0).toLocation(), location);
+        for(FastGraveyard graveyardData : StoreGraveyard.getGraveyards()) {
+            double possibleDistance = LocationHelper.get2DistanceSquared(graveyardData.toLocation(), location);
             if(possibleDistance < lowestDistance) {
                 lowestDistance = possibleDistance;
                 best = graveyardData;

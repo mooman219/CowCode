@@ -10,7 +10,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
-import com.gmail.mooman219.module.graveyard.store.BasicGraveyard;
+import com.gmail.mooman219.module.graveyard.store.FastGraveyard;
 
 public class RemoveGraveyard extends CCommand {
     public RemoveGraveyard() {
@@ -19,9 +19,9 @@ public class RemoveGraveyard extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicGraveyard graveyardData = GraveyardManager.removeGraveyard(sender.getLocation());
-        CCGraveyard.FRM.REMOVE.send(sender, graveyardData.getLocation().getBlockX(), graveyardData.getLocation().getBlockZ());
-        WorldHelper.playEffect(graveyardData.getLocation(), Effect.MOBSPAWNER_FLAMES);
-        WorldHelper.playSound(graveyardData.getLocation(), Sound.ENDERMAN_TELEPORT);
+        FastGraveyard graveyardData = GraveyardManager.removeGraveyard(sender.getLocation());
+        CCGraveyard.FRM.REMOVE.send(sender, graveyardData.toLocation().getBlockX(), graveyardData.toLocation().getBlockZ());
+        WorldHelper.playEffect(graveyardData.toLocation(), Effect.MOBSPAWNER_FLAMES);
+        WorldHelper.playSound(graveyardData.toLocation(), Sound.ENDERMAN_TELEPORT);
     }
 }
