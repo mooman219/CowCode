@@ -171,13 +171,11 @@ public class FastItemStack implements JacksonData {
         final int prime = 31;
         int result = 1;
         result = prime * result + amount;
-        result = prime * result
-                + ((armorColor == null) ? 0 : armorColor.hashCode());
+        result = prime * result + ((armorColor == null) ? 0 : armorColor.hashCode());
         result = prime * result + ((author == null) ? 0 : author.hashCode());
         result = prime * result + damage;
         result = prime * result + data;
-        result = prime * result
-                + ((displayName == null) ? 0 : displayName.hashCode());
+        result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
         result = prime * result + id;
         result = prime * result + ((lore == null) ? 0 : lore.hashCode());
         result = prime * result + ((owner == null) ? 0 : owner.hashCode());

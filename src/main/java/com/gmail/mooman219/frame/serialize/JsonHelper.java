@@ -1,6 +1,5 @@
 package com.gmail.mooman219.frame.serialize;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.UUID;
@@ -8,10 +7,8 @@ import java.util.UUID;
 import org.bukkit.Material;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -111,11 +108,7 @@ public class JsonHelper {
         if(data != null && data.length() > 0) {
             try {
                 return mapper.readValue(data, type);
-            } catch(JsonParseException e) {
-                e.printStackTrace();
-            } catch(JsonMappingException e) {
-                e.printStackTrace();
-            } catch(IOException e) {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }

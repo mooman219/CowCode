@@ -6,6 +6,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.database.type.UploadReason;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 class PlayerDownloader implements Callable<CDPlayer> {
@@ -25,10 +26,10 @@ class PlayerDownloader implements Callable<CDPlayer> {
             switch(reason) {
             case LOGIN:
                 player = new CDPlayer(username);
-                playerObject = CHDatabase.getManager().downloadPlayerObject(username, true);
+                playerObject = findPlayerObject(username, true);
                 Loader.info(CHDatabase.getCast() + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                 if(playerObject == null) {
-                    CHDatabase.getManager().createPlayerObject(username);
+                    createPlayerObject(username);
                     CHDatabase.getManager().uploadPlayer(player, UploadReason.SAVE, false, false);
                 }
                 if(player.load(reason, playerObject)) {
@@ -37,7 +38,7 @@ class PlayerDownloader implements Callable<CDPlayer> {
                 }
                 return player;
             case QUERY:
-                playerObject = CHDatabase.getManager().downloadPlayerObject(username, false);
+                playerObject = findPlayerObject(username, false);
                 Loader.info(CHDatabase.getCast() + "[DOWN] ["+reason.name()+"] [" + (playerObject != null ? "FOUND" : "NULL") + "] : " + username);
                 if(playerObject != null) {
                     player = new CDPlayer(username);
@@ -55,5 +56,18 @@ class PlayerDownloader implements Callable<CDPlayer> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public DBObject findPlayerObject(String username, boolean caseSensitive) {
+        BasicDBObject query = caseSensitive ? new BasicDBObject("username", username) : new BasicDBObject("usernamelowercase", username.toLowerCase());
+        return CHDatabase.getManager().getUsers().findOne(query);
+    }
+
+    public DBObject createPlayerObject(String username) {
+        BasicDBObject playerObject = new BasicDBObject()
+        .append("username", username)
+        .append("usernamelowercase", username.toLowerCase());
+        CHDatabase.getManager().getUsers().insert(playerObject);
+        return playerObject;
     }
 }

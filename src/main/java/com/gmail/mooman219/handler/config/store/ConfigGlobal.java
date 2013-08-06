@@ -15,8 +15,6 @@ public class ConfigGlobal extends ConfigJson {
     public static class Handler {
         public Database database = new Database();
         public static class Database {
-            public String server_id = "Alpha";
-            public String server_loc = "US";
             public int downloadTimeout = 5; // Seconds
             public long connectionRetryDelay = 2000;
             public String hostname = "localhost";

@@ -30,7 +30,7 @@ public class UploadRequest implements Runnable {
                 EventHelper.callEvent(new DataRemovalEvent(CHTask.getManager().isInPool() || !Bukkit.isPrimaryThread(), player));
             }
             DBObject playerObject = player.save(reason);
-            WriteResult result = CHDatabase.getManager().getUsersCollection().update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
+            WriteResult result = CHDatabase.getManager().getUsers().update(new BasicDBObject("username", player.getUsername()), new BasicDBObject("$set", playerObject));
             if(result.getError() != null) {
                 Loader.warning(CHDatabase.getCast() + "Mongo Error");
                 Loader.warning(CHDatabase.getCast() + result.getError());

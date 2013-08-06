@@ -17,9 +17,8 @@ import com.gmail.mooman219.layout.HandlerType;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
+import com.mongodb.ServerAddress;
 
 public class CHDatabase extends CowHandler {
     private static final HandlerType type = HandlerType.DATABASE;
@@ -49,24 +48,12 @@ public class CHDatabase extends CowHandler {
     @Override
     public void onEnable() {
         manager = new Manager();
-        try {
-            client = new MongoClient(ConfigGlobal.handler.database.hostname, ConfigGlobal.handler.database.portnmbr);
-            database = client.getDB("cowcode");
-            if(!database.authenticate(ConfigGlobal.handler.database.username, ConfigGlobal.handler.database.password.toCharArray())) {
-                throw new IllegalArgumentException("Unable to authenticate to database.");
-            }
-            usersCollection = database.getCollection("data_users");
-        } catch(Exception e) {
-            Loader.warning(getCast() + "Unable to connect to database");
-            e.printStackTrace();
-            Bukkit.shutdown();
-        }
-        Loader.info(getCast() + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
+        manager.connect();
     }
 
     @Override
     public void onDisable() {
-        client.close();
+        manager.close();
     }
 
     public static Manager getManager() {
@@ -74,13 +61,37 @@ public class CHDatabase extends CowHandler {
     }
 
     public class Manager {
+        public boolean connect() {
+            Loader.info(getCast() + "Connecting to the database...");
+            try {
+                ServerAddress address = new ServerAddress(ConfigGlobal.handler.database.hostname, ConfigGlobal.handler.database.portnmbr);
+                client = new MongoClient(address);
+                database = client.getDB("cowcode");
+                if(!database.authenticate(ConfigGlobal.handler.database.username, ConfigGlobal.handler.database.password.toCharArray())) {
+                    throw new IllegalArgumentException("Unable to authenticate to database.");
+                }
+                usersCollection = database.getCollection("data_users");
+            } catch(Exception e) {
+                e.printStackTrace();
+                Loader.warning(getCast() + "Error while connecting to the database");
+                Bukkit.shutdown();
+            }
+            Loader.info(getCast() + "Currently" + (CHDatabase.manager.isConnected() ? " " : " not ") + "connected to database.");
+            return CHDatabase.manager.isConnected();
+        }
+
+        public void close() {
+            client.close();
+        }
+
         public boolean isConnected() {
             try {
-                database.command(new BasicDBObject("ping", "1"));
-            } catch (MongoException e) {
-                return false;
-            }
-            return true;
+                if(database != null) {
+                    database.command(new BasicDBObject("ping", "1"));
+                    return true;
+                }
+            } catch (Exception e) {}
+            return false;
         }
 
         public void uploadPlayer(CDPlayer player, UploadReason reason, boolean shouldRemove, boolean runAsync) {
@@ -95,7 +106,7 @@ public class CHDatabase extends CowHandler {
         /**
          * This method will block while getting the data from the database.
          */
-        public CDPlayer downloadPlayer(final String username, final DownloadReason reason) {
+        public CDPlayer downloadPlayer(String username, DownloadReason reason) {
             PlayerDownloader downloader = new PlayerDownloader(username, reason);
             Future<CDPlayer> future = CHTask.getManager().runPlugin(downloader);
             try {
@@ -109,26 +120,9 @@ public class CHDatabase extends CowHandler {
         }
 
         /**
-         * These methods are to aid in the downloading/creating of the player.
+         * Returns the users collection. All user data is stored here.
          */
-
-        protected DBObject downloadPlayerObject(final String username, boolean caseSensitive) {
-            if(caseSensitive) {
-                return usersCollection.findOne(new BasicDBObject("username", username));
-            } else {
-                return usersCollection.findOne(new BasicDBObject("usernamelowercase", username.toLowerCase()));
-            }
-        }
-
-        protected void createPlayerObject(final String username) {
-            usersCollection.insert(
-                    new BasicDBObject()
-                    .append("username", username)
-                    .append("usernamelowercase", username.toLowerCase())
-                    );
-        }
-
-        protected DBCollection getUsersCollection() {
+        protected DBCollection getUsers() {
             return usersCollection;
         }
     }
