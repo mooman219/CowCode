@@ -10,11 +10,14 @@ import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
 import com.gmail.mooman219.layout.HandlerType;
 
 public class StoreMysql extends ConfigJackson {
-    public MysqlConfigData data;
+    private MysqlConfigData data;
 
     public StoreMysql() {
-        super(HandlerType.MYSQL.getCast(), HandlerType.MYSQL.getDirectory(), "Mysql", "yml");
-        data = new MysqlConfigData();
+        super(HandlerType.MYSQL.getCast(), HandlerType.MYSQL.getDirectory(), "mysql", "yml");
+    }
+
+    public MysqlConfigData getData() {
+        return data;
     }
 
     @Override
@@ -32,6 +35,13 @@ public class StoreMysql extends ConfigJackson {
             e.printStackTrace();
         } catch(IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void validateData() {
+        if(data == null) {
+            data = new MysqlConfigData();
         }
     }
 

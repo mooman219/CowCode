@@ -19,18 +19,23 @@ public class FileHelper {
     }
 
     public static File getFile(String directory, String fileName, String type) {
+        // "type" -> ".type"
         if(!type.startsWith(".")) {
             type = "." + type;
         }
+        // "/filename" -> "filename"
         if(fileName.startsWith("/")) {
             fileName = fileName.substring(1);
         }
-        if(fileName.length() < 4 || !fileName.endsWith(type)) {
+        // "filename" -> "filename.type"
+        if(!fileName.endsWith(type)) {
             fileName = fileName + type;
         }
+        // "directory" -> "directory/"
         if(!directory.endsWith("/")) {
             directory = directory + "/";
         }
+        // "directory/filename.type"
         return getFile(directory, fileName);
     }
 
@@ -52,39 +57,28 @@ public class FileHelper {
         return null;
     }
 
-    public static boolean doesExist(String url){
-        return new File(url).exists();
+    public static String getURL(String directory, String fileName, String type) {
+        // "type" -> ".type"
+        if(!type.startsWith(".")) {
+            type = "." + type;
+        }
+        // "/filename" -> "filename"
+        if(fileName.startsWith("/")) {
+            fileName = fileName.substring(1);
+        }
+        // "filename" -> "filename.type"
+        if(!fileName.endsWith(type)) {
+            fileName = fileName + type;
+        }
+        // "directory" -> "directory/"
+        if(!directory.endsWith("/")) {
+            directory = directory + "/";
+        }
+        // "directory/filename.type"
+        return directory + fileName;
     }
 
-    /**
-    public static FileReader getFileReader(File file) {
-        try {
-            return new FileReader(file);
-        } catch(FileNotFoundException e) {
-            file = FileHelper.getFile(directory, fileName);
-            try {
-                return new FileReader(file);
-            } catch(FileNotFoundException e1) {
-                e1.printStackTrace();
-            }
-        }
-        return null;
+    public static boolean doesExist(String directory, String fileName, String type){
+        return new File(getURL(directory, fileName, type)).exists();
     }
-
-    public static FileWriter getFileWriter(File file) {
-        try {
-            return new FileWriter(file);
-        } catch(FileNotFoundException e) {
-            file = FileHelper.getFile(directory, fileName);
-            try {
-                return new FileWriter(file);
-            } catch(Exception e1) {
-                e1.printStackTrace();
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-     */
 }

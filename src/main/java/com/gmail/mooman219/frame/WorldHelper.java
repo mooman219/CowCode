@@ -20,7 +20,7 @@ public class WorldHelper {
                 return true;
             }
         }
-        return FileHelper.doesExist(worldName + "/level.dat");
+        return FileHelper.doesExist(worldName, "level", "dat");
     }
 
     public static World getWorld(String worldName) {

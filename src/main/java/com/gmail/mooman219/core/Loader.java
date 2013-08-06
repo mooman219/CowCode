@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.database.CHDatabase;
+import com.gmail.mooman219.handler.mysql.CHMysql;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.CowHandler;
@@ -71,6 +72,7 @@ public class Loader extends JavaPlugin {
         handlerList.add(new CHConfig());
         handlerList.add(new CHTask(this));
         handlerList.add(new CHDatabase());
+        handlerList.add(new CHMysql());
         // ~
         moduleList.add(new CCService());
         moduleList.add(new CCLogin());

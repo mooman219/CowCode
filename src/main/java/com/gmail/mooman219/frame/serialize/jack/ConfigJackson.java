@@ -9,19 +9,30 @@ public abstract class ConfigJackson {
     private transient File file;
 
     public ConfigJackson(String cast, String directory, String fileName, String type) {
+        boolean exists = FileHelper.doesExist(directory, fileName, type);
         this.file = FileHelper.getFile(directory, fileName, type);
-        Loader.info(cast + "Loading " + file.getName());
+        Loader.info(cast + (exists ? "T" : "F") + " Loading " + file.getName());
+        if(!exists) {
+            save();
+        } else {
+            load();
+            save();
+        }
     }
 
     public final void load() {
         onLoad(file);
+        validateData();
     }
 
     public abstract void onLoad(File file);
 
     public final void save() {
-        onLoad(file);
+        validateData();
+        onSave(file);
     }
 
     public abstract void onSave(File file);
+
+    public abstract void validateData();
 }
