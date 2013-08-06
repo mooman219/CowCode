@@ -7,9 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileHelper {
-    public static File getFile(String directory, String fileName){
-        new File(directory).mkdirs();
-        File file = new File(directory + fileName);
+    public static boolean doesExist(String directory, String fileName, String type){
+        return new File(getURL(directory, fileName, type)).exists();
+    }
+
+    public static File getFile(String url){
+        new File(url.split("/", 2)[0]).mkdirs();
+        File file = new File(url);
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -19,24 +23,7 @@ public class FileHelper {
     }
 
     public static File getFile(String directory, String fileName, String type) {
-        // "type" -> ".type"
-        if(!type.startsWith(".")) {
-            type = "." + type;
-        }
-        // "/filename" -> "filename"
-        if(fileName.startsWith("/")) {
-            fileName = fileName.substring(1);
-        }
-        // "filename" -> "filename.type"
-        if(!fileName.endsWith(type)) {
-            fileName = fileName + type;
-        }
-        // "directory" -> "directory/"
-        if(!directory.endsWith("/")) {
-            directory = directory + "/";
-        }
-        // "directory/filename.type"
-        return getFile(directory, fileName);
+        return getFile(getURL(directory, fileName, type));
     }
 
     public static FileReader getFileReader(File file) {
@@ -76,9 +63,5 @@ public class FileHelper {
         }
         // "directory/filename.type"
         return directory + fileName;
-    }
-
-    public static boolean doesExist(String directory, String fileName, String type){
-        return new File(getURL(directory, fileName, type)).exists();
     }
 }

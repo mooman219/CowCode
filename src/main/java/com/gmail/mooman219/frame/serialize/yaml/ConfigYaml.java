@@ -18,18 +18,8 @@ public abstract class ConfigYaml {
     public ConfigYaml(String directory, String fileName) {
         this.directory = directory;
         this.fileName = fileName;
-        // Parse the data
-        if(fileName.startsWith("/")) {
-            fileName = fileName.substring(1);
-        }
-        if(fileName.length() < 4 || !fileName.endsWith(".yml")) {
-            fileName = fileName + ".yml";
-        }
-        if(!directory.endsWith("/")) {
-            directory = directory + "/";
-        }
         // Create the file if needed
-        hardFile = FileHelper.getFile(directory, fileName);
+        hardFile = FileHelper.getFile(directory, fileName, "yml");
         load();
         save();
         Loader.info("Loading file: " + directory + fileName);
