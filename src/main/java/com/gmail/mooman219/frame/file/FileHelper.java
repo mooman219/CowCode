@@ -8,7 +8,15 @@ import java.io.IOException;
 
 public class FileHelper {
     public static boolean doesExist(String directory, String fileName, String type){
-        return new File(getURL(directory, fileName, type)).exists();
+        return doesExist(getURL(directory, fileName, type));
+    }
+
+    public static boolean doesExist(String url){
+        return new File(url).exists();
+    }
+
+    public static File getFile(String directory, String fileName, String type) {
+        return getFile(getURL(directory, fileName, type));
     }
 
     public static File getFile(String url){
@@ -20,10 +28,6 @@ public class FileHelper {
             e.printStackTrace();
         }
         return file;
-    }
-
-    public static File getFile(String directory, String fileName, String type) {
-        return getFile(getURL(directory, fileName, type));
     }
 
     public static FileReader getFileReader(File file) {

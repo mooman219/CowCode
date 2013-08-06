@@ -103,21 +103,20 @@ public class JsonHelper {
         return "";
     }
 
-    public static <T> T fromJackson(String data, Class<T> type) {
-        if(data != null && data.length() > 0) {
-            try {
-                return mapper.readValue(data, type);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    public static <T> T fromJackson(File data, Class<T> type) {
+    public static <T> T fromJackson(Object data, Class<T> type) {
         if(data != null) {
             try {
-                return mapper.readValue(data, type);
+                if(data instanceof String) {
+                    String data_string = (String) data;
+                    if(data_string.length() > 0) {
+                        return mapper.readValue(data_string, type);
+                    }
+                } else if(data instanceof File) {
+                    File data_file = (File) data;
+                    return mapper.readValue(data_file, type);
+                } else {
+                    throw new IllegalArgumentException("Unsupported data type.");
+                }
             } catch(Exception e) {
                 e.printStackTrace();
             }
