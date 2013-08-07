@@ -30,6 +30,10 @@ public class FastLocation implements JacksonData {
         this.z = location.getBlockZ();
     }
 
+    /**
+     * Getters and Setters
+     */
+
     public String getWorld() {
         return world;
     }
@@ -50,6 +54,10 @@ public class FastLocation implements JacksonData {
         return z;
     }
 
+    /**
+     * Misc functions
+     */
+
     public Location toLocation() {
         if (weakLocation == null || weakLocation.get() == null) {
             World world = Bukkit.getWorld(this.uuid);
@@ -66,6 +74,10 @@ public class FastLocation implements JacksonData {
         return weakLocation.get();
     }
 
+    /**
+     * Serialization and Deserialization
+     */
+
     @Override
     public String serialize() {
         return JsonHelper.toJackson(this);
@@ -74,6 +86,10 @@ public class FastLocation implements JacksonData {
     public static FastLocation deserialize(String data) {
         return JsonHelper.fromJackson(data, FastLocation.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {

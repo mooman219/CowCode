@@ -19,6 +19,10 @@ public class FastChunkRegion implements JacksonData {
         this.uuid = uuid;
     }
 
+    /**
+     * Getters and Setters
+     */
+
     public FastChunkLocation getChunk() {
         return chunk;
     }
@@ -35,9 +39,17 @@ public class FastChunkRegion implements JacksonData {
         this.uuid = uuid;
     }
 
+    /**
+     * Misc functions
+     */
+
     public Chunk toChunk() {
         return chunk.toChunk();
     }
+
+    /**
+     * Serialization and Deserialization
+     */
 
     @Override
     public String serialize() {
@@ -47,6 +59,10 @@ public class FastChunkRegion implements JacksonData {
     public static FastChunkRegion deserialize(String data) {
         return JsonHelper.fromJackson(data, FastChunkRegion.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {

@@ -31,6 +31,10 @@ public class FastRegion implements JacksonData {
         this.name = name;
     }
 
+    /**
+     * Getters and Setters
+     */
+
     public RegionCombatType getCombatType() {
         return combatType;
     }
@@ -75,6 +79,10 @@ public class FastRegion implements JacksonData {
         this.name = name;
     }
 
+    /**
+     * Serialization and Deserialization
+     */
+
     @Override
     public String serialize() {
         return JsonHelper.toJackson(this);
@@ -83,6 +91,10 @@ public class FastRegion implements JacksonData {
     public static FastRegion deserialize(String data) {
         return JsonHelper.fromJackson(data, FastRegion.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {

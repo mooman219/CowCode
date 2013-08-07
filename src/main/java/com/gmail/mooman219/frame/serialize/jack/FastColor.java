@@ -20,6 +20,11 @@ public class FastColor implements JacksonData {
         this.blue = color.getBlue();
         this.green = color.getGreen();
     }
+
+    /**
+     * Getters and Setters
+     */
+
     public int getRed() {
         return red;
     }
@@ -32,12 +37,20 @@ public class FastColor implements JacksonData {
         return green;
     }
 
+    /**
+     * Misc functions
+     */
+
     public Color toColor() {
         if (weakColor == null || weakColor.get() == null) {
             weakColor = new WeakReference<Color>(Color.fromRGB(red, green, blue));
         }
         return weakColor.get();
     }
+
+    /**
+     * Serialization and Deserialization
+     */
 
     @Override
     public String serialize() {
@@ -47,6 +60,10 @@ public class FastColor implements JacksonData {
     public static FastColor deserialize(String data) {
         return JsonHelper.fromJackson(data, FastColor.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {

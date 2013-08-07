@@ -18,6 +18,10 @@ public class FastGraveyard implements JacksonData {
         this.level = level;
     }
 
+    /**
+     * Getters and Setters
+     */
+
     public FastRichLocation getLocation() {
         return location;
     }
@@ -30,9 +34,17 @@ public class FastGraveyard implements JacksonData {
         this.level = level;
     }
 
+    /**
+     * Misc functions
+     */
+
     public Location toLocation() {
         return location.toLocation();
     }
+
+    /**
+     * Serialization and Deserialization
+     */
 
     @Override
     public String serialize() {
@@ -42,6 +54,10 @@ public class FastGraveyard implements JacksonData {
     public static FastGraveyard deserialize(String data) {
         return JsonHelper.fromJackson(data, FastGraveyard.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {

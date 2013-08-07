@@ -70,7 +70,7 @@ public class RegionManager {
         }
         return null;
     }
-    
+
     public static FastRegion getGlobal() {
         return StoreRegion.getGlobal();
     }

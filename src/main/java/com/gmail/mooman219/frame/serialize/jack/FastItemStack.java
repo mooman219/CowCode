@@ -72,6 +72,10 @@ public class FastItemStack implements JacksonData {
         }
     }
 
+    /**
+     * Getters and Setters
+     */
+
     public int getId() {
         return id;
     }
@@ -116,6 +120,10 @@ public class FastItemStack implements JacksonData {
         return owner;
     }
 
+    /**
+     * Misc functions
+     */
+
     public ItemStack toItemStack() {
         if(weakItemStack == null || weakItemStack.get() == null) {
             ItemStack itemstack = new ItemStack(id, amount, damage);
@@ -157,6 +165,10 @@ public class FastItemStack implements JacksonData {
         return weakItemStack.get();
     }
 
+    /**
+     * Serialization and Deserialization
+     */
+
     @Override
     public String serialize() {
         return JsonHelper.toJackson(this);
@@ -165,6 +177,10 @@ public class FastItemStack implements JacksonData {
     public static FastItemStack deserialize(String data) {
         return JsonHelper.fromJackson(data, FastItemStack.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {

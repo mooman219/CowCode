@@ -28,6 +28,10 @@ public class FastChunkLocation implements JacksonData {
         this.z = chunk.getZ();
     }
 
+    /**
+     * Getters and Setters
+     */
+
     public String getWorld() {
         return world;
     }
@@ -43,6 +47,10 @@ public class FastChunkLocation implements JacksonData {
     public int getZ() {
         return z;
     }
+
+    /**
+     * Misc functions
+     */
 
     public Chunk toChunk() {
         if (weakChunk == null || weakChunk.get() == null) {
@@ -60,6 +68,10 @@ public class FastChunkLocation implements JacksonData {
         return weakChunk.get();
     }
 
+    /**
+     * Serialization and Deserialization
+     */
+
     @Override
     public String serialize() {
         return JsonHelper.toJackson(this);
@@ -68,6 +80,10 @@ public class FastChunkLocation implements JacksonData {
     public static FastChunkLocation deserialize(String data) {
         return JsonHelper.fromJackson(data, FastChunkLocation.class);
     }
+
+    /**
+     * HashCode and Equals
+     */
 
     @Override
     public int hashCode() {
