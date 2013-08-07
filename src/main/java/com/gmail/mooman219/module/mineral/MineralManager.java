@@ -8,16 +8,16 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 
 import com.gmail.mooman219.frame.WorldHelper;
-import com.gmail.mooman219.frame.serialize.json.BasicLocation;
+import com.gmail.mooman219.frame.serialize.jack.FastLocation;
 import com.gmail.mooman219.frame.time.TimeHelper;
-import com.gmail.mooman219.module.mineral.store.BasicMineral;
+import com.gmail.mooman219.module.mineral.store.FastMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class MineralManager {
-    private static ArrayList<BasicMineral> active = new ArrayList<BasicMineral>();
+    private static ArrayList<FastMineral> active = new ArrayList<FastMineral>();
 
-    public static BasicMineral getMineral(Location location) {
-        return StoreMineral.getMinerals().get(new BasicLocation(location));
+    public static FastMineral getMineral(Location location) {
+        return StoreMineral.getMinerals().get(new FastLocation(location));
     }
 
     /**
@@ -33,33 +33,33 @@ public class MineralManager {
     /**
      * @return True if mineral already existed.
      */
-    public static boolean add(BasicMineral mineral) {
-        boolean replace = StoreMineral.getMinerals().remove(mineral.getBasicLocation()) != null;
-        StoreMineral.getMinerals().put(mineral.getBasicLocation(), mineral);
+    public static boolean add(FastMineral mineral) {
+        boolean replace = StoreMineral.getMinerals().remove(mineral.getLocation()) != null;
+        StoreMineral.getMinerals().put(mineral.getLocation(), mineral);
         return replace;
     }
 
     /**
      * @return True if mineral was removed.
      */
-    public static boolean remove(BasicLocation location) {
+    public static boolean remove(FastLocation location) {
         return StoreMineral.getMinerals().remove(location) != null;
     }
 
-    public static void mine(BasicMineral mineral) {
+    public static void mine(FastMineral mineral) {
         active.remove(mineral);
-        Location location = mineral.getLocation();
+        Location location = mineral.toLocation();
         location.getBlock().setType(Material.COBBLESTONE);
         WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
         mineral.resetTime(TimeHelper.time());
         active.add(mineral);
     }
 
-    public static void tick() { // TODO - Call this
+    public static void tick() {
         long time = TimeHelper.time();
-        Iterator<BasicMineral> iterator = active.iterator();
+        Iterator<FastMineral> iterator = active.iterator();
         while(iterator.hasNext()) {
-            BasicMineral mineral = iterator.next();
+            FastMineral mineral = iterator.next();
             if(mineral.hasTimeExpired(time)) {
                 iterator.remove();
                 revert(mineral);
@@ -72,9 +72,9 @@ public class MineralManager {
      */
     public static void revert() {
         active.clear();
-        Iterator<BasicMineral> iterator = StoreMineral.getMinerals().values().iterator();
+        Iterator<FastMineral> iterator = StoreMineral.getMinerals().values().iterator();
         while(iterator.hasNext()) {
-            BasicMineral mineral = iterator.next();
+            FastMineral mineral = iterator.next();
             revert(mineral);
         }
     }
@@ -82,9 +82,9 @@ public class MineralManager {
     /**
      * Reverts the given mineral if it is valid
      */
-    public static void revert(BasicMineral mineral) {
+    public static void revert(FastMineral mineral) {
         active.remove(mineral);
-        Location location = mineral.getLocation();
+        Location location = mineral.toLocation();
         location.getBlock().setType(mineral.getType());
         WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
         mineral.setRespawnTime(0L);

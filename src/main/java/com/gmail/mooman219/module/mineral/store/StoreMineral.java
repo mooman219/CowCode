@@ -1,67 +1,68 @@
 package com.gmail.mooman219.module.mineral.store;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.lang.reflect.Modifier;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import com.gmail.mooman219.core.Loader;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
-import com.gmail.mooman219.frame.serialize.json.BasicLocation;
-import com.gmail.mooman219.frame.serialize.json.ConfigJson;
-import com.gmail.mooman219.module.mineral.CCMineral;
-import com.google.gson.Gson;
+import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
+import com.gmail.mooman219.frame.serialize.jack.FastLocation;
+import com.gmail.mooman219.layout.ModuleType;
 
-public class StoreMineral extends ConfigJson {
-    private static ArrayList<BasicMineral> minerals = new ArrayList<BasicMineral>();
-    private static transient HashMap<BasicLocation, BasicMineral> mineralMap = new HashMap<BasicLocation, BasicMineral>();
+public class StoreMineral extends ConfigJackson {
+    private static MineralConfigData data;
 
-    public StoreMineral(String cast, String directory) {
-        super(cast, directory, "minerals", "data");
+    public StoreMineral() {
+        super(ModuleType.MINERAL.getCast(), ModuleType.MINERAL.getDirectory(), "minerals", "data");
     }
 
-    //WORK ON MINERALS
+    public static MineralConfigData getData() {
+        return data;
+    }
 
-
-    @Override
-    public void onSave(FileWriter writer) {
-        minerals.clear();
-        for(BasicMineral mineral : mineralMap.values()) {
-            minerals.add(mineral);
-        }
-        getGson().toJson(this, writer);
+    public static HashMap<FastLocation, FastMineral> getMinerals() {
+        return data.mineralMap;
     }
 
     @Override
-    public void onLoad(FileReader reader) {
-        mineralMap.clear();
-        getGson().fromJson(reader, StoreMineral.class);
-        int removed = 0;
-        Iterator<BasicMineral> iterator = minerals.iterator();
-        while(iterator.hasNext()) {
-            BasicMineral mineral = iterator.next();
-            if(mineral.getLocation() == null) {
-                iterator.remove();
-                removed++;
-            } else {
-                mineralMap.put(mineral.getBasicLocation(), mineral);
-            }
-        }
-        if(removed > 0) {
-            Loader.warning(CCMineral.getCast() + "Removed " + removed + " invalid minerals.");
+    public void onLoad(File file) {
+        data = JsonHelper.fromJackson(file, MineralConfigData.class);
+        data.mineralMap.clear();
+        for(FastMineral mineral : data.minerals) {
+            data.mineralMap.put(mineral.getLocation(), mineral);
         }
     }
 
     @Override
-    public Gson getGson() {
-        return JsonHelper.getGsonBuilder()
-        .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-        .create();
+    public void onSave(File file) {
+        data.minerals.clear();
+        for(FastMineral mineral : data.mineralMap.values()) {
+            data.minerals.add(mineral);
+        }
+        try {
+            JsonHelper.getFancyJackson().writeValue(file, data);
+        } catch(JsonGenerationException e) {
+            e.printStackTrace();
+        } catch(JsonMappingException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static HashMap<BasicLocation, BasicMineral> getMinerals() {
-        return mineralMap;
+    @Override
+    public void validateData() {
+        if(data == null) {
+            data = new MineralConfigData();
+        }
+    }
+
+    public static class MineralConfigData {
+        public transient HashMap<FastLocation, FastMineral> mineralMap = new HashMap<FastLocation, FastMineral>();
+        public ArrayList<FastMineral> minerals = new ArrayList<FastMineral>();
+
+        protected MineralConfigData() {}
     }
 }

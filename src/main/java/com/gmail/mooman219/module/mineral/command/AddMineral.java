@@ -12,7 +12,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.store.BasicMineral;
+import com.gmail.mooman219.module.mineral.store.FastMineral;
 import com.gmail.mooman219.module.mineral.store.StoreMineral;
 
 public class AddMineral extends CCommand {
@@ -28,7 +28,7 @@ public class AddMineral extends CCommand {
         Block block = BlockHelper.getLineOfSightSolid(sender, 6);
         if(block != null) {
             int delay = Integer.parseInt(args[0]);
-            BasicMineral mineral = new BasicMineral(block, delay * 1000);
+            FastMineral mineral = new FastMineral(block, delay * 1000);
             if(MineralManager.add(mineral)) {
                 CCMineral.FRM.EDIT.send(sender, StoreMineral.getMinerals().size(), delay);
             } else {

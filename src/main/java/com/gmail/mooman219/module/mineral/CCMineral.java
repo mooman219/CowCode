@@ -45,7 +45,7 @@ public class CCMineral extends CowModule {
     }
     @Override
     public void onEnable(Loader plugin){
-        storeMineral = new StoreMineral(getCast(), getDirectory());
+        storeMineral = new StoreMineral();
 
         plugin.addListener(new ListenerBlock());
         plugin.addListener(new ListenerTime());
@@ -55,7 +55,6 @@ public class CCMineral extends CowModule {
     public void onDisable(Loader plugin){
         Loader.info(getCast() + "Reverting minerals");
         MineralManager.revert();
-        Loader.info(getCast() + "Saving " + storeMineral.getFile().getName());
         storeMineral.save();
     }
 

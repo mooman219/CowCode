@@ -67,6 +67,14 @@ public class FastMineral implements JacksonData {
         return location.toLocation();
     }
 
+    public boolean isSimilar(Location location) {
+        return this.location.isSimilar(location);
+    }
+
+    public boolean isSimilar(Block block) {
+        return this.location.isSimilar(block.getLocation());
+    }
+
     public boolean hasTimeExpired(long currentTime) {
         return currentTime - respawnTime > 0;
     }
@@ -91,4 +99,42 @@ public class FastMineral implements JacksonData {
     /**
      * HashCode and Equals
      */
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + respawnDelay;
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        FastMineral other = (FastMineral) obj;
+        if (location == null) {
+            if (other.location != null) {
+                return false;
+            }
+        } else if (!location.equals(other.location)) {
+            return false;
+        }
+        if (respawnDelay != other.respawnDelay) {
+            return false;
+        }
+        if (type != other.type) {
+            return false;
+        }
+        return true;
+    }
 }
