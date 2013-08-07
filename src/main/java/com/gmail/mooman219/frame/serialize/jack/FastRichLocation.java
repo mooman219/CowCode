@@ -86,6 +86,14 @@ public class FastRichLocation implements JacksonData {
         return weakLocation.get();
     }
 
+    public boolean isSimilar(Location location) {
+        return x == location.getX() && y == location.getY() && z == location.getZ();
+    }
+
+    public boolean isSimilar(FastRichLocation location) {
+        return x == location.getX() && y == location.getY() && z == location.getZ();
+    }
+
     /**
      * Serialization and Deserialization
      */
