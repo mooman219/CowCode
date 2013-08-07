@@ -15,7 +15,7 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.event.RegionChangeEvent;
-import com.gmail.mooman219.module.region.store.BasicRegion;
+import com.gmail.mooman219.module.region.store.FastRegion;
 
 public class ListenerPlayer implements Listener{
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -23,8 +23,8 @@ public class ListenerPlayer implements Listener{
         // Checks to see if the player has moved into a new chunk
         if(event.getFrom().getChunk().getX() != event.getTo().getChunk().getX() || event.getFrom().getChunk().getZ() != event.getTo().getChunk().getZ()) {
             CDPlayer player = CDPlayer.get(event.getPlayer());
-            BasicRegion toRegion = RegionManager.getRegion(event.getTo());
-            BasicRegion fromRegion = player.region().getRegion();
+            FastRegion toRegion = RegionManager.getRegion(event.getTo());
+            FastRegion fromRegion = player.region().getRegion();
             // If the to and from regions are the same, just let them move w/o anymore checks.
             if(!toRegion.equals(fromRegion)) {
                 if(toRegion.isLocked()) {
@@ -36,7 +36,7 @@ public class ListenerPlayer implements Listener{
                         CCRegion.MSG.LOCKED.send(player);
                         cancelPlayerMoveEvent(event);
                         // Remove because abuse
-                        //VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
+                        // VectorHelper.pushAwayFromPoint(event.getPlayer(), event.getTo(), 1.0, new Vector(0, 0.4, 0));
                         player.sendBlockChange(event.getTo(), Material.GLASS);
                         player.sendBlockChange(event.getTo().clone().add(0, 1, 0), Material.GLASS);
                         player.sendBlockChange(event.getTo().clone().add(0, 2, 0), Material.GLASS);
@@ -64,7 +64,7 @@ public class ListenerPlayer implements Listener{
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         CDPlayer player = CDPlayer.get(event.getPlayer());
-        BasicRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
+        FastRegion region = RegionManager.getRegion(event.getPlayer().getLocation());
         player.getSidebar().addKey("regionn", Chat.GREEN + region.getName(), 6);
         player.getSidebar().addKey("regionc", region.getCombatType().getColoredName(), 5);
         player.region().setRegion(region);

@@ -3,28 +3,29 @@ import java.util.UUID;
 
 import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
-import com.gmail.mooman219.layout.JsonData;
+import com.gmail.mooman219.layout.JacksonData;
 import com.gmail.mooman219.module.region.type.RegionCombatType;
 
-public class BasicRegion implements JsonData {
-    // This identifies the region, don't fuck with it
-    private final UUID uuid;
-
+public class FastRegion implements JacksonData {
+    private static final long serialVersionUID = -6234418878993669735L;
+    private UUID uuid; // This identifies the region, it's paired with the chunk, don't ever fuck with it
     private String id;
     private String name = "DefaultName";
     private String description = "Default description.";
     private boolean isLocked = false;
     private RegionCombatType combatType = RegionCombatType.SAFE;
 
-    public BasicRegion(String id, String name) {
-        this(NumberHelper.nextUUID(), id, name);
-    }
+    protected FastRegion() {}
 
-    public BasicRegion(String uuid, String id, String name) {
+    public FastRegion(String uuid, String id, String name) {
         this(UUID.fromString(uuid), id, name);
     }
 
-    public BasicRegion(UUID uuid, String id, String name) {
+    public FastRegion(String id, String name) {
+        this(NumberHelper.nextUUID(), id, name);
+    }
+
+    public FastRegion(UUID uuid, String id, String name) {
         this.uuid = uuid;
         this.id = id.toLowerCase();
         this.name = name;
@@ -54,47 +55,34 @@ public class BasicRegion implements JsonData {
         return uuid;
     }
 
-    public BasicRegion setCombatType(RegionCombatType combatType) {
+    public void setCombatType(RegionCombatType combatType) {
         this.combatType = combatType;
-        return this;
     }
 
-    public BasicRegion setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
-    public BasicRegion setID(String id) {
+    public void setID(String id) {
         this.id = id;
-        return this;
     }
 
-    public BasicRegion setLocked(boolean isLocked) {
+    public void setLocked(boolean isLocked) {
         this.isLocked = isLocked;
-        return this;
     }
 
-    public BasicRegion setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
-
-    /**
-     * Json methods
-     */
 
     @Override
-    public String toString() {
-        return JsonHelper.toJson(this);
+    public String serialize() {
+        return JsonHelper.toJackson(this);
     }
 
-    public static BasicRegion fromString(String string) {
-        return JsonHelper.getGson().fromJson(string, BasicRegion.class);
+    public static FastRegion deserialize(String data) {
+        return JsonHelper.fromJackson(data, FastRegion.class);
     }
-
-    /**
-     * Needed methods
-     */
 
     @Override
     public int hashCode() {
@@ -120,7 +108,7 @@ public class BasicRegion implements JsonData {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        BasicRegion other = (BasicRegion) obj;
+        FastRegion other = (FastRegion) obj;
         if (combatType != other.combatType) {
             return false;
         }

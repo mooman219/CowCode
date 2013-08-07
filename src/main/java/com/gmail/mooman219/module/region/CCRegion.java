@@ -50,8 +50,8 @@ public class CCRegion extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
-        storeRegion = new StoreRegion(getCast(), getDirectory());
-        storeChunk = new StoreChunk(getCast(), getDirectory());
+        storeRegion = new StoreRegion();
+        storeChunk = new StoreChunk();
 
         plugin.addListener(new ListenerPlayer());
         plugin.addListener(new ListenerDamage());
@@ -59,9 +59,7 @@ public class CCRegion extends CowModule {
 
     @Override
     public void onDisable(Loader plugin){
-        Loader.info(getCast() + "Saving " + storeRegion.getFile().getName());
         storeRegion.save();
-        Loader.info(getCast() + "Saving " + storeChunk.getFile().getName());
         storeChunk.save();
     }
 

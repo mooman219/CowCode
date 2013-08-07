@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
-import com.gmail.mooman219.frame.serialize.json.BasicChunkLocation;
-import com.gmail.mooman219.module.region.store.BasicRegion;
+import com.gmail.mooman219.frame.serialize.jack.FastChunkLocation;
+import com.gmail.mooman219.module.region.store.FastRegion;
 import com.gmail.mooman219.module.region.store.StoreChunk;
 import com.gmail.mooman219.module.region.store.StoreRegion;
 
@@ -14,10 +14,10 @@ public class RegionManager {
      * Returns the newly created region.
      * Otherwise returns null if a region matching the id already exists.
      */
-    public static BasicRegion addRegion(String id, String name) {
-        BasicRegion information = getRegion(id);
+    public static FastRegion addRegion(String id, String name) {
+        FastRegion information = getRegion(id);
         if(information == null) {
-            information = new BasicRegion(id, name);
+            information = new FastRegion(id, name);
             StoreRegion.getRegions().put(information.getUUID(), information);
             return information;
         } else {
@@ -25,8 +25,8 @@ public class RegionManager {
         }
     }
 
-    public static void setRegion(Location location, BasicRegion region) {
-        BasicChunkLocation chunk = new BasicChunkLocation(location.getChunk());
+    public static void setRegion(Location location, FastRegion region) {
+        FastChunkLocation chunk = new FastChunkLocation(location.getChunk());
         if(region.equals(StoreRegion.getGlobalInfo())) {
             StoreChunk.getChunks().remove(chunk);
         } else {
@@ -38,19 +38,19 @@ public class RegionManager {
      * Returns the region located at the given location.
      * Otherwise returns the global region.
      */
-    public static BasicRegion getRegion(Location location) {
-        return RegionManager.getRegion(StoreChunk.getChunks().get(new BasicChunkLocation(location.getChunk())));
+    public static FastRegion getRegion(Location location) {
+        return RegionManager.getRegion(StoreChunk.getChunks().get(new FastChunkLocation(location.getChunk())));
     }
 
     /**
      * Returns the region with the matching uuid.
      * Otherwise returns the global region.
      */
-    public static BasicRegion getRegion(UUID uuid) {
+    public static FastRegion getRegion(UUID uuid) {
         if(uuid == null) {
             return StoreRegion.getGlobalInfo();
         }
-        BasicRegion info = StoreRegion.getRegions().get(uuid);
+        FastRegion info = StoreRegion.getRegions().get(uuid);
         return info != null ? info : StoreRegion.getGlobalInfo();
     }
 
@@ -58,11 +58,11 @@ public class RegionManager {
      * Returns the region with the matching id.
      * Otherwise returns null.
      */
-    public static BasicRegion getRegion(String id) {
+    public static FastRegion getRegion(String id) {
         if(id.equalsIgnoreCase("global")) {
             return StoreRegion.getGlobalInfo();
         }
-        for(BasicRegion info : StoreRegion.getRegions().values()) {
+        for(FastRegion info : StoreRegion.getRegions().values()) {
             if(info.getID().equals(id)) {
                 return info;
             }

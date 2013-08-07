@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.module.region.store.BasicRegion;
+import com.gmail.mooman219.module.region.store.FastRegion;
 
 public class RegionChangeEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
@@ -14,10 +14,10 @@ public class RegionChangeEvent extends Event implements Cancellable {
     private boolean cancelled = false;
     private final CDPlayer player;
     private final PlayerMoveEvent event;
-    private final BasicRegion oldRegion;
-    private final BasicRegion newRegion;
+    private final FastRegion oldRegion;
+    private final FastRegion newRegion;
 
-    public RegionChangeEvent(PlayerMoveEvent event, CDPlayer player, BasicRegion oldRegion, BasicRegion newRegion) {
+    public RegionChangeEvent(PlayerMoveEvent event, CDPlayer player, FastRegion oldRegion, FastRegion newRegion) {
         this.player = player;
         this.event = event;
         this.oldRegion = oldRegion;
@@ -41,11 +41,11 @@ public class RegionChangeEvent extends Event implements Cancellable {
         return event;
     }
 
-    public BasicRegion getOldRegion() {
+    public FastRegion getOldRegion() {
         return oldRegion;
     }
 
-    public BasicRegion getNewRegion() {
+    public FastRegion getNewRegion() {
         return newRegion;
     }
 

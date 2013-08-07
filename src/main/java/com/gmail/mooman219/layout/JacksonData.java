@@ -17,7 +17,7 @@ public interface JacksonData extends Serializable {
      * Must have this static method
      * public static JacksonData deserialize(String data) {}
      */
-    
+
     /**
      * Should implement its own .hashCode() and .equals()
      */

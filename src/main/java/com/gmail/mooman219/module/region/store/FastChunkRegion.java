@@ -1,52 +1,52 @@
 package com.gmail.mooman219.module.region.store;
 import java.util.UUID;
 
-import com.gmail.mooman219.frame.serialize.JsonHelper;
-import com.gmail.mooman219.frame.serialize.json.BasicChunkLocation;
-import com.gmail.mooman219.layout.JsonData;
+import org.bukkit.Chunk;
 
-public class BasicChunkRegion implements JsonData {
-    // This identifies the region, don't fuck with it
-    private BasicChunkLocation chunk;
+import com.gmail.mooman219.frame.serialize.JsonHelper;
+import com.gmail.mooman219.frame.serialize.jack.FastChunkLocation;
+import com.gmail.mooman219.layout.JacksonData;
+
+public class FastChunkRegion implements JacksonData {
+    private static final long serialVersionUID = 5453346189721430905L;
+    private FastChunkLocation chunk;
     private UUID uuid;
 
-    public BasicChunkRegion(BasicChunkLocation chunk, UUID uuid) {
+    protected FastChunkRegion() {};
+
+    public FastChunkRegion(FastChunkLocation chunk, UUID uuid) {
         this.chunk = chunk;
         this.uuid = uuid;
     }
 
-    public BasicChunkLocation getChunk() {
+    public FastChunkLocation getChunk() {
         return chunk;
-    }
-
-    public void setChunk(BasicChunkLocation chunk) {
-        this.chunk = chunk;
     }
 
     public UUID getUUID() {
         return uuid;
     }
 
+    public void setChunk(FastChunkLocation chunk) {
+        this.chunk = chunk;
+    }
+
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
-    /**
-     * Json methods
-     */
+    public Chunk toChunk() {
+        return chunk.toChunk();
+    }
 
     @Override
-    public String toString() {
-        return JsonHelper.toJson(this);
+    public String serialize() {
+        return JsonHelper.toJackson(this);
     }
 
-    public static BasicChunkRegion fromString(String string) {
-        return JsonHelper.getGson().fromJson(string, BasicChunkRegion.class);
+    public static FastChunkRegion deserialize(String data) {
+        return JsonHelper.fromJackson(data, FastChunkRegion.class);
     }
-
-    /**
-     * Needed methods
-     */
 
     @Override
     public int hashCode() {
@@ -68,7 +68,7 @@ public class BasicChunkRegion implements JsonData {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        BasicChunkRegion other = (BasicChunkRegion) obj;
+        FastChunkRegion other = (FastChunkRegion) obj;
         if (chunk == null) {
             if (other.chunk != null) {
                 return false;
@@ -85,5 +85,4 @@ public class BasicChunkRegion implements JsonData {
         }
         return true;
     }
-
 }

@@ -14,13 +14,13 @@ public class StoreGraveyard extends ConfigJackson {
     private static GraveyardConfigData data;
 
     public StoreGraveyard() {
-        super(ModuleType.GRAVEYARD.getCast(), ModuleType.GRAVEYARD.getDirectory(), "graveyards", "yml");
+        super(ModuleType.GRAVEYARD.getCast(), ModuleType.GRAVEYARD.getDirectory(), "graveyards", "data");
     }
 
     public static GraveyardConfigData getData() {
         return data;
     }
-    
+
     public static ArrayList<FastGraveyard> getGraveyards() {
         return data.graveyards;
     }

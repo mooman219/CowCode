@@ -13,7 +13,7 @@ public class StoreMysql extends ConfigJackson {
     private static MysqlConfigData data;
 
     public StoreMysql() {
-        super(HandlerType.MYSQL.getCast(), HandlerType.MYSQL.getDirectory(), "mysql", "yml");
+        super(HandlerType.MYSQL.getCast(), HandlerType.MYSQL.getDirectory(), "mysql", "config");
     }
 
     public static MysqlConfigData getData() {

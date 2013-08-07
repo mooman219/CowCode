@@ -1,49 +1,69 @@
 package com.gmail.mooman219.module.region.store;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.lang.reflect.Modifier;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
-import com.gmail.mooman219.frame.serialize.json.ConfigJson;
+import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
+import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.region.type.RegionCombatType;
-import com.google.gson.Gson;
 
-public class StoreRegion extends ConfigJson {
-    private static transient final BasicRegion globalInfo =
-            new BasicRegion("283453ad-094b-92b7-b191-a07bff41d667", "global", "Global")
-            .setDescription("No region exists here")
-            .setCombatType(RegionCombatType.SAFE);
-    private static HashMap<UUID, BasicRegion> regions = new HashMap<UUID, BasicRegion>();
+public class StoreRegion extends ConfigJackson {
+    private static RegionConfigData data;
 
-    public StoreRegion(String cast, String directory) {
-        super(cast, directory, "regions", "yml");
+    public StoreRegion() {
+        super(ModuleType.REGION.getCast(), ModuleType.REGION.getDirectory(), "region", "data");
+    }
+
+    public static RegionConfigData getData() {
+        return data;
+    }
+
+    public static FastRegion getGlobalInfo() {
+        return data.globalInfo;
+    }
+
+    public static HashMap<UUID, FastRegion> getRegions() {
+        return data.regions;
     }
 
     @Override
-    public Gson getGson() {
-        return JsonHelper.getGsonBuilder()
-        .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-        .setPrettyPrinting()
-        .create();
+    public void onLoad(File file) {
+        data = JsonHelper.fromJackson(file, RegionConfigData.class);
     }
 
     @Override
-    public void onLoad(FileReader reader) {
-        getGson().fromJson(reader, StoreRegion.class);
+    public void onSave(File file) {
+        try {
+            JsonHelper.getFancyJackson().writeValue(file, data);
+        } catch(JsonGenerationException e) {
+            e.printStackTrace();
+        } catch(JsonMappingException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void onSave(FileWriter writer) {
-        getGson().toJson(this, writer);
+    public void validateData() {
+        if(data == null) {
+            data = new RegionConfigData();
+        }
     }
 
-    public static BasicRegion getGlobalInfo() {
-        return globalInfo;
-    }
+    public static class RegionConfigData {
+        public transient final FastRegion globalInfo;
+        public HashMap<UUID, FastRegion> regions = new HashMap<UUID, FastRegion>();
 
-    public static HashMap<UUID, BasicRegion> getRegions() {
-        return regions;
+        public RegionConfigData() {
+            globalInfo = new FastRegion("283453ad-094b-92b7-b191-a07bff41d667", "global", "Global");
+            globalInfo.setDescription("No region exists here");
+            globalInfo.setCombatType(RegionCombatType.SAFE);
+        }
     }
 }

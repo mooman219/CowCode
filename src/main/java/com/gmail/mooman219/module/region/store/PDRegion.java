@@ -19,13 +19,13 @@ public class PDRegion extends PlayerData {
      * Live
      */
 
-    private BasicRegion currentRegion;
+    private FastRegion currentRegion;
 
-    public BasicRegion getRegion() {
+    public FastRegion getRegion() {
         return currentRegion;
     }
 
-    public void setRegion(BasicRegion region) {
+    public void setRegion(FastRegion region) {
         currentRegion = region;
         getPlayer().getSidebar().modifyName("regionn", Chat.GREEN + region.getName());
         getPlayer().getSidebar().modifyName("regionc", region.getCombatType().getColoredName());

@@ -8,7 +8,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.store.BasicRegion;
+import com.gmail.mooman219.module.region.store.FastRegion;
 import com.gmail.mooman219.module.region.type.RegionCombatType;
 
 public class ModifyCombat extends CCommand {
@@ -18,7 +18,7 @@ public class ModifyCombat extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        BasicRegion region = RegionManager.getRegion(args[0]);
+        FastRegion region = RegionManager.getRegion(args[0]);
         if(region != null) {
             region.setCombatType(RegionCombatType.fromID(Integer.parseInt(args[1])));
             CCRegion.FRM.MODIFIED.send(sender, region.getID());

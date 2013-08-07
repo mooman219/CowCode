@@ -10,7 +10,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.CCRegion;
-import com.gmail.mooman219.module.region.store.BasicRegion;
+import com.gmail.mooman219.module.region.store.FastRegion;
 
 public class Region extends CCommand {
     public Region() {
@@ -20,7 +20,7 @@ public class Region extends CCommand {
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
         if(args.length > 0) {
-            BasicRegion region = RegionManager.getRegion(args[0]);
+            FastRegion region = RegionManager.getRegion(args[0]);
             if(region != null) {
                 sendInfo(sender, region);
             } else {
@@ -31,7 +31,7 @@ public class Region extends CCommand {
         }
     }
 
-    public static void sendInfo(CommandSender sender, BasicRegion region) {
+    public static void sendInfo(CommandSender sender, FastRegion region) {
         sender.sendMessage(
         Chat.msgInfo + "Region information for [" + Chat.GRAY + region.getID() + Chat.GREEN + "]" + Chat.DARK_GREEN + ":" + "\n" +
         Chat.lineInfo + Chat.GRAY + "ID" + Chat.DARK_GRAY + ": " + Chat.WHITE + region.getID() + "\n" +
