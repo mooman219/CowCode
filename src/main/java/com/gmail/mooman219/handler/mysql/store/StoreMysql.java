@@ -53,6 +53,6 @@ public class StoreMysql extends ConfigJackson {
         public String userPassword = "j2TmYw9xTrpKXj7d37";
         public String tablePrefix = "unavowed_";
 
-        public MysqlConfigData() {}
+        protected MysqlConfigData() {}
     }
 }

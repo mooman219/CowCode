@@ -2,6 +2,7 @@ package com.gmail.mooman219.module.region.store;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -23,21 +24,29 @@ public class StoreRegion extends ConfigJackson {
         return data;
     }
 
-    public static FastRegion getGlobalInfo() {
+    public static FastRegion getGlobal() {
         return data.globalInfo;
     }
 
     public static HashMap<UUID, FastRegion> getRegions() {
-        return data.regions;
+        return data.regionMap;
     }
 
     @Override
     public void onLoad(File file) {
         data = JsonHelper.fromJackson(file, RegionConfigData.class);
+        data.regionMap.clear();
+        for(FastRegion region : data.regions) {
+            data.regionMap.put(region.getUUID(), region);
+        }
     }
 
     @Override
     public void onSave(File file) {
+        data.regions.clear();
+        for(FastRegion region : data.regionMap.values()) {
+            data.regions.add(region);
+        }
         try {
             JsonHelper.getFancyJackson().writeValue(file, data);
         } catch(JsonGenerationException e) {
@@ -58,9 +67,10 @@ public class StoreRegion extends ConfigJackson {
 
     public static class RegionConfigData {
         public transient final FastRegion globalInfo;
-        public HashMap<UUID, FastRegion> regions = new HashMap<UUID, FastRegion>();
+        public transient HashMap<UUID, FastRegion> regionMap = new HashMap<UUID, FastRegion>();
+        public ArrayList<FastRegion> regions = new ArrayList<FastRegion>();
 
-        public RegionConfigData() {
+        protected RegionConfigData() {
             globalInfo = new FastRegion("283453ad-094b-92b7-b191-a07bff41d667", "global", "Global");
             globalInfo.setDescription("No region exists here");
             globalInfo.setCombatType(RegionCombatType.SAFE);

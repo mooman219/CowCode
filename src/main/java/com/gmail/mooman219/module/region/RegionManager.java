@@ -27,7 +27,7 @@ public class RegionManager {
 
     public static void setRegion(Location location, FastRegion region) {
         FastChunkLocation chunk = new FastChunkLocation(location.getChunk());
-        if(region.equals(StoreRegion.getGlobalInfo())) {
+        if(region.equals(StoreRegion.getGlobal())) {
             StoreChunk.getChunks().remove(chunk);
         } else {
             StoreChunk.getChunks().put(chunk, region.getUUID());
@@ -39,19 +39,20 @@ public class RegionManager {
      * Otherwise returns the global region.
      */
     public static FastRegion getRegion(Location location) {
-        return RegionManager.getRegion(StoreChunk.getChunks().get(new FastChunkLocation(location.getChunk())));
+        FastRegion region = RegionManager.getRegion(StoreChunk.getChunks().get(new FastChunkLocation(location.getChunk())));
+        return region != null ? region : getGlobal();
     }
 
     /**
      * Returns the region with the matching uuid.
-     * Otherwise returns the global region.
+     * Otherwise returns null.
      */
     public static FastRegion getRegion(UUID uuid) {
         if(uuid == null) {
-            return StoreRegion.getGlobalInfo();
+            return StoreRegion.getGlobal();
         }
         FastRegion info = StoreRegion.getRegions().get(uuid);
-        return info != null ? info : StoreRegion.getGlobalInfo();
+        return info != null ? info : StoreRegion.getGlobal();
     }
 
     /**
@@ -60,7 +61,7 @@ public class RegionManager {
      */
     public static FastRegion getRegion(String id) {
         if(id.equalsIgnoreCase("global")) {
-            return StoreRegion.getGlobalInfo();
+            return StoreRegion.getGlobal();
         }
         for(FastRegion info : StoreRegion.getRegions().values()) {
             if(info.getID().equals(id)) {
@@ -68,5 +69,9 @@ public class RegionManager {
             }
         }
         return null;
+    }
+    
+    public static FastRegion getGlobal() {
+        return StoreRegion.getGlobal();
     }
 }

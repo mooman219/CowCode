@@ -62,9 +62,9 @@ public class StoreChunk extends ConfigJackson {
     }
 
     public static class ChunkConfigData {
-        public ArrayList<FastChunkRegion> chunks = new ArrayList<FastChunkRegion>();
         public transient HashMap<FastChunkLocation, UUID> chunkMap = new HashMap<FastChunkLocation, UUID>();
+        public ArrayList<FastChunkRegion> chunks = new ArrayList<FastChunkRegion>();
 
-        public ChunkConfigData() {}
+        protected ChunkConfigData() {}
     }
 }

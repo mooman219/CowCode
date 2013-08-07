@@ -53,6 +53,6 @@ public class StoreGraveyard extends ConfigJackson {
     public static class GraveyardConfigData {
         public ArrayList<FastGraveyard> graveyards = new ArrayList<FastGraveyard>();
 
-        public GraveyardConfigData() {}
+        protected GraveyardConfigData() {}
     }
 }
