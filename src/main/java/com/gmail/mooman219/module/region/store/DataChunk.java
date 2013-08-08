@@ -13,14 +13,14 @@ import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
 import com.gmail.mooman219.frame.serialize.jack.FastChunkLocation;
 import com.gmail.mooman219.layout.ModuleType;
 
-public class StoreChunk extends ConfigJackson {
-    private static ChunkConfigData data;
+public class DataChunk extends ConfigJackson {
+    private static ConfigData data;
 
-    public StoreChunk() {
+    public DataChunk() {
         super(ModuleType.REGION.getCast(), ModuleType.REGION.getDirectory(), "chunks", "data");
     }
 
-    public static ChunkConfigData getData() {
+    public static ConfigData getData() {
         return data;
     }
 
@@ -30,7 +30,7 @@ public class StoreChunk extends ConfigJackson {
 
     @Override
     public void onLoad(File file) {
-        data = JsonHelper.fromJackson(file, ChunkConfigData.class);
+        data = JsonHelper.fromJackson(file, ConfigData.class);
         data.chunkMap.clear();
         for(FastChunkRegion chunk : data.chunks) {
             data.chunkMap.put(chunk.getChunk(), chunk.getUUID());
@@ -57,14 +57,14 @@ public class StoreChunk extends ConfigJackson {
     @Override
     public void validateData() {
         if(data == null) {
-            data = new ChunkConfigData();
+            data = new ConfigData();
         }
     }
 
-    public static class ChunkConfigData {
+    public static class ConfigData {
         public transient HashMap<FastChunkLocation, UUID> chunkMap = new HashMap<FastChunkLocation, UUID>();
         public ArrayList<FastChunkRegion> chunks = new ArrayList<FastChunkRegion>();
 
-        protected ChunkConfigData() {}
+        protected ConfigData() {}
     }
 }

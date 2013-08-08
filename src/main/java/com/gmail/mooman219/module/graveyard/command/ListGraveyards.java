@@ -11,7 +11,7 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
-import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
+import com.gmail.mooman219.module.graveyard.store.DataGraveyard;
 
 public class ListGraveyards extends CCommand {
     public ListGraveyards() {
@@ -20,10 +20,10 @@ public class ListGraveyards extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CCGraveyard.FRM.LIST_TITLE.send(sender, StoreGraveyard.getGraveyards().size());
-        for(int i = 0; i < StoreGraveyard.getGraveyards().size(); i++) {
-            Location location = StoreGraveyard.getGraveyards().get(i).toLocation().clone();
-            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), StoreGraveyard.getGraveyards().get(i).getLevel());
+        CCGraveyard.FRM.LIST_TITLE.send(sender, DataGraveyard.getGraveyards().size());
+        for(int i = 0; i < DataGraveyard.getGraveyards().size(); i++) {
+            Location location = DataGraveyard.getGraveyards().get(i).toLocation().clone();
+            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), DataGraveyard.getGraveyards().get(i).getLevel());
             WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playEffect(location.add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
             WorldHelper.playSound(location, Sound.ENDERMAN_TELEPORT);
@@ -32,10 +32,10 @@ public class ListGraveyards extends CCommand {
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        CCGraveyard.FRM.LIST_TITLE.send(sender, StoreGraveyard.getGraveyards().size());
-        for(int i = 0; i < StoreGraveyard.getGraveyards().size(); i++) {
-            Location location = StoreGraveyard.getGraveyards().get(i).toLocation();
-            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), StoreGraveyard.getGraveyards().get(i).getLevel());
+        CCGraveyard.FRM.LIST_TITLE.send(sender, DataGraveyard.getGraveyards().size());
+        for(int i = 0; i < DataGraveyard.getGraveyards().size(); i++) {
+            Location location = DataGraveyard.getGraveyards().get(i).toLocation();
+            CCGraveyard.FRM.LIST.send(sender, i, location.getBlockX(), location.getBlockY(), location.getBlockZ(), DataGraveyard.getGraveyards().get(i).getLevel());
         }
     }
 }

@@ -8,13 +8,14 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.handler.config.CHConfig;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.world.CCWorld;
+import com.gmail.mooman219.module.world.store.ConfigWorld;
 
 public class ToggleWorldSaving extends CCommand {
-    public ToggleWorldSaving() {
+    private final CCWorld module;
+    public ToggleWorldSaving(CCWorld module) {
         super("toggleworldsaving", Rank.DEVELOPER, "/ToggleWorldSaving");
+        this.module = module;
     }
 
     @Override
@@ -24,11 +25,11 @@ public class ToggleWorldSaving extends CCommand {
 
     @Override
     public void processConsole(final CommandSender sender, final String[] args) {
-        ConfigGlobal.module.world.disableWorldSaving = !ConfigGlobal.module.world.disableWorldSaving;
+        ConfigWorld.getData().disableWorldSaving = !ConfigWorld.getData().disableWorldSaving;
         for(World world : WorldHelper.getWorlds()) {
-            world.setAutoSave(ConfigGlobal.module.world.disableWorldSaving);
+            world.setAutoSave(ConfigWorld.getData().disableWorldSaving);
         }
-        CHConfig.getConfig().save();
-        CCWorld.FRM.WORLDSAVETOGGLE.send(sender, !ConfigGlobal.module.world.disableWorldSaving);
+        module.configWorld.save();
+        CCWorld.FRM.WORLDSAVETOGGLE.send(sender, !ConfigWorld.getData().disableWorldSaving);
     }
 }

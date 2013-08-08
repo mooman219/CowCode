@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import org.bukkit.Bukkit;
 
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.handler.mysql.store.StoreMysql;
+import com.gmail.mooman219.handler.mysql.store.ConfigMysql;
 import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.layout.HandlerType;
 import com.jolbox.bonecp.BoneCP;
@@ -17,7 +17,7 @@ public class CHMysql extends CowHandler {
     private static final HandlerType type = HandlerType.MYSQL;
     private static Manager manager;
 
-    public StoreMysql storeMysql;
+    public ConfigMysql configMysql;
     public BoneCPConfig config;
     public BoneCP connectionPool;
 
@@ -41,7 +41,7 @@ public class CHMysql extends CowHandler {
     @Override
     public void onEnable() {
         manager = new Manager();
-        storeMysql = new StoreMysql();
+        configMysql = new ConfigMysql();
         manager.connect();
     }
 
@@ -59,9 +59,9 @@ public class CHMysql extends CowHandler {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 config = new BoneCPConfig();
-                config.setJdbcUrl("jdbc:mysql://" + StoreMysql.getData().serverAddress + ":" + StoreMysql.getData().serverPort);
-                config.setUser(StoreMysql.getData().userName);
-                config.setPassword(StoreMysql.getData().userPassword);
+                config.setJdbcUrl("jdbc:mysql://" + ConfigMysql.getData().serverAddress + ":" + ConfigMysql.getData().serverPort);
+                config.setUser(ConfigMysql.getData().userName);
+                config.setPassword(ConfigMysql.getData().userPassword);
                 connectionPool = new BoneCP(config);
                 Loader.info(getCast() + "mySQL connected");
                 return;
@@ -79,15 +79,15 @@ public class CHMysql extends CowHandler {
                 connectionPool.shutdown();
             }
         }
-        
+
         public void validateStructure() {
-            write("CREATE TABLE IF NOT EXISTS `" + StoreMysql.getData().tablePrefix + "player` ("
+            write("CREATE TABLE IF NOT EXISTS `" + ConfigMysql.getData().tablePrefix + "player` ("
                     + "`id` int(10) unsigned NOT NULL AUTO_INCREMENT,"
                     + "`user` varchar(40) NOT NULL,"
                     + "PRIMARY KEY (`id`),"
                     + "UNIQUE KEY `user` (`user`)) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;");
         }
-        
+
         public boolean write(String query) {
             Connection connection = getConnection();
             if(connection != null) {

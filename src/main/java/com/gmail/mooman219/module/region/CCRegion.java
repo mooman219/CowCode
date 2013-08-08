@@ -15,16 +15,16 @@ import com.gmail.mooman219.module.region.command.Region;
 import com.gmail.mooman219.module.region.command.SetRegion;
 import com.gmail.mooman219.module.region.listener.ListenerDamage;
 import com.gmail.mooman219.module.region.listener.ListenerPlayer;
-import com.gmail.mooman219.module.region.store.StoreChunk;
-import com.gmail.mooman219.module.region.store.StoreRegion;
+import com.gmail.mooman219.module.region.store.DataChunk;
+import com.gmail.mooman219.module.region.store.DataRegion;
 
 public class CCRegion extends CowModule {
     private static final ModuleType type = ModuleType.REGION;
     public static Messages MSG;
     public static Formats FRM;
 
-    public StoreRegion storeRegion;
-    public StoreChunk storeChunk;
+    public DataRegion dataRegion;
+    public DataChunk dataChunk;
 
     public CCRegion() {
         MSG = new Messages();
@@ -50,8 +50,8 @@ public class CCRegion extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
-        storeRegion = new StoreRegion();
-        storeChunk = new StoreChunk();
+        dataRegion = new DataRegion();
+        dataChunk = new DataChunk();
 
         plugin.addListener(new ListenerPlayer());
         plugin.addListener(new ListenerDamage());
@@ -59,8 +59,8 @@ public class CCRegion extends CowModule {
 
     @Override
     public void onDisable(Loader plugin){
-        storeRegion.save();
-        storeChunk.save();
+        dataRegion.save();
+        dataChunk.save();
     }
 
     @Override

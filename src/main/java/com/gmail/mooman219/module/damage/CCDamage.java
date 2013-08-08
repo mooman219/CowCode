@@ -10,6 +10,7 @@ import com.gmail.mooman219.module.damage.command.Heal;
 import com.gmail.mooman219.module.damage.command.Suicide;
 import com.gmail.mooman219.module.damage.listener.ListenerEntity;
 import com.gmail.mooman219.module.damage.listener.ListenerPlayer;
+import com.gmail.mooman219.module.damage.type.ConfigDamage;
 
 public class CCDamage extends CowModule {
     private static final ModuleType type = ModuleType.DAMAGE;
@@ -17,6 +18,7 @@ public class CCDamage extends CowModule {
     public static Formats FRM;
 
     public final static HealthBoard healthBoard = new HealthBoard("health", Chat.RED + "" + Chat.BOLD + "HP");
+    public ConfigDamage configDamage;
 
     public CCDamage(){
         MSG = new Messages();
@@ -42,6 +44,7 @@ public class CCDamage extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
+        configDamage = new ConfigDamage();
         plugin.addListener(new ListenerEntity());
         plugin.addListener(new ListenerPlayer());
     }

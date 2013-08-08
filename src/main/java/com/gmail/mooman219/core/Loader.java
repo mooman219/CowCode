@@ -10,7 +10,6 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.mooman219.frame.command.CCommand;
-import com.gmail.mooman219.handler.config.CHConfig;
 import com.gmail.mooman219.handler.database.CHDatabase;
 import com.gmail.mooman219.handler.mysql.CHMysql;
 import com.gmail.mooman219.handler.task.CHTask;
@@ -69,7 +68,6 @@ public class Loader extends JavaPlugin {
     @Override
     public void onLoad() {
         // Order IS important
-        handlerList.add(new CHConfig());
         handlerList.add(new CHTask(this));
         handlerList.add(new CHDatabase());
         handlerList.add(new CHMysql());

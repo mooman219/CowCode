@@ -11,9 +11,9 @@ import org.bukkit.scheduler.BukkitTask;
 
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.handler.task.event.TickSecondAsyncEvent;
 import com.gmail.mooman219.handler.task.event.TickSecondSyncEvent;
+import com.gmail.mooman219.handler.task.store.ConfigTask;
 import com.gmail.mooman219.layout.CowHandler;
 import com.gmail.mooman219.layout.HandlerType;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -24,6 +24,7 @@ public class CHTask extends CowHandler {
     private static Manager manager;
 
     private ScheduledExecutorService asyncPool;
+    public ConfigTask configTask;
 
     public CHTask(Loader plugin) {
         this.plugin = plugin;
@@ -52,9 +53,10 @@ public class CHTask extends CowHandler {
 
     @Override
     public void onEnable() {
+        configTask = new ConfigTask();
         manager = new Manager();
         Loader.info(getCast() + "Starting plugin threads");
-        asyncPool = Executors.newScheduledThreadPool(ConfigGlobal.handler.task.pluginThreads, new ThreadFactoryBuilder().setNameFormat("Cow Plugin Thread - $d").build());
+        asyncPool = Executors.newScheduledThreadPool(ConfigTask.getData().pluginThreads, new ThreadFactoryBuilder().setNameFormat("Cow Plugin Thread - $d").build());
         Loader.info(getCast() + "Starting second clocks");
 
         manager.runPlugin(new Runnable() {
@@ -81,7 +83,7 @@ public class CHTask extends CowHandler {
         Loader.info(getCast() + "Stopping all threads");
         asyncPool.shutdown();
         try {
-            asyncPool.awaitTermination(ConfigGlobal.handler.task.timeoutDelay, TimeUnit.SECONDS);
+            asyncPool.awaitTermination(ConfigTask.getData().timeoutDelay, TimeUnit.SECONDS);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }

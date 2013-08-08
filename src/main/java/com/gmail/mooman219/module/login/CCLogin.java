@@ -7,11 +7,14 @@ import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.login.listener.ListenerData;
 import com.gmail.mooman219.module.login.listener.ListenerPlayer;
+import com.gmail.mooman219.module.login.store.ConfigLogin;
 
 public class CCLogin extends CowModule{
     private static final ModuleType type = ModuleType.LOGIN;
     public static Messages MSG;
     public static Formats FRM;
+
+    public ConfigLogin configLogin;
 
     public CCLogin() {
         MSG = new Messages();
@@ -37,6 +40,7 @@ public class CCLogin extends CowModule{
 
     @Override
     public void onEnable(Loader plugin){
+        configLogin = new ConfigLogin();
         plugin.addListener(new ListenerData());
         plugin.addListener(new ListenerPlayer());
     }

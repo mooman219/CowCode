@@ -11,13 +11,13 @@ import com.gmail.mooman219.frame.WorldHelper;
 import com.gmail.mooman219.frame.serialize.jack.FastLocation;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.module.mineral.store.FastMineral;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.mineral.store.DataMineral;
 
 public class MineralManager {
     private static ArrayList<FastMineral> active = new ArrayList<FastMineral>();
 
     public static FastMineral getMineral(Location location) {
-        return StoreMineral.getMinerals().get(new FastLocation(location));
+        return DataMineral.getMinerals().get(new FastLocation(location));
     }
 
     /**
@@ -25,8 +25,8 @@ public class MineralManager {
      */
     public static int clear() {
         revert();
-        int ret = StoreMineral.getMinerals().size();
-        StoreMineral.getMinerals().clear();
+        int ret = DataMineral.getMinerals().size();
+        DataMineral.getMinerals().clear();
         return ret;
     }
 
@@ -34,8 +34,8 @@ public class MineralManager {
      * @return True if mineral already existed.
      */
     public static boolean add(FastMineral mineral) {
-        boolean replace = StoreMineral.getMinerals().remove(mineral.getLocation()) != null;
-        StoreMineral.getMinerals().put(mineral.getLocation(), mineral);
+        boolean replace = DataMineral.getMinerals().remove(mineral.getLocation()) != null;
+        DataMineral.getMinerals().put(mineral.getLocation(), mineral);
         return replace;
     }
 
@@ -43,7 +43,7 @@ public class MineralManager {
      * @return True if mineral was removed.
      */
     public static boolean remove(FastLocation location) {
-        return StoreMineral.getMinerals().remove(location) != null;
+        return DataMineral.getMinerals().remove(location) != null;
     }
 
     public static void mine(FastMineral mineral) {
@@ -72,7 +72,7 @@ public class MineralManager {
      */
     public static void revert() {
         active.clear();
-        Iterator<FastMineral> iterator = StoreMineral.getMinerals().values().iterator();
+        Iterator<FastMineral> iterator = DataMineral.getMinerals().values().iterator();
         while(iterator.hasNext()) {
             FastMineral mineral = iterator.next();
             revert(mineral);

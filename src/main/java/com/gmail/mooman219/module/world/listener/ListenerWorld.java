@@ -10,7 +10,7 @@ import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
 import com.gmail.mooman219.frame.WorldHelper;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
+import com.gmail.mooman219.module.world.store.ConfigWorld;
 
 public class ListenerWorld implements Listener {
     public ListenerWorld() {
@@ -21,14 +21,14 @@ public class ListenerWorld implements Listener {
 
     @EventHandler()
     public void onLightningStrike(LightningStrikeEvent event) {
-        if(ConfigGlobal.module.world.disableLightningStrike) {
+        if(ConfigWorld.getData().disableLightningStrike) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler()
     public void onStructureGrow(StructureGrowEvent event) {
-        if(ConfigGlobal.module.world.disableStructureGrow) {
+        if(ConfigWorld.getData().disableStructureGrow) {
             event.setCancelled(true);
         }
     }
@@ -44,7 +44,7 @@ public class ListenerWorld implements Listener {
     }
 
     public void prepWorld(World world) {
-        if(ConfigGlobal.module.world.disableWorldSaving) {
+        if(ConfigWorld.getData().disableWorldSaving) {
             world.setAutoSave(false);
         }
         world.setDifficulty(Difficulty.HARD);

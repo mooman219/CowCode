@@ -7,7 +7,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
-import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
+import com.gmail.mooman219.module.graveyard.store.DataGraveyard;
 
 public class ClearGraveyards extends CCommand {
     public ClearGraveyards() {
@@ -21,7 +21,7 @@ public class ClearGraveyards extends CCommand {
 
     @Override
     public void processConsole(CommandSender sender, String[] args) {
-        CCGraveyard.FRM.CLEAR.send(sender, StoreGraveyard.getGraveyards().size());
-        StoreGraveyard.getGraveyards().clear();
+        CCGraveyard.FRM.CLEAR.send(sender, DataGraveyard.getGraveyards().size());
+        DataGraveyard.getGraveyards().clear();
     }
 }

@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
+import com.gmail.mooman219.handler.database.store.ConfigDatabase;
 import com.gmail.mooman219.handler.database.type.DownloadReason;
 import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
@@ -24,6 +24,7 @@ public class CHDatabase extends CowHandler {
     private static final HandlerType type = HandlerType.DATABASE;
     private static Manager manager;
 
+    public ConfigDatabase configDatabase;
     private DB database;
     private DBCollection usersCollection;
     private MongoClient client;
@@ -47,6 +48,7 @@ public class CHDatabase extends CowHandler {
 
     @Override
     public void onEnable() {
+        configDatabase = new ConfigDatabase();
         manager = new Manager();
         manager.connect();
     }
@@ -64,10 +66,10 @@ public class CHDatabase extends CowHandler {
         public boolean connect() {
             Loader.info(getCast() + "Connecting to the database...");
             try {
-                ServerAddress address = new ServerAddress(ConfigGlobal.handler.database.hostname, ConfigGlobal.handler.database.portnmbr);
+                ServerAddress address = new ServerAddress(ConfigDatabase.getData().hostname, ConfigDatabase.getData().portnmbr);
                 client = new MongoClient(address);
                 database = client.getDB("cowcode");
-                if(!database.authenticate(ConfigGlobal.handler.database.username, ConfigGlobal.handler.database.password.toCharArray())) {
+                if(!database.authenticate(ConfigDatabase.getData().username, ConfigDatabase.getData().password.toCharArray())) {
                     throw new IllegalArgumentException("Unable to authenticate to database.");
                 }
                 usersCollection = database.getCollection("data_users");
@@ -110,7 +112,7 @@ public class CHDatabase extends CowHandler {
             PlayerDownloader downloader = new PlayerDownloader(username, reason);
             Future<CDPlayer> future = CHTask.getManager().runPlugin(downloader);
             try {
-                return future.get(ConfigGlobal.handler.database.downloadTimeout, TimeUnit.SECONDS);
+                return future.get(ConfigDatabase.getData().downloadTimeout, TimeUnit.SECONDS);
             } catch(TimeoutException e) {
             } catch(Exception e) {
                 Loader.warning(getCast() + "Currently" + (isConnected() ? " " : " not ") + "connected to database.");

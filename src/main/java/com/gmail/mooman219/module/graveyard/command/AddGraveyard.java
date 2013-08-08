@@ -12,7 +12,7 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.graveyard.CCGraveyard;
 import com.gmail.mooman219.module.graveyard.GraveyardManager;
-import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
+import com.gmail.mooman219.module.graveyard.store.DataGraveyard;
 
 public class AddGraveyard extends CCommand {
     public AddGraveyard() {
@@ -26,6 +26,6 @@ public class AddGraveyard extends CCommand {
         WorldHelper.playEffect(location, Effect.MOBSPAWNER_FLAMES);
         WorldHelper.playEffect(location.add(0, 1, 0), Effect.MOBSPAWNER_FLAMES);
         WorldHelper.playSound(sender.getLocation(), Sound.ENDERMAN_TELEPORT);
-        CCGraveyard.FRM.ADD.send(sender, StoreGraveyard.getGraveyards().size());
+        CCGraveyard.FRM.ADD.send(sender, DataGraveyard.getGraveyards().size());
     }
 }

@@ -1,4 +1,4 @@
-package com.gmail.mooman219.handler.mysql.store;
+package com.gmail.mooman219.module.login.store;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,22 +7,22 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
-import com.gmail.mooman219.layout.HandlerType;
+import com.gmail.mooman219.layout.ModuleType;
 
-public class StoreMysql extends ConfigJackson {
-    private static MysqlConfigData data;
+public class ConfigLogin extends ConfigJackson {
+    private static ConfigData data;
 
-    public StoreMysql() {
-        super(HandlerType.MYSQL.getCast(), HandlerType.MYSQL.getDirectory(), "mysql", "config");
+    public ConfigLogin() {
+        super(ModuleType.LOGIN.getCast(), ModuleType.LOGIN.getDirectory(), "login", "config");
     }
 
-    public static MysqlConfigData getData() {
+    public static ConfigData getData() {
         return data;
     }
 
     @Override
     public void onLoad(File file) {
-        data = JsonHelper.fromJackson(file, MysqlConfigData.class);
+        data = JsonHelper.fromJackson(file, ConfigData.class);
     }
 
     @Override
@@ -41,18 +41,13 @@ public class StoreMysql extends ConfigJackson {
     @Override
     public void validateData() {
         if(data == null) {
-            data = new MysqlConfigData();
+            data = new ConfigData();
         }
     }
 
-    public static class MysqlConfigData {
-        public String serverAddress = "localhost";
-        public int serverPort = 3306;
-        public String databaseName = "unavowed";
-        public String userName = "admin";
-        public String userPassword = "j2TmYw9xTrpKXj7d37";
-        public String tablePrefix = "unavowed_";
+    public static class ConfigData {
+        public int loginDelay = 2000; // Milliseconds
 
-        protected MysqlConfigData() {}
+        protected ConfigData() {}
     }
 }

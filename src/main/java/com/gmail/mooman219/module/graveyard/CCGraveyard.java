@@ -13,14 +13,14 @@ import com.gmail.mooman219.module.graveyard.command.TeleportClosestGraveyard;
 import com.gmail.mooman219.module.graveyard.command.TeleportGraveyard;
 import com.gmail.mooman219.module.graveyard.command.TotalGraveyards;
 import com.gmail.mooman219.module.graveyard.listener.ListenerPlayer;
-import com.gmail.mooman219.module.graveyard.store.StoreGraveyard;
+import com.gmail.mooman219.module.graveyard.store.DataGraveyard;
 
 public class CCGraveyard extends CowModule {
     private static final ModuleType type = ModuleType.GRAVEYARD;
     public static Messages MSG;
     public static Formats FRM;
 
-    public StoreGraveyard storeGraveyard;
+    public DataGraveyard dataGraveyard;
 
     public CCGraveyard(){
         MSG = new Messages();
@@ -46,14 +46,14 @@ public class CCGraveyard extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
-        storeGraveyard = new StoreGraveyard();
+        dataGraveyard = new DataGraveyard();
 
         plugin.addListener(new ListenerPlayer());
     }
 
     @Override
     public void onDisable(Loader plugin){
-        storeGraveyard.save();
+        dataGraveyard.save();
     }
 
     @Override

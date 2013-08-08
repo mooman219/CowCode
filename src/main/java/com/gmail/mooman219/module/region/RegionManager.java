@@ -6,8 +6,8 @@ import org.bukkit.Location;
 
 import com.gmail.mooman219.frame.serialize.jack.FastChunkLocation;
 import com.gmail.mooman219.module.region.store.FastRegion;
-import com.gmail.mooman219.module.region.store.StoreChunk;
-import com.gmail.mooman219.module.region.store.StoreRegion;
+import com.gmail.mooman219.module.region.store.DataChunk;
+import com.gmail.mooman219.module.region.store.DataRegion;
 
 public class RegionManager {
     /**
@@ -18,7 +18,7 @@ public class RegionManager {
         FastRegion information = getRegion(id);
         if(information == null) {
             information = new FastRegion(id, name);
-            StoreRegion.getRegions().put(information.getUUID(), information);
+            DataRegion.getRegions().put(information.getUUID(), information);
             return information;
         } else {
             return null;
@@ -27,10 +27,10 @@ public class RegionManager {
 
     public static void setRegion(Location location, FastRegion region) {
         FastChunkLocation chunk = new FastChunkLocation(location.getChunk());
-        if(region.equals(StoreRegion.getGlobal())) {
-            StoreChunk.getChunks().remove(chunk);
+        if(region.equals(DataRegion.getGlobal())) {
+            DataChunk.getChunks().remove(chunk);
         } else {
-            StoreChunk.getChunks().put(chunk, region.getUUID());
+            DataChunk.getChunks().put(chunk, region.getUUID());
         }
     }
 
@@ -39,7 +39,7 @@ public class RegionManager {
      * Otherwise returns the global region.
      */
     public static FastRegion getRegion(Location location) {
-        FastRegion region = RegionManager.getRegion(StoreChunk.getChunks().get(new FastChunkLocation(location.getChunk())));
+        FastRegion region = RegionManager.getRegion(DataChunk.getChunks().get(new FastChunkLocation(location.getChunk())));
         return region != null ? region : getGlobal();
     }
 
@@ -49,10 +49,10 @@ public class RegionManager {
      */
     public static FastRegion getRegion(UUID uuid) {
         if(uuid == null) {
-            return StoreRegion.getGlobal();
+            return DataRegion.getGlobal();
         }
-        FastRegion info = StoreRegion.getRegions().get(uuid);
-        return info != null ? info : StoreRegion.getGlobal();
+        FastRegion info = DataRegion.getRegions().get(uuid);
+        return info != null ? info : DataRegion.getGlobal();
     }
 
     /**
@@ -61,9 +61,9 @@ public class RegionManager {
      */
     public static FastRegion getRegion(String id) {
         if(id.equalsIgnoreCase("global")) {
-            return StoreRegion.getGlobal();
+            return DataRegion.getGlobal();
         }
-        for(FastRegion info : StoreRegion.getRegions().values()) {
+        for(FastRegion info : DataRegion.getRegions().values()) {
             if(info.getID().equals(id)) {
                 return info;
             }
@@ -72,6 +72,6 @@ public class RegionManager {
     }
 
     public static FastRegion getGlobal() {
-        return StoreRegion.getGlobal();
+        return DataRegion.getGlobal();
     }
 }

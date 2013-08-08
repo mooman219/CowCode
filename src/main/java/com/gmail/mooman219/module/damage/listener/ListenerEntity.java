@@ -15,10 +15,10 @@ import com.gmail.mooman219.bull.CDLiving;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByLivingEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByPlayerEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageEvent;
+import com.gmail.mooman219.module.damage.type.ConfigDamage;
 import com.gmail.mooman219.module.damage.type.DamageType;
 
 public class ListenerEntity implements Listener {
@@ -28,7 +28,7 @@ public class ListenerEntity implements Listener {
         if(event.getEntityType() == EntityType.PLAYER) {
             CDPlayer player = CDPlayer.get((Player) event.getEntity());
             long time = TimeHelper.time();
-            if(time - player.getLastDamaged() > ConfigGlobal.module.damage.damageDelay) {
+            if(time - player.getLastDamaged() > ConfigDamage.getData().damageDelay) {
                 if(event instanceof EntityDamageByEntityEvent) {
                     EntityDamageByEntityEvent originalEvent = (EntityDamageByEntityEvent) event;
                     if(originalEvent.getDamager() instanceof Player) {

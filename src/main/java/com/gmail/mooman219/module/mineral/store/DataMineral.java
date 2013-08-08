@@ -11,14 +11,14 @@ import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
 import com.gmail.mooman219.frame.serialize.jack.FastLocation;
 import com.gmail.mooman219.layout.ModuleType;
 
-public class StoreMineral extends ConfigJackson {
-    private static MineralConfigData data;
+public class DataMineral extends ConfigJackson {
+    private static ConfigData data;
 
-    public StoreMineral() {
+    public DataMineral() {
         super(ModuleType.MINERAL.getCast(), ModuleType.MINERAL.getDirectory(), "minerals", "data");
     }
 
-    public static MineralConfigData getData() {
+    public static ConfigData getData() {
         return data;
     }
 
@@ -28,7 +28,7 @@ public class StoreMineral extends ConfigJackson {
 
     @Override
     public void onLoad(File file) {
-        data = JsonHelper.fromJackson(file, MineralConfigData.class);
+        data = JsonHelper.fromJackson(file, ConfigData.class);
         data.mineralMap.clear();
         for(FastMineral mineral : data.minerals) {
             data.mineralMap.put(mineral.getLocation(), mineral);
@@ -55,14 +55,14 @@ public class StoreMineral extends ConfigJackson {
     @Override
     public void validateData() {
         if(data == null) {
-            data = new MineralConfigData();
+            data = new ConfigData();
         }
     }
 
-    public static class MineralConfigData {
+    public static class ConfigData {
         public transient HashMap<FastLocation, FastMineral> mineralMap = new HashMap<FastLocation, FastMineral>();
         public ArrayList<FastMineral> minerals = new ArrayList<FastMineral>();
 
-        protected MineralConfigData() {}
+        protected ConfigData() {}
     }
 }

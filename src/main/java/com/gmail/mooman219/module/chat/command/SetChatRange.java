@@ -7,21 +7,22 @@ import com.gmail.mooman219.frame.command.Carg;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.rank.Rank;
-import com.gmail.mooman219.handler.config.CHConfig;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.chat.CCChat;
+import com.gmail.mooman219.module.chat.store.ConfigChat;
 
 public class SetChatRange extends CCommand {
-    public SetChatRange() {
+    private final CCChat module;
+    public SetChatRange(CCChat module) {
         super("setchatrange", Rank.GAMEMASTER, "/SetChatRange (Range)", Carg.INT);
+        this.module = module;
     }
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        int oldRange = ConfigGlobal.module.chat.radius;
-        ConfigGlobal.module.chat.radius = NumberHelper.toInt(Math.pow(Integer.parseInt(args[0]), 2));
-        CHConfig.getConfig().save();
-        CCChat.FRM.SETRANGE.send(sender, oldRange, ConfigGlobal.module.chat.radius);
+        int oldRange = ConfigChat.getData().radius;
+        ConfigChat.getData().radius = NumberHelper.toInt(Math.pow(Integer.parseInt(args[0]), 2));
+        module.configChat.save();
+        CCChat.FRM.SETRANGE.send(sender, oldRange, ConfigChat.getData().radius);
 
     }
 }

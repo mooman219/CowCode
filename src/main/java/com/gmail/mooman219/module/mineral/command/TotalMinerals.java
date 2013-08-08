@@ -6,7 +6,7 @@ import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.mineral.CCMineral;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.mineral.store.DataMineral;
 
 public class TotalMinerals extends CCommand {
     public TotalMinerals() {
@@ -15,6 +15,6 @@ public class TotalMinerals extends CCommand {
 
     @Override
     public void processPlayer(Player sender, CDPlayer playerData, String[] args) {
-        CCMineral.FRM.TOTAL.send(sender, StoreMineral.getMinerals().size());
+        CCMineral.FRM.TOTAL.send(sender, DataMineral.getMinerals().size());
     }
 }

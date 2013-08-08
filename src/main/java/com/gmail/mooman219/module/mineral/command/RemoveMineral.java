@@ -13,7 +13,7 @@ import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.frame.serialize.jack.FastLocation;
 import com.gmail.mooman219.module.mineral.CCMineral;
 import com.gmail.mooman219.module.mineral.MineralManager;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.mineral.store.DataMineral;
 
 public class RemoveMineral extends CCommand {
     public CCMineral module;
@@ -28,7 +28,7 @@ public class RemoveMineral extends CCommand {
         Block block = BlockHelper.getLineOfSightSolid(sender, 6);
         if(block.getType() != Material.AIR) {
             if(MineralManager.remove(new FastLocation(block.getLocation()))) {
-                CCMineral.FRM.REMOVE.send(sender, StoreMineral.getMinerals().size());
+                CCMineral.FRM.REMOVE.send(sender, DataMineral.getMinerals().size());
                 WorldHelper.playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES);
                 return;
             }

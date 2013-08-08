@@ -13,14 +13,14 @@ import com.gmail.mooman219.module.mineral.command.RevertMinerals;
 import com.gmail.mooman219.module.mineral.command.TotalMinerals;
 import com.gmail.mooman219.module.mineral.listener.ListenerBlock;
 import com.gmail.mooman219.module.mineral.listener.ListenerTime;
-import com.gmail.mooman219.module.mineral.store.StoreMineral;
+import com.gmail.mooman219.module.mineral.store.DataMineral;
 
 public class CCMineral extends CowModule {
     private static final ModuleType type = ModuleType.MINERAL;
     public static Messages MSG;
     public static Formats FRM;
 
-    public StoreMineral storeMineral;
+    public DataMineral dataMineral;
 
     public CCMineral() {
         MSG = new Messages();
@@ -45,7 +45,7 @@ public class CCMineral extends CowModule {
     }
     @Override
     public void onEnable(Loader plugin){
-        storeMineral = new StoreMineral();
+        dataMineral = new DataMineral();
 
         plugin.addListener(new ListenerBlock());
         plugin.addListener(new ListenerTime());
@@ -55,7 +55,7 @@ public class CCMineral extends CowModule {
     public void onDisable(Loader plugin){
         Loader.info(getCast() + "Reverting minerals");
         MineralManager.revert();
-        storeMineral.save();
+        dataMineral.save();
     }
 
     @Override

@@ -8,11 +8,14 @@ import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.world.command.ToggleWorldSaving;
 import com.gmail.mooman219.module.world.listener.ListenerBlock;
 import com.gmail.mooman219.module.world.listener.ListenerWorld;
+import com.gmail.mooman219.module.world.store.ConfigWorld;
 
 public class CCWorld extends CowModule {
     private static final ModuleType type = ModuleType.WORLD;
     public static Messages MSG;
     public static Formats FRM;
+
+    public ConfigWorld configWorld;
 
     public CCWorld() {
         MSG = new Messages();
@@ -38,13 +41,14 @@ public class CCWorld extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
+        configWorld = new ConfigWorld();
         plugin.addListener(new ListenerBlock());
         plugin.addListener(new ListenerWorld());
     }
 
     @Override
     public void loadCommands(Loader plugin) {
-        plugin.addCommand(new ToggleWorldSaving());
+        plugin.addCommand(new ToggleWorldSaving(this));
     }
 
     public class Messages {}

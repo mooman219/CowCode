@@ -15,8 +15,8 @@ import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.frame.text.TextHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
 import com.gmail.mooman219.frame.time.TimeType;
-import com.gmail.mooman219.handler.config.store.ConfigGlobal;
 import com.gmail.mooman219.module.chat.CCChat;
+import com.gmail.mooman219.module.chat.store.ConfigChat;
 
 public class ListenerChat implements Listener{
     @EventHandler()
@@ -52,8 +52,8 @@ public class ListenerChat implements Listener{
             event.setCancelled(true);
             if(event.getMessage().length() <= 1) {
                 CCChat.MSG.MESSAGE_EMPTY.send(event.getPlayer());
-            } else if(TimeHelper.time() - player.chat().getLastGlobalChat() <= ConfigGlobal.module.chat.globalDelay) {
-                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigGlobal.module.chat.globalDelay - (TimeHelper.time() - player.chat().getLastGlobalChat()), TimeType.MILLISECOND));
+            } else if(TimeHelper.time() - player.chat().getLastGlobalChat() <= ConfigChat.getData().globalDelay) {
+                CCChat.FRM.GLOBAL_DELAY.send(event.getPlayer(), TimeHelper.getLargestType(ConfigChat.getData().globalDelay - (TimeHelper.time() - player.chat().getLastGlobalChat()), TimeType.MILLISECOND));
             } else {
                 event.setFormat(Chat.msgGlobal + player.service().rank.tag + "%s" + Chat.DARK_GRAY + ":" + Chat.WHITE + " %s");
                 event.setMessage(event.getMessage().substring(1));
@@ -71,7 +71,7 @@ public class ListenerChat implements Listener{
                 Player recipient = iterator.next();
                 if(!player.getUsername().equals(recipient.getName())) {
                     double distance = LocationHelper.get2DistanceSquared(player.getPlayer().getLocation(), recipient.getLocation());
-                    if(distance > ConfigGlobal.module.chat.radius) {
+                    if(distance > ConfigChat.getData().radius) {
                         iterator.remove();
                     }
                 }

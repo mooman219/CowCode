@@ -16,6 +16,7 @@ import com.gmail.mooman219.module.chat.command.SetOverheadSuffix;
 import com.gmail.mooman219.module.chat.listener.ListenerChat;
 import com.gmail.mooman219.module.chat.listener.ListenerData;
 import com.gmail.mooman219.module.chat.listener.ListenerPlayer;
+import com.gmail.mooman219.module.chat.store.ConfigChat;
 
 public class CCChat extends CowModule {
     private static final ModuleType type = ModuleType.CHAT;
@@ -23,6 +24,7 @@ public class CCChat extends CowModule {
     public static Formats FRM;
 
     public final static LoneBoard loneBoard = new LoneBoard();;
+    public ConfigChat configChat;
 
     public CCChat(){
         MSG = new Messages();
@@ -48,6 +50,7 @@ public class CCChat extends CowModule {
 
     @Override
     public void onEnable(Loader plugin){
+        configChat = new ConfigChat();
         plugin.addListener(new ListenerChat());
         plugin.addListener(new ListenerPlayer());
         plugin.addListener(new ListenerData());
@@ -59,7 +62,7 @@ public class CCChat extends CowModule {
         plugin.addCommand(new Message());
         plugin.addCommand(new Mute());
         plugin.addCommand(new Reply());
-        plugin.addCommand(new SetChatRange());
+        plugin.addCommand(new SetChatRange(this));
         plugin.addCommand(new SetOverheadPrefix());
         plugin.addCommand(new SetOverheadSuffix());
     }

@@ -5,7 +5,6 @@ import com.gmail.mooman219.frame.text.Bulletin;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.ModuleType;
-import com.gmail.mooman219.module.service.command.LoadConfig;
 import com.gmail.mooman219.module.service.command.Memory;
 import com.gmail.mooman219.module.service.command.Test;
 import com.gmail.mooman219.module.service.command.Whois;
@@ -52,7 +51,6 @@ public class CCService extends CowModule {
         plugin.addCommand(new Whois());
         plugin.addCommand(new Test());
         plugin.addCommand(new Memory());
-        plugin.addCommand(new LoadConfig());
     }
 
     public class Messages {
