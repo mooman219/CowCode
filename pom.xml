@@ -41,34 +41,54 @@
     </build>
 
     <dependencies>
-        <!-- the core, which includes Streaming API, shared low-level abstractions (but NOT data-binding) -->
+        <!-- Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>LATEST</version>
         </dependency>
-        <!-- Just the annotations; use this dependency if you want to attach annotations to classes without connecting them to the code. -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>LATEST</version>
         </dependency>
-        <!-- databinding; ObjectMapper, JsonNode and related classes are here -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>LATEST</version>
         </dependency>
-        <!-- Faster databinding; just register the module -->
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-afterburner</artifactId>
-            <version>2.2.0</version>
+            <version>LATEST</version>
         </dependency>
-        <!-- Other stuff -->
+        <!-- Gson -->
         <dependency>    
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <!-- Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <!-- Stupif logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <!-- Database -->
+        <dependency>
+            <groupId>com.jolbox</groupId>
+            <artifactId>bonecp</artifactId>
             <version>LATEST</version>
         </dependency>
         <dependency>
@@ -76,6 +96,7 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>LATEST</version>
         </dependency>
+        <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
