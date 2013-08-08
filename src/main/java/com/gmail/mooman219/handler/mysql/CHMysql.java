@@ -1,5 +1,7 @@
 package com.gmail.mooman219.handler.mysql;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
@@ -76,6 +78,46 @@ public class CHMysql extends CowHandler {
             if(connectionPool != null) {
                 connectionPool.shutdown();
             }
+        }
+        
+        public void validateStructure() {
+            write("CREATE TABLE IF NOT EXISTS `" + StoreMysql.getData().tablePrefix + "player` ("
+                    + "`id` int(10) unsigned NOT NULL AUTO_INCREMENT,"
+                    + "`user` varchar(40) NOT NULL,"
+                    + "PRIMARY KEY (`id`),"
+                    + "UNIQUE KEY `user` (`user`)) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;");
+        }
+        
+        public boolean write(String query) {
+            Connection connection = getConnection();
+            if(connection != null) {
+                try {
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.executeUpdate();
+                    statement.close();
+                    return true;
+                } catch(SQLException e) {
+                    printErrors(e);
+                } finally {
+                    try {
+                        connection.close();
+                    } catch(SQLException e) {
+                        printErrors(e);
+                    }
+                }
+            }
+            return false;
+        }
+
+        public Connection getConnection() {
+            if(connectionPool != null) {
+                try {
+                    return connectionPool.getConnection();
+                } catch(SQLException e) {
+                    printErrors(e);
+                }
+            }
+            return null;
         }
 
         public void printErrors(SQLException exception) {
