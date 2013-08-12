@@ -15,7 +15,6 @@ import com.mongodb.DBObject;
 public class PDItem extends PlayerData {
     public PDItem(CDPlayer player) {
         super(player, "item");
-
         equipmentStockpile = new EquipmentStockpile();
     }
 

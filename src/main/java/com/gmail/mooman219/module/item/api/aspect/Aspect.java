@@ -43,7 +43,7 @@ public class Aspect {
 
     public Aspect setButton(boolean button) {
         this.button.setValue(button);
-        this.unmoveable.setValue(false);
+        this.setUnmoveable(false);
         return this;
     }
 

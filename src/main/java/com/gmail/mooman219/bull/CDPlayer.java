@@ -65,7 +65,6 @@ public class CDPlayer extends BullData implements Damageable {
     public CDPlayer(String username) {
         this.username = username;
         // Create data
-        this.playerData = new ArrayList<PlayerData>();
         this.service = addPlayerData(new PDService(this));
         this.login = addPlayerData(new PDLogin(this));
         this.chat = addPlayerData(new PDChat(this));
@@ -106,6 +105,9 @@ public class CDPlayer extends BullData implements Damageable {
      * Marks the PlayerData as active so it can be called when needed
      */
     private <T extends PlayerData> T addPlayerData(T data) {
+        if(playerData == null) {
+            this.playerData = new ArrayList<PlayerData>();
+        }
         this.playerData.add(data);
         return data;
     }
@@ -226,7 +228,7 @@ public class CDPlayer extends BullData implements Damageable {
             modifier = -1;
         }
         player.removePotionEffect(PotionEffectType.JUMP);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200000000, modifier, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, modifier, true));
         getHandle().updateEffects = false;
     }
 
