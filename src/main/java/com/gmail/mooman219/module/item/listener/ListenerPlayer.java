@@ -17,6 +17,8 @@ import com.gmail.mooman219.module.item.api.aspect.Aspect;
 public class ListenerPlayer implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        CDPlayer player = CDPlayer.get(event.getPlayer());
+        player.getPlayer().getInventory().setContents(player.item().getPlayerInventory());
         InventoryHelper.applyPlayerInventory(event.getPlayer().getInventory());
     }
 

@@ -8,7 +8,6 @@ import com.gmail.mooman219.layout.ModuleType;
 import com.gmail.mooman219.module.item.command.ItemStats;
 import com.gmail.mooman219.module.item.command.ResetInventory;
 import com.gmail.mooman219.module.item.listener.ListenerButton;
-import com.gmail.mooman219.module.item.listener.ListenerData;
 import com.gmail.mooman219.module.item.listener.ListenerInventory;
 import com.gmail.mooman219.module.item.listener.ListenerPlayer;
 
@@ -43,7 +42,6 @@ public class CCItem extends CowModule {
     public void onEnable(Loader plugin){
         plugin.addListener(new ListenerButton());
         plugin.addListener(new ListenerPlayer());
-        plugin.addListener(new ListenerData());
         plugin.addListener(new ListenerInventory());
     }
 
