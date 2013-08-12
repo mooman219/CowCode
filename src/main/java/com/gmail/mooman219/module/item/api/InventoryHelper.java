@@ -13,6 +13,9 @@ public class InventoryHelper {
     private final static Stockpiler defaultEquipmentInventory = new Stockpiler(4);
 
     static {
+        /**
+        * Player
+        */
         defaultPlayerInventory.setClearing(false);
         defaultPlayerInventory.setOverwriting(false);
         defaultPlayerInventory.set(new String[]{
@@ -32,7 +35,9 @@ public class InventoryHelper {
         defaultPlayerInventory.map('5', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.PURPLE + "Spell slot 5")));
         aspect.setButton(true);
         defaultPlayerInventory.map('E', aspect.write(ItemHelper.setName(299, Chat.BOLD + "" + Chat.PURPLE + "View Equipment")));
-
+        /**
+        * Equipment
+        */
         defaultEquipmentInventory.setClearing(false);
         defaultEquipmentInventory.setOverwriting(false);
         defaultEquipmentInventory.set(new String[]{

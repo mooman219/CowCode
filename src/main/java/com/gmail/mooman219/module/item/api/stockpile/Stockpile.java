@@ -9,21 +9,23 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.mooman219.module.item.api.ItemHelper;
 
 public abstract class Stockpile implements InventoryHolder {
-    private static final String prefix = "* ";
+    private static final String prefix = "§χ§0§l";
     private Inventory inventory;
 
     public Stockpile(int rows, String name) {
         inventory = Bukkit.createInventory(this, rows * 9, prefix + name);
     }
 
+    public abstract int[] getSignificantSlots();
+
+    public void onClick(InventoryClickEvent event) {}
+
     @Override
-    public Inventory getInventory() {
+    public final Inventory getInventory() {
         return inventory;
     }
 
-    public abstract int[] getSignificantSlots();
-
-    public ItemStack[] getSignificantItems() {
+    public final ItemStack[] getSignificantItems() {
         ItemStack[] items = new ItemStack[getSignificantSlots().length];
         for(int i = 0; i < getSignificantSlots().length; i++) {
             ItemStack item = getInventory().getContents()[getSignificantSlots()[i]];
@@ -32,11 +34,7 @@ public abstract class Stockpile implements InventoryHolder {
         return items;
     }
 
-    public InventoryClickEvent onClick(InventoryClickEvent event) {
-        return event;
-    }
-
-    public void setSignificantItems(ItemStack... itemStacks) {
+    public final void setSignificantItems(ItemStack... itemStacks) {
         for(int i = 0; i < getSignificantSlots().length && i < itemStacks.length; i++) {
             if(!ItemHelper.isNull(itemStacks[i])) {
                 getInventory().setItem(getSignificantSlots()[i], itemStacks[i]);
@@ -45,7 +43,7 @@ public abstract class Stockpile implements InventoryHolder {
     }
 
     public static boolean isStockpile(Inventory inventory) {
-        return inventory != null && inventory.getName().startsWith(prefix) && inventory.getHolder() != null;
+        return inventory != null && inventory.getHolder() != null && inventory.getName().startsWith(prefix);
     }
 
     public static Stockpile getStockpile(Inventory inventory) {
