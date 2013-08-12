@@ -15,11 +15,11 @@ import com.gmail.mooman219.bull.CDLiving;
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.frame.time.TimeHelper;
+import com.gmail.mooman219.module.damage.api.DamageType;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByLivingEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageByPlayerEvent;
 import com.gmail.mooman219.module.damage.event.PlayerDamageEvent;
-import com.gmail.mooman219.module.damage.type.ConfigDamage;
-import com.gmail.mooman219.module.damage.type.DamageType;
+import com.gmail.mooman219.module.damage.store.ConfigDamage;
 
 public class ListenerEntity implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)

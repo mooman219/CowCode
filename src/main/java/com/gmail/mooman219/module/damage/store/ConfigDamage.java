@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.damage.type;
+package com.gmail.mooman219.module.damage.store;
 
 import java.io.File;
 import java.io.IOException;

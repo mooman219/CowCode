@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.frame.serialize.jack.ConfigJackson;
 import com.gmail.mooman219.layout.ModuleType;
-import com.gmail.mooman219.module.region.type.RegionCombatType;
+import com.gmail.mooman219.module.region.api.RegionCombatType;
 
 public class DataRegion extends ConfigJackson {
     private static ConfigData data;

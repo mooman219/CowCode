@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 
 import com.gmail.mooman219.bull.CDLiving;
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.module.damage.type.DamageType;
+import com.gmail.mooman219.module.damage.api.DamageType;
 
 public class PlayerDamageByLivingEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();

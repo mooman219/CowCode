@@ -10,7 +10,7 @@ import com.gmail.mooman219.module.damage.command.Heal;
 import com.gmail.mooman219.module.damage.command.Suicide;
 import com.gmail.mooman219.module.damage.listener.ListenerEntity;
 import com.gmail.mooman219.module.damage.listener.ListenerPlayer;
-import com.gmail.mooman219.module.damage.type.ConfigDamage;
+import com.gmail.mooman219.module.damage.store.ConfigDamage;
 
 public class CCDamage extends CowModule {
     private static final ModuleType type = ModuleType.DAMAGE;

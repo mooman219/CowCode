@@ -8,8 +8,8 @@ import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.frame.rank.Rank;
 import com.gmail.mooman219.module.region.RegionManager;
 import com.gmail.mooman219.module.region.CCRegion;
+import com.gmail.mooman219.module.region.api.RegionCombatType;
 import com.gmail.mooman219.module.region.store.FastRegion;
-import com.gmail.mooman219.module.region.type.RegionCombatType;
 
 public class ModifyCombat extends CCommand {
     public ModifyCombat() {

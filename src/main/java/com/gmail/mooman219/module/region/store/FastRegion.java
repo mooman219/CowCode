@@ -4,7 +4,7 @@ import java.util.UUID;
 import com.gmail.mooman219.frame.math.NumberHelper;
 import com.gmail.mooman219.frame.serialize.JsonHelper;
 import com.gmail.mooman219.layout.JacksonData;
-import com.gmail.mooman219.module.region.type.RegionCombatType;
+import com.gmail.mooman219.module.region.api.RegionCombatType;
 
 public class FastRegion implements JacksonData {
     private static final long serialVersionUID = -6234418878993669735L;
