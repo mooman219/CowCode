@@ -47,15 +47,17 @@ public class InventoryHelper {
                 " MO F    "}
         );
         aspect.setButton(false);
-        defaultEquipmentInventory.map('H', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Helmet")));
-        defaultEquipmentInventory.map('A', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Amulet")));
-        defaultEquipmentInventory.map('C', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Chest")));
-        defaultEquipmentInventory.map('L', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Leggings")));
-        defaultEquipmentInventory.map('1', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Ring 1")));
-        defaultEquipmentInventory.map('2', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Ring 2")));
-        defaultEquipmentInventory.map('M', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Main hand")));
-        defaultEquipmentInventory.map('O', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Off hand")));
-        defaultEquipmentInventory.map('F', aspect.write(ItemHelper.setName(34, Chat.BOLD + "" + Chat.GRAY + "Footwear")));
+        defaultEquipmentInventory.map('H', aspect.write(ItemHelper.setName(298, Chat.BOLD + "" + Chat.GRAY + "Helmet")));
+        defaultEquipmentInventory.map('A', aspect.write(ItemHelper.setName(402, Chat.BOLD + "" + Chat.GRAY + "Amulet")));
+        defaultEquipmentInventory.map('C', aspect.write(ItemHelper.setName(299, Chat.BOLD + "" + Chat.GRAY + "Chest")));
+        defaultEquipmentInventory.map('L', aspect.write(ItemHelper.setName(300, Chat.BOLD + "" + Chat.GRAY + "Leggings")));
+        defaultEquipmentInventory.map('1', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.GRAY + "Ring 1")));
+        defaultEquipmentInventory.map('2', aspect.write(ItemHelper.setName(371, Chat.BOLD + "" + Chat.GRAY + "Ring 2")));
+        defaultEquipmentInventory.map('M', aspect.write(ItemHelper.setName(290, Chat.BOLD + "" + Chat.GRAY + "Main hand")));
+        defaultEquipmentInventory.map('O', aspect.write(ItemHelper.setName(340, Chat.BOLD + "" + Chat.GRAY + "Off hand")));
+        defaultEquipmentInventory.map('F', aspect.write(ItemHelper.setName(301, Chat.BOLD + "" + Chat.GRAY + "Footwear")));
+        aspect.setUnmoveable(true);
+        defaultEquipmentInventory.map(' ', aspect.write(ItemHelper.setName(68, " ")));
     }
 
     public static void applyPlayerInventory(PlayerInventory inventory) {

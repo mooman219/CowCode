@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
-import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.module.item.api.ItemHelper;
 import com.gmail.mooman219.module.item.api.aspect.Aspect;
@@ -17,7 +16,7 @@ import com.gmail.mooman219.module.item.event.ButtonClickEvent;
 public class ListenerInventory implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClick(InventoryClickEvent event) {
-        /**/ // UNHOLY AMOUNT OF INVENTORY CLICK INFORMATION
+        /** // UNHOLY AMOUNT OF INVENTORY CLICK INFORMATION
         Loader.info("~~~~~~~~~~~~ Inventory Click Event [Start] ~~~~~~~~~~~~");
         Loader.info("Slot: " + event.getSlot());
         Loader.info("RawSlot: " + event.getRawSlot());

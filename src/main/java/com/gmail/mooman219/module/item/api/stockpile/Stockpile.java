@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.mooman219.module.item.api.ItemHelper;
 
 public abstract class Stockpile implements InventoryHolder {
-    private static final String prefix = "§χ§0§l";
+    private static final String prefix = "§χ§0";
     private Inventory inventory;
 
     public Stockpile(int rows, String name) {
@@ -17,6 +17,8 @@ public abstract class Stockpile implements InventoryHolder {
     }
 
     public abstract int[] getSignificantSlots();
+
+    public abstract boolean isSlotSignificant(int slot);
 
     public void onClick(InventoryClickEvent event) {}
 
