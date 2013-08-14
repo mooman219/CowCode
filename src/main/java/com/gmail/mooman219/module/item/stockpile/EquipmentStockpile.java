@@ -5,6 +5,8 @@ import java.util.HashSet;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.gmail.mooman219.module.item.api.InventoryHelper;
+import com.gmail.mooman219.module.item.api.ItemHelper;
+import com.gmail.mooman219.module.item.api.aspect.Aspect;
 import com.gmail.mooman219.module.item.api.stockpile.Stockpile;
 
 public class EquipmentStockpile extends Stockpile {
@@ -37,8 +39,9 @@ public class EquipmentStockpile extends Stockpile {
     public void onClick(InventoryClickEvent event) {
         if(!isSlotSignificant(event.getSlot())) {
             event.setCancelled(true);
+        } else if(!ItemHelper.isNull(event.getCursor()) && !Aspect.hasAspect(event.getCursor())) {
+            event.setCancelled(true);
         }
-        
     }
 
     @Override
