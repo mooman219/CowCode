@@ -3,6 +3,7 @@ package com.gmail.mooman219.module.item.stockpile;
 import java.util.HashSet;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 
 import com.gmail.mooman219.module.item.api.InventoryHelper;
 import com.gmail.mooman219.module.item.api.ItemHelper;
@@ -42,6 +43,11 @@ public class EquipmentStockpile extends Stockpile {
         } else if(!ItemHelper.isNull(event.getCursor()) && !Aspect.hasAspect(event.getCursor())) {
             event.setCancelled(true);
         }
+    }
+
+    @Override
+    public void onDrag(InventoryDragEvent event) {
+        event.setCancelled(true);
     }
 
     @Override

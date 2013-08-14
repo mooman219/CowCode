@@ -2,6 +2,7 @@ package com.gmail.mooman219.module.item.api.stockpile;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -21,6 +22,8 @@ public abstract class Stockpile implements InventoryHolder {
     public abstract boolean isSlotSignificant(int slot);
 
     public void onClick(InventoryClickEvent event) {}
+
+    public void onDrag(InventoryDragEvent event) {}
 
     @Override
     public final Inventory getInventory() {
@@ -45,7 +48,7 @@ public abstract class Stockpile implements InventoryHolder {
     }
 
     public static boolean isStockpile(Inventory inventory) {
-        return inventory != null && inventory.getHolder() != null && inventory.getName().startsWith(prefix);
+        return inventory != null && inventory.getHolder() != null && inventory.getHolder() instanceof Stockpile;
     }
 
     public static Stockpile getStockpile(Inventory inventory) {

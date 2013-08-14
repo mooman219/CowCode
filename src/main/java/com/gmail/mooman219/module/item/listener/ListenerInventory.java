@@ -63,12 +63,13 @@ public class ListenerInventory implements Listener {
         Loader.info("InventoryName: " + event.getInventory().getName());
         /**/
         if(!event.isCancelled()) {
-            if(Stockpile.isStockpile(event.getInventory())) {
-                // This basically checks if the drag event modifies the stockpile inventory. If it does, it cancels the event.
+            Stockpile stockpile = Stockpile.getStockpile(event.getInventory());
+            if(stockpile != null) {
+                // This checks if the drag event modifies the stockpile inventory.
                 Iterator<Integer> inventorySlots = event.getInventorySlots().iterator();
                 while(inventorySlots.hasNext()) {
                     if(event.getRawSlots().contains(inventorySlots.next())) {
-                        event.setCancelled(true);
+                        stockpile.onDrag(event);
                         break;
                     }
                 }
