@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.region.event;
+package com.gmail.mooman219.module.region.api.event;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

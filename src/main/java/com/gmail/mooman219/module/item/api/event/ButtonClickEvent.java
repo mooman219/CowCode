@@ -1,4 +1,4 @@
-package com.gmail.mooman219.module.item.event;
+package com.gmail.mooman219.module.item.api.event;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

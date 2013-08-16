@@ -117,6 +117,7 @@ commands:
     suicide:
         aliases:
         - mylittleponyisgood
+        - kill
     heal:
         aliases:
         - hailmooman

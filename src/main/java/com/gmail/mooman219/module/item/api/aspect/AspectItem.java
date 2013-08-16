@@ -38,15 +38,16 @@ public class AspectItem extends Aspect {
     }
 
     @Override
-    public void onRead(ItemStack item) {
-        super.onRead(item);
+    public void read(ItemStack item) {
+        super.read(item);
         setAspectType(ItemType.fromItem(item));
     }
 
     @Override
-    public void onWrite(ItemStack item) {
-        super.onWrite(item);
+    public ItemStack write(ItemStack item) {
+        super.write(item);
         setAspectType(ItemType.fromItem(item));
+        return item;
     }
 
     public static AspectItem get(ItemStack item) {

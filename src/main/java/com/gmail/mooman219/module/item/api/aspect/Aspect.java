@@ -73,13 +73,12 @@ public class Aspect {
     }
 
     @SuppressWarnings("rawtypes")
-    public final ItemStack write(ItemStack item) {
+    public ItemStack write(ItemStack item) {
         ItemMeta meta = ItemHelper.getItemMeta(item);
         if(!hasAspect(item)) {
             meta.setDisplayName(identifier + ItemHelper.getDisplayName(item));
         }
         ArrayList<String> lore = new ArrayList<String>();
-        onWrite(item);
         for(AspectKey key : getKeys()) {
             if(key.canWrite()) {
                 lore.add(key.write());
@@ -91,7 +90,7 @@ public class Aspect {
     }
 
     @SuppressWarnings("rawtypes")
-    public final void read(ItemStack item) {
+    public void read(ItemStack item) {
         if(hasAspect(item)) {
             ItemMeta meta = ItemHelper.getItemMeta(item);
             List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<String>();
@@ -106,18 +105,7 @@ public class Aspect {
                 }
             }
         }
-        onRead(item);
     }
-
-    /**
-     * Called after the Aspect reads the lore.
-     */
-    public void onRead(ItemStack item) {}
-
-    /**
-     * Called before the aspect writes the lore.
-     */
-    public void onWrite(ItemStack item) {}
 
     public static Aspect get(ItemStack item) {
         Aspect aspect = new Aspect();

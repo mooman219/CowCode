@@ -1,22 +1,21 @@
-package com.gmail.mooman219.module.service.event;
+package com.gmail.mooman219.module.service.api;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 import com.gmail.mooman219.bull.CDPlayer;
 
-/*
- * Called in AsyncPlayerPreLoginEvent
+/**
+ * Called in PlayerLoginEvent
  */
-public class DataVerifyEvent extends Event {
+public class DataCreateEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final CDPlayer player;
-    private final AsyncPlayerPreLoginEvent event;
+    private final PlayerLoginEvent event;
 
-    public DataVerifyEvent(AsyncPlayerPreLoginEvent event, CDPlayer player) {
-        super(true);
+    public DataCreateEvent(PlayerLoginEvent event, CDPlayer player) {
         this.player = player;
         this.event = event;
     }
@@ -34,7 +33,7 @@ public class DataVerifyEvent extends Event {
         return player;
     }
 
-    public AsyncPlayerPreLoginEvent getEvent() {
+    public PlayerLoginEvent getEvent() {
         return event;
     }
 }

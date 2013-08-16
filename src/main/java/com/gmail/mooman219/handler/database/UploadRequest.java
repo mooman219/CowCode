@@ -7,7 +7,7 @@ import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
 import com.gmail.mooman219.handler.database.type.UploadReason;
 import com.gmail.mooman219.handler.task.CHTask;
-import com.gmail.mooman219.module.service.event.DataRemovalEvent;
+import com.gmail.mooman219.module.service.api.DataRemovalEvent;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;

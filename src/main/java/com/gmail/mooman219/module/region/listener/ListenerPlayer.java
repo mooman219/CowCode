@@ -14,7 +14,7 @@ import com.gmail.mooman219.frame.LocationHelper;
 import com.gmail.mooman219.frame.text.Chat;
 import com.gmail.mooman219.module.region.CCRegion;
 import com.gmail.mooman219.module.region.RegionManager;
-import com.gmail.mooman219.module.region.event.RegionChangeEvent;
+import com.gmail.mooman219.module.region.api.event.RegionChangeEvent;
 import com.gmail.mooman219.module.region.store.FastRegion;
 
 public class ListenerPlayer implements Listener{

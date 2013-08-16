@@ -58,11 +58,51 @@ public enum ItemType {
         return prefix + name;
     }
 
+    public boolean isWeapon() {
+        switch(this) {
+        case AXE:
+        case BOW:
+        case DAGGER:
+        case HAMMER:
+        case SHIELD:
+        case SPELLBOOK:
+        case STAFF:
+        case SWORD:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    public boolean isArmor() {
+        switch(this) {
+        case CHESTPLATE:
+        case HELMET:
+        case LEGGINGS:
+        case FOOTWEAR:
+        case RING:
+        case AMULET:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    public boolean isTool() {
+        switch(this) {
+        case PICKAXE:
+        case FISHING_ROD:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     public static ItemType fromString(String string) {
         if(string != null && string.length() > 0) {
-            for(ItemType aspect : ItemType.values()) {
-                if(string.toLowerCase().contains(aspect.getName().toLowerCase())) {
-                    return aspect;
+            for(ItemType type : ItemType.values()) {
+                if(string.toLowerCase().contains(type.getName().toLowerCase())) {
+                    return type;
                 }
             }
         }
