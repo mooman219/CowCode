@@ -50,7 +50,7 @@ public enum Chat {
     public static String msgWarn = Chat.GOLD + "" + Chat.BOLD + "[" + Chat.YELLOW + "" + Chat.BOLD + '×' + Chat.GOLD + "" + Chat.BOLD + "]" + Chat.YELLOW + " ";
     public static String lineWarn = "  " + Chat.GOLD +"»" + Chat.YELLOW + " ";
     public static String formatWarn = Chat.GOLD + "$0" + Chat.YELLOW;
-    // Ingo
+    // Info
     public static String msgInfo = Chat.DARK_GREEN + "" + Chat.BOLD + "[" + Chat.GREEN + "" + Chat.BOLD + '×' + Chat.DARK_GREEN + "" + Chat.BOLD + "]" + Chat.GREEN + " ";
     public static String lineInfo = "  " + Chat.DARK_GREEN +"»" + Chat.GREEN + " ";
     public static String formatInfo = Chat.DARK_GREEN + "$0" + Chat.GREEN;

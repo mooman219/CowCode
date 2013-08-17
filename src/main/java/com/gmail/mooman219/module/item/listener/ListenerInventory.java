@@ -75,5 +75,6 @@ public class ListenerInventory implements Listener {
                 }
             }
         }
+        // TODO - SUPER IMPORTANT, if there's only one involved in the drag, consider it a InventoryClickEvent
     }
 }
