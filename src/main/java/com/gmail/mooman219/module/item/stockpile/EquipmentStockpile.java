@@ -40,68 +40,17 @@ public class EquipmentStockpile extends Stockpile {
 
     @Override
     public void onClick(InventoryClickEvent event) {
+        // Placing an item in a non-equipment slot
         if(!isSlotSignificant(event.getSlot())) {
             event.setCancelled(true);
-        // Placing an item
+            // Placing an item
         } else if(!ItemHelper.isNull(event.getCursor())) {
             if(!Aspect.hasAspect(event.getCursor())) {
                 event.setCancelled(true);
             } else {
                 AspectItem item = AspectItem.get(event.getCursor());
-                switch(event.getSlot()) {
-                case 4:
-                    if(item.getAspectType() != ItemType.HELMET) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                case 11:
-                    if(item.getAspectType() != ItemType.AMULET) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                case 13:
-                    if(item.getAspectType() != ItemType.CHESTPLATE) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                case 22:
-                    if(item.getAspectType() != ItemType.LEGGINGS) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                case 24:
-                case 25:
-                    if(item.getAspectType() != ItemType.RING) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                case 28:
-                case 29:
-                    if(!item.getAspectType().isWeapon()) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                case 31:
-                    if(item.getAspectType() != ItemType.FOOTWEAR) {
-                        event.setCancelled(true);
-                        return;
-                    } else {
-                        break;
-                    }
-                default:
-                    return;
+                if(!isItemAppropriateForSlot(event.getSlot(), item)) {
+                    event.setCancelled(true);
                 }
             }
         }
@@ -110,7 +59,19 @@ public class EquipmentStockpile extends Stockpile {
 
     @Override
     public void onDrag(InventoryDragEvent event) {
-        event.setCancelled(true);
+        // Placing an item
+        if(event.getRawSlots().size() == 1 && event.getInventorySlots().size() == 1) {
+            if(!Aspect.hasAspect(event.getOldCursor())) {
+                event.setCancelled(true);
+            } else {
+                AspectItem item = AspectItem.get(event.getOldCursor());
+                if(!isItemAppropriateForSlot(event.getInventorySlots().iterator().next(), item)) {
+                    event.setCancelled(true);
+                }
+            }
+        } else {
+            event.setCancelled(true);
+        }
     }
 
     @Override
@@ -121,5 +82,28 @@ public class EquipmentStockpile extends Stockpile {
     @Override
     public int[] getSignificantSlots() {
         return significantSlots;
+    }
+
+    public boolean isItemAppropriateForSlot(int slot, AspectItem item) {
+        switch(slot) {
+        case 4:
+            return item.getAspectType() == ItemType.HELMET;
+        case 11:
+            return item.getAspectType() == ItemType.AMULET;
+        case 13:
+            return item.getAspectType() == ItemType.CHESTPLATE;
+        case 22:
+            return item.getAspectType() == ItemType.LEGGINGS;
+        case 24:
+        case 25:
+            return item.getAspectType() == ItemType.RING;
+        case 28:
+        case 29:
+            return item.getAspectType().isWeapon();
+        case 31:
+            return item.getAspectType() == ItemType.FOOTWEAR;
+        default:
+            return false;
+        }
     }
 }

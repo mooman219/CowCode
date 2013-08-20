@@ -8,7 +8,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
@@ -24,6 +23,8 @@ public class ListenerInventory implements Listener {
         Loader.info("~~~~~~~~~~~~ Inventory Click Event ~~~~~~~~~~~~");
         Loader.info("Slot: " + event.getSlot() + " - Raw: " + event.getRawSlot());
         Loader.info("SlotType: " + event.getSlotType().name());
+        Loader.info("HotbarButton: " + event.getHotbarButton());
+        Loader.info("HotbarItem: " + (event.getHotbarButton() > -1 && !ItemHelper.isNull(event.getWhoClicked().getInventory().getItem(event.getHotbarButton())) ? event.getWhoClicked().getInventory().getItem(event.getHotbarButton()).toString() : "None"));
         Loader.info("Action: " + event.getAction().name());
         Loader.info("Click: " + event.getClick().name());
         Loader.info("ClickedItem: " + event.getCurrentItem());
@@ -50,16 +51,19 @@ public class ListenerInventory implements Listener {
                 }
             }
         }
+        Loader.info("[" + event.isCancelled() + "]");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDrag(InventoryDragEvent event) {
-        /**/ // Normal amount of inventory drag information
-        Loader.info("~~~~~~~~~~~~ Inventory Drag Event ~~~~~~~~~~~~");
+        /**/
+        Loader.info("~~~~~~~~~~~~   Inventory Drag Event   ~~~~~~~~~~~~");
         Loader.info("Type: " + event.getType().name());
         Loader.info("Slots: " + event.getInventorySlots().toString());
         Loader.info("RawSlots: " + event.getRawSlots().toString());
-        Loader.info("HeldItem: " + event.getCursor());
+        Loader.info("Items: " + event.getNewItems().values().toString());
+        Loader.info("NewHeldItem: " + event.getCursor());
+        Loader.info("OldHeldItem: " + event.getOldCursor());
         Loader.info("InventoryName: " + event.getInventory().getName());
         /**/
         if(!event.isCancelled()) {
@@ -75,6 +79,5 @@ public class ListenerInventory implements Listener {
                 }
             }
         }
-        // TODO - SUPER IMPORTANT, if there's only one involved in the drag, consider it a InventoryClickEvent
     }
 }

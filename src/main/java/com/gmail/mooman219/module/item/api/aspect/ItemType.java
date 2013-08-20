@@ -169,6 +169,7 @@ public enum ItemType {
         case CHAINMAIL_BOOTS:
         case LEATHER_BOOTS:
             return FOOTWEAR;
+        // TODO - AMULET - Decide on a item.
         // TODO - RINGS - Decide on a item.
         // Weapon
         case GOLD_SPADE:
