@@ -8,6 +8,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.inventory.ItemStack;
+
 import com.gmail.mooman219.bull.CDPlayer;
 import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.frame.EventHelper;
@@ -33,20 +35,32 @@ public class ListenerInventory implements Listener {
         Loader.info("ClickedInventoryName: " + (event.getClickedInventory() != null ? event.getClickedInventory().getName() : "null"));
         /**/
         if(!event.isCancelled()) {
-            // In most cases, this means they clicked the top inventory.
+            // This checks if the player clicked the top inventory
             if(event.getSlot() == event.getRawSlot()) {
                 Stockpile stockpile = Stockpile.getStockpile(event.getClickedInventory());
                 if(stockpile != null) {
                     stockpile.onClick(event);
                 }
             }
-            // The extra isCancelled is in case the stockpile cancels the event.
+            // The extra isCancelled is in case the stockpile cancels the event. Don't need to do extra work
+            // This checks if the clicked item is unmoveable or a button
             if(!event.isCancelled() && !ItemHelper.isNull(event.getCurrentItem())) {
-                Aspect item = Aspect.get(event.getCurrentItem());
-                if(item.isButton() || item.isUnmoveable()) {
+                Aspect currentItem = Aspect.get(event.getCurrentItem());
+                if(currentItem.isButton() || currentItem.isUnmoveable()) {
                     event.setCancelled(true);
-                    if(item.isButton()) {
+                    if(currentItem.isButton()) {
                         EventHelper.callEvent(new ButtonClickEvent(CDPlayer.get((Player) event.getWhoClicked()), event.getCurrentItem(), event.getCursor(), event.getClick()));
+                    }
+                }
+            }
+            // The extra isCancelled is in case the stockpile cancels the event. Don't need to do extra work
+            // This checks if destination hotbar item is unmoveable or a button
+            if(!event.isCancelled() && event.getHotbarButton() > -1) {
+                ItemStack hotbarItemStack = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
+                if(!ItemHelper.isNull(hotbarItemStack)) {
+                    Aspect hotbarItem = Aspect.get(hotbarItemStack);
+                    if(hotbarItem.isButton() || hotbarItem.isUnmoveable()) {
+                        event.setCancelled(true);
                     }
                 }
             }
