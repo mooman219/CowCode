@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -58,5 +59,15 @@ public class ItemHelper {
 
     public static boolean isNull(ItemStack itemStack) {
         return itemStack == null || itemStack.getType() == Material.AIR || itemStack.getAmount() == 0;
+    }
+
+    public static ItemStack getNewItem(InventoryClickEvent event) {
+        if(!isNull(event.getCursor())) {
+            return event.getCursor();
+        } else if(event.getHotbarButton() > -1 && !isNull(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()))) {
+            return event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
+        } else {
+            return null;
+        }
     }
 }

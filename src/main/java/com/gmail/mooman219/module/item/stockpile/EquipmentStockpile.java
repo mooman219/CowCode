@@ -44,11 +44,11 @@ public class EquipmentStockpile extends Stockpile {
         if(!isSlotSignificant(event.getSlot())) {
             event.setCancelled(true);
             // Placing an item
-        } else if(!ItemHelper.isNull(event.getCursor())) {
-            if(!Aspect.hasAspect(event.getCursor())) {
+        } else if(!ItemHelper.isNull(ItemHelper.getNewItem(event))) {
+            if(!Aspect.hasAspect(ItemHelper.getNewItem(event))) {
                 event.setCancelled(true);
             } else {
-                AspectItem item = AspectItem.get(event.getCursor());
+                AspectItem item = AspectItem.get(ItemHelper.getNewItem(event));
                 if(!isItemAppropriateForSlot(event.getSlot(), item)) {
                     event.setCancelled(true);
                 }
