@@ -5,6 +5,7 @@ import java.util.HashSet;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 
+import com.gmail.mooman219.core.Loader;
 import com.gmail.mooman219.module.item.api.InventoryHelper;
 import com.gmail.mooman219.module.item.api.ItemHelper;
 import com.gmail.mooman219.module.item.api.aspect.Aspect;
@@ -43,12 +44,13 @@ public class EquipmentStockpile extends Stockpile {
         // Placing an item in a non-equipment slot
         if(!isSlotSignificant(event.getSlot())) {
             event.setCancelled(true);
-            // Placing an item
+        // Placing an item in an useable slot
         } else if(!ItemHelper.isNull(ItemHelper.getNewItem(event))) {
             if(!Aspect.hasAspect(ItemHelper.getNewItem(event))) {
                 event.setCancelled(true);
             } else {
                 AspectItem item = AspectItem.get(ItemHelper.getNewItem(event));
+                Loader.info(item.getAspectType() + " ");
                 if(!isItemAppropriateForSlot(event.getSlot(), item)) {
                     event.setCancelled(true);
                 }
@@ -59,31 +61,26 @@ public class EquipmentStockpile extends Stockpile {
 
     @Override
     public void onDrag(InventoryDragEvent event) {
-        // Placing an item
+        // Placing a single item
         if(event.getRawSlots().size() == 1 && event.getInventorySlots().size() == 1) {
-            if(!Aspect.hasAspect(event.getOldCursor())) {
+            // Placing an item in an useable slot
+            if(!isSlotSignificant(event.getInventorySlots().iterator().next())) {
                 event.setCancelled(true);
-            } else {
-                AspectItem item = AspectItem.get(event.getOldCursor());
-                if(!isItemAppropriateForSlot(event.getInventorySlots().iterator().next(), item)) {
+            } else if(!ItemHelper.isNull(event.getOldCursor())) {
+                if(!Aspect.hasAspect(event.getOldCursor())) {
                     event.setCancelled(true);
+                } else {
+                    AspectItem item = AspectItem.get(event.getOldCursor());
+                    if(!isItemAppropriateForSlot(event.getInventorySlots().iterator().next(), item)) {
+                        event.setCancelled(true);
+                    }
                 }
             }
         } else {
             event.setCancelled(true);
         }
     }
-
-    @Override
-    public boolean isSlotSignificant(int slot) {
-        return slots.contains(slot);
-    }
-
-    @Override
-    public int[] getSignificantSlots() {
-        return significantSlots;
-    }
-
+    
     public boolean isItemAppropriateForSlot(int slot, AspectItem item) {
         switch(slot) {
         case 4:
@@ -105,5 +102,15 @@ public class EquipmentStockpile extends Stockpile {
         default:
             return false;
         }
+    }
+
+    @Override
+    public boolean isSlotSignificant(int slot) {
+        return slots.contains(slot);
+    }
+
+    @Override
+    public int[] getSignificantSlots() {
+        return significantSlots;
     }
 }

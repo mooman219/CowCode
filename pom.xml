@@ -10,7 +10,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <bukkit.version>1.6.2-R0.1-SNAPSHOT</bukkit.version>
+        <bukkit.version>1.6.2-R0.2-SNAPSHOT</bukkit.version>
     </properties>
 
     <build>
@@ -68,29 +68,7 @@
             <artifactId>gson</artifactId>
             <version>LATEST</version>
         </dependency>
-        <!-- Guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <!-- Stupif logger -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>LATEST</version>
-        </dependency>
         <!-- Database -->
-        <dependency>
-            <groupId>com.jolbox</groupId>
-            <artifactId>bonecp</artifactId>
-            <version>LATEST</version>
-        </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>

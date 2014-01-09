@@ -100,22 +100,18 @@ public class TextHelper {
         }
         int n = s.length();
         int m = t.length();
-
         if (n == 0) {
             return m;
         } else if (m == 0) {
             return n;
         }
-
         int p[] = new int[n + 1];
         int d[] = new int[n + 1];
         int _d[];
-
         int i;
         int j;
         char t_j;
         int cost;
-
         for (i = 0; i <= n; i++) {
             p[i] = i;
         }

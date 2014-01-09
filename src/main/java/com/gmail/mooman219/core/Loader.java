@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.mooman219.frame.command.CCommand;
 import com.gmail.mooman219.handler.database.CHDatabase;
-import com.gmail.mooman219.handler.mysql.CHMysql;
 import com.gmail.mooman219.handler.task.CHTask;
 import com.gmail.mooman219.layout.CowModule;
 import com.gmail.mooman219.layout.CowHandler;
@@ -31,6 +30,25 @@ public class Loader extends JavaPlugin {
     private static Logger log = Logger.getLogger("Minecraft");
     private ArrayList<CowModule> moduleList = new ArrayList<CowModule>();
     private ArrayList<CowHandler> handlerList = new ArrayList<CowHandler>();
+
+    @Override
+    public void onLoad() {
+        // Order IS important
+        handlerList.add(new CHTask(this));
+        handlerList.add(new CHDatabase());
+        // ~
+        moduleList.add(new CCService());
+        moduleList.add(new CCLogin());
+        moduleList.add(new CCGraveyard());
+        moduleList.add(new CCMineral());
+        moduleList.add(new CCChat());
+        moduleList.add(new CCRegion());
+        moduleList.add(new CCWorld());
+        moduleList.add(new CCVanilla());
+        moduleList.add(new CCDamage());
+        moduleList.add(new CCItem());
+        moduleList.add(new CCStat());
+    }
 
     public void processHandlers(boolean enable) {
         Loader.info((enable ? "Loading" : "Unloading") + " " + handlerList.size() + " handlers");
@@ -63,26 +81,6 @@ public class Loader extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void onLoad() {
-        // Order IS important
-        handlerList.add(new CHTask(this));
-        handlerList.add(new CHDatabase());
-        handlerList.add(new CHMysql());
-        // ~
-        moduleList.add(new CCService());
-        moduleList.add(new CCLogin());
-        moduleList.add(new CCGraveyard());
-        moduleList.add(new CCMineral());
-        moduleList.add(new CCChat());
-        moduleList.add(new CCRegion());
-        moduleList.add(new CCWorld());
-        moduleList.add(new CCVanilla());
-        moduleList.add(new CCDamage());
-        moduleList.add(new CCItem());
-        moduleList.add(new CCStat());
     }
 
     @Override

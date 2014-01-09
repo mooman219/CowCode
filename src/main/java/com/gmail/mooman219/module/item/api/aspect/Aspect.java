@@ -114,8 +114,11 @@ public class Aspect {
     }
 
     public static boolean hasAspect(ItemStack item) {
-        ItemMeta meta = ItemHelper.getItemMeta(item);
-        return meta.hasDisplayName() && meta.getDisplayName().startsWith(identifier);
+        if(item != null) {
+            ItemMeta meta = ItemHelper.getItemMeta(item);
+            return meta.hasDisplayName() && meta.getDisplayName().startsWith(identifier);
+        }
+        return false;
     }
 
     private class PriceWriteCheck implements Callable<Boolean> {

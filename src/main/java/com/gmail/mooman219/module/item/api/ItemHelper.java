@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -61,9 +63,49 @@ public class ItemHelper {
         return itemStack == null || itemStack.getType() == Material.AIR || itemStack.getAmount() == 0;
     }
 
+    /**
+     * InventoryClickEvent helper methods \/
+     */
+
+    public static int getNewSlotRaw(InventoryClickEvent event) {
+        if(isNull(event.getCurrentItem())) {
+            return event.getRawSlot();
+        } else if(event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+            int firstEmpty;
+            if(event.getClickedInventory() != null && event.getClickedInventory().equals(event.getView().getTopInventory())) {
+                firstEmpty = event.getView().getBottomInventory().firstEmpty();
+            } else {
+                firstEmpty = event.getView().getTopInventory().firstEmpty();
+            }
+            return firstEmpty != -1 ? firstEmpty : event.getRawSlot();
+        }
+        return event.getRawSlot();
+    }
+    
+    public static int getNewSlot(InventoryClickEvent event) {
+        if(isNull(event.getCurrentItem())) {
+            return event.getSlot();
+        } else if(event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+            int firstEmpty;
+            if(event.getClickedInventory() != null && event.getClickedInventory().equals(event.getView().getTopInventory())) {
+                //firstEmpty = event.getView().getBottomInventory().;
+                firstEmpty = 0;
+            } else {
+                firstEmpty = event.getView().getTopInventory().firstEmpty();
+            }
+            return firstEmpty != -1 ? firstEmpty : event.getSlot();
+        }
+        return event.getSlot();
+    }
+
     public static ItemStack getNewItem(InventoryClickEvent event) {
-        if(!isNull(event.getCursor())) {
+        // Shift click overrides all
+        if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+            return event.getCurrentItem();
+        // Cursor overrides hotbar
+        } else if(!isNull(event.getCursor())) {
             return event.getCursor();
+        // Hotbar is stupid
         } else if(event.getHotbarButton() > -1 && !isNull(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()))) {
             return event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
         } else {

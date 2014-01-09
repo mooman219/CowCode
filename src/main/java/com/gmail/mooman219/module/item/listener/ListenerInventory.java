@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,7 @@ import com.gmail.mooman219.module.item.api.stockpile.Stockpile;
 public class ListenerInventory implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClick(InventoryClickEvent event) {
-        /**/ // UNHOLY AMOUNT OF INVENTORY CLICK INFORMATION
+        /**/
         Loader.info("~~~~~~~~~~~~ Inventory Click Event ~~~~~~~~~~~~");
         Loader.info("Slot: " + event.getSlot() + " - Raw: " + event.getRawSlot());
         Loader.info("SlotType: " + event.getSlotType().name());
@@ -33,11 +34,19 @@ public class ListenerInventory implements Listener {
         Loader.info("HeldItem: " + event.getCursor());
         Loader.info("InventoryName: " + event.getInventory().getName());
         Loader.info("ClickedInventoryName: " + (event.getClickedInventory() != null ? event.getClickedInventory().getName() : "null"));
+        Loader.info("");
+        Loader.info("New Slot: " + ItemHelper.getNewSlot(event) + " - Raw: " + ItemHelper.getNewSlotRaw(event));
+        Loader.info("New Item: " + (ItemHelper.getNewItem(event) != null ? ItemHelper.getNewItem(event).toString() : "None"));
         /**/
         if(!event.isCancelled()) {
-            // This checks if the player clicked the top inventory
-            if(event.getSlot() == event.getRawSlot()) {
+            // This checks if the player clicked the top inventory or shift clicks
+            if(event.getClickedInventory() != null && event.getClickedInventory().equals(event.getView().getTopInventory())) {
                 Stockpile stockpile = Stockpile.getStockpile(event.getClickedInventory());
+                if(stockpile != null) {
+                    stockpile.onClick(event);
+                }
+            } else if(event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                Stockpile stockpile = Stockpile.getStockpile(event.getInventory());
                 if(stockpile != null) {
                     stockpile.onClick(event);
                 }
